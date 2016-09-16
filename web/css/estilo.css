@@ -1,0 +1,81 @@
+body {
+    background-color: #757575;
+    font-family: 'Roboto', cursive;
+}
+
+.separator{
+    border: 0;
+    height: 1px;
+    width: 20%;
+    background-image: linear-gradient(to right, #757575, #303030, #757575);
+}
+
+.error-link {
+    display: inline-block;
+    -webkit-box-sizing: content-box; 
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    color: rgba(48,48,48,1);
+    text-decoration: none;
+    text-align: center;
+    text-transform: normal;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    white-space: pre;
+    font-size: 15px;
+}
+
+.error-description {
+    display: inline-block;
+    -webkit-box-sizing: content-box; 
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    color: rgba(48,48,48,1);
+    text-align: center;
+    text-transform: normal;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    white-space: pre;
+    font-size: 20px;
+}
+
+.error-title {
+    display: inline-block;
+    -webkit-box-sizing: content-box; 
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    color: rgba(48,48,48,1);
+    text-align: center;
+    text-transform: normal;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    white-space: pre;
+    font-size: 70px;
+    margin-top: -0.0%;
+    margin-bottom: -1.0%;
+}
+
+.error-code {
+    display: inline-block;
+    -webkit-box-sizing: content-box; 
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    color: rgba(48,48,48,1);
+    text-align: center;
+    text-transform: normal;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    white-space: pre;
+    text-shadow: 1px 1px 1px rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67);
+    font-size: 200px;
+    margin-bottom: -1.5%;
+    margin-top: 3%;
+}
+
+.text-center {
+    text-align: center;
+}
