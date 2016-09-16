@@ -10,6 +10,7 @@
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
         <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/estilo.css">
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <%
             if ((String) request.getAttribute("login") != null) {
@@ -41,11 +42,11 @@
         <div class="module form-module">
             <div class="form">
                 <h2>Login de Usuário</h2>
-                <div class="alert alert-danger" id="error-login" style="display:none;">
-                    <p>Usuário ou senha incorretos.</p>
+                <div class="alerta alerta-erro" id="error-login" style="display:none;">
+                    <span class="forte">Eita!</span> <span>Usuário ou senha incorreto</span>
                 </div>
-                <div class="alert alert-danger" id="error-access" style="display:none;">
-                    <p>Você não tem permissão para acessar o sistema</p>
+                <div class="alerta alerta-erro" id="error-access" style="display:none;">
+                    <span class="forte">Eita!</span> <span>Você não tem permissão de acesso</span>
                 </div>
                 <form action="LoginController" method="post">
                     <input type="text" autocomplete="off" placeholder="Usuário" name="username" required />

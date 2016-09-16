@@ -66,6 +66,10 @@
         <exception-type>java.lang.*</exception-type>
         <location>/ErrorController/</location>
     </error-page>
+    <error-page>
+        <exception-type>javax.naming.*</exception-type>
+        <location>/ErrorController/</location>
+    </error-page>
     <!-- PÁGINAS DE ERRO - CÓDIGOS -->
     <error-page>
         <error-code>500</error-code>

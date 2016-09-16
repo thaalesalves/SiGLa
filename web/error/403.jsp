@@ -13,11 +13,11 @@
         <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Mandali|Overlock+SC|Raleway+Dots|Roboto" rel="stylesheet">
     </head>
-    <body>
+    <body class="corpo">
         <div class="text-center">
             <h1 class="error-code">403</h1><br />
             <hr class="separator" />
-            <h2 class="error-title">Eita! Deu ruim!</h2><br />
+            <h2 class="error-title">Deu ruim!</h2><br />
             <p class="error-description">Parece que você não tem autorização para entrar aqui!</p><br />
             <a href="../" class="error-link">Voltar</a> | <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
         </div>

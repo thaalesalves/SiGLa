@@ -29,21 +29,21 @@ public class ErrorController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Throwable throwable = (Throwable) request
-                .getAttribute("javax.servlet.error.exception");
-        Integer statusCode = (Integer) request
-                .getAttribute("javax.servlet.error.status_code");
-        String servletName = (String) request
-                .getAttribute("javax.servlet.error.servlet_name");
+        // Analyze the servlet exception       
+        Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
         if (servletName == null) {
             servletName = "Unknown";
         }
-        String requestUri = (String) request
-                .getAttribute("javax.servlet.error.request_uri");
+        String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
         if (requestUri == null) {
             requestUri = "Unknown";
         }
-        request.setAttribute("error", throwable.getMessage());
+
+        request.setAttribute("message", throwable.getMessage());
+        request.setAttribute("class", throwable.getClass().getName());
+        request.setAttribute("code", statusCode);
         request.getRequestDispatcher("/error/500_exception.jsp").forward(request, response);
     }
 

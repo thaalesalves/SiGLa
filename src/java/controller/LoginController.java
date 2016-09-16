@@ -28,8 +28,11 @@ public class LoginController extends HttpServlet {
                     p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
                     p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email
                     String[] groups = {"labinfo_prof", "labinfo_coord", "labinfo_admin", "labinfo_est", "labinfo_func", "DEPTI"};
+
+                    boolean acesso = false;
                     for (String g : groups) {
                         if (ad.isMember(p, g)) {
+                            acesso = true;
                             switch (g) {
                                 case "labinfo_prof":
                                     p.setCargo("professor");
@@ -49,16 +52,18 @@ public class LoginController extends HttpServlet {
                                 case "DEPTI":
                                     p.setCargo("TESTE");
                                     break;
-                                default:
-                                    request.setAttribute("login", "acesso");
-                                    request.getRequestDispatcher("/index.jsp").forward(request, response); // chama de volta a página de login
-                                    break;
                             }
                         }
                     }
 
-                    request.getSession().setAttribute("pessoa", p); // salva dados do login na sessão
-                    request.getRequestDispatcher("/labinfo/index.jsp").forward(request, response); // chama o index do SiGLa
+                    if (acesso) {
+                        request.getSession().setAttribute("pessoa", p); // salva dados do login na sessão
+                        request.getRequestDispatcher("/labinfo/index.jsp").forward(request, response); // chama o index do SiGLa
+                    } else {
+                        request.setAttribute("login", "acesso");
+                        request.getRequestDispatcher("/index.jsp").forward(request, response); // chama de volta a página de login
+
+                    }
                 } else { // caso o usuário não exista
                     request.setAttribute("login", "false");
                     request.getRequestDispatcher("/index.jsp").forward(request, response); // chama de volta a página de login
@@ -72,7 +77,7 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

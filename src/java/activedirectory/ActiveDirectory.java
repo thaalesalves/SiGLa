@@ -41,7 +41,8 @@ public class ActiveDirectory {
     }
 
     public NamingEnumeration<SearchResult> searchUser(Pessoa p, String group) throws NamingException {
-        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=INTERNET,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))";
+        //String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=INTERNET,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))";
+        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))";
 
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
     }
