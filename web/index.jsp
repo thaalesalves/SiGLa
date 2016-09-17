@@ -5,8 +5,6 @@
         <meta charset="UTF-8">
         <title>Login | SiGLa</title>
         <link rel="stylesheet" href="css/reset.css">
-        <!-- <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css" /> -->
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
         <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
         <link rel="stylesheet" href="css/style.css">
@@ -17,7 +15,7 @@
                 if ((String) request.getAttribute("login") == "false") {
         %>
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#error-login').toggle();
             });
         </script>
@@ -25,7 +23,7 @@
         } else if ((String) request.getAttribute("login") == "acesso") {
         %>
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('#error-access').toggle();
             });
         </script>
@@ -34,7 +32,7 @@
             }
         %>
     </head>
-    <body class="login" onkeypress="if (event.keyCode == 13)
+    <body id="fullPage" class="login corpo-login" onkeypress="if (event.keyCode == 13)
                 document.login - form.confirm.click();">
         <div class="pen-title">
             <img src="img/logo.png" style="width: 15%;" />
@@ -54,10 +52,8 @@
                     <input type="submit" name="acao" value="Entrar" />
                 </form>
             </div>
-            <!-- <div class="cta"><a href="http://andytran.me">Forgot your password?</a></div> -->
+            <!-- <div class="cta"><a href="#">Esqueceu a senha?</a></div> -->
         </div>        
-        <script src='http://codepen.io/andytran/pen/vLmRVp.js'></script>
-        <script src="js/index.js"></script>
     </body>
 </html>
 

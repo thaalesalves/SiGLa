@@ -4,6 +4,28 @@
     font-family: 'Roboto', cursive;
 }
 
+#fullPage {
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.corpo-login {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-image: url('/img/italian-landscape-mountains-nature');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-attachment: fixed;
+}
+
 .separator{
     border: 0;
     height: 1px;

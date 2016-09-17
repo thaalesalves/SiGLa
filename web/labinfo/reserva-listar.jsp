@@ -42,9 +42,9 @@
         </div>
         <!--close-top-Header-menu-->
         <!--sidebar-menu-->
-        <div id="sidebar"><a href="/SiGLa" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <div id="sidebar"><a href="/" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
             <ul>
-                <li><a href="/SiGLa"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+                <li><a href="/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
                 <li style="display: none;"><a href="buttons.html"><i class="icon icon-th"></i> <span>ITEM ÚNICO</span></a></li>
                 <li class="submenu active"> <a href="#"><i class="icon icon-th"></i> <span>Reserva</span></a>
                     <ul>

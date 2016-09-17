@@ -62,7 +62,6 @@ public class LoginController extends HttpServlet {
                     } else {
                         request.setAttribute("login", "acesso");
                         request.getRequestDispatcher("/index.jsp").forward(request, response); // chama de volta a página de login
-
                     }
                 } else { // caso o usuário não exista
                     request.setAttribute("login", "false");
