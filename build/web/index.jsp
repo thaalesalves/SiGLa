@@ -46,10 +46,10 @@
                 <div class="alerta alerta-erro" id="error-access" style="display:none;">
                     <span class="forte">Eita!</span> <span>Você não tem permissão de acesso</span>
                 </div>
-                <form action="LoginController" method="post">
+                <form action="AlmightyController" method="post">
                     <input type="text" autocomplete="off" placeholder="Usuário" name="username" required />
                     <input type="password" autocomplete="off" placeholder="Senha" name="password" required />
-                    <input type="submit" name="acao" value="Entrar" />
+                    <input type="submit" name="acao" value="Login" />
                 </form>
             </div>
             <!-- <div class="cta"><a href="#">Esqueceu a senha?</a></div> -->

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>ReservaController</servlet-name>
-        <servlet-class>controller.ReservaController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>EquipamentoController</servlet-name>
         <servlet-class>controller.EquipamentoController</servlet-class>
     </servlet>
@@ -28,14 +20,14 @@
         <servlet-name>TurmaController</servlet-name>
         <servlet-class>controller.TurmaController</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>ReservaController</servlet-name>
-        <url-pattern>/ReservaController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>AlmightyController</servlet-name>
+        <servlet-class>controller.AlmightyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RedirectController</servlet-name>
+        <servlet-class>controller.RedirectController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EquipamentoController</servlet-name>
         <url-pattern>/EquipamentoController</url-pattern>
@@ -55,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>TurmaController</servlet-name>
         <url-pattern>/TurmaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlmightyController</servlet-name>
+        <url-pattern>/AlmightyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectController</servlet-name>
+        <url-pattern>/RedirectController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

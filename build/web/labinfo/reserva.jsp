@@ -42,11 +42,11 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-user"></i> Perfil</a></li>
                         <li class="divider"></li>
-                        <li><a href="LoginController?acao=logout"><i class="icon-key"></i> Logout</a></li>
+                        <li><a href="AlmightyController?acao=Logout"><i class="icon-key"></i> Logout</a></li>
                     </ul>
                 </li>
                 <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Opções</span></a></li>
-                <li class=""><a title="" href="LoginController?acao=logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class=""><a title="" href="AlmightyController?acao=Logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <!--close-top-Header-menu-->
@@ -57,8 +57,8 @@
                 <li style="display: none;"><a href="buttons.html"><i class="icon icon-th"></i> <span>ITEM ÚNICO</span></a></li>
                 <li class="submenu active"> <a href="#"><i class="icon icon-th"></i> <span>Reserva</span></a>
                     <ul>
-                        <li><a href="ReservaController?acao=solicitar">Solicitar</a></li>
-                        <li><a href="ReservaController?acao=listar">Listagem</a></li>
+                        <li><a href="RedirectController?acao=solicitar-reserva-reserva">Solicitar</a></li>
+                        <li><a href="RedirectController?acao=listar-reserva">Listagem</a></li>
                     </ul>
                 </li>
                 <li class="submenu"> <a href="#"><i class="icon icon-th"></i> <span>Laboratório</span></a>
