@@ -16,13 +16,15 @@ import javax.naming.directory.SearchResult;
 
 public class ActiveDirectory {
 
-    private static final Logger LOG = Logger.getLogger(ActiveDirectory.class.getName());
-    private final String[] returnAttributes = {"sAMAccountName", "givenName", "cn", "mail", "memberOf", "name"};
-    private Properties properties;
-    private DirContext dirContext;
-    private SearchControls searchCtls;
+    // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
+    private static final Logger LOG = Logger.getLogger(ActiveDirectory.class.getName()); 
+    private final String[] returnAttributes = {"sAMAccountName", "givenName", "cn", "mail", "memberOf", "name"}; 
+    private Properties properties; 
+    private DirContext dirContext; 
+    private SearchControls searchCtls; 
+    // </editor-fold>
     
-    /* Métodos da API */
+    // <editor-fold defaultstate="collapsed" desc="Métodos da API do LDAP.">
     public void closeLdapConnection() {
         try {
             if (dirContext != null) {
@@ -31,103 +33,104 @@ public class ActiveDirectory {
         } catch (NamingException e) {
             LOG.severe(e.getMessage());
         }
+    } //</editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios do projeto.">
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
+        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
+
+        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     }
 
-    /* Métodos Próprios */
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException {
-        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))";
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p, String group) throws NamingException { //busca de usuário dentro de grupo
+        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
 
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
+        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     }
 
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p, String group) throws NamingException {
-        //String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=INTERNET,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))";
-        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))";
-
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
-    }
-
-    public boolean isUser(Pessoa p) throws NamingException {
+    public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p);
-            if (result.hasMoreElements()) {
-                return true;
-            }
-        } catch (Exception e) {
-
-        }
-        return false;
-    }
-
-    public boolean isMember(Pessoa p, String group) throws NamingException {
-        try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p, group);
-            if (result.hasMoreElements()) {
-                return true;
-            } else {
-                return false;
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca o método de busca de usuário
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                return true; // o usuário existe
+            }  else {
+                return false; // o usuário não existe
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return false; // o usuário não existe
     }
 
-    public String getCN(Pessoa p) throws NamingException {
+    public boolean isMember(Pessoa p, String group) throws NamingException { // o usuário é membro do grupo
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p, group); // invoca o método de busca
+            if (result.hasMoreElements()) { // se algo for retornado
+                return true; // o usuário é membro do grupo
+            } else {
+                return false; // o usuário não é membro do grupo
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false; // o usuário não é membro do grupo
+    }
+
+    public String getCN(Pessoa p) throws NamingException { // returna nome completo
         String cn = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p);
-            if (result.hasMoreElements()) {
-                SearchResult sr = (SearchResult) result.next();
-                Attributes attrs = sr.getAttributes();
-                cn = attrs.get("cn").toString();
-                cn = cn.substring(cn.indexOf(":") + 1);
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca pesquisa de usuário
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); // vai para próxima linha da tupla
+                Attributes attrs = sr.getAttributes(); // busca atributos
+                cn = attrs.get("cn").toString(); // conversão do atributo em string
+                cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return cn;
+        return cn; // retorna o nome completo
     }
 
-    public String getGivenName(Pessoa p) throws NamingException {
+    public String getGivenName(Pessoa p) throws NamingException { // busca primeiro nome
         String givenName = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p);
-            if (result.hasMoreElements()) {
-                SearchResult sr = (SearchResult) result.next();
-                Attributes attrs = sr.getAttributes();
-                givenName = attrs.get("givenName").toString();
-                givenName = givenName.substring(givenName.indexOf(":") + 1);
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                givenName = attrs.get("givenName").toString(); // conversão do atributo
+                givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return givenName;
+        return givenName; // retorno do nome
     }
 
-    public String getPhysicalDeliveryOfficeName(Pessoa p) throws NamingException {
+    public String getPhysicalDeliveryOfficeName(Pessoa p) throws NamingException { // busca chapa do funcionário (gravada no atributo escritório do AD)
         String physicalDeliveryOfficeName = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p);
-            if (result.hasMoreElements()) {
-                SearchResult sr = (SearchResult) result.next();
-                Attributes attrs = sr.getAttributes();
-                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString();
-                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1);
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); // entra na tupla
+                Attributes attrs = sr.getAttributes(); // busca atributos
+                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString(); // covnersão doa tributo
+                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição da variável
             }
 
-            physicalDeliveryOfficeName = physicalDeliveryOfficeName.replaceAll("[^\\d.]", "");
+            physicalDeliveryOfficeName = physicalDeliveryOfficeName.replaceAll("[^\\d.]", ""); // retirada de letras e pontos
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return physicalDeliveryOfficeName;
+        return physicalDeliveryOfficeName; // retorno da chapa
     }
     
-    public boolean login(Pessoa p) throws NamingException, AuthenticationException {
+    public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         try {
             properties = new Properties();
 
-            properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+            properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
             properties.put(Context.PROVIDER_URL, "LDAP://umc.br"); // conecta com o AD DC
             properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
             properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
@@ -143,10 +146,10 @@ public class ActiveDirectory {
             searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
             searchCtls.setReturningAttributes(returnAttributes);
             
-            return true;
+            return true; // login efetuado
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return false; // login não efetuado
         }
-    }
+    }// </editor-fold>
 }
