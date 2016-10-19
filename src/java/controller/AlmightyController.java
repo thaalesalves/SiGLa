@@ -13,12 +13,10 @@ public class AlmightyController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         try {
-            String acao = request.getParameter("acao");
-            String className = "controller.commandfactory." + acao + "Action";
-            Class classCommand = Class.forName(className);
-            ICommand command = (ICommand) classCommand.newInstance();
+            Class action = Class.forName("controller.commandfactory." + request.getParameter("acao") + "Action");
+            ICommand cmd = (ICommand) action.newInstance();
 
-            request.getRequestDispatcher(command.execute(request, response)).forward(request, response);
+            request.getRequestDispatcher(cmd.execute(request, response)).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }

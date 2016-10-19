@@ -5,10 +5,6 @@
         <servlet-class>controller.EquipamentoController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ErrorController</servlet-name>
-        <servlet-class>controller.ErrorController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LaboratorioController</servlet-name>
         <servlet-class>controller.LaboratorioController</servlet-class>
     </servlet>
@@ -31,10 +27,6 @@
     <servlet-mapping>
         <servlet-name>EquipamentoController</servlet-name>
         <url-pattern>/EquipamentoController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ErrorController</servlet-name>
-        <url-pattern>/ErrorController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LaboratorioController</servlet-name>

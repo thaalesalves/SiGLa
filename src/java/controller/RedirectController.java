@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 public class RedirectController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String acao = request.getParameter("acao");
         try {
             if (acao.equals("solicitar-reserva")) {
