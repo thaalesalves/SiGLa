@@ -1,4 +1,4 @@
-package controller.commandfactory;
+package controller.actions;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;

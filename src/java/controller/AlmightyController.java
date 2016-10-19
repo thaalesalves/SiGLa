@@ -1,6 +1,6 @@
 package controller;
 
-import controller.commandfactory.*;
+import controller.actions.ICommand;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +13,7 @@ public class AlmightyController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         try {
-            Class action = Class.forName("controller.commandfactory." + request.getParameter("acao") + "Action");
+            Class action = Class.forName("controller.actions." + request.getParameter("acao") + "Action");
             ICommand cmd = (ICommand) action.newInstance();
 
             request.getRequestDispatcher(cmd.execute(request, response)).forward(request, response);
@@ -22,19 +22,21 @@ public class AlmightyController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos padrão da Servlet.">
+    // <editor-fold defaultstate="collapsed" desc="Métodos padrão: doPost(HttpServletRequest, HttpServletResponse)">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos padrão: doGet(HttpServletRequest, HttpServletResponse)">
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos padrão: getServletInfo()">
     @Override
     public String getServletInfo() {
         return "Short description";

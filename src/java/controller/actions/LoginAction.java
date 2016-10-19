@@ -1,4 +1,4 @@
-package controller.commandfactory;
+package controller.actions;
 
 import model.Pessoa;
 import activedirectory.ActiveDirectory;
@@ -12,12 +12,15 @@ public class LoginAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws NamingException, ServletException {
         try {
+            // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
 
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
-
+            // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Invocação do login.">
             if (ad.login(p)) { // faz o login
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
@@ -58,10 +61,13 @@ public class LoginAction implements ICommand {
                     request.setAttribute("login", "acesso");
                     return "/index.jsp"; // chama de volta a página de login
                 }
-            } else { // caso o usuário não exista
+            } // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Login sem sucesso.">
+            else { // caso o usuário não exista
                 request.setAttribute("login", "false");
                 return "/index.jsp"; // chama de volta a página de login
-            }
+            } // </editor-fold>
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package controller.commandfactory;
+package controller.actions;
 
 import dao.*;
 import model.*;
