@@ -98,7 +98,6 @@
                                 <table class="table table-bordered data-table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Tipo</th>
                                             <th>Curso</th>
                                             <th>Turma</th>
@@ -110,17 +109,17 @@
                                     <tbody>
                                         <%
                                             for (Reserva r : arrayRes) {
-                                                String lastName = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto();
-                                                lastName = lastName.substring(lastName.lastIndexOf(" ") + 1);
+                                                String name = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto();
+                                                name = name.substring(name.lastIndexOf(" ") + 1);
+                                                name = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + name;
                                         %>
                                         <tr class="gradeC">
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTipo()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getCurso().getModalidade() + " em " + arrayRes.get(arrayRes.indexOf(r)).getCurso().getNome()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTurma().getSemestre() + "º" + arrayRes.get(arrayRes.indexOf(r)).getTurma().getTurma()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getLab().getNumero()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getSoftware().getFabricante() + " " + arrayRes.get(arrayRes.indexOf(r)).getSoftware().getNome()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + lastName); %></td>
+                                            <td class="center"><% out.println(name); %></td>
                                         </tr>
                                         <% } %>
                                     </tbody>

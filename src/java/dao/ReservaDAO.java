@@ -34,8 +34,8 @@ public class ReservaDAO {
                 sw.setNome(rs.getString("software"));
                 t.setSemestre(rs.getInt("semestre"));
                 t.setTurma(rs.getString("turma"));
-                c.setModalidade("modalidade");
-                c.setNome("curso");
+                c.setModalidade(rs.getString("modalidade"));
+                c.setNome(rs.getString("curso"));
                 r.setId(rs.getInt("reserva"));
                 
                 if (rs.getInt("tipo") == 1) {
