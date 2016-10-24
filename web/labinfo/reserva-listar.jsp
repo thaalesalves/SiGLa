@@ -109,9 +109,6 @@
                                     <tbody>
                                         <%
                                             for (Reserva r : arrayRes) {
-                                                String name = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto();
-                                                name = name.substring(name.lastIndexOf(" ") + 1);
-                                                name = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + name;
                                         %>
                                         <tr class="gradeC">
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTipo()); %></td>
@@ -119,7 +116,7 @@
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTurma().getSemestre() + "º" + arrayRes.get(arrayRes.indexOf(r)).getTurma().getTurma()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getLab().getNumero()); %></td>
                                             <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getSoftware().getFabricante() + " " + arrayRes.get(arrayRes.indexOf(r)).getSoftware().getNome()); %></td>
-                                            <td class="center"><% out.println(name); %></td>
+                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().substring(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().lastIndexOf(" ") + 1)); %></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
