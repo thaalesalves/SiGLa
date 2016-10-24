@@ -1,29 +1,20 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.*"%>
-<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Listagem de Reservas | SiGLa</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" href="css/uniform.css" />
-        <link rel="stylesheet" href="css/select2.css" />
-        <link rel="stylesheet" href="css/matrix-style.css" />
-        <link rel="stylesheet" href="css/matrix-media.css" />
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="../css/uniform.css" />
+        <link rel="stylesheet" href="../css/select2.css" />
+        <link rel="stylesheet" href="../css/matrix-style.css" />
+        <link rel="stylesheet" href="../css/matrix-media.css" />
+        <link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
-        <%
-            Pessoa p = (Pessoa) session.getAttribute("pessoa");
-            ArrayList<Reserva> arrayRes;
-            if (session.getAttribute("reserva") != null) {
-                arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva");
-        %>
         <!--Header-part-->
         <div id="header">
             <h1><a href="dashboard.html">Matrix Admin</a></h1>
@@ -33,15 +24,15 @@
         <!--top-Header-menu-->
         <div id="user-nav" class="navbar navbar-inverse">
             <ul class="nav">
-                <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bem-vindo, <% out.println(p.getNome());%></span><b class="caret"></b></a>
+                <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bem-vindo, João das Couves</span><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-user"></i> Perfil</a></li>
                         <li class="divider"></li>
-                        <li><a href="AlmightyController?acao=Logout"><i class="icon-key"></i> Logout</a></li>
+                        <li><a href="LoginController?acao=logout"><i class="icon-key"></i> Logout</a></li>
                     </ul>
                 </li>
                 <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Opções</span></a></li>
-                <li class=""><a title="" href="AlmightyController?acao=Logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class=""><a title="" href="LoginController?acao=logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <!--close-top-Header-menu-->
@@ -52,8 +43,8 @@
                 <li style="display: none;"><a href="buttons.html"><i class="icon icon-th"></i> <span>ITEM ÚNICO</span></a></li>
                 <li class="submenu active"> <a href="#"><i class="icon icon-th"></i> <span>Reserva</span></a>
                     <ul>
-                        <li><a href="RedirectController?acao=solicitar-reserva">Solicitar</a></li>
-                        <li><a href="RedirectController?acao=listar-reserva">Listagem</a></li>
+                        <li><a href="ReservaController?acao=solicitar">Solicitar</a></li>
+                        <li><a href="ReservaController?acao=listar">Listagem</a></li>
                     </ul>
                 </li>
                 <li class="submenu"> <a href="#"><i class="icon icon-th"></i> <span>Laboratório</span></a>
@@ -92,37 +83,41 @@
                     <div class="span12">
                         <div class="widget-box">
                             <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
-                                <h5>Data table</h5>
+                                <h5>Reservas</h5>
                             </div>
                             <div class="widget-content nopadding">
                                 <table class="table table-bordered data-table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tipo</th>
-                                            <th>Curso</th>
+                                            <th>Professor</th>
                                             <th>Turma</th>
                                             <th>Laboratório</th>
-                                            <th>Software</th>
-                                            <th>Professor</th>
+                                            <th>Data</th>
+                                            <th>Módulo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%
-                                            for (Reserva r : arrayRes) {
-                                                String lastName = arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto();
-                                                lastName = lastName.substring(lastName.lastIndexOf(" ") + 1);
-                                        %>
-                                        <tr class="gradeC">
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTipo()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getCurso().getModalidade() + " em " + arrayRes.get(arrayRes.indexOf(r)).getCurso().getNome()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getTurma().getSemestre() + "º" + arrayRes.get(arrayRes.indexOf(r)).getTurma().getTurma()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getLab().getNumero()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getSoftware().getFabricante() + " " + arrayRes.get(arrayRes.indexOf(r)).getSoftware().getNome()); %></td>
-                                            <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + lastName); %></td>
+                                        <tr class="gradeX">
+                                            <td>João das Couves</td>
+                                            <td>6A SI</td>
+                                            <td>12-17</td>
+                                            <td class="center">30/09/2016</td>
+                                            <td>1º e 2º</td>
                                         </tr>
-                                        <% } %>
+                                        <tr class="gradeX">
+                                            <td>João das Couves</td>
+                                            <td>8A SI</td>
+                                            <td>12-10</td>
+                                            <td class="center">17/09/2016</td>
+                                            <td>7º e 8º</td>
+                                        </tr>
+                                        <tr class="gradeX">
+                                            <td>João das Couves</td>
+                                            <td>1B TADS</td>
+                                            <td>12-21</td>
+                                            <td class="center">13/10/2016</td>
+                                            <td>6º, 7º e 8º</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -140,18 +135,13 @@
         </div>
 
         <!--end-Footer-part-->
-        <script src="js/jquery.min.js"></script> 
-        <script src="js/jquery.ui.custom.js"></script> 
-        <script src="js/bootstrap.min.js"></script> 
-        <script src="js/jquery.uniform.js"></script> 
-        <script src="js/select2.min.js"></script> 
-        <script src="js/jquery.dataTables.min.js"></script> 
-        <script src="js/matrix.js"></script> 
-        <script src="js/matrix.tables.js"></script>
-        <%
-            } else {
-                request.getRequestDispatcher("/AlmightyController?acao=Reserva").forward(request, response);
-            }
-        %>
+        <script src="../js/jquery.min.js"></script> 
+        <script src="../js/jquery.ui.custom.js"></script> 
+        <script src="../js/bootstrap.min.js"></script> 
+        <script src="../js/jquery.uniform.js"></script> 
+        <script src="../js/select2.min.js"></script> 
+        <script src="../js/jquery.dataTables.min.js"></script> 
+        <script src="../js/matrix.js"></script> 
+        <script src="../js/matrix.tables.js"></script>
     </body>
 </html>

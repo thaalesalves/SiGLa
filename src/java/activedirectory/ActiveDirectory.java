@@ -46,8 +46,7 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, String).">
     public NamingEnumeration<SearchResult> searchUser(Pessoa p, String group) throws NamingException { //busca de usuário dentro de grupo
-        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
-
+        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=PREDIO I,OU=GRUPOS,OU=CAMPUS MOGI,OU=ACADEMICO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>
 

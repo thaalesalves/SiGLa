@@ -15,9 +15,12 @@ public class LoginAction implements ICommand {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
-
+            
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
+            
+            request.getSession().setAttribute("usuario-ativo", p.getUsername());
+            request.getSession().setAttribute("senha-ativa", p.getSenha());
             // </editor-fold>
             
             // <editor-fold defaultstate="collapsed" desc="Invocação do login.">

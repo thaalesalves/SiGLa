@@ -20,9 +20,12 @@ public class RedirectController extends HttpServlet {
             if (acao.equals("solicitar-reserva")) {
                 request.getRequestDispatcher("labinfo/reserva.jsp").forward(request, response);
             } // </editor-fold> 
-            
-            // <editor-fold defaultstate="collapsed" desc="Listagem de reserva.">
+            // <editor-fold defaultstate="collapsed" desc="Listagem de reserva vazia.">
             else if (acao.equals("listar-reserva")) {
+                request.getRequestDispatcher("/AlmightyController?acao=Reserva").forward(request, response);
+            } // </editor-fold>
+            // <editor-fold defaultstate="collapsed" desc="Listagem de reserva vazia.">
+            else if (acao.equals("lista-populada")) {
                 request.getRequestDispatcher("labinfo/reserva-listar.jsp").forward(request, response);
             } // </editor-fold>
         } catch (Exception e) {
