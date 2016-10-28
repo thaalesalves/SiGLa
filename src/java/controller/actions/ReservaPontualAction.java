@@ -1,17 +1,25 @@
 package controller.actions;
 
-import model.Pessoa;
+import model.*;
+import dao.*;
 import activedirectory.ActiveDirectory;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LogoutAction implements ICommand {
+public class ReservaPontualAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws NamingException, ServletException {
-        request.getSession().invalidate(); // invalida a sessão
-        return "login"; // volta para o login
+        try {
+            Pessoa p = new Pessoa();
+            ReservaDAO dao = new ReservaDAO();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return "";
     }
 }

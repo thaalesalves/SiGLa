@@ -9,7 +9,8 @@ import activedirectory.*;
 public class ReservaDAO {
 
     private final String SELECT_ALL = "SELECT curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor, turma.semestre AS semestre, turma.turma AS turma FROM reserva, laboratorio, software, turma, curso WHERE reserva.turma = turma.id AND laboratorio.id = reserva.laboratorio AND reserva.softwares = software.id AND curso.id = reserva.curso";
-
+    private final String INSERT_PONTUAL = "";
+    
     public ArrayList<Reserva> selectReserva(Pessoa pessoa) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 

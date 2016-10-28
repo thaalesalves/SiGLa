@@ -6,17 +6,17 @@
         <title>Reserva de Laboratório | SiGLa</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="js/script.js" />
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/colorpicker.css" />
-        <link rel="stylesheet" href="css/datepicker.css" />
-        <link rel="stylesheet" href="css/uniform.css" />
-        <link rel="stylesheet" href="css/select2.css" />
-        <link rel="stylesheet" href="css/matrix-style.css" />
-        <link rel="stylesheet" href="css/matrix-media.css" />
-        <link rel="stylesheet" href="css/bootstrap-wysihtml5.css" />
-        <link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/js/script.js" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/colorpicker.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepicker.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/uniform.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/matrix-style.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/matrix-media.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-wysihtml5.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' type='text/css' />
         <script type="text/javascript">
             var hideDiv = function (div1, div2) {
@@ -42,23 +42,23 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-user"></i> Perfil</a></li>
                         <li class="divider"></li>
-                        <li><a href="AlmightyController?acao=Logout"><i class="icon-key"></i> Logout</a></li>
+                        <li><a href="logout"><i class="icon-key"></i> Logout</a></li>
                     </ul>
                 </li>
                 <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Opções</span></a></li>
-                <li class=""><a title="" href="AlmightyController?acao=Logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class=""><a title="" href="logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <!--close-top-Header-menu-->
         <!--sidebar-menu-->
-        <div id="sidebar"><a href="/" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
+        <div id="sidebar"><a href="../pagina/home" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
             <ul>
-                <li><a href="/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+                <li><a href="../pagina/home"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
                 <li style="display: none;"><a href="buttons.html"><i class="icon icon-th"></i> <span>ITEM ÚNICO</span></a></li>
                 <li class="submenu active"> <a href="#"><i class="icon icon-th"></i> <span>Reserva</span></a>
                     <ul>
-                        <li><a href="RedirectController?acao=solicitar-reserva-reserva">Solicitar</a></li>
-                        <li><a href="RedirectController?acao=listar-reserva">Listagem</a></li>
+                        <li><a href="novo">Solicitar</a></li>
+                        <li><a href="listar">Listagem</a></li>
                     </ul>
                 </li>
                 <li class="submenu"> <a href="#"><i class="icon icon-th"></i> <span>Laboratório</span></a>
@@ -87,7 +87,7 @@
         <div id="content">
             <!--breadcrumbs-->
             <div id="content-header">
-                <div id="breadcrumb"> <a href="/SiGLa" title="Ir para Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="tip-bottom">Laboratório</a> <a href="#" class="current">Reserva</a> </div>
+                <div id="breadcrumb"> <a href="SiGLa/pagina/home" title="Ir para Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#" class="tip-bottom">Laboratório</a> <a href="#" class="current">Reserva</a> </div>
                 <h1>Reserva de Laboratório</h1>
             </div>
             <!--End-breadcrumbs-->
@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <!-- FORM DE RESERVA SEMESTRAL -->
-                                <form style='display:none;' id="reserva-semestral" name="frm-reserva" action="ReservaController" method="post" class="form-horizontal">
+                                <form style='display:none;' id="reserva-semestral" name="frm-reserva" action="AlmightyController" method="post" class="form-horizontal">
                                     <h2 style='padding-left: 6%;'>Reserva Semestral</h2>
                                     <div class="control-group">
                                         <label class="control-label">Nome Completo <strong style="color: red;">*</strong></label>
@@ -196,7 +196,7 @@
 
 
                                 <!-- FORM DE RESERVA PONTUAL -->
-                                <form style='display:none;' id="reserva-pontual" name="frm-reserva" action="ReservaController" method="post" class="form-horizontal">
+                                <form style='display:none;' id="reserva-pontual" name="frm-reserva" action="AlmightyController" method="post" class="form-horizontal">
                                     <h2 style='padding-left: 6%;'>Reserva Pontual</h2>
                                     <div class="control-group">
                                         <label class="control-label">Nome Completo <strong style="color: red;">*</strong></label>
@@ -279,7 +279,7 @@
                                         </div>
                                     </div>
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success">Enviar</button>
+                                        <button type="submit" class="btn btn-success" value="ReservaPontual">Enviar</button>
                                     </div>
                                 </form>
                                 <!-- FIM DO FORM DE RESERVA PONTUAL -->
@@ -298,20 +298,20 @@
         </div>
 
         <!--end-Footer-part-->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery.ui.custom.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-colorpicker.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-        <script src="js/jquery.toggle.buttons.js"></script>
-        <script src="js/masked.js"></script>
-        <script src="js/jquery.uniform.js"></script>
-        <script src="js/select2.min.js"></script>
-        <script src="js/matrix.js"></script>
-        <script src="js/matrix.form_common.js"></script>
-        <script src="js/wysihtml5-0.3.0.js"></script>
-        <script src="js/jquery.peity.min.js"></script>
-        <script src="js/bootstrap-wysihtml5.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.ui.custom.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap-colorpicker.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.toggle.buttons.js"></script>
+        <script src="${pageContext.request.contextPath}/js/masked.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.uniform.js"></script>
+        <script src="${pageContext.request.contextPath}/js/select2.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/matrix.js"></script>
+        <script src="${pageContext.request.contextPath}/js/matrix.form_common.js"></script>
+        <script src="${pageContext.request.contextPath}/js/wysihtml5-0.3.0.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.peity.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap-wysihtml5.js"></script>
         <script>
             $('.textarea_editor').wysihtml5();
         </script>

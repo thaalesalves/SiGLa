@@ -7,13 +7,13 @@
         <title>Listagem de Reservas | SiGLa</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" href="css/uniform.css" />
-        <link rel="stylesheet" href="css/select2.css" />
-        <link rel="stylesheet" href="css/matrix-style.css" />
-        <link rel="stylesheet" href="css/matrix-media.css" />
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/uniform.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/matrix-style.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/matrix-media.css" />
+        <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
     </head>
 
@@ -21,8 +21,9 @@
         <%
             Pessoa p = (Pessoa) session.getAttribute("pessoa");
             ArrayList<Reserva> arrayRes;
-            if (session.getAttribute("reserva") != null) {
-                arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva");
+            if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=Reserva").forward(request, response);
+            }   
         %>
         <!--Header-part-->
         <div id="header">
@@ -37,23 +38,23 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="icon-user"></i> Perfil</a></li>
                         <li class="divider"></li>
-                        <li><a href="AlmightyController?acao=Logout"><i class="icon-key"></i> Logout</a></li>
+                        <li><a href="logout"><i class="icon-key"></i> Logout</a></li>
                     </ul>
                 </li>
                 <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Opções</span></a></li>
-                <li class=""><a title="" href="AlmightyController?acao=Logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+                <li class=""><a title="" href="logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
             </ul>
         </div>
         <!--close-top-Header-menu-->
         <!--sidebar-menu-->
         <div id="sidebar"><a href="/" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
             <ul>
-                <li><a href="/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+                <li><a href="../pagina/home"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
                 <li style="display: none;"><a href="buttons.html"><i class="icon icon-th"></i> <span>ITEM ÚNICO</span></a></li>
                 <li class="submenu active"> <a href="#"><i class="icon icon-th"></i> <span>Reserva</span></a>
                     <ul>
-                        <li><a href="RedirectController?acao=solicitar-reserva">Solicitar</a></li>
-                        <li><a href="RedirectController?acao=listar-reserva">Listagem</a></li>
+                        <li><a href="novo">Solicitar</a></li>
+                        <li><a href="listar">Listagem</a></li>
                     </ul>
                 </li>
                 <li class="submenu"> <a href="#"><i class="icon icon-th"></i> <span>Laboratório</span></a>
@@ -136,18 +137,14 @@
         </div>
 
         <!--end-Footer-part-->
-        <script src="js/jquery.min.js"></script> 
-        <script src="js/jquery.ui.custom.js"></script> 
-        <script src="js/bootstrap.min.js"></script> 
-        <script src="js/jquery.uniform.js"></script> 
-        <script src="js/select2.min.js"></script> 
-        <script src="js/jquery.dataTables.min.js"></script> 
-        <script src="js/matrix.js"></script> 
-        <script src="js/matrix.tables.js"></script>
-        <%
-            } else {
-                request.getRequestDispatcher("/AlmightyController?acao=Reserva").forward(request, response);
-            }
-        %>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/jquery.ui.custom.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/jquery.uniform.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/select2.min.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/matrix.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/matrix.tables.js"></script>
+       
     </body>
 </html>

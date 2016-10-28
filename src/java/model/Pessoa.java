@@ -8,7 +8,6 @@ public class Pessoa {
     private String username;
     private String nome;
     private String nomeCompleto;
-    private String cargo;
     private String email;
     private String chapa;
     private String senha;
@@ -45,10 +44,6 @@ public class Pessoa {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -59,10 +54,6 @@ public class Pessoa {
 
     public String getNomeCompleto() {
         return nomeCompleto;
-    }
-
-    public String getCargo() {
-        return cargo;
     }
 
     public String getEmail() {

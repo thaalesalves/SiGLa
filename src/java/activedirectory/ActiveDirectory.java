@@ -42,13 +42,7 @@ public class ActiveDirectory {
         String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
 
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
-    } // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, String).">
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p, String group) throws NamingException { //busca de usuário dentro de grupo
-        String filter = "(&(objectClass=user)(memberOf=CN=" + group + ",OU=DEPTI,OU=PREDIO I,OU=GRUPOS,OU=CAMPUS MOGI,OU=ACADEMICO,OU=OMEC,DC=umc,DC=br)(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
-    } // </editor-fold>
+    } // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isUser(Pessoa).">
     public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
@@ -65,10 +59,17 @@ public class ActiveDirectory {
         return false; // o usuário não existe
     } // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isMember(Pessoa, Srting).">
-    public boolean isMember(Pessoa p, String group) throws NamingException { // o usuário é membro do grupo
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
+        String filter = "(&(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
+
+        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isMember(Pessoa, Grupo).">
+    public boolean isMember(Pessoa p, Grupo g) throws NamingException { // o usuário é membro do grupo
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p, group); // invoca o método de busca
+            NamingEnumeration<SearchResult> result = this.searchUser(p, g); // invoca o método de busca
             if (result.hasMoreElements()) { // se algo for retornado
                 return true; // o usuário é membro do grupo
             } else {
@@ -112,25 +113,6 @@ public class ActiveDirectory {
             e.printStackTrace();
         }
         return givenName; // retorno do nome
-    } // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPhysicalDeliveryOfficeName(Pessoa).">
-    public String getPhysicalDeliveryOfficeName(Pessoa p) throws NamingException { // busca chapa do funcionário (gravada no atributo escritório do AD)
-        String physicalDeliveryOfficeName = "";
-        try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); // entra na tupla
-                Attributes attrs = sr.getAttributes(); // busca atributos
-                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString(); // covnersão doa tributo
-                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição da variável
-            }
-
-            physicalDeliveryOfficeName = physicalDeliveryOfficeName.replaceAll("[^\\d.]", ""); // retirada de letras e pontos
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return physicalDeliveryOfficeName; // retorno da chapa
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">

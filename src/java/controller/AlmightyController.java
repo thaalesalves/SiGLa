@@ -16,7 +16,8 @@ public class AlmightyController extends HttpServlet {
             Class action = Class.forName("controller.actions." + request.getParameter("acao") + "Action");
             ICommand cmd = (ICommand) action.newInstance();
 
-            request.getRequestDispatcher(cmd.execute(request, response)).forward(request, response);
+            //request.getRequestDispatcher(cmd.execute(request, response)).forward(request, response);
+            response.sendRedirect(cmd.execute(request, response));
         } catch (Exception e) {
             e.printStackTrace();
         }

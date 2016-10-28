@@ -28,7 +28,6 @@ public class ActiveDirectoryApp {
             
             p.setNome(ad.getGivenName(p));
             p.setNomeCompleto(ad.getCN(p));
-            p.setChapa(ad.getPhysicalDeliveryOfficeName(p));
 
             System.out.println("Nome: " + p.getNome());
             System.out.println("Nome completo: " + p.getNomeCompleto());

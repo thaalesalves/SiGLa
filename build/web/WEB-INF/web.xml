@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>EquipamentoController</servlet-name>
-        <servlet-class>controller.EquipamentoController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>LaboratorioController</servlet-name>
-        <servlet-class>controller.LaboratorioController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SoftwareController</servlet-name>
-        <servlet-class>controller.SoftwareController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>TurmaController</servlet-name>
-        <servlet-class>controller.TurmaController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AlmightyController</servlet-name>
         <servlet-class>controller.AlmightyController</servlet-class>
     </servlet>
@@ -25,28 +9,13 @@
         <servlet-class>controller.RedirectController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EquipamentoController</servlet-name>
-        <url-pattern>/EquipamentoController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LaboratorioController</servlet-name>
-        <url-pattern>/LaboratorioController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SoftwareController</servlet-name>
-        <url-pattern>/SoftwareController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TurmaController</servlet-name>
-        <url-pattern>/TurmaController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
         <url-pattern>/AlmightyController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RedirectController</servlet-name>
-        <url-pattern>/RedirectController</url-pattern>
+        <url-pattern>/pagina/*</url-pattern>
+        <url-pattern>/reserva/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

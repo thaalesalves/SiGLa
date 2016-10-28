@@ -27,7 +27,6 @@ public class ReservaAction implements ICommand {
             e.printStackTrace();
         }
 
-        //return "/RedirectController?acao=listar-reserva";
-        return "/RedirectController?acao=lista-populada";
+        return "lista";
     }
 }
