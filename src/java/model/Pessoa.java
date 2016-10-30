@@ -9,9 +9,18 @@ public class Pessoa {
     private String nome;
     private String nomeCompleto;
     private String email;
-    private String chapa;
+    private String cargo;
     private String senha;
+    private String depto;
 
+    public void setDepto(String depto) {
+        this.depto = depto;
+    }
+    
+    public String getDepto() {
+        return depto;
+    }
+    
     public void setSenha(String senha) {
         this.senha = senha;
     }
@@ -20,12 +29,12 @@ public class Pessoa {
         return senha;
     }
 
-    public void setChapa(String chapa) {
-        this.chapa = chapa;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
-    public String getChapa() {
-        return chapa;
+    public String getCargo() {
+        return cargo;
     }
     
     public String getUsername() {

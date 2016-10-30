@@ -18,8 +18,9 @@
     <body>
         <%
             Pessoa p;
-            if (session.getAttribute("pessoa") != null) {
-                p = (Pessoa) session.getAttribute("pessoa");
+            if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
+                response.sendRedirect(request.getContextPath() + "/error/401.jsp");
+            }
         %>
         <!--Header-part-->
         <div id="header" class="logo"></div>
@@ -141,10 +142,5 @@
                 document.gomenu.selector.selectedIndex = 2;
             }
         </script>
-        <%
-            } else {
-                response.sendRedirect(request.getContextPath() + "/error/401.jsp");
-            }
-        %>
     </body>
 </html>

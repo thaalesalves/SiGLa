@@ -28,9 +28,10 @@ public class LoginAction implements ICommand {
             if (ad.login(p)) { // faz o login
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
-                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email
-                //String[] groups = {"labinfo_prof", "labinfo_coord", "labinfo_admin", "labinfo_est", "labinfo_func", "DEPTI"};
-
+                p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
+                p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo
+                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email               
+                
                 boolean acesso = false;
                 for (String g : groups.getOu()) {
                     groups.setGrupo(g + groups.getDc());
@@ -41,7 +42,6 @@ public class LoginAction implements ICommand {
 
                 if (acesso) {
                     request.getSession().setAttribute("pessoa", p); // salva dados do login na sessão
-                    //return "/labinfo/index.jsp"; // chama o index do SiGLa
                     return "pagina/home";
                 } else {
                     request.setAttribute("login", "acesso");

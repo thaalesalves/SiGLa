@@ -2,7 +2,6 @@
 package activedirectory;
 
 import model.*;
-import java.util.*;
 import java.util.Properties;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -98,6 +97,42 @@ public class ActiveDirectory {
         return cn; // retorna o nome completo
     } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getTitle(Pessoa).">
+    public String getTitle(Pessoa p) throws NamingException { // busca cargo
+        String title = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                title = attrs.get("title").toString(); // conversão do atributo
+                title = title.substring(title.indexOf(":") + 1); // definição na variável
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println("Não foi possível retornar o cargo: " + e);
+        }
+        return title; // retorno do cargo
+    } // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getDepartment(Pessoa).">
+    public String getDepartment(Pessoa p) throws NamingException { // busca departamento
+        String depto = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                depto = attrs.get("department").toString(); // conversão do atributo
+                depto = depto.substring(depto.indexOf(":") + 1); // definição na variável
+            }
+        } catch (Exception e) {
+            //e.printStackTrace();
+            System.out.println("Não foi possível retornar o depto: " + e);
+        }
+        return depto; // retorno do cargo
+    } // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Pessoa).">
     public String getGivenName(Pessoa p) throws NamingException { // busca primeiro nome
         String givenName = "";

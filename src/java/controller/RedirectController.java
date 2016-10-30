@@ -16,11 +16,11 @@ public class RedirectController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");      
-        
+        response.setCharacterEncoding("UTF-8");
+
         String acao = request.getRequestURI().replace(request.getContextPath(), "");
         Map<String, String> mapaUrl = new HashMap<String, String>();
-        
+
         try {
             // <editor-fold defaultstate="collapsed" desc="Procedimento por máscara">
             mapaUrl.put("/pagina/login", "../index.jsp");
@@ -29,15 +29,14 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/novo", "../labinfo/reserva.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
-            
-            RequestDispatcher rd = request.getRequestDispatcher(mapaUrl.get(acao));
-            
-            if (rd != null) {
+
+            RequestDispatcher rd;
+            if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);
             } else {
                 request.getRequestDispatcher("/error/404.jsp").forward(request, response);
             } // </editor-fold>
-            
+
             // <editor-fold defaultstate="collapsed" desc="Procedimento tradicional">
             /*
             String acao = request.getParameter("acao");
