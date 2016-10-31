@@ -11,23 +11,23 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilo.css">
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <%
+            if (session.getAttribute("pessoa") != null) {
+                response.sendRedirect(request.getContextPath() + "/pagina/home");
+            }
+
             if ((String) request.getAttribute("login") != null) {
                 if ((String) request.getAttribute("login") == "false") {
-        %>
-        <script>
-            $(document).ready(function() {
-                $('#error-login').toggle();
-            });
-        </script>
-        <%
-        } else if ((String) request.getAttribute("login") == "acesso") {
-        %>
-        <script>
-            $(document).ready(function() {
-                $('#error-access').toggle();
-            });
-        </script>
-        <%
+                    out.println("<script>");
+                    out.println("$(document).ready(function () {");
+                    out.println("$('#error-login').toggle();");
+                    out.println("});");
+                    out.println("</script>");
+                } else if ((String) request.getAttribute("login") == "acesso") {
+                    out.println("<script>");
+                    out.println("$(document).ready(function () {");
+                    out.println("$('#error-access').toggle();");
+                    out.println("});");
+                    out.println("</script>");
                 }
             }
         %>

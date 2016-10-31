@@ -16,6 +16,9 @@
         <servlet-name>RedirectController</servlet-name>
         <url-pattern>/pagina/*</url-pattern>
         <url-pattern>/reserva/*</url-pattern>
+        <url-pattern>/laboratorio/*</url-pattern>
+        <url-pattern>/computador/*</url-pattern>
+        <url-pattern>/software/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

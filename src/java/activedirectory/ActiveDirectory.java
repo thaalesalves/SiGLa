@@ -1,6 +1,8 @@
 // <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
 package activedirectory;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import model.*;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -13,13 +15,15 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 // </editor-fold>
 
 public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
     private static final Logger LOG = Logger.getLogger(ActiveDirectory.class.getName());
-    private final String[] returnAttributes = {"sAMAccountName", "givenName", "cn", "mail", "memberOf", "name"};
+    private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto" ,"sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
     private Properties properties;
     private DirContext dirContext;
     private SearchControls searchCtls;
@@ -149,7 +153,41 @@ public class ActiveDirectory {
         }
         return givenName; // retorno do nome
     } // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getOffice(Pessoa).">
+    public String getOffice(Pessoa p) throws NamingException { // busca office
+        String physicalDeliveryOfficeName = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString(); // conversão do atributo
+                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição na variável
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return physicalDeliveryOfficeName.replaceAll("\\D+", "");
+    } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa, HttpServletResponse, HttpServletRequest).">
+    public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException { // busca foto
+        byte[] pic = null;
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                pic = (byte[]) attrs.get("jpegPhoto ").get();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pic;
+    } // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         try {

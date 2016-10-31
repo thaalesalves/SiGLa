@@ -1,3 +1,6 @@
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+
 CREATE SEQUENCE seq_software;
 CREATE SEQUENCE seq_reserva;
 CREATE SEQUENCE seq_curso;

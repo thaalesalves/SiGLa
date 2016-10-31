@@ -22,11 +22,14 @@ public class RedirectController extends HttpServlet {
         Map<String, String> mapaUrl = new HashMap<String, String>();
 
         try {
-            // <editor-fold defaultstate="collapsed" desc="Procedimento por máscara">
+            /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
-            mapaUrl.put("/reserva/novo", "../labinfo/reserva.jsp");
+            
+            /* Redirecionamentos de /reserva/ */
+            mapaUrl.put("/reserva/semestral", "../labinfo/novo-semestral.jsp");
+            mapaUrl.put("/reserva/pontual", "../labinfo/novo-pontual.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
 
@@ -35,21 +38,7 @@ public class RedirectController extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 request.getRequestDispatcher("/error/404.jsp").forward(request, response);
-            } // </editor-fold>
-
-            // <editor-fold defaultstate="collapsed" desc="Procedimento tradicional">
-            /*
-            String acao = request.getParameter("acao");
-            
-            if (acao.equals("solicitar-reserva")) {
-                request.getRequestDispatcher("labinfo/reserva.jsp").forward(request, response);
             }
-            else if (acao.equals("listar-reserva")) {
-                request.getRequestDispatcher("/AlmightyController?acao=Reserva").forward(request, response);
-            }
-            else if (acao.equals("lista-populada")) {
-                request.getRequestDispatcher("labinfo/reserva-listar.jsp").forward(request, response);
-            } */ // </editor-fold>
         } catch (Exception e) {
             e.printStackTrace();
         }

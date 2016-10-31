@@ -15,10 +15,7 @@ public class ReservaAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws NamingException, ServletException {
         try {
             ReservaDAO dao = new ReservaDAO();
-            Pessoa p = new Pessoa();
-
-            p.setUsername((String) request.getSession().getAttribute("usuario-ativo"));
-            p.setSenha((String) request.getSession().getAttribute("senha-ativa"));
+            Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
             ArrayList<Reserva> reserva = dao.selectReserva(p);
             

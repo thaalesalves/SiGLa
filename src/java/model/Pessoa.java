@@ -12,6 +12,24 @@ public class Pessoa {
     private String cargo;
     private String senha;
     private String depto;
+    private String chapa;
+    private byte[] picture;
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setChapa(String chapa) {
+        this.chapa = chapa;
+    }
+
+    public String getChapa() {
+        return chapa;
+    }
 
     public void setDepto(String depto) {
         this.depto = depto;

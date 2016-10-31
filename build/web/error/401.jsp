@@ -10,7 +10,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="${pageContext.request.contextPath}/css/estilo.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Mandali|Overlock+SC|Raleway+Dots|Roboto" rel="stylesheet">
     </head>
     <body class="corpo">

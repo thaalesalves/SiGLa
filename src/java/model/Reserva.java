@@ -9,6 +9,15 @@ public class Reserva {
     private Curso curso;
     private String tipo;
     private int id;
+    private int qtd;
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+
+    public int getQtd() {
+        return qtd;
+    }
 
     public void setCurso(Curso curso) {
         this.curso = curso;
