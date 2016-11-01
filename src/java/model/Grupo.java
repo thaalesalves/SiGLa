@@ -8,9 +8,9 @@ public class Grupo {
     private String grupo;
     private String dc = ",OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br";
     private String[] ou = {
-        "memberOf=CN=professores-mg,OU=PRPPE,OU=ADM", // grupo de professores
-        "memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=ADM", // grupo de estagiários
-        "memberOf=CN=DEPTI,OU=DEPTI,OU=ADM", // grupo de funcionário
+        "memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM", // grupo de professores
+        "memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=Predio 5 - ADM", // grupo de estagiários
+        "memberOf=CN=DEPTI,OU=DEPTI,OU=Predio 5 - ADM", // grupo de funcionário
         "memberOf=CN=COORDENADORES" // grupo de coodenadores
     };
 
