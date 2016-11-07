@@ -2,6 +2,7 @@ package controller.actions;
 
 import activedirectory.*;
 import dao.*;
+import java.io.IOException;
 import model.*;
 import java.util.*;
 import javax.naming.NamingException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ReservaAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws NamingException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, NamingException, ServletException {
         try {
             ReservaDAO dao = new ReservaDAO();
             Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");

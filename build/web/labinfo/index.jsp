@@ -9,7 +9,7 @@
 
     Pessoa p;
     if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
-        response.sendRedirect(request.getContextPath() + "/error/401.jsp");
+        response.sendRedirect(request.getContextPath() + "/error/401");
     }
 %>
 <!DOCTYPE html>

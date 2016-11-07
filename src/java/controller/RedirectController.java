@@ -20,24 +20,30 @@ public class RedirectController extends HttpServlet {
 
         String acao = request.getRequestURI().replace(request.getContextPath(), "");
         Map<String, String> mapaUrl = new HashMap<String, String>();
+        RequestDispatcher rd;
 
         try {
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
-            
+
             /* Redirecionamentos de /reserva/ */
             mapaUrl.put("/reserva/semestral", "../labinfo/novo-semestral.jsp");
             mapaUrl.put("/reserva/pontual", "../labinfo/novo-pontual.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
 
-            RequestDispatcher rd;
+            /* Redirecionamentos de /error/ */
+            mapaUrl.put("/error/500", "../labinfo/error/500.jsp");
+            mapaUrl.put("/error/404", "../labinfo/error/404.jsp");
+            mapaUrl.put("/error/403", "../labinfo/error/403.jsp");
+            mapaUrl.put("/error/401", "../labinfo/error/401.jsp");
+
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);
             } else {
-                request.getRequestDispatcher("/error/404.jsp").forward(request, response);
+                request.getRequestDispatcher("/labinfo/error/404.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

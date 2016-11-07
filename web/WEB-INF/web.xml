@@ -19,27 +19,30 @@
         <url-pattern>/laboratorio/*</url-pattern>
         <url-pattern>/computador/*</url-pattern>
         <url-pattern>/software/*</url-pattern>
+        <url-pattern>/error/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
+    
     <!-- PÁGINAS DE ERRO - CÓDIGOS -->
     <error-page>
         <error-code>500</error-code>
-        <location>/error/500.jsp</location>
+        <location>/error/500</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/error/404.jsp</location>
+        <location>/error/404</location>
     </error-page>
     <error-page>
         <error-code>401</error-code>
-        <location>/error/401.jsp</location>
+        <location>/error/401</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/error/403.jsp</location>
+        <location>/error/403</location>
     </error-page>
 </web-app>

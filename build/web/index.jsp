@@ -15,22 +15,24 @@
                 response.sendRedirect(request.getContextPath() + "/pagina/home");
             }
 
+            String login = null;
             if ((String) request.getAttribute("login") != null) {
-                if ((String) request.getAttribute("login") == "false") {
-                    out.println("<script>");
-                    out.println("$(document).ready(function () {");
-                    out.println("$('#error-login').toggle();");
-                    out.println("});");
-                    out.println("</script>");
-                } else if ((String) request.getAttribute("login") == "acesso") {
-                    out.println("<script>");
-                    out.println("$(document).ready(function () {");
-                    out.println("$('#error-access').toggle();");
-                    out.println("});");
-                    out.println("</script>");
-                }
+                login = (String) request.getAttribute("login");
             }
         %>
+        <script>
+            var login = <%=login%>;
+            
+            $(document).ready(function () {
+                if (login == "false") {
+                    $('#error-login').toggle();
+                } else if (login == "acesso") {
+                    $('#error-access').toggle();
+                } else if (login == "conexao") {
+                    $('#error-connection').toggle();
+                }
+            });
+        </script>
     </head>
     <body id="fullPage" class="login corpo-login" onkeypress="if (event.keyCode == 13)
                 document.login - form.confirm.click();">
@@ -45,6 +47,9 @@
                 </div>
                 <div class="alerta alerta-erro" id="error-access" style="display:none;">
                     <span class="forte">Eita!</span> <span>Você não tem permissão de acesso</span>
+                </div>
+                <div class="alerta alerta-erro" id="error-connection" style="display:none;">
+                    <span class="forte">Eita!</span> <span>Parece que houve um erro ao conectar ao AD DC</span>
                 </div>
                 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                     <input type="text" autocomplete="off" placeholder="Usuário" name="username" required />

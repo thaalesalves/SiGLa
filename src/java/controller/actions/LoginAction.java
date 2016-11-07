@@ -1,21 +1,30 @@
 package controller.actions;
 
-import dao.*;
-import model.*;
 import activedirectory.ActiveDirectory;
+import dao.EquipamentoDAO;
+import dao.LaboratorioDAO;
+import dao.ReservaDAO;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.ConnectException;
+import javax.naming.AuthenticationException;
+import javax.naming.CommunicationException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Equipamento;
+import model.Grupo;
+import model.Laboratorio;
+import model.Pessoa;
+import model.Reserva;
 
 public class LoginAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws NamingException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, NamingException, ServletException {
         try {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
@@ -47,11 +56,12 @@ public class LoginAction implements ICommand {
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo
                 p.setChapa(ad.getOffice(p)); // passa o atributo da chapa             
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
-                p.setPicture(ad.getPicture(p)); // passa o atributo da foto
-                if (p.getPicture() != null) {
+                try {
+                    p.setPicture(ad.getPicture(p));
                     pic.write(ad.getPicture(p));
                     pic.flush();
                     pic.close();
+                } catch (NullPointerException npe) {
                 }
 
                 boolean acesso = false;
@@ -71,16 +81,17 @@ public class LoginAction implements ICommand {
                     return "pagina/home";
                 } else {
                     request.setAttribute("login", "acesso");
-                    return request.getContextPath() + "pagina/login"; // chama de volta a página de login
+                    return "pagina/login"; // chama de volta a página de login
                 }
             } // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="Login sem sucesso.">
             else { // caso o usuário não exista
                 request.setAttribute("login", "false");
-                return "/index.jsp"; // chama de volta a página de login
+                return "pagina/login"; // chama de volta a página de login
             } // </editor-fold>
-        } catch (ConnectException e) {
-            System.out.println("Erro de conexão: " + e.getMessage());
+        } catch (javax.naming.AuthenticationException e) {
+            request.setAttribute("login", "false");
+            return "pagina/login"; // chama de volta a página de login
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,10 +19,15 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-black-light sidebar-mini">
         <%
             Calendar cal = Calendar.getInstance();
-            Pessoa p = (Pessoa) session.getAttribute("pessoa");
+
+            Pessoa p;
+            if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
+                response.sendRedirect(request.getContextPath() + "/error/401");
+            }
+
             ArrayList<Reserva> arrayRes;
             if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
                 request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=Reserva").forward(request, response);
