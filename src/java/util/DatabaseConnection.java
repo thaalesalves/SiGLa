@@ -1,6 +1,8 @@
 package util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseConnection {
 
@@ -8,7 +10,7 @@ public class DatabaseConnection {
         Connection connString = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connString = DriverManager.getConnection("jdbc:postgresql://admlab001.umc.br:5432/sigladb", "sigla", "sigladb");
+            connString = DriverManager.getConnection("jdbc:postgresql://admlab001:5432/sigladb", "sigla", "sigladb");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

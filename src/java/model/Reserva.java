@@ -2,11 +2,11 @@ package model;
 
 public class Reserva {
     
-    private Pessoa pessoa;
-    private Laboratorio lab;
-    private Software software;
-    private Turma turma;
-    private Curso curso;
+    private Pessoa pessoa = new Pessoa();
+    private Laboratorio lab = new Laboratorio();
+    private Software software = new Software();
+    private Turma turma = new Turma();
+    private Curso curso = new Curso();
     private String tipo;
     private int id;
     private int qtd;

@@ -38,7 +38,7 @@ public class LoginAction implements ICommand {
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
 
-            String path = "//admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/img/users/" + p.getUsername() + "_pic.jpg";
+            String path = "//admlab001/c$/img/users/" + p.getUsername() + "_pic.jpg";
             FileOutputStream pic = new FileOutputStream(new File(path));
             // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="Invocação do login.">
