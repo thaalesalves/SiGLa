@@ -11074,7 +11074,8 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				//"sNext": "Next",
+                                "sNext": "Próximo",
 	
 	
 				/**
@@ -11097,7 +11098,8 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				//"sPrevious": "Previous"
+                                "sPrevious": "Anterior"
 			},
 	
 			/**
@@ -11120,7 +11122,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			//"sEmptyTable": "No data available in table",
+                        "sEmptyTable": "Sem dados na tabela",
 	
 	
 			/**
@@ -11152,7 +11155,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			//"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+                        "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
 	
 	
 			/**
@@ -11173,7 +11177,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			//"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+                        "sInfoEmpty": "Mostrando de 0 a 0 de 0 entradas",
 	
 	
 			/**
@@ -11195,7 +11200,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			//"sInfoFiltered": "(filtered from _MAX_ total entries)",
+                        "sInfoFiltered": "(filtrado de _MAX_ entradas totais)",
 	
 	
 			/**
@@ -11313,7 +11319,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			//"sLengthMenu": "Show _MENU_ entries",
+                        "sLengthMenu": "Mostrar _MENU_ entradas",
 	
 	
 			/**
@@ -11337,7 +11344,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLoadingRecords": "Loading...",
+			//"sLoadingRecords": "Loading...",
+                        "sLoadingRecords": "Carregando...",
 	
 	
 			/**
@@ -11358,7 +11366,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sProcessing": "Processing...",
+			//"sProcessing": "Processing...",
+                        "sProcessing": "Processando...",
 	
 	
 			/**
@@ -11393,7 +11402,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			//"sSearch": "Search:",
+                        "sSearch": "Pesquisar:",
 	
 	
 			/**
@@ -11451,7 +11461,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			//"sZeroRecords": "No matching records found"
+                        "sZeroRecords": "Sem resultados"
 		},
 	
 	

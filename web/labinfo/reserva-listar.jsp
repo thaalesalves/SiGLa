@@ -282,7 +282,7 @@
         </div>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>

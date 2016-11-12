@@ -21,15 +21,13 @@
             }
         %>
         <script>
-            var login = <%=login%>;
-            
+            var jslogin = "<%=login%>";
+
             $(document).ready(function () {
-                if (login == "false") {
-                    $('#error-login').toggle();
-                } else if (login == "acesso") {
+                if (jslogin == "false") {
+                    $('#error-senha').toggle();
+                } else if (jslogin == "acesso") {
                     $('#error-access').toggle();
-                } else if (login == "conexao") {
-                    $('#error-connection').toggle();
                 }
             });
         </script>
@@ -42,14 +40,11 @@
         <div class="module form-module">
             <div class="form">
                 <h2>Login de Usuário</h2>
-                <div class="alerta alerta-erro" id="error-login" style="display:none;">
+                <div class="alerta alerta-erro" id="error-senha" style="display:none;">
                     <span class="forte">Eita!</span> <span>Usuário ou senha incorreto</span>
                 </div>
                 <div class="alerta alerta-erro" id="error-access" style="display:none;">
                     <span class="forte">Eita!</span> <span>Você não tem permissão de acesso</span>
-                </div>
-                <div class="alerta alerta-erro" id="error-connection" style="display:none;">
-                    <span class="forte">Eita!</span> <span>Parece que houve um erro ao conectar ao AD DC</span>
                 </div>
                 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                     <input type="text" autocomplete="off" placeholder="Usuário" name="username" required />
@@ -58,7 +53,8 @@
                 </form>
             </div>
             <!-- <div class="cta"><a href="#">Esqueceu a senha?</a></div> -->
-        </div>        
+        </div>
+        <% login = null;%>
     </body>
 </html>
 

@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/AlmightyController.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/activedirectory/ActiveDirectory.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/labinfo/index.jsp</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/LoginAction.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/index.jsp</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/ReservaAction.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/RedirectController.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/model/Grupo.java</file>
-            <file>file:/C:/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/labinfo/reserva-listar.jsp</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/dao/ReservaDAO.java</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/activedirectory/ActiveDirectory.java</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/ReservaAction.java</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/util/DatabaseConnection.java</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/LoginAction.java</file>
+            <file>file://admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

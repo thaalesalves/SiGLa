@@ -5,11 +5,11 @@ import dao.EquipamentoDAO;
 import dao.LaboratorioDAO;
 import dao.ReservaDAO;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import javax.naming.AuthenticationException;
-import javax.naming.CommunicationException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +24,8 @@ import model.Reserva;
 public class LoginAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, NamingException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ConnectException, IOException, NamingException, ServletException {
+        HttpSession session = request.getSession();
         try {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
@@ -33,12 +34,11 @@ public class LoginAction implements ICommand {
             Reserva r = new Reserva();
             Equipamento e = new Equipamento();
             Laboratorio l = new Laboratorio();
-            HttpSession session = request.getSession();
 
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
 
-            String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
+            String path = "//admlab001/c$/Users/thalespereira/Documents/NetBeansProjects/SiGLa/web/img/users/" + p.getUsername() + "_pic.jpg";
             FileOutputStream pic = new FileOutputStream(new File(path));
             // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="Invocação do login.">
@@ -56,13 +56,6 @@ public class LoginAction implements ICommand {
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo
                 p.setChapa(ad.getOffice(p)); // passa o atributo da chapa             
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
-                try {
-                    p.setPicture(ad.getPicture(p));
-                    pic.write(ad.getPicture(p));
-                    pic.flush();
-                    pic.close();
-                } catch (NullPointerException npe) {
-                }
 
                 boolean acesso = false;
                 for (String g : groups.getOu()) {
@@ -89,11 +82,14 @@ public class LoginAction implements ICommand {
                 request.setAttribute("login", "false");
                 return "pagina/login"; // chama de volta a página de login
             } // </editor-fold>
-        } catch (javax.naming.AuthenticationException e) {
+        } catch (AuthenticationException e) {
             request.setAttribute("login", "false");
             return "pagina/login"; // chama de volta a página de login
+        } catch (FileNotFoundException e) {
+            session.setAttribute("exception", e);
+            return "error/error";
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
         return null;
     }

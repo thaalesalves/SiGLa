@@ -275,7 +275,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>
-                                    <input required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
+                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Curso</label>

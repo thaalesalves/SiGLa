@@ -101,6 +101,23 @@ public class ActiveDirectory {
         return cn; // retorna o nome completo
     } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getCN(Reserva).">
+    public String getCN(Reserva r) throws NamingException { // returna nome completo
+        String cn = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(r.getPessoa()); // invoca pesquisa de usuário
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); // vai para próxima linha da tupla
+                Attributes attrs = sr.getAttributes(); // busca atributos
+                cn = attrs.get("cn").toString(); // conversão do atributo em string
+                cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cn; // retorna o nome completo
+    } // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getTitle(Pessoa).">
     public String getTitle(Pessoa p) throws NamingException { // busca cargo
         String title = "";
@@ -116,7 +133,7 @@ public class ActiveDirectory {
             //e.printStackTrace();
             System.out.println("Não foi possível retornar o cargo: " + e);
         }
-        return title; // retorno do cargo
+        return title.replaceAll("^\\s+|\\s+$", ""); // retorno do cargo
     } // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getDepartment(Pessoa).">
@@ -142,6 +159,23 @@ public class ActiveDirectory {
         String givenName = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
+            if (result.hasMoreElements()) { // caso algo seja retornado
+                SearchResult sr = (SearchResult) result.next(); //entra na tupla
+                Attributes attrs = sr.getAttributes(); // define atributos
+                givenName = attrs.get("givenName").toString(); // conversão do atributo
+                givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return givenName; // retorno do nome
+    } // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Reserva).">
+    public String getGivenName(Reserva r) throws NamingException { // busca primeiro nome
+        String givenName = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(r.getPessoa()); // invoca método de busca
             if (result.hasMoreElements()) { // caso algo seja retornado
                 SearchResult sr = (SearchResult) result.next(); //entra na tupla
                 Attributes attrs = sr.getAttributes(); // define atributos
@@ -211,7 +245,7 @@ public class ActiveDirectory {
 
             return true; // login efetuado
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
             return false; // login não efetuado
         }
     }// </editor-fold>

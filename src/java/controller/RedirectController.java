@@ -35,6 +35,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
 
             /* Redirecionamentos de /error/ */
+            mapaUrl.put("/error/error", "../labinfo/error/500_exception.jsp");
             mapaUrl.put("/error/500", "../labinfo/error/500.jsp");
             mapaUrl.put("/error/404", "../labinfo/error/404.jsp");
             mapaUrl.put("/error/403", "../labinfo/error/403.jsp");

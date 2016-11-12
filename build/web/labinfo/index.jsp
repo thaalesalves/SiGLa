@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.*"%>
@@ -11,6 +12,8 @@
     if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
         response.sendRedirect(request.getContextPath() + "/error/401");
     }
+
+    File f = new File(request.getContextPath() + "/img/users/" + p.getUsername() + "_pic.jpg");
 %>
 <!DOCTYPE html>
 <html>
@@ -135,8 +138,8 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <%
-                                        if (p.getPicture() != null) {
-                                            out.println("<img src='" + request.getContextPath() + "/img/users/" + p.getUsername() + "_pic.jpg' class='user-image' alt='User Image'>");
+                                        if (f.exists()) {
+                                            out.println("<img src='../img/users/" + p.getUsername() + "_pic.jpg' class='user-image' alt='User Image'>");
                                         } else {
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
