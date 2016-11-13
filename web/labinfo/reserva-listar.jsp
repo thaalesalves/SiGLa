@@ -151,7 +151,7 @@
                                             }
                                         %>
                                         <p>
-                                            <% out.println(p.getNomeCompleto()); %>
+                                            <% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
                                             <small><% out.println(p.getCargo() + " | " + p.getDepto()); %></small>
                                         </p>
                                     </li>
@@ -187,7 +187,7 @@
                             %>
                         </div>
                         <div class="pull-left info">
-                            <p><% out.println(p.getNomeCompleto());%></p>
+                            <p><% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
