@@ -1,6 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Reserva"%>
+<%@page import="model.Pessoa"%>
+<%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.*"%>
-<%@page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +24,8 @@
     <body class="hold-transition skin-black-light sidebar-mini">
         <%
             Calendar cal = Calendar.getInstance();
-
             Pessoa p;
+            
             if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
                 response.sendRedirect(request.getContextPath() + "/error/401");
             }
@@ -208,8 +210,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="../reserva/pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
+                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
+                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

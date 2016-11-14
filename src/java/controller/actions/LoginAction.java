@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.sql.SQLException;
 import javax.naming.AuthenticationException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import model.Reserva;
 public class LoginAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ConnectException, IOException, NamingException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
@@ -89,7 +90,7 @@ public class LoginAction implements ICommand {
             session.setAttribute("exception", e);
             return "error/error";
         } catch (Exception e) {
-            e.getMessage();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return null;
     }

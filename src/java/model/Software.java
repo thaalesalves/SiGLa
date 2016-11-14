@@ -1,6 +1,7 @@
 package model;
 
 public class Software {
+
     private String fabricante;
     private String nome;
     private int id;

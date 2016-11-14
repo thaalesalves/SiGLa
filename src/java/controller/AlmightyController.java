@@ -19,7 +19,7 @@ public class AlmightyController extends HttpServlet {
             //request.getRequestDispatcher(cmd.execute(request, response)).forward(request, response);
             response.sendRedirect(cmd.execute(request, response));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
     }
 

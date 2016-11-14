@@ -4,6 +4,7 @@ import activedirectory.ActiveDirectory;
 import dao.ReservaDAO;
 import java.io.IOException;
 import java.net.ConnectException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import model.Reserva;
 public class ReservaAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ConnectException, IOException, NamingException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             ReservaDAO dao = new ReservaDAO();
             Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
@@ -25,7 +26,7 @@ public class ReservaAction implements ICommand {
             ActiveDirectory ad = new ActiveDirectory();
             ad.login(p);
             dao.setAd(ad);
-            
+
             if (p.getCargo().equals("Professor")) {
                 reserva = dao.selectReserva(r); // chama reserva de professor
             } else {
@@ -34,7 +35,7 @@ public class ReservaAction implements ICommand {
 
             request.getSession().setAttribute("reserva", reserva);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
 
         return "lista";

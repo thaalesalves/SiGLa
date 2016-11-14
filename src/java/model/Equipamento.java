@@ -1,7 +1,7 @@
 package model;
 
 public class Equipamento {
-    
+
     private String nome;
     private String ip;
     private String mac;

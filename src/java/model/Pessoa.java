@@ -1,10 +1,10 @@
 package model;
 
-
-
 public class Pessoa {
-    public Pessoa() {}
-    
+
+    public Pessoa() {
+    }
+
     private String username;
     private String nome;
     private String nomeCompleto;
@@ -34,11 +34,11 @@ public class Pessoa {
     public void setDepto(String depto) {
         this.depto = depto;
     }
-    
+
     public String getDepto() {
         return depto;
     }
-    
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
@@ -54,7 +54,7 @@ public class Pessoa {
     public String getCargo() {
         return cargo;
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -62,7 +62,7 @@ public class Pessoa {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -86,6 +86,5 @@ public class Pessoa {
     public String getEmail() {
         return email;
     }
-    
-    
+
 }

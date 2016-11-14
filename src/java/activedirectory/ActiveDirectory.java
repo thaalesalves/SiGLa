@@ -23,7 +23,7 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
     private static final Logger LOG = Logger.getLogger(ActiveDirectory.class.getName());
-    private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto" ,"sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
+    private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
     private Properties properties;
     private DirContext dirContext;
     private SearchControls searchCtls;
@@ -57,7 +57,7 @@ public class ActiveDirectory {
                 return false; // o usuário não existe
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return false; // o usuário não existe
     } // </editor-fold>
@@ -79,7 +79,7 @@ public class ActiveDirectory {
                 return false; // o usuário não é membro do grupo
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return false; // o usuário não é membro do grupo
     } // </editor-fold>
@@ -96,7 +96,7 @@ public class ActiveDirectory {
                 cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return cn; // retorna o nome completo
     } // </editor-fold>
@@ -113,11 +113,11 @@ public class ActiveDirectory {
                 cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return cn; // retorna o nome completo
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getTitle(Pessoa).">
     public String getTitle(Pessoa p) throws NamingException { // busca cargo
         String title = "";
@@ -130,12 +130,11 @@ public class ActiveDirectory {
                 title = title.substring(title.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            //e.printStackTrace();
-            System.out.println("Não foi possível retornar o cargo: " + e);
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return title.replaceAll("^\\s+|\\s+$", ""); // retorno do cargo
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getDepartment(Pessoa).">
     public String getDepartment(Pessoa p) throws NamingException { // busca departamento
         String depto = "";
@@ -148,12 +147,11 @@ public class ActiveDirectory {
                 depto = depto.substring(depto.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            //e.printStackTrace();
-            System.out.println("Não foi possível retornar o depto: " + e);
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return depto; // retorno do cargo
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Pessoa).">
     public String getGivenName(Pessoa p) throws NamingException { // busca primeiro nome
         String givenName = "";
@@ -166,11 +164,11 @@ public class ActiveDirectory {
                 givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return givenName; // retorno do nome
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Reserva).">
     public String getGivenName(Reserva r) throws NamingException { // busca primeiro nome
         String givenName = "";
@@ -183,11 +181,11 @@ public class ActiveDirectory {
                 givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return givenName; // retorno do nome
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getOffice(Pessoa).">
     public String getOffice(Pessoa p) throws NamingException { // busca office
         String physicalDeliveryOfficeName = "";
@@ -200,13 +198,13 @@ public class ActiveDirectory {
                 physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        
+
         return physicalDeliveryOfficeName.replaceAll("\\D+", "");
     } // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa, HttpServletResponse, HttpServletRequest).">
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa).">
     public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException { // busca foto
         byte[] pic = null;
         try {
@@ -217,11 +215,11 @@ public class ActiveDirectory {
                 pic = (byte[]) attrs.get("jpegPhoto ").get();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
         return pic;
     } // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         try {
@@ -235,7 +233,7 @@ public class ActiveDirectory {
             try {
                 dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
                 return false;
             }
 
@@ -245,7 +243,7 @@ public class ActiveDirectory {
 
             return true; // login efetuado
         } catch (Exception e) {
-            e.getMessage();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
             return false; // login não efetuado
         }
     }// </editor-fold>

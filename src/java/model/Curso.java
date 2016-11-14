@@ -1,6 +1,7 @@
 package model;
 
 public class Curso {
+
     private String nome;
     private String modalidade;
     private int id;

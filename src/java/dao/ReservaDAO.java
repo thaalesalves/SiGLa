@@ -7,12 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import util.DatabaseConnection;
 import activedirectory.ActiveDirectory;
-import model.Curso;
-import model.Laboratorio;
-import model.Pessoa;
 import model.Reserva;
-import model.Software;
-import model.Turma;
 
 public class ReservaDAO {
 
@@ -55,7 +50,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
 
         return arrayRes;
@@ -94,7 +89,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
 
         return arrayRes;
@@ -113,7 +108,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
 
         return qtd;
@@ -123,7 +118,7 @@ public class ReservaDAO {
         try (Connection connString = DatabaseConnection.getConnection()) {
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -131,7 +126,7 @@ public class ReservaDAO {
         try (Connection connString = DatabaseConnection.getConnection()) {
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
     }
 

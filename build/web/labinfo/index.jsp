@@ -214,8 +214,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="../reserva/pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
+                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
+                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

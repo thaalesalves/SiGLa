@@ -1,15 +1,48 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Reserva {
-    
+
+    private int id;
+    private int qtd;
+    private String tipo;
+    private String diaDaSemana;
+    private String modulo;
+    private Date dataDeInicio;
+    private Date dataDeTermino;
     private Pessoa pessoa = new Pessoa();
     private Laboratorio lab = new Laboratorio();
     private Software software = new Software();
     private Turma turma = new Turma();
     private Curso curso = new Curso();
-    private String tipo;
-    private int id;
-    private int qtd;
+    private ArrayList<Software> softwares = new ArrayList<Software>();
+    private ArrayList<Curso> cursos = new ArrayList<Curso>();
+
+    public void setDiaDaSemana(String diaDaSemana) {
+        this.diaDaSemana = diaDaSemana;
+    }
+
+    public String getDiaDaSemana() {
+        return diaDaSemana;
+    }
+
+    public ArrayList<Software> getSoftwares() {
+        return softwares;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setSoftwares(ArrayList<Software> softwares) {
+        this.softwares = softwares;
+    }
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
+    }
 
     public void setQtd(int qtd) {
         this.qtd = qtd;
@@ -22,11 +55,11 @@ public class Reserva {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-    
+
     public Curso getCurso() {
         return curso;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }

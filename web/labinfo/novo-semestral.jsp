@@ -1,12 +1,28 @@
+<%@page import="model.Reserva"%>
+<%@page import="model.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Pessoa"%>
+<%@page import="model.Software"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.*"%>
+
 <%
     Calendar cal = Calendar.getInstance();
     Pessoa p;
+    Reserva r;
+    ArrayList<Software> asw;
+    ArrayList<Curso> ac;
+
     if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
         response.sendRedirect(request.getContextPath() + "/error/401");
     }
+
+    if ((r = (Reserva) session.getAttribute("dados-semestral")) == null) {
+        request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
+    }
+
+    asw = r.getSoftwares();
+    ac = r.getCursos();
 %>
 <!DOCTYPE html>
 <html>
@@ -223,8 +239,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
+                                <li><a href="listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
+                                <li><a href="listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -281,14 +297,9 @@
                                 <div class='form-group'>
                                     <label>Curso</label>
                                     <select class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" multiple required>
-                                        <option>Engenharia Civil</option>
-                                        <option>Engenharia Elétrica</option>
-                                        <option>Sistemas de Informação</option>
-                                        <option>Análise e Desenvolvimento de Sistemas</option>
-                                        <option>Publicidade e Propaganda</option>
-                                        <option>Administração</option>
-                                        <option>Relações Internacionais</option>
-                                        <option>Contabilidade</option>
+                                        <% for (Curso c : ac) { %>
+                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " " + ac.get(ac.indexOf(c)).getNome()); %></option>
+                                        <% } %>
                                     </select>
                                 </div>
                                 <div class='form-group'>
@@ -331,9 +342,9 @@
                                 <div class='form-group'>
                                     <label>Softwares</label>
                                     <select class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
-                                        <option>AltoQi</option>
-                                        <option>NetBeans</option>
-                                        <option>AutoCAD</option>
+                                        <% for (Software sw : asw) { %>
+                                        <option value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
+                                        <% } %>
                                     </select>
                                 </div>
                                 <div class='form-group'>

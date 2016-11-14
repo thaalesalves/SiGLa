@@ -1,6 +1,7 @@
 package model;
 
 public class Turma {
+
     private String turma;
     private int semestre;
     private int id;

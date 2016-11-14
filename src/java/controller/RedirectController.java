@@ -30,6 +30,8 @@ public class RedirectController extends HttpServlet {
 
             /* Redirecionamentos de /reserva/ */
             mapaUrl.put("/reserva/semestral", "../labinfo/novo-semestral.jsp");
+            mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
+            mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
             mapaUrl.put("/reserva/pontual", "../labinfo/novo-pontual.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
@@ -47,7 +49,7 @@ public class RedirectController extends HttpServlet {
                 request.getRequestDispatcher("/labinfo/error/404.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
     }
 
