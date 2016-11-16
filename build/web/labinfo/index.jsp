@@ -230,6 +230,18 @@
                                 <li><a href="../reserva/listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>
                         </li>
+                        <li class="header">CURSOS</li>
+                        <li class="treeview">
+                            <a href="../curso/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="../curso/listar">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
+                    </ul>
                 </section>
                 <!-- /.sidebar -->
             </aside>

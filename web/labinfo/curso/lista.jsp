@@ -1,58 +1,19 @@
 <%@page import="model.Curso"%>
-<%@page import="model.Software"%>
-<%@page import="model.Reserva"%>
-<%@page import="model.Pessoa"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.Pessoa"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    Calendar cal = Calendar.getInstance();
-    Pessoa p;
-    Reserva r;
-    ArrayList<Software> asw;
-    ArrayList<Curso> ac;
-
-    if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
-        response.sendRedirect(request.getContextPath() + "/error/401");
-    }
-
-    if ((r = (Reserva) session.getAttribute("dados-pontual")) == null) {
-        request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
-    }
-
-    asw = r.getSoftwares();
-    ac = r.getCursos();
-%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Nova Reserva | SiGLa</title>
+        <title>Listagem de Reservas | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/flat/blue.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <!--[if lt IE 9]>
@@ -61,8 +22,20 @@
         <![endif]-->
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
-        <div class="wrapper">
+        <%
+            Calendar cal = Calendar.getInstance();
+            Pessoa p;
 
+            if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
+                response.sendRedirect(request.getContextPath() + "/error/401");
+            }
+
+            ArrayList<Curso> arrayCurso;
+            if ((arrayCurso = (ArrayList<Curso>) session.getAttribute("lista-cursos")) == null) {
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarCurso").forward(request, response);
+            }
+        %>
+        <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
                 <a href="index2.html" class="logo">
@@ -237,8 +210,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
+                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
+                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -249,180 +222,92 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
-                                <li><a href="listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li><a href="../reserva/listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                                <li><a href="../reserva/listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>
                         </li>
+                        <li class="header">CURSOS</li>
+                        <li class="treeview">
+                            <a href="../curso/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="../curso/listar">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
+                    </ul>
                 </section>
-                <!-- /.sidebar -->
             </aside>
-
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
                         Reservas
-                        <small>nova reserva</small>
+                        <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li>Reservas</li>
-                        <li class="active">Nova reserva</li>
+                        <li><a href="#">Reservas</a></li>
+                        <li class="active">Reservas Gerais</li>
                     </ol>
                 </section>
 
-                <!-- Main content -->
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Reserva pontual</h3>
+                            <h3 class="box-title">Lista geral</h3>
                         </div>
                         <div class="box-body">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                                <div class='form-group'>
-                                    <label>Nome</label>
-                                    <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getNomeCompleto()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Email</label>
-                                    <input disabled type='text' class='form-control pull-right' name='email' value="<% out.println(p.getEmail()); %>" placeholder="<% out.println(p.getEmail()); %>" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Turma</label>
-                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Curso</label>
-                                    <select class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" multiple required>
-                                        <% for (Curso c : ac) { %>
-                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " " + ac.get(ac.indexOf(c)).getNome()); %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Qtd. de Alunos</label>
-                                    <input required type='text' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Data</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="text" class="form-control pull-right" id='reservationtime' name="data" />
-                                    </div>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Softwares</label>
-                                    <select class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
-                                        <% for (Software sw : asw) { %>
-                                        <option value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Observação</label>
-                                    <textarea class="form-control"></textarea>
-                                </div>
-                                <div class="box-footer">
-                                    <button value="ReservaPontual" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                                </div>
-                            </form>
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Modalidade</th>
+                                        <th>Curso</th>
+                                        <th style="width: 3%;">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        for (Curso c : arrayCurso) {
+                                    %>
+                                    <tr class="gradeC">
+                                        <td class="center"><% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getModalidade()); %></td>
+                                        <td class="center"><% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getNome()); %></td>
+                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=RemoverCurso&curso_id=<% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getId()); %>" class="fa fa-close"></a></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </section>
             </div>
-        </section>
-    </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-    </footer>
-    <div class="control-sidebar-bg"></div>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-
-    <script>
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-
-            //Datemask dd/mm/yyyy
-            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-            //Datemask2 mm/dd/yyyy
-            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-            //Money Euro
-            $("[data-mask]").inputmask();
-
-            //Date range picker
-            $('#reservation').daterangepicker();
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-            //Date range as a button
-            $('#daterange-btn').daterangepicker(
-                    {
-                        ranges: {
-                            'Today': [moment(), moment()],
-                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                        },
-                        startDate: moment().subtract(29, 'days'),
-                        endDate: moment()
-                    },
-                    function (start, end) {
-                        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                    }
-            );
-
-            //Date picker
-            $('#datepicker').datepicker({
-                autoclose: true
+            <footer class="main-footer">
+                <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <script>
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
             });
-
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-            //Colorpicker
-            $(".my-colorpicker1").colorpicker();
-            //color picker with addon
-            $(".my-colorpicker2").colorpicker();
-
-            //Timepicker
-            $(".timepicker").timepicker({
-                showInputs: false
-            });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

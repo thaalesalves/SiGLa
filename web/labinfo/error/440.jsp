@@ -2,9 +2,9 @@
 <%@page isErrorPage="true"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
     <head>
-        <title>401 | SiGLa</title>
+        <title>440 | SiGLa</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +15,10 @@
     </head>
     <body class="corpo">
         <div class="text-center">
-            <h1 class="error-code">401</h1><br />
+            <h1 class="error-code">440</h1><br />
             <hr class="separator" />
             <h2 class="error-title">Deu ruim!</h2><br />
-            <p class="error-description">Parece que você tentou acessar um recurso sem ter feito login!</p><br />
+            <p class="error-description">Parece que sua sessão expirou! Faça login novamente!</p><br />
             <a href="${pageContext.request.contextPath}" class="error-link">Voltar</a> <p class="error-link">|</p> <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
         </div>
     </body>

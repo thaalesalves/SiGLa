@@ -10,15 +10,48 @@ public class Reserva {
     private String tipo;
     private String diaDaSemana;
     private String modulo;
-    private Date dataDeInicio;
-    private Date dataDeTermino;
+    private String turma;
+    private String dataDeInicio;
+    private String dataDeTermino;
+    private String observacao;
     private Pessoa pessoa = new Pessoa();
     private Laboratorio lab = new Laboratorio();
     private Software software = new Software();
-    private Turma turma = new Turma();
     private Curso curso = new Curso();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
+    }
+
+    public void setDataDeInicio(String dataDeInicio) {
+        this.dataDeInicio = dataDeInicio;
+    }
+
+    public void setDataDeTermino(String dataDeTermino) {
+        this.dataDeTermino = dataDeTermino;
+    }
+
+    public String getModulo() {
+        return modulo;
+    }
+
+    public String getDataDeInicio() {
+        return dataDeInicio;
+    }
+
+    public String getDataDeTermino() {
+        return dataDeTermino;
+    }
 
     public void setDiaDaSemana(String diaDaSemana) {
         this.diaDaSemana = diaDaSemana;
@@ -80,7 +113,7 @@ public class Reserva {
         this.software = software;
     }
 
-    public void setTurma(Turma turma) {
+    public void setTurma(String turma) {
         this.turma = turma;
     }
 
@@ -100,7 +133,7 @@ public class Reserva {
         return software;
     }
 
-    public Turma getTurma() {
+    public String getTurma() {
         return turma;
     }
 

@@ -29,12 +29,17 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
             /* Redirecionamentos de /reserva/ */
-            mapaUrl.put("/reserva/semestral", "../labinfo/novo-semestral.jsp");
+            mapaUrl.put("/reserva/semestral", "../labinfo/reserva/novo-semestral.jsp");
+            mapaUrl.put("/reserva/pontual", "../labinfo/reserva/novo-pontual.jsp");
+            mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
+            mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
             mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
-            mapaUrl.put("/reserva/pontual", "../labinfo/novo-pontual.jsp");
-            mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
-            mapaUrl.put("/reserva/lista", "../labinfo/reserva-listar.jsp");
+            
+            /* Redirecionamentos de /curso/ */
+            mapaUrl.put("/curso/novo", "../labinfo/curso/novo.jsp");
+            mapaUrl.put("/curso/lista", "../labinfo/curso/lista.jsp");
+            mapaUrl.put("/curso/listar", "../AlmightyController?acao=ListarCurso");
 
             /* Redirecionamentos de /error/ */
             mapaUrl.put("/error/error", "../labinfo/error/500_exception.jsp");

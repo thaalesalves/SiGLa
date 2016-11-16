@@ -1,26 +1,35 @@
-<%@page import="java.io.File"%>
+<%@page import="model.Reserva"%>
+<%@page import="model.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Pessoa"%>
+<%@page import="model.Software"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.*"%>
+
 <%
     Calendar cal = Calendar.getInstance();
-    Laboratorio l = (Laboratorio) session.getAttribute("laboratorio");
-    Reserva r = (Reserva) session.getAttribute("reserva-qtd");
-    Equipamento e = (Equipamento) session.getAttribute("equipamento");
-
     Pessoa p;
+    Reserva r;
+    ArrayList<Software> asw;
+    ArrayList<Curso> ac;
+
     if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
         response.sendRedirect(request.getContextPath() + "/error/401");
     }
 
-    File f = new File(request.getContextPath() + "/img/users/" + p.getUsername() + "_pic.jpg");
+    if ((r = (Reserva) session.getAttribute("dados-semestral")) == null) {
+        request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
+    }
+
+    asw = r.getSoftwares();
+    ac = r.getCursos();
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Dashboard | SiGLa</title>
+        <title>Nova Reserva | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -33,6 +42,21 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -40,6 +64,7 @@
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
         <div class="wrapper">
+
             <header class="main-header">
                 <!-- Logo -->
                 <a href="index2.html" class="logo">
@@ -138,8 +163,8 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <%
-                                        if (f.exists()) {
-                                            out.println("<img src='../img/users/" + p.getUsername() + "_pic.jpg' class='user-image' alt='User Image'>");
+                                        if (p.getPicture() != null) {
+                                            out.println("<img src='" + request.getContextPath() + "/img/users/" + p.getUsername() + "_pic.jpg' class='user-image' alt='User Image'>");
                                         } else {
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
@@ -164,10 +189,10 @@
                                     <!-- Menu Body -->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="perfil" class="btn btn-default btn-flat">Perfil</a>
+                                            <a href="../pagina/perfil" class="btn btn-default btn-flat">Perfil</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="logout" class="btn btn-default btn-flat">Logout</a>
+                                            <a href="../pagina/logout" class="btn btn-default btn-flat">Logout</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -201,7 +226,7 @@
                     <ul class="sidebar-menu">
                         <li class="header">PRINCIPAL</li>
                         <li class="active treeview">
-                            <a href="home">
+                            <a href="../pagina/home">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -214,8 +239,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
+                                <li><a href="listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
+                                <li><a href="listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -226,8 +251,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
-                                <li><a href="../reserva/listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li><a href="listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                                <li><a href="listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>
                         </li>
                         <li class="header">CURSOS</li>
@@ -251,160 +276,165 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Dashboard
-                        <small>painel de controle</small>
+                        Reservas
+                        <small>nova reserva</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
+                        <li>Reservas</li>
+                        <li class="active">Nova reserva</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <h3><% out.println(r.getQtd()); %></h3>
-
-                                    <p>Reservas</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3>53</h3>
-
-                                    <p>Reservas Hoje</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3><% out.println(l.getQtd()); %></h3>
-
-                                    <p>Laboratórios</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-flag-o"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <h3><% out.println(e.getQtd()); %></h3>
-
-                                    <p>Computadores</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fa fa-laptop"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                    </div>
-                    <!-- /.row -->
-                    <!-- Main row -->
-                    <div class="row">
-                        <!-- Left col -->
-                    </div>
-                    <!-- /.nav-tabs-custom -->
-                    <!-- quick email widget -->
-                    <div class="box box-info">
+                    <div class="box box-primary">
                         <div class="box-header">
-                            <i class="fa fa-envelope"></i>
-
-                            <h3 class="box-title">Email Rápido</h3>
+                            <h3 class="box-title">Reserva semestral</h3>
                         </div>
                         <div class="box-body">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <input type="email" class="form-control" name="emailto" placeholder="Destinatário">
+                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                                <div class='form-group'>
+                                    <label>Nome</label>
+                                    <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getNomeCompleto()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Email</label>
+                                    <input disabled type='text' class='form-control pull-right' name='email' value="<% out.println(p.getEmail()); %>" placeholder="<% out.println(p.getEmail()); %>" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Turma</label>
+                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Curso</label>
+                                    <select name="curso" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
+                                        <option selected disabled>Curso</option>
+                                        <% for (Curso c : ac) { %>
+                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " em " + ac.get(ac.indexOf(c)).getNome()); %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Qtd. de Alunos</label>
+                                    <input name="qtd" required type='text' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="subject" placeholder="Assunto">
+                                    <label>Módulo</label>
+                                    <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
+                                        <option value="1º módulo">1º Módulo (8h às 9h30)</option>
+                                        <option value="2º módulo">2º Módulo (9h40 às 11h10)</option>
+                                        <option value="3º módulo">3º Módulo (11h10 às 12h40)</option>
+                                        <option value="4º módulo">4º Módulo (13h às 14h30)</option>
+                                        <option value="5º módulo">5º Módulo (14h30 às 17h30)</option>
+                                        <option value="6º módulo">6º Módulo (17h30 às 19h)</option>
+                                        <option value="7º módulo">7º Módulo (19h às 20h30)</option>
+                                        <option value="8º módulo">8º Módulo (20h40 às 22h)</option>
+                                    </select>
                                 </div>
-                                <div>
-                                    <textarea class="textarea" placeholder="Mensagem" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <div class="form-group">
+                                    <label>Dia da Semana</label>
+                                    <select name="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Softwares</label>
+                                    <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
+                                        <% for (Software sw : asw) { %>
+                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div id="obs" class='form-group'>
+                                    <label>Observação</label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                                <div class="box-footer">
+                                    <button value="InserirReservaSemestral" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
-                        <div class="box-footer clearfix">
-                            <button type="button" class="pull-right btn btn-default" id="sendEmail">Enviar
-                                <i class="fa fa-arrow-circle-right"></i></button>
-                        </div>
                     </div>
-
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
             </div>
-        </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-        </footer>
-        <div class="control-sidebar-bg"></div>
-        <!-- ./wrapper -->
+        </section>
+    </div>
+    <footer class="main-footer">
+        <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
+    </footer>
+    <div class="control-sidebar-bg"></div>
 
-        <!-- jQuery 2.2.3 -->
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-        <script>
-            $.widget.bridge('uibutton', $.ui.button);
-        </script>
-        <!-- Bootstrap 3.3.6 -->
-        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-        <!-- Morris.js charts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/morris/morris.min.js"></script>
-        <!-- Sparkline -->
-        <script src="${pageContext.request.contextPath}/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <!-- jvectormap -->
-        <script src="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-        <!-- jQuery Knob Chart -->
-        <script src="${pageContext.request.contextPath}/plugins/knob/jquery.knob.js"></script>
-        <!-- daterangepicker -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-        <!-- datepicker -->
-        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-        <!-- Bootstrap WYSIHTML5 -->
-        <script src="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-        <!-- Slimscroll -->
-        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-        <!-- FastClick -->
-        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="${pageContext.request.contextPath}/dist/js/pages/dashboard.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-    </body>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+
+            //Datemask dd/mm/yyyy
+            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+            //Datemask2 mm/dd/yyyy
+            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+            //Money Euro
+            $("[data-mask]").inputmask();
+
+            //Date range picker
+            $('#reservation').daterangepicker();
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            });
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+
+            //Colorpicker
+            $(".my-colorpicker1").colorpicker();
+            //color picker with addon
+            $(".my-colorpicker2").colorpicker();
+
+            //Timepicker
+            $(".timepicker").timepicker({
+                showInputs: false
+            });
+        });
+    </script>
+</body>
 </html>

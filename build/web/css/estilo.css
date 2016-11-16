@@ -1,6 +1,6 @@
 /* CSS das páginas de erro */
 .corpo {
-    background-color: #757575;
+    background-color: #FFFFFF;
     font-family: 'Roboto', cursive;
 }
 
@@ -30,7 +30,7 @@
     border: 0;
     height: 1px;
     width: 20%;
-    background-image: linear-gradient(to right, #757575, #303030, #757575);
+    background-image: linear-gradient(to right, #edeef2, #e3e4e8, #edeef2);
 }
 
 .error-link {
@@ -39,7 +39,7 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     border: none;
-    color: rgba(48,48,48,1);
+    color: #000;
     text-decoration: none;
     text-align: center;
     text-transform: normal;
@@ -55,7 +55,7 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     border: none;
-    color: rgba(48,48,48,1);
+    color: #000;
     text-align: center;
     text-transform: normal;
     -o-text-overflow: clip;
@@ -70,7 +70,7 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     border: none;
-    color: rgba(48,48,48,1);
+    color: #000;
     text-align: center;
     text-transform: normal;
     -o-text-overflow: clip;
@@ -87,13 +87,13 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     border: none;
-    color: rgba(48,48,48,1);
+    color: #000;
     text-align: center;
     text-transform: normal;
     -o-text-overflow: clip;
     text-overflow: clip;
     white-space: pre;
-    text-shadow: 1px 1px 1px rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67);
+    text-shadow: rgb(203, 207, 214), -1px -1px 1px rgb(203, 207, 214);
     font-size: 200px;
     margin-bottom: -1.5%;
     margin-top: 3%;

@@ -25,7 +25,7 @@
             <hr class="separator" />
             <h2 class="error-title">Deu ruim!</h2><br />
             <p class="error-description"><% out.println(e.getMessage()); %></p><br />
-            <a href="../" class="error-link">Voltar</a> | <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
+            <a href="${pageContext.request.contextPath}" class="error-link">Voltar</a> <p class="error-link">|</p> <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
         </div>
     </body>
 </html>
