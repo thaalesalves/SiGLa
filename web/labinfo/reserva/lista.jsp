@@ -284,7 +284,7 @@
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getSoftware().getFabricante() + " " + arrayRes.get(arrayRes.indexOf(r)).getSoftware().getNome()); %></td>
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getDiaDaSemana()); %></td>
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().substring(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().lastIndexOf(" ") + 1)); %></td>
-                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=RemoverReserva&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                        <td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=RemoverReserva&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
                                     </tr>
                                     <% } %>
                                 </tbody>
