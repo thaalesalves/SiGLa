@@ -32,7 +32,9 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/semestral", "../labinfo/reserva/novo-semestral.jsp");
             mapaUrl.put("/reserva/pontual", "../labinfo/reserva/novo-pontual.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
+            mapaUrl.put("/reserva/lista-dia", "../labinfo/reserva/lista_dia.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
+            mapaUrl.put("/reserva/listar-hoje", "../AlmightyController?acao=ListarReservaDia");
             mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
             mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
             

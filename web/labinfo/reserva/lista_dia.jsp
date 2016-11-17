@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Listagem de Reservas | SiGLa</title>
+        <title>Listagem de Reservas de Hoje | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -25,6 +25,7 @@
         <%
             Calendar cal = Calendar.getInstance();
             Pessoa p;
+            Reserva reserva = new Reserva();
             
             if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
                 response.sendRedirect(request.getContextPath() + "/error/401");
@@ -32,7 +33,7 @@
 
             ArrayList<Reserva> arrayRes;
             if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
-                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=Reserva").forward(request, response);
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaDia").forward(request, response);
             }
         %>
         <div class="wrapper">
@@ -243,13 +244,13 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Reservas
+                        Reservas de <% out.println(reserva.getDiaSemana()); %>
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Reservas</a></li>
-                        <li class="active">Reservas Gerais</li>
+                        <li class="active">Reservas de <% out.println(reserva.getDiaSemana()); %></li>
                     </ol>
                 </section>
 
@@ -267,7 +268,6 @@
                                         <th>Curso</th>
                                         <th>Laboratório</th>
                                         <th>Software</th>
-                                        <th>Dia da Semana</th>
                                         <th>Professor</th>
                                         <th style="width: 3%;">Opções</th>
                                     </tr>
@@ -282,7 +282,6 @@
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getCurso().getModalidade() + " em " + arrayRes.get(arrayRes.indexOf(r)).getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getLab().getNumero()); %></td>
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getSoftware().getFabricante() + " " + arrayRes.get(arrayRes.indexOf(r)).getSoftware().getNome()); %></td>
-                                        <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getDiaDaSemana()); %></td>
                                         <td class="center"><% out.println(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNome() + " " + arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().substring(arrayRes.get(arrayRes.indexOf(r)).getPessoa().getNomeCompleto().lastIndexOf(" ") + 1)); %></td>
                                         <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=RemoverReserva&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
                                     </tr>

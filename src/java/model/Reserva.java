@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Reserva {
 
@@ -21,6 +21,38 @@ public class Reserva {
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
+    public String getDiaSemana() {
+        Calendar calendar = Calendar.getInstance();
+        int dia = calendar.get(Calendar.DAY_OF_WEEK);
+        String diaSemana = "";
+
+        switch (dia) {
+            case Calendar.SUNDAY:
+                diaSemana = "Domingo";
+                break;
+            case Calendar.MONDAY:
+                diaSemana = "Segunda-feira";
+                break;
+            case Calendar.TUESDAY:
+                diaSemana = "Terça-feira";
+                break;
+            case Calendar.WEDNESDAY:
+                diaSemana = "Quarta-feira";
+                break;
+            case Calendar.THURSDAY:
+                diaSemana = "Quinta-feira";
+                break;
+            case Calendar.FRIDAY:
+                diaSemana = "Sexta-feira";
+                break;
+            case Calendar.SATURDAY:
+                diaSemana = "Sábado";
+                break;
+        }
+
+        return diaSemana;
+    }
+    
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
