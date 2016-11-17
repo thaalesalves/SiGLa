@@ -12,8 +12,8 @@ import model.Reserva;
 public class ReservaDAO {
 
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
-    private final String SELECT_ALL = "SELECT reserva.dia_semana AS dia_semana, reserva.data_ent AS data_entrada, reserva.data_sai AS data_termino, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva, laboratorio, software, curso WHERE laboratorio.id = reserva.laboratorio AND reserva.softwares = software.id AND curso.id = reserva.curso";
-    private final String SELECT_PROF = "SELECT reserva.dia_semana AS dia_semana, reserva.data_ent AS data_entrada, reserva.data_sai AS data_termino, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva, laboratorio, software, curso WHERE laboratorio.id = reserva.laboratorio AND reserva.softwares = software.id AND curso.id = reserva.curso AND reserva.professor = ?";
+    private final String SELECT_ALL = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva, laboratorio, software, curso WHERE laboratorio.id = reserva.laboratorio AND reserva.softwares = software.id AND curso.id = reserva.curso";
+    private final String SELECT_PROF = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva, laboratorio, software, curso WHERE laboratorio.id = reserva.laboratorio AND reserva.softwares = software.id AND curso.id = reserva.curso AND reserva.professor = ?";
     private final String INSERT_SEMESTRAL = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), (SELECT id FROM laboratorio WHERE numero = '12-14'), ?, ?, ?, ?, 1, ?, ?, ?)";
     private final String INSERT_PONTUAL = "";
 
@@ -39,8 +39,6 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
-                r.setDataDeInicio(rs.getString("data_entrada"));
-                r.setDataDeTermino(rs.getString("data_termino"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 if (rs.getInt("tipo") == 1) {
@@ -81,8 +79,6 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
-                r.setDataDeInicio(rs.getString("data_entrada"));
-                r.setDataDeTermino(rs.getString("data_termino"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 if (rs.getInt("tipo") == 1) {

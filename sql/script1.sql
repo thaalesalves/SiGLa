@@ -26,15 +26,6 @@ CREATE TABLE laboratorio (
 	qtd_alunos INTEGER NOT NULL
 );
 
-CREATE TABLE turma (
-	id INTEGER PRIMARY KEY,
-	curso INTEGER REFERENCES curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	semestre INTEGER,
-	turma VARCHAR NOT NULL,
-	qtd_alunos INTEGER NOT NULL,
-	ano_letivo VARCHAR NOT NULL
-);
-
 CREATE TABLE equipamento (
 	nome VARCHAR(20) PRIMARY KEY,
 	laboratorio INTEGER REFERENCES laboratorio(id),
@@ -45,15 +36,14 @@ CREATE TABLE equipamento (
 );
 
 CREATE TABLE reserva (
-	id INTEGER PRIMARY KEY,
-	laboratorio INTEGER REFERENCES laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	softwares INTEGER REFERENCES software(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	turma INTEGER REFERENCES turma(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	curso INTEGER REFERENCES curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
-	professor VARCHAR NOT NULL,
-	tipo INTEGER NOT NULL,
-	data_ent DATE,
-	data_sai DATE,
-	hor_ent VARCHAR,
-	hor_sai VARCHAR
+    id INT PRIMARY KEY,
+    laboratorio INT REFERENCES laboratorio(id),
+    softwares INT REFERENCES software(id),
+    curso INT REFERENCES curso(id),
+    turma VARCHAR NOT NULL,
+    professor VARCHAR NOT NULL,
+    tipo INT NOT NULL,
+    modulo VARCHAR NOT NULL,
+    dia_semana VARCHAR NOT NULL,
+    obs VARCHAR
 );
