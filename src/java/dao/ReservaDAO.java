@@ -185,6 +185,28 @@ public class ReservaDAO {
         return arrayRes;
     }
 
+    public int qtdReservasDia() throws SQLException, ClassNotFoundException {
+        int qtd = 0;
+
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM reserva WHERE dia_semana = ?");
+            
+            pstmt.setString(1, reserva.getDiaSemana());
+            
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                qtd = rs.getInt("count");
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return qtd;
+    }
+    
     public int qtdReservas() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 

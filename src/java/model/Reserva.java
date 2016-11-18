@@ -7,6 +7,7 @@ public class Reserva {
 
     private int id;
     private int qtd;
+    private int qtdDia;
     private String tipo;
     private String diaDaSemana;
     private String modulo;
@@ -20,6 +21,14 @@ public class Reserva {
     private Curso curso = new Curso();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
+
+    public void setQtdDia(int qtdDia) {
+        this.qtdDia = qtdDia;
+    }
+
+    public int getQtdDia() {
+        return qtdDia;
+    }
 
     public String getDiaSemana() {
         Calendar calendar = Calendar.getInstance();
@@ -52,7 +61,7 @@ public class Reserva {
 
         return diaSemana;
     }
-    
+
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }

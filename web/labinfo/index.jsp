@@ -283,7 +283,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <h3>53</h3>
+                                    <h3><% out.println(r.getQtdDia()); %></h3>
 
                                     <p>Reservas Hoje</p>
                                 </div>

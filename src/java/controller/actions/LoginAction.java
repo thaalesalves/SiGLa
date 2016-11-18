@@ -50,6 +50,7 @@ public class LoginAction implements ICommand {
 
                 e.setQtd(equipdao.qtdEquip());
                 r.setQtd(resdao.qtdReservas());
+                r.setQtdDia(resdao.qtdReservasDia());
                 l.setQtd(daolab.qtdLabs());
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
