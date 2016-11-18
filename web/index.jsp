@@ -16,18 +16,22 @@
             }
 
             String login = null;
-            if ((String) request.getAttribute("login") != null) {
-                login = (String) request.getAttribute("login");
+            if ((String) session.getAttribute("login") != null) {
+                login = (String) session.getAttribute("login");
             }
         %>
         <script>
             var jslogin = "<%=login%>";
+
+            <% session.invalidate(); %>
 
             $(document).ready(function () {
                 if (jslogin == "false") {
                     $('#error-senha').toggle();
                 } else if (jslogin == "acesso") {
                     $('#error-access').toggle();
+                } else if (jslogin == "auth") {
+                    $('#error-auth').toggle();
                 }
             });
         </script>
@@ -45,6 +49,9 @@
                 </div>
                 <div class="alerta alerta-erro" id="error-access" style="display:none;">
                     <span class="forte">Eita!</span> <span>Você não tem permissão de acesso</span>
+                </div>
+                <div class="alerta alerta-erro" id="error-auth" style="display:none;">
+                    <span class="forte">Eita!</span> <span>Parece que o AD está com problema!</span>
                 </div>
                 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                     <input type="text" autocomplete="off" placeholder="Usuário" name="username" required autofocus />

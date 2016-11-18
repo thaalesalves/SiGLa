@@ -72,23 +72,23 @@ public class LoginAction implements ICommand {
                     session.setAttribute("laboratorio", l); // salva dados dos labs na sessão
                     session.setAttribute("reserva-qtd", r); // salva dados das reservas na sessão
                     session.setAttribute("equipamento", e); // salva dados das equipamentos na sessão
-                    return "pagina/home";
+                    return request.getContextPath() + "/pagina/home";
                 } else {
-                    request.setAttribute("login", "acesso");
-                    return "pagina/login"; // chama de volta a página de login
+                    session.setAttribute("login", "acesso");
+                    return request.getContextPath(); // chama de volta a página de login
                 }
             } // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="Login sem sucesso.">
             else { // caso o usuário não exista
-                request.setAttribute("login", "false");
-                return "pagina/login"; // chama de volta a página de login
+                session.setAttribute("login", "false");
+                return request.getContextPath(); // chama de volta a página de login
             } // </editor-fold>
         } catch (AuthenticationException e) {
-            request.setAttribute("login", "false");
-            return "pagina/login"; // chama de volta a página de login
+            session.setAttribute("auth", "false");
+            return request.getContextPath(); // chama de volta a página de login
         } catch (FileNotFoundException e) {
             session.setAttribute("exception", e);
-            return "error/error";
+            return request.getContextPath() + "/error/error";
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }

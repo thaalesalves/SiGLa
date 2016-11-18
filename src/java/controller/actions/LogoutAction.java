@@ -14,7 +14,7 @@ public class LogoutAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             request.getSession().invalidate(); // invalida a sessão
-            return "login"; // volta para o login
+            return request.getContextPath(); // volta para o login
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
             throw e;

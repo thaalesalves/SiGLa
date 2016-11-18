@@ -16,7 +16,7 @@
     </head>
     
     <%
-        FileNotFoundException e = (FileNotFoundException) request.getSession().getAttribute("exception");
+        Exception e = (Exception) request.getSession().getAttribute("exception");
     %>
     
     <body class="corpo">
