@@ -244,6 +244,7 @@ public class ActiveDirectory {
             return true; // login efetuado
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
             return false; // login não efetuado
         }
     }// </editor-fold>

@@ -338,23 +338,24 @@
 
                             <h3 class="box-title">Email Rápido</h3>
                         </div>
-                        <div class="box-body">
-                            <form action="#" method="post">
+                        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                            <div class="box-body">                            
                                 <div class="form-group">
-                                    <input type="email" class="form-control" name="emailto" placeholder="Destinatário">
+                                    <input required type="email" class="form-control" name="emailto" placeholder="Destinatário">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="subject" placeholder="Assunto">
+                                    <input required type="text" class="form-control" name="subject" placeholder="Assunto">
                                 </div>
                                 <div>
-                                    <textarea class="textarea" placeholder="Mensagem" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    <textarea required name="message" class="textarea" placeholder="Mensagem" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <button type="button" class="pull-right btn btn-default" id="sendEmail">Enviar
-                                <i class="fa fa-arrow-circle-right"></i></button>
-                        </div>
+
+                            </div>
+                            <div class="box-footer clearfix">
+                                <button value="EnviarEmail" name="acao" type="submit" class="pull-right btn btn-default" id="sendEmail">Enviar
+                                    <i class="fa fa-arrow-circle-right"></i></button>
+                            </div>
+                        </form>
                     </div>
 
                 </section>

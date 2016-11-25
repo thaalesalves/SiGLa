@@ -315,7 +315,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input id="qtd" required type='text' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input id="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Data</label>

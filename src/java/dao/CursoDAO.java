@@ -11,6 +11,7 @@ import util.DatabaseConnection;
 public class CursoDAO {
 
     private final String SELECT_ALL = "SELECT * FROM curso";
+    private final String SELECT_ID = "SELECT nome, modalidade FROM curso WHERE id = ?";
     private final String DELETE = "DELETE FROM curso WHERE id = ?";
     private final String INSERT = "INSERT INTO curso VALUES(NEXTVAL('seq_curso'), ?, ?)";
 
@@ -38,6 +39,25 @@ public class CursoDAO {
         }
 
         return ac;
+    }
+    
+    public Curso selectId(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement(SELECT_ID);
+            pstmt.setInt(1, c.getId());
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                c.setNome(rs.getString("nome"));
+                c.setModalidade(rs.getString("modalidade"));
+            }
+            
+            connString.close();
+        } catch (Exception e) {
+            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+        }
+        
+        return c;
     }
     
     public void insert(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {

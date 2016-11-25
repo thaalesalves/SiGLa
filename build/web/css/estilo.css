@@ -139,3 +139,14 @@
 .forte {
     font-weight: bold;
 }
+
+.message {
+    position: fixed;
+    top: 10em;
+    right: 10em;
+}
+
+#inner-message {
+    margin: 0 auto;
+}
+

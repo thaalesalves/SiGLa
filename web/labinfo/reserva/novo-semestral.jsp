@@ -21,6 +21,11 @@
         request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
     }
 
+    String status = null;
+    if ((String) session.getAttribute("status") != null) {
+        status = (String) session.getAttribute("status");
+    }
+
     asw = r.getSoftwares();
     ac = r.getCursos();
 %>
@@ -56,15 +61,39 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilo.css">
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <script>
+            var status = "<%=status%>";
+
+            $(document).ready(function () {
+                if (status == "success") {
+                    $('#msg-success').toggle();
+                } else if (status == "error") {
+                    $('#msg-error').toggle();
+                }
+            });
+        </script>
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
+        <div id="msg-error" class="message" style="display: none;">
+            <div id="inner-message" class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Eita!</strong> Algo deu errado!
+            </div>
+        </div>
+        <div id="msg-success" class="message" style="display: none;">
+            <div id="inner-message" class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Sucesso!</strong> Solicitação efetuada com sucesso!
+            </div>
+        </div>
         <div class="wrapper">
-
             <header class="main-header">
                 <!-- Logo -->
                 <a href="index2.html" class="logo">
@@ -317,7 +346,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" required type='text' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
@@ -388,53 +417,54 @@
     <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
 
     <script>
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
+            $(function () {
+                //Initialize Select2 Elements
+                $(".select2").select2();
 
-            //Datemask dd/mm/yyyy
-            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-            //Datemask2 mm/dd/yyyy
-            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-            //Money Euro
-            $("[data-mask]").inputmask();
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                //Datemask2 mm/dd/yyyy
+                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                //Money Euro
+                $("[data-mask]").inputmask();
 
-            //Date range picker
-            $('#reservation').daterangepicker();
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+                //Date range picker
+                $('#reservation').daterangepicker();
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
 
-            //Date picker
-            $('#datepicker').datepicker({
-                autoclose: true
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                });
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                });
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                });
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                });
+
+                //Colorpicker
+                $(".my-colorpicker1").colorpicker();
+                //color picker with addon
+                $(".my-colorpicker2").colorpicker();
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
             });
-
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-            //Colorpicker
-            $(".my-colorpicker1").colorpicker();
-            //color picker with addon
-            $(".my-colorpicker2").colorpicker();
-
-            //Timepicker
-            $(".timepicker").timepicker({
-                showInputs: false
-            });
-        });
     </script>
+    <% status = "";%>
 </body>
 </html>

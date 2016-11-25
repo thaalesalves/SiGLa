@@ -32,7 +32,7 @@ public class ReservaAction implements ICommand {
             } else {
                 reserva = dao.selectReserva(); // chama reservas gerais
             }
-
+            
             request.getSession().setAttribute("reserva", reserva);
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());

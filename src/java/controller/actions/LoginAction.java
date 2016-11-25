@@ -69,7 +69,6 @@ public class LoginAction implements ICommand {
 
                 if (acesso) {
                     session.setAttribute("pessoa", p); // salva dados do login na sessão
-
                     session.setAttribute("laboratorio", l); // salva dados dos labs na sessão
                     session.setAttribute("reserva-qtd", r); // salva dados das reservas na sessão
                     session.setAttribute("equipamento", e); // salva dados das equipamentos na sessão
