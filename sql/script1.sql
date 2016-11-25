@@ -221,6 +221,7 @@ INSERT INTO curso VALUES (2, 'Gestão de Projetos', 'MBA');
 -- Data for Name: laboratorio; Type: TABLE DATA; Schema: public; Owner: sigla
 --
 
+INSERT INTO laboratorio VALUES (1, '31-21', 25, 50);
 INSERT INTO laboratorio VALUES (2, '12-14', 25, 50);
 INSERT INTO laboratorio VALUES (3, '12-20', 25, 50);
 INSERT INTO laboratorio VALUES (4, '12-13', 25, 50);
@@ -370,23 +371,19 @@ ALTER TABLE ONLY reserva
 -- Data for Name: reserva; Type: TABLE DATA; Schema: public; Owner: sigla
 --
 
-INSERT INTO reserva VALUES (3, 2, 1, 1, '10ºA', 'thalespereira', 1, '1º módulo', 'Segunda-feira', NULL);
-INSERT INTO reserva VALUES (5, 2, 1, 2, '2', 'daniellemartin', 2, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (5, 3, 1, 2, '2', 'daniellemartin', 1, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (6, 2, 1, 2, '2', 'erikam', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (7, 2, 1, 2, '2', 'daisyeb', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (8, 2, 1, 2, '2', 'wolley', 2, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (7, 2, 1, 2, '2', 'daisyeb', 1, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (8, 1, 1, 2, '2', 'wolley', 2, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (9, 2, 1, 2, '2', 'ptoledo', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (10, 2, 1, 2, '2', 'morales', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (11, 2, 1, 2, '2', 'mori', 2, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (12, 2, 1, 2, '2', 'adilson', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (13, 2, 1, 2, '2', 'ronaldo.vitoria', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (14, 2, 1, 2, '2', 'fretz.junior', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (15, 2, 1, 2, '2', 'andreaono', 2, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (13, 4, 1, 2, '2', 'ronaldo.vitoria', 2, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (14, 2, 1, 2, '2', 'fretz.junior', 1, '1º módulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (15, 5, 1, 2, '2', 'andreaono', 2, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (17, 2, 1, 2, '2', 'mapa', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (18, 2, 1, 2, '2', 'ricardostoll', 2, '1º módulo', 'Quinta-feira', NULL);
+INSERT INTO reserva VALUES (18, 3, 1, 2, '2', 'ricardostoll', 2, '1º módulo', 'Quinta-feira', NULL);
 INSERT INTO reserva VALUES (19, 2, 1, 2, '2', 'marciab', 1, '1º módulo', 'Quinta-feira', NULL);
-INSERT INTO reserva VALUES (20, 2, 1, 2, '2', 'rizieri', 1, '1º módulo', 'Quinta-feira', NULL);
-INSERT INTO reserva VALUES (22, 2, 1, 2, '2', 'franciscazanettin', 1, '1º módulo', 'Quinta-feira', NULL);
+INSERT INTO reserva VALUES (22, 1, 1, 2, '2', 'franciscazanettin', 1, '1º módulo', 'Quinta-feira', NULL);
 
 -- Completed on 2016-11-17 21:11:06
 
