@@ -1,5 +1,5 @@
 // <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
-package activedirectory;
+package util;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

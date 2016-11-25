@@ -1,6 +1,6 @@
 package controller.actions;
 
-import activedirectory.ActiveDirectory;
+import util.ActiveDirectory;
 import dao.ReservaDAO;
 import java.io.IOException;
 import java.net.ConnectException;

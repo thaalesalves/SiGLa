@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import model.Reserva;
-import model.Mail;
+import util.Mail;
 
 public class InserirReservaSemestralAction implements ICommand {
 
@@ -50,7 +50,7 @@ public class InserirReservaSemestralAction implements ICommand {
             
             dao.insertSemestral(r);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Erro em " + this.getClass().getSimpleName() + ": " + e.getMessage());
             session.setAttribute("status", "error");
             return request.getContextPath() + "/reserva/listar-semestral";
         }

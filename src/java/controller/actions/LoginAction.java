@@ -1,6 +1,6 @@
 package controller.actions;
 
-import activedirectory.ActiveDirectory;
+import util.ActiveDirectory;
 import dao.EquipamentoDAO;
 import dao.LaboratorioDAO;
 import dao.ReservaDAO;

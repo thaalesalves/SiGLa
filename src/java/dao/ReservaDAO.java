@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import util.DatabaseConnection;
-import activedirectory.ActiveDirectory;
+import util.ActiveDirectory;
 import java.util.Calendar;
 import model.Reserva;
 

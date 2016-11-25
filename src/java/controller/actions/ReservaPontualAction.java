@@ -2,7 +2,7 @@ package controller.actions;
 
 import model.*;
 import dao.*;
-import activedirectory.ActiveDirectory;
+import util.ActiveDirectory;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
