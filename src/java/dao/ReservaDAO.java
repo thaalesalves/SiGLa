@@ -103,7 +103,7 @@ public class ReservaDAO {
 
         return arrayRes;
     }
-    
+
     public ArrayList<Reserva> selectReserva(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
@@ -190,9 +190,9 @@ public class ReservaDAO {
 
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM reserva WHERE dia_semana = ?");
-            
+
             pstmt.setString(1, reserva.getDiaSemana());
-            
+
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -206,7 +206,7 @@ public class ReservaDAO {
 
         return qtd;
     }
-    
+
     public int qtdReservas() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 

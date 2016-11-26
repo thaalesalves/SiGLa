@@ -9,23 +9,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import util.Mail;
+import mailsender.Mail;
+import mailsender.MailMessage;
 import model.Pessoa;
 
 public class EnviarEmailAction implements ICommand {
-    
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             HttpSession session = request.getSession();
-            Mail mail = new Mail();
+            Mail mail = new MailMessage();
             Pessoa pessoa = (Pessoa) session.getAttribute("pessoa");
-            
-            mail.setPessoa(pessoa);
-            mail.setDestinatario(request.getParameter("emailto"));
+
+            mail.getReserva().setPessoa(pessoa);
+            mail.setRecipient(request.getParameter("emailto"));
             mail.setSubject(request.getParameter("subject"));
-            mail.setMensagem(request.getParameter("message"));
-            
+            mail.setMessage(request.getParameter("message"));
+
             mail.sendMail(mail);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,12 +1,12 @@
 /*
-Input Mask plugin extensions
-http://github.com/RobinHerbots/jquery.inputmask
-Copyright (c) 2010 - 2014 Robin Herbots
-Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-Version: 0.0.0
-
-Optional extensions on the jquery.inputmask base
-*/
+ Input Mask plugin extensions
+ http://github.com/RobinHerbots/jquery.inputmask
+ Copyright (c) 2010 - 2014 Robin Herbots
+ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ Version: 0.0.0
+ 
+ Optional extensions on the jquery.inputmask base
+ */
 (function ($) {
     //extra definitions
     $.extend($.inputmask.defaults.definitions, {
@@ -59,12 +59,14 @@ Optional extensions on the jquery.inputmask base
                                             if (!strict && !isValid) {
                                                 pos = pos - j;
                                                 for (k = 0; k < opts.defaultPrefix.length; k++) {
-                                                    buffer[pos] = opts.defaultPrefix[k]; pos++;
+                                                    buffer[pos] = opts.defaultPrefix[k];
+                                                    pos++;
                                                 }
                                                 for (k = 0; k < tmp.length - 1; k++) {
-                                                    buffer[pos] = tmp[k]; pos++;
+                                                    buffer[pos] = tmp[k];
+                                                    pos++;
                                                 }
-                                                return { "pos": pos };
+                                                return {"pos": pos};
                                             }
                                             return isValid;
                                         } else {
@@ -85,7 +87,7 @@ Optional extensions on the jquery.inputmask base
             insertMode: false,
             autoUnmask: false
         },
-        "ip": { //ip-address mask
+        "ip": {//ip-address mask
             mask: ["[[x]y]z.[[x]y]z.[[x]y]z.x[yz]", "[[x]y]z.[[x]y]z.[[x]y]z.[[x]y][z]"],
             definitions: {
                 'x': {
@@ -97,7 +99,8 @@ Optional extensions on the jquery.inputmask base
                     validator: function (chrs, buffer, pos, strict, opts) {
                         if (pos - 1 > -1 && buffer[pos - 1] != ".")
                             chrs = buffer[pos - 1] + chrs;
-                        else chrs = "0" + chrs;
+                        else
+                            chrs = "0" + chrs;
                         return new RegExp("2[0-5]|[01][0-9]").test(chrs);
                     },
                     cardinality: 1,
@@ -109,8 +112,10 @@ Optional extensions on the jquery.inputmask base
                             chrs = buffer[pos - 1] + chrs;
                             if (pos - 2 > -1 && buffer[pos - 2] != ".") {
                                 chrs = buffer[pos - 2] + chrs;
-                            } else chrs = "0" + chrs;
-                        } else chrs = "00" + chrs;
+                            } else
+                                chrs = "0" + chrs;
+                        } else
+                            chrs = "00" + chrs;
                         return new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]").test(chrs);
                     },
                     cardinality: 1,

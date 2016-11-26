@@ -98,7 +98,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return cn; // retorna o nome completo
+        return cn.trim(); // retorna o nome completo
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getCN(Reserva).">
@@ -115,7 +115,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return cn; // retorna o nome completo
+        return cn.trim(); // retorna o nome completo
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getTitle(Pessoa).">
@@ -132,7 +132,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return title.replaceAll("^\\s+|\\s+$", ""); // retorno do cargo
+        return title.replaceAll("^\\s+|\\s+$", "").trim(); // retorno do cargo
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getDepartment(Pessoa).">
@@ -149,7 +149,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return depto; // retorno do cargo
+        return depto.trim(); // retorno do cargo
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Pessoa).">
@@ -166,7 +166,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return givenName; // retorno do nome
+        return givenName.trim(); // retorno do nome
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Reserva).">
@@ -183,7 +183,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        return givenName; // retorno do nome
+        return givenName.trim(); // retorno do nome
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getOffice(Pessoa).">
@@ -201,7 +201,7 @@ public class ActiveDirectory {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
 
-        return physicalDeliveryOfficeName.replaceAll("\\D+", "");
+        return physicalDeliveryOfficeName.replaceAll("\\D+", "").trim();
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa).">

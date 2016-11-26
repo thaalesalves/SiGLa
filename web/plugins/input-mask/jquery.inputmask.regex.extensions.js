@@ -1,15 +1,15 @@
 /*
-Input Mask plugin extensions
-http://github.com/RobinHerbots/jquery.inputmask
-Copyright (c) 2010 - 2014 Robin Herbots
-Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
-Version: 0.0.0
-
-Regex extensions on the jquery.inputmask base
-Allows for using regular expressions as a mask
-*/
+ Input Mask plugin extensions
+ http://github.com/RobinHerbots/jquery.inputmask
+ Copyright (c) 2010 - 2014 Robin Herbots
+ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+ Version: 0.0.0
+ 
+ Regex extensions on the jquery.inputmask base
+ Allows for using regular expressions as a mask
+ */
 (function ($) {
-    $.extend($.inputmask.defaults.aliases, { // $(selector).inputmask("Regex", { regex: "[0-9]*"}
+    $.extend($.inputmask.defaults.aliases, {// $(selector).inputmask("Regex", { regex: "[0-9]*"}
         'Regex': {
             mask: "r",
             greedy: false,
@@ -120,7 +120,8 @@ Allows for using regular expressions as a mask
                                         testExp = (testExp + matchToken[k]).replace(/\|$/, "");
                                         var exp = new RegExp("^(" + testExp + openGroupCloser + ")$");
                                         isvalid = exp.test(bufferStr);
-                                        if (isvalid) break;
+                                        if (isvalid)
+                                            break;
                                     }
                                     regexPart += matchToken;
                                     //console.log(bufferStr + " " + exp + " " + isvalid);
@@ -134,7 +135,8 @@ Allows for using regular expressions as a mask
                                     isvalid = exp.test(bufferStr);
                                     //console.log(bufferStr + " " + exp + " " + isvalid);
                                 }
-                                if (isvalid) break;
+                                if (isvalid)
+                                    break;
                             }
 
                             if (fromGroup) {
@@ -156,7 +158,8 @@ Allows for using regular expressions as a mask
                         for (var i = 0; i < opts.regexTokens.length; i++) {
                             var regexToken = opts.regexTokens[i];
                             isValid = validateRegexToken(regexToken, regexToken["isGroup"]);
-                            if (isValid) break;
+                            if (isValid)
+                                break;
                         }
 
                         return isValid;

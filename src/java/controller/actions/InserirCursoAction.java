@@ -24,7 +24,7 @@ public class InserirCursoAction implements ICommand {
 
             c.setNome(request.getParameter("curso"));
             c.setModalidade(request.getParameter("modalidade"));
-            
+
             dao.insert(c);
         } catch (Exception e) {
             e.printStackTrace();

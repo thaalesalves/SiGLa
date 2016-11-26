@@ -12,9 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mailsender.Mail;
+import mailsender.MailSemestral;
 import model.Pessoa;
 import model.Reserva;
-import util.Mail;
 
 public class InserirReservaSemestralAction implements ICommand {
 
@@ -22,8 +23,8 @@ public class InserirReservaSemestralAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
-            Mail mail = new Mail();
-            
+            Mail mail = new MailSemestral();
+
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
             ReservaDAO dao = new ReservaDAO();
@@ -33,23 +34,26 @@ public class InserirReservaSemestralAction implements ICommand {
             r.setDiaDaSemana(request.getParameter("dia-semana"));
             r.setModulo(request.getParameter("modulo"));
             r.setTurma(request.getParameter("turma"));
-            r.setQtd(Integer.parseInt(request.getParameter("qtd")));                
+            r.setQtd(Integer.parseInt(request.getParameter("qtd")));
             r.getSoftware().setId(Integer.parseInt(request.getParameter("softwares").trim()));
             r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
-            
+
             if (request.getParameter("obs") == null) {
                 r.setObservacao("Nenhuma informada.");
             } else {
-                r.setObservacao(request.getParameter("obs")); 
+                r.setObservacao(request.getParameter("obs"));
             }
-            
+
             r.setSoftware(sdao.selectId(r.getSoftware()));
             r.setCurso(cdao.selectId(r.getCurso()));
-            
-            mail.sendEmailReservaSemestral(r.getPessoa(), r);
-            
+
+            mail.setReserva(r);
+
+            mail.sendMail(mail);
+
             dao.insertSemestral(r);
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("Erro em " + this.getClass().getSimpleName() + ": " + e.getMessage());
             session.setAttribute("status", "error");
             return request.getContextPath() + "/reserva/listar-semestral";

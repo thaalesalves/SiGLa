@@ -38,24 +38,24 @@ public class SoftwareDAO {
 
         return sws;
     }
-    
+
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException {
-        
+
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(SELECT_ID);
             pstmt.setInt(1, s.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 s.setNome(rs.getString("nome"));
                 s.setFabricante(rs.getString("fabricante"));
             }
-            
+
             connString.close();
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        
+
         return s;
     }
 }

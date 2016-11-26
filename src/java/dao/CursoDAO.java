@@ -40,49 +40,49 @@ public class CursoDAO {
 
         return ac;
     }
-    
+
     public Curso selectId(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(SELECT_ID);
             pstmt.setInt(1, c.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 c.setNome(rs.getString("nome"));
                 c.setModalidade(rs.getString("modalidade"));
             }
-            
+
             connString.close();
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-        
+
         return c;
     }
-    
+
     public void insert(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT);
-            
+
             pstmt.setString(1, c.getNome());
             pstmt.setString(2, c.getModalidade());
-            
+
             pstmt.executeUpdate();
-            
+
             connString.close();
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
     }
-    
+
     public void delete(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(DELETE);
-            
+
             pstmt.setInt(1, c.getId());
-            
+
             pstmt.executeUpdate();
-            
+
             connString.close();
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());

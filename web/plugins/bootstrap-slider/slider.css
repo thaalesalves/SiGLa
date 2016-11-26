@@ -122,13 +122,13 @@
     display: none;
 }
 .slider .tooltip.top {
-  margin-top: -36px;
+    margin-top: -36px;
 }
 .slider .tooltip-inner {
     white-space: nowrap;
 }
 .slider .hide {
-  display: none;
+    display: none;
 }
 .slider-track {
     position: absolute;

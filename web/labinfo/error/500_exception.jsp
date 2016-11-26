@@ -14,11 +14,11 @@
         <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Mandali|Overlock+SC|Raleway+Dots|Roboto" rel="stylesheet">
     </head>
-    
+
     <%
         Exception e = (Exception) request.getSession().getAttribute("exception");
     %>
-    
+
     <body class="corpo">
         <div class="text-center">
             <h1 class="error-code">500</h1><br />
