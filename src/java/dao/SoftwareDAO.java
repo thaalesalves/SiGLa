@@ -13,6 +13,7 @@ public class SoftwareDAO {
     private final String SELECT_ALL = "SELECT id, nome, fabricante FROM software;";
     private final String SELECT_ID = "SELECT fabricante, nome FROM software WHERE id = ?";
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectAll()">
     public ArrayList<Software> selectAll() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Software> sws = new ArrayList<Software>();
 
@@ -37,8 +38,9 @@ public class SoftwareDAO {
         }
 
         return sws;
-    }
+    }//</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectId(Software)">
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException {
 
         try (Connection connString = DatabaseConnection.getConnection()) {
@@ -57,5 +59,5 @@ public class SoftwareDAO {
         }
 
         return s;
-    }
+    }//</editor-fold>
 }

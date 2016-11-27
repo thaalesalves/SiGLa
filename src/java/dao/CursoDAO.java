@@ -15,6 +15,7 @@ public class CursoDAO {
     private final String DELETE = "DELETE FROM curso WHERE id = ?";
     private final String INSERT = "INSERT INTO curso VALUES(NEXTVAL('seq_curso'), ?, ?)";
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectAll()">
     public ArrayList<Curso> selectAll() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Curso> ac = new ArrayList<Curso>();
 
@@ -39,8 +40,9 @@ public class CursoDAO {
         }
 
         return ac;
-    }
+    }//</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectId(Curso)">
     public Curso selectId(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(SELECT_ID);
@@ -58,8 +60,9 @@ public class CursoDAO {
         }
 
         return c;
-    }
+    }//</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: insert(Curso)">
     public void insert(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT);
@@ -73,8 +76,9 @@ public class CursoDAO {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-    }
+    }//</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: delete(Curso)">
     public void delete(Curso c) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(DELETE);
@@ -87,5 +91,5 @@ public class CursoDAO {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-    }
+    }//</editor-fold>
 }

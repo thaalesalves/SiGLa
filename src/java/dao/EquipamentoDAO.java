@@ -6,11 +6,14 @@ import util.*;
 
 public class EquipamentoDAO {
 
+    private final String SELECT_QTD = "SELECT COUNT(*) FROM equipamento";
+    
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdEquipe()">
     public int qtdEquip() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM equipamento");
+            PreparedStatement pstmt = connString.prepareStatement(SELECT_QTD);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -23,5 +26,5 @@ public class EquipamentoDAO {
         }
 
         return qtd;
-    }
+    }//</editor-fold>
 }

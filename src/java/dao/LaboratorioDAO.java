@@ -6,11 +6,14 @@ import util.*;
 
 public class LaboratorioDAO {
 
+    private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
+    
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdLabs()">
     public int qtdLabs() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM laboratorio");
+            PreparedStatement pstmt = connString.prepareStatement(SELECT_QTD);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -23,5 +26,5 @@ public class LaboratorioDAO {
         }
 
         return qtd;
-    }
+    }//</editor-fold>
 }
