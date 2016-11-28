@@ -33,8 +33,6 @@ public class ReservaDAO {
                 Reserva r = new Reserva();
 
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
-                r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getLab().setNumero(rs.getString("laboratorio"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));
                 r.getSoftware().setNome(rs.getString("software"));
@@ -76,8 +74,6 @@ public class ReservaDAO {
                 Reserva r = new Reserva();
 
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
-                r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getLab().setNumero(rs.getString("laboratorio"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));
                 r.getSoftware().setNome(rs.getString("software"));
@@ -117,8 +113,6 @@ public class ReservaDAO {
                 Reserva r = new Reserva();
 
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
-                r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getLab().setNumero(rs.getString("laboratorio"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));
                 r.getSoftware().setNome(rs.getString("software"));
@@ -159,8 +153,6 @@ public class ReservaDAO {
                 Reserva r = new Reserva();
 
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
-                r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getLab().setNumero(rs.getString("laboratorio"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));
                 r.getSoftware().setNome(rs.getString("software"));
@@ -278,12 +270,5 @@ public class ReservaDAO {
         } catch (Exception e) {
             System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
         }
-    }//</editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Active Directory">
-    private ActiveDirectory ad;
-
-    public void setAd(ActiveDirectory ad) {
-        this.ad = ad;
     }//</editor-fold>
 }

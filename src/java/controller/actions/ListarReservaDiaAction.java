@@ -25,7 +25,6 @@ public class ListarReservaDiaAction implements ICommand {
             ArrayList<Reserva> reserva = new ArrayList<Reserva>();
             ActiveDirectory ad = new ActiveDirectory();
             ad.login(p);
-            dao.setAd(ad);
 
             if (p.getCargo().equals("Professor")) {
                 reserva = dao.selectReservaDia(r); // chama reserva de professor
