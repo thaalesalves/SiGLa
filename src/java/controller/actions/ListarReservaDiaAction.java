@@ -19,17 +19,21 @@ public class ListarReservaDiaAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             ReservaDAO dao = new ReservaDAO();
-            Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
             Reserva r = new Reserva();
-            r.setPessoa(p);
+            r.setPessoa((Pessoa) request.getSession().getAttribute("pessoa"));
             ArrayList<Reserva> reserva = new ArrayList<Reserva>();
             ActiveDirectory ad = new ActiveDirectory();
-            ad.login(p);
+            ad.login(r.getPessoa());
 
-            if (p.getCargo().equals("Professor")) {
-                reserva = dao.selectReservaDia(r); // chama reserva de professor
+            if (r.getPessoa().getCargo().equals("Professor")) {
+                reserva = dao.selectReserva(r); // chama reserva de professor
             } else {
-                reserva = dao.selectReservaDia(); // chama reservas gerais
+                reserva = dao.selectReserva(); // chama reservas gerais
+            }
+
+            for (Reserva res : reserva) {
+                reserva.get(reserva.indexOf(res)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(res)).getPessoa()));
+                reserva.get(reserva.indexOf(res)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(res)).getPessoa()));
             }
 
             request.getSession().setAttribute("reserva", reserva);
