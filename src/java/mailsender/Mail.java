@@ -25,18 +25,15 @@ public abstract class Mail {
     public Session getSession(Mail mail) {
         final Properties props = new Properties();
         
-        props.put("mail.smtp.host", "smtp.office365.com");
+        props.put("mail.smtp.host", "direct.uesp.net.br");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", 587);
-        //props.put("mail.smtp.user", mail.getReserva().getPessoa().getEmail());
-        //props.put("mail.smtp.password", mail.getReserva().getPessoa().getSenha());
+        props.put("mail.smtp.port", 25);
         
         final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail.getReserva().getPessoa().getEmail(), mail.getReserva().getPessoa().getSenha());
+                return new PasswordAuthentication("thales", "rosebud");
             }
         });
         

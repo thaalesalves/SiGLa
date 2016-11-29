@@ -17,7 +17,7 @@ public class MailSemestral extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(mail.getSession(mail));
-            message.setFrom(new InternetAddress(mail.getReserva().getPessoa().getEmail()));
+            message.setFrom(new InternetAddress("Laboratório de Informática <suporte.lab.mc@umc.br>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getReserva().getPessoa().getEmail()));
             message.setSubject("Reserva de Laboratório");
             message.setText(mail.getMessage(mail));
