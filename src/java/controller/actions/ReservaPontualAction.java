@@ -1,8 +1,6 @@
 package controller.actions;
 
-import model.*;
-import dao.*;
-import util.ActiveDirectory;
+import dao.ReservaDAO;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
@@ -10,6 +8,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pessoa;
 
 public class ReservaPontualAction implements ICommand {
 

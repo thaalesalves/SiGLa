@@ -2,7 +2,6 @@
 package util;
 
 import java.io.FileNotFoundException;
-import model.*;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -13,6 +12,9 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
+import model.Grupo;
+import model.Pessoa;
+import model.Reserva;
 // </editor-fold>
 
 public class ActiveDirectory {
