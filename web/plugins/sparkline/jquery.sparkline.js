@@ -412,12 +412,10 @@
         $.SPFormatClass = SPFormat = createClass({
             fre: /\{\{([\w.]+?)(:(.+?))?\}\}/g,
             precre: /(\w+)\.(\d+)/,
-
             init: function (format, fclass) {
                 this.format = format;
                 this.fclass = fclass;
             },
-
             render: function (fieldset, lookups, options) {
                 var self = this,
                         fields = fieldset,
@@ -662,7 +660,6 @@
                 this.map = map;
                 this.rangelist = rangelist || false;
             },
-
             get: function (value) {
                 var rangelist = this.rangelist,
                         i, range, result;
@@ -700,14 +697,12 @@
                 this.displayTooltips = !options.get('disableTooltips');
                 this.highlightEnabled = !options.get('disableHighlight');
             },
-
             registerSparkline: function (sp) {
                 this.splist.push(sp);
                 if (this.over) {
                     this.updateDisplay();
                 }
             },
-
             registerCanvas: function (canvas) {
                 var $canvas = $(canvas.canvas);
                 this.canvas = canvas;
@@ -716,7 +711,6 @@
                 $canvas.mouseleave($.proxy(this.mouseleave, this));
                 $canvas.click($.proxy(this.mouseclick, this));
             },
-
             reset: function (removeTooltip) {
                 this.splist = [];
                 if (this.tooltip && removeTooltip) {
@@ -724,14 +718,12 @@
                     this.tooltip = undefined;
                 }
             },
-
             mouseclick: function (e) {
                 var clickEvent = $.Event('sparklineClick');
                 clickEvent.originalEvent = e;
                 clickEvent.sparklines = this.splist;
                 this.$el.trigger(clickEvent);
             },
-
             mouseenter: function (e) {
                 $(document.body).unbind('mousemove.jqs');
                 $(document.body).bind('mousemove.jqs', $.proxy(this.mousemove, this));
@@ -745,7 +737,6 @@
                 }
                 this.updateDisplay();
             },
-
             mouseleave: function () {
                 $(document.body).unbind('mousemove.jqs');
                 var splist = this.splist,
@@ -771,7 +762,6 @@
                     this.canvas.render();
                 }
             },
-
             mousemove: function (e) {
                 this.currentPageX = e.pageX;
                 this.currentPageY = e.pageY;
@@ -781,7 +771,6 @@
                 }
                 this.updateDisplay();
             },
-
             updateDisplay: function () {
                 var splist = this.splist,
                         spcount = splist.length,
@@ -828,7 +817,6 @@
                     'display: block !important;' +
                     'visibility: hidden !important;' +
                     'float: left !important;',
-
             init: function (options) {
                 var tooltipClassname = options.get('tooltipClassname', 'jqstooltip'),
                         sizetipStyle = this.sizeStyle,
@@ -857,21 +845,18 @@
                 $(window).bind('resize.jqs scroll.jqs', $.proxy(this.updateWindowDims, this));
                 this.updateWindowDims();
             },
-
             updateWindowDims: function () {
                 this.scrollTop = $(window).scrollTop();
                 this.scrollLeft = $(window).scrollLeft();
                 this.scrollRight = this.scrollLeft + $(window).width();
                 this.updatePosition();
             },
-
             getSize: function (content) {
                 this.sizetip.html(content).appendTo(this.container);
                 this.width = this.sizetip.width() + 1;
                 this.height = this.sizetip.height();
                 this.sizetip.remove();
             },
-
             setContent: function (content) {
                 if (!content) {
                     this.tooltip.css('visibility', 'hidden');
@@ -890,7 +875,6 @@
                     this.updatePosition();
                 }
             },
-
             updatePosition: function (x, y) {
                 if (x === undefined) {
                     if (this.mousex === undefined) {
@@ -924,7 +908,6 @@
                     'top': y
                 });
             },
-
             remove: function () {
                 this.tooltip.remove();
                 this.sizetip.remove();
@@ -1065,7 +1048,6 @@
                 }
                 this.mergedOptions = $.extend({}, base, extendedOptions, userOptions);
             },
-
             getTagSetting: function (key) {
                 var prefix = this.tagOptionsPrefix,
                         val, i, pairs, keyval;
@@ -1097,7 +1079,6 @@
                 }
                 return val;
             },
-
             get: function (key, defaultval) {
                 var tagOption = this.getTagSetting(key),
                         result;
@@ -1111,7 +1092,6 @@
 
         $.fn.sparkline._base = createClass({
             disabled: false,
-
             init: function (el, values, options, width, height) {
                 this.el = el;
                 this.$el = $(el);
@@ -1121,7 +1101,6 @@
                 this.height = height;
                 this.currentRegion = undefined;
             },
-
             /**
              * Setup the canvas
              */
@@ -1134,7 +1113,6 @@
                     this.canvasHeight = this.target.pixelHeight;
                 }
             },
-
             /**
              * Actually render the chart to the canvas
              */
@@ -1145,13 +1123,11 @@
                 }
                 return true;
             },
-
             /**
              * Return a region id for a given x/y co-ordinate
              */
             getRegion: function (x, y) {
             },
-
             /**
              * Highlight an item based on the moused-over x,y co-ordinate
              */
@@ -1175,7 +1151,6 @@
                 }
                 return false;
             },
-
             /**
              * Reset any currently highlighted item
              */
@@ -1187,17 +1162,13 @@
                 }
                 return false;
             },
-
             renderHighlight: function () {
                 this.changeHighlight(true);
             },
-
             removeHighlight: function () {
                 this.changeHighlight(false);
             },
-
             changeHighlight: function (highlight) {},
-
             /**
              * Fetch the HTML to display as a tooltip
              */
@@ -1266,9 +1237,7 @@
                 }
                 return '';
             },
-
             getCurrentRegionFields: function () {},
-
             calcHighlightColor: function (color, options) {
                 var highlightColor = options.get('highlightColor'),
                         lighten = options.get('highlightLighten'),
@@ -1314,7 +1283,6 @@
                     }
                 }
             },
-
             render: function () {
                 var values = this.values,
                         target = this.target,
@@ -1352,7 +1320,6 @@
          */
         $.fn.sparkline.line = line = createClass($.fn.sparkline._base, {
             type: 'line',
-
             init: function (el, values, options, width, height) {
                 line._super.init.call(this, el, values, options, width, height);
                 this.vertices = [];
@@ -1364,7 +1331,6 @@
                 this.lastShapeId = null;
                 this.initTarget();
             },
-
             getRegion: function (el, x, y) {
                 var i,
                         regionMap = this.regionMap; // maps regions to value positions
@@ -1375,7 +1341,6 @@
                 }
                 return undefined;
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
@@ -1387,7 +1352,6 @@
                     offset: currentRegion
                 };
             },
-
             renderHighlight: function () {
                 var currentRegion = this.currentRegion,
                         target = this.target,
@@ -1414,7 +1378,6 @@
                     target.insertAfterShape(this.lastShapeId, highlightLine);
                 }
             },
-
             removeHighlight: function () {
                 var target = this.target;
                 if (this.highlightSpotId) {
@@ -1426,7 +1389,6 @@
                     this.highlightLineId = null;
                 }
             },
-
             scanValues: function () {
                 var values = this.values,
                         valcount = values.length,
@@ -1472,7 +1434,6 @@
                 this.yminmax = yminmax;
 
             },
-
             processRangeOptions: function () {
                 var options = this.options,
                         normalRangeMin = options.get('normalRangeMin'),
@@ -1500,7 +1461,6 @@
                 }
 
             },
-
             drawNormalRange: function (canvasLeft, canvasTop, canvasHeight, canvasWidth, rangey) {
                 var normalRangeMin = this.options.get('normalRangeMin'),
                         normalRangeMax = this.options.get('normalRangeMax'),
@@ -1508,7 +1468,6 @@
                         height = Math.round((canvasHeight * (normalRangeMax - normalRangeMin)) / rangey);
                 this.target.drawRect(canvasLeft, ytop, canvasWidth, height, undefined, this.options.get('normalRangeColor')).append();
             },
-
             render: function () {
                 var options = this.options,
                         target = this.target,
@@ -1702,7 +1661,6 @@
          */
         $.fn.sparkline.bar = bar = createClass($.fn.sparkline._base, barHighlightMixin, {
             type: 'bar',
-
             init: function (el, values, options, width, height) {
                 var barWidth = parseInt(options.get('barWidth'), 10),
                         barSpacing = parseInt(options.get('barSpacing'), 10),
@@ -1842,12 +1800,10 @@
 
                 this.range = range;
             },
-
             getRegion: function (el, x, y) {
                 var result = Math.floor(x / this.totalBarWidth);
                 return (result < 0 || result >= this.values.length) ? undefined : result;
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion,
                         values = ensureArray(this.values[currentRegion]),
@@ -1864,7 +1820,6 @@
                 }
                 return result;
             },
-
             calcColor: function (stacknum, value, valuenum) {
                 var colorMapByIndex = this.colorMapByIndex,
                         colorMapByValue = this.colorMapByValue,
@@ -1885,7 +1840,6 @@
                 }
                 return $.isArray(color) ? color[stacknum % color.length] : color;
             },
-
             /**
              * Render bar(s) for a region
              */
@@ -1958,7 +1912,6 @@
          */
         $.fn.sparkline.tristate = tristate = createClass($.fn.sparkline._base, barHighlightMixin, {
             type: 'tristate',
-
             init: function (el, values, options, width, height) {
                 var barWidth = parseInt(options.get('barWidth'), 10),
                         barSpacing = parseInt(options.get('barSpacing'), 10);
@@ -1983,11 +1936,9 @@
                 }
                 this.initTarget();
             },
-
             getRegion: function (el, x, y) {
                 return Math.floor(x / this.totalBarWidth);
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
@@ -1997,7 +1948,6 @@
                     offset: currentRegion
                 };
             },
-
             calcColor: function (value, valuenum) {
                 var values = this.values,
                         options = this.options,
@@ -2018,7 +1968,6 @@
                 }
                 return color;
             },
-
             renderRegion: function (valuenum, highlight) {
                 var values = this.values,
                         options = this.options,
@@ -2056,7 +2005,6 @@
          */
         $.fn.sparkline.discrete = discrete = createClass($.fn.sparkline._base, barHighlightMixin, {
             type: 'discrete',
-
             init: function (el, values, options, width, height) {
                 discrete._super.init.call(this, el, values, options, width, height);
 
@@ -2079,11 +2027,9 @@
                     this.lineHeight = options.get('lineHeight') === 'auto' ? Math.round(this.canvasHeight * 0.3) : options.get('lineHeight');
                 }
             },
-
             getRegion: function (el, x, y) {
                 return Math.floor(x / this.itemWidth);
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
@@ -2092,7 +2038,6 @@
                     offset: currentRegion
                 };
             },
-
             renderRegion: function (valuenum, highlight) {
                 var values = this.values,
                         options = this.options,
@@ -2122,7 +2067,6 @@
          */
         $.fn.sparkline.bullet = bullet = createClass($.fn.sparkline._base, {
             type: 'bullet',
-
             init: function (el, values, options, width, height) {
                 var min, max, vals;
                 bullet._super.init.call(this, el, values, options, width, height);
@@ -2153,12 +2097,10 @@
                 }
                 this.initTarget();
             },
-
             getRegion: function (el, x, y) {
                 var shapeid = this.target.getShapeAt(el, x, y);
                 return (shapeid !== undefined && this.shapes[shapeid] !== undefined) ? this.shapes[shapeid] : undefined;
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
@@ -2167,7 +2109,6 @@
                     region: currentRegion
                 };
             },
-
             changeHighlight: function (highlight) {
                 var currentRegion = this.currentRegion,
                         shapeid = this.valueShapes[currentRegion],
@@ -2188,7 +2129,6 @@
                 this.shapes[shape.id] = currentRegion;
                 this.target.replaceWithShape(shapeid, shape);
             },
-
             renderRange: function (rn, highlight) {
                 var rangeval = this.values[rn],
                         rangewidth = Math.round(this.canvasWidth * ((rangeval - this.min) / this.range)),
@@ -2198,7 +2138,6 @@
                 }
                 return this.target.drawRect(0, 0, rangewidth - 1, this.canvasHeight - 1, color, color);
             },
-
             renderPerformance: function (highlight) {
                 var perfval = this.values[1],
                         perfwidth = Math.round(this.canvasWidth * ((perfval - this.min) / this.range)),
@@ -2209,7 +2148,6 @@
                 return this.target.drawRect(0, Math.round(this.canvasHeight * 0.3), perfwidth - 1,
                         Math.round(this.canvasHeight * 0.4) - 1, color, color);
             },
-
             renderTarget: function (highlight) {
                 var targetval = this.values[0],
                         x = Math.round(this.canvasWidth * ((targetval - this.min) / this.range) - (this.options.get('targetWidth') / 2)),
@@ -2221,7 +2159,6 @@
                 }
                 return this.target.drawRect(x, targettop, this.options.get('targetWidth') - 1, targetheight - 1, color, color);
             },
-
             render: function () {
                 var vlen = this.values.length,
                         target = this.target,
@@ -2253,7 +2190,6 @@
          */
         $.fn.sparkline.pie = pie = createClass($.fn.sparkline._base, {
             type: 'pie',
-
             init: function (el, values, options, width, height) {
                 var total = 0, i;
 
@@ -2276,12 +2212,10 @@
                 this.initTarget();
                 this.radius = Math.floor(Math.min(this.canvasWidth, this.canvasHeight) / 2);
             },
-
             getRegion: function (el, x, y) {
                 var shapeid = this.target.getShapeAt(el, x, y);
                 return (shapeid !== undefined && this.shapes[shapeid] !== undefined) ? this.shapes[shapeid] : undefined;
             },
-
             getCurrentRegionFields: function () {
                 var currentRegion = this.currentRegion;
                 return {
@@ -2292,7 +2226,6 @@
                     offset: currentRegion
                 };
             },
-
             changeHighlight: function (highlight) {
                 var currentRegion = this.currentRegion,
                         newslice = this.renderSlice(currentRegion, highlight),
@@ -2302,7 +2235,6 @@
                 this.valueShapes[currentRegion] = newslice.id;
                 this.shapes[newslice.id] = currentRegion;
             },
-
             renderSlice: function (valuenum, highlight) {
                 var target = this.target,
                         options = this.options,
@@ -2333,7 +2265,6 @@
                     next = end;
                 }
             },
-
             render: function () {
                 var target = this.target,
                         values = this.values,
@@ -2365,7 +2296,6 @@
          */
         $.fn.sparkline.box = box = createClass($.fn.sparkline._base, {
             type: 'box',
-
             init: function (el, values, options, width, height) {
                 box._super.init.call(this, el, values, options, width, height);
                 this.values = $.map(values, Number);
@@ -2375,14 +2305,12 @@
                     this.disabled = 1;
                 }
             },
-
             /**
              * Simulate a single region
              */
             getRegion: function () {
                 return 1;
             },
-
             getCurrentRegionFields: function () {
                 var result = [
                     {field: 'lq', value: this.quartiles[0]},
@@ -2403,7 +2331,6 @@
                 }
                 return result;
             },
-
             render: function () {
                 var target = this.target,
                         values = this.values,
@@ -2566,7 +2493,6 @@
 
         VCanvas_base = createClass({
             _pxregex: /(\d+)(px)?\s*$/i,
-
             init: function (width, height, target) {
                 if (!width) {
                     return;
@@ -2580,49 +2506,39 @@
                 }
                 $.data(target, '_jqs_vcanvas', this);
             },
-
             drawLine: function (x1, y1, x2, y2, lineColor, lineWidth) {
                 return this.drawShape([[x1, y1], [x2, y2]], lineColor, lineWidth);
             },
-
             drawShape: function (path, lineColor, fillColor, lineWidth) {
                 return this._genShape('Shape', [path, lineColor, fillColor, lineWidth]);
             },
-
             drawCircle: function (x, y, radius, lineColor, fillColor, lineWidth) {
                 return this._genShape('Circle', [x, y, radius, lineColor, fillColor, lineWidth]);
             },
-
             drawPieSlice: function (x, y, radius, startAngle, endAngle, lineColor, fillColor) {
                 return this._genShape('PieSlice', [x, y, radius, startAngle, endAngle, lineColor, fillColor]);
             },
-
             drawRect: function (x, y, width, height, lineColor, fillColor) {
                 return this._genShape('Rect', [x, y, width, height, lineColor, fillColor]);
             },
-
             getElement: function () {
                 return this.canvas;
             },
-
             /**
              * Return the most recently inserted shape id
              */
             getLastShapeId: function () {
                 return this.lastShapeId;
             },
-
             /**
              * Clear and reset the canvas
              */
             reset: function () {
                 alert('reset not implemented');
             },
-
             _insert: function (el, target) {
                 $(target).html(el);
             },
-
             /**
              * Calculate the pixel dimensions of the canvas
              */
@@ -2642,7 +2558,6 @@
                     this.pixelWidth = $(canvas).width();
                 }
             },
-
             /**
              * Generate a shape object and id for later rendering
              */
@@ -2651,42 +2566,36 @@
                 shapeargs.unshift(id);
                 return new VShape(this, id, shapetype, shapeargs);
             },
-
             /**
              * Add a shape to the end of the render queue
              */
             appendShape: function (shape) {
                 alert('appendShape not implemented');
             },
-
             /**
              * Replace one shape with another
              */
             replaceWithShape: function (shapeid, shape) {
                 alert('replaceWithShape not implemented');
             },
-
             /**
              * Insert one shape after another in the render queue
              */
             insertAfterShape: function (shapeid, shape) {
                 alert('insertAfterShape not implemented');
             },
-
             /**
              * Remove a shape from the queue
              */
             removeShapeId: function (shapeid) {
                 alert('removeShapeId not implemented');
             },
-
             /**
              * Find a shape at the specified x/y co-ordinates
              */
             getShapeAt: function (el, x, y) {
                 alert('getShapeAt not implemented');
             },
-
             /**
              * Render all queued shapes onto the canvas
              */
@@ -2714,7 +2623,6 @@
                 this.currentTargetShapeId = undefined;
                 $(this.canvas).css({width: this.pixelWidth, height: this.pixelHeight});
             },
-
             _getContext: function (lineColor, fillColor, lineWidth) {
                 var context = this.canvas.getContext('2d');
                 if (lineColor !== undefined) {
@@ -2726,7 +2634,6 @@
                 }
                 return context;
             },
-
             reset: function () {
                 var context = this._getContext();
                 context.clearRect(0, 0, this.pixelWidth, this.pixelHeight);
@@ -2734,7 +2641,6 @@
                 this.shapeseq = [];
                 this.currentTargetShapeId = undefined;
             },
-
             _drawShape: function (shapeid, path, lineColor, fillColor, lineWidth) {
                 var context = this._getContext(lineColor, fillColor, lineWidth),
                         i, plen;
@@ -2754,7 +2660,6 @@
                     this.currentTargetShapeId = shapeid;
                 }
             },
-
             _drawCircle: function (shapeid, x, y, radius, lineColor, fillColor, lineWidth) {
                 var context = this._getContext(lineColor, fillColor, lineWidth);
                 context.beginPath();
@@ -2770,7 +2675,6 @@
                     context.fill();
                 }
             },
-
             _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
                 var context = this._getContext(lineColor, fillColor);
                 context.beginPath();
@@ -2789,18 +2693,15 @@
                     this.currentTargetShapeId = shapeid;
                 }
             },
-
             _drawRect: function (shapeid, x, y, width, height, lineColor, fillColor) {
                 return this._drawShape(shapeid, [[x, y], [x + width, y], [x + width, y + height], [x, y + height], [x, y]], lineColor, fillColor);
             },
-
             appendShape: function (shape) {
                 this.shapes[shape.id] = shape;
                 this.shapeseq.push(shape.id);
                 this.lastShapeId = shape.id;
                 return shape.id;
             },
-
             replaceWithShape: function (shapeid, shape) {
                 var shapeseq = this.shapeseq,
                         i;
@@ -2812,7 +2713,6 @@
                 }
                 delete this.shapes[shapeid];
             },
-
             replaceWithShapes: function (shapeids, shapes) {
                 var shapeseq = this.shapeseq,
                         shapemap = {},
@@ -2835,7 +2735,6 @@
                 }
 
             },
-
             insertAfterShape: function (shapeid, shape) {
                 var shapeseq = this.shapeseq,
                         i;
@@ -2847,7 +2746,6 @@
                     }
                 }
             },
-
             removeShapeId: function (shapeid) {
                 var shapeseq = this.shapeseq,
                         i;
@@ -2859,14 +2757,12 @@
                 }
                 delete this.shapes[shapeid];
             },
-
             getShapeAt: function (el, x, y) {
                 this.targetX = x;
                 this.targetY = y;
                 this.render();
                 return this.currentTargetShapeId;
             },
-
             render: function () {
                 var shapeseq = this.shapeseq,
                         shapes = this.shapes,
@@ -2909,7 +2805,6 @@
                 this.rendered = false;
                 this.prerender = '';
             },
-
             _drawShape: function (shapeid, path, lineColor, fillColor, lineWidth) {
                 var vpath = [],
                         initial, stroke, fill, closed, vel, plen, i;
@@ -2930,7 +2825,6 @@
                         ' </v:shape>';
                 return vel;
             },
-
             _drawCircle: function (shapeid, x, y, radius, lineColor, fillColor, lineWidth) {
                 var stroke, fill, vel;
                 x -= radius;
@@ -2945,7 +2839,6 @@
                 return vel;
 
             },
-
             _drawPieSlice: function (shapeid, x, y, radius, startAngle, endAngle, lineColor, fillColor) {
                 var vpath, startx, starty, endx, endy, stroke, fill, vel;
                 if (startAngle === endAngle) {
@@ -2987,15 +2880,12 @@
                         ' </v:shape>';
                 return vel;
             },
-
             _drawRect: function (shapeid, x, y, width, height, lineColor, fillColor) {
                 return this._drawShape(shapeid, [[x, y], [x, y + height], [x + width, y + height], [x + width, y], [x, y]], lineColor, fillColor);
             },
-
             reset: function () {
                 this.group.innerHTML = '';
             },
-
             appendShape: function (shape) {
                 var vel = this['_draw' + shape.type].apply(this, shape.args);
                 if (this.rendered) {
@@ -3006,13 +2896,11 @@
                 this.lastShapeId = shape.id;
                 return shape.id;
             },
-
             replaceWithShape: function (shapeid, shape) {
                 var existing = $('#jqsshape' + shapeid),
                         vel = this['_draw' + shape.type].apply(this, shape.args);
                 existing[0].outerHTML = vel;
             },
-
             replaceWithShapes: function (shapeids, shapes) {
                 // replace the first shapeid with all the new shapes then toast the remaining old shapes
                 var existing = $('#jqsshape' + shapeids[0]),
@@ -3027,23 +2915,19 @@
                     $('#jqsshape' + shapeids[i]).remove();
                 }
             },
-
             insertAfterShape: function (shapeid, shape) {
                 var existing = $('#jqsshape' + shapeid),
                         vel = this['_draw' + shape.type].apply(this, shape.args);
                 existing[0].insertAdjacentHTML('afterEnd', vel);
             },
-
             removeShapeId: function (shapeid) {
                 var existing = $('#jqsshape' + shapeid);
                 this.group.removeChild(existing[0]);
             },
-
             getShapeAt: function (el, x, y) {
                 var shapeid = el.id.substr(8);
                 return shapeid;
             },
-
             render: function () {
                 if (!this.rendered) {
                     // batch the intial render into a single repaint

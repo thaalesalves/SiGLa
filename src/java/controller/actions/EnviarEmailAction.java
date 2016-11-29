@@ -29,7 +29,7 @@ public class EnviarEmailAction implements ICommand {
 
             mail.sendMail(mail);
         } catch (Exception e) {
-            e.printStackTrace();
+            util.Logger.logSevere(e, e.getClass());
         }
         return request.getContextPath() + "/pagina/home";
     }

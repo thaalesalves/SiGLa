@@ -2,10 +2,8 @@
 package util;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import model.*;
 import java.util.Properties;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -15,14 +13,11 @@ import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 // </editor-fold>
 
 public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
-    private static final Logger LOG = Logger.getLogger(ActiveDirectory.class.getName());
     private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
     private Properties properties;
     private DirContext dirContext;
@@ -36,16 +31,36 @@ public class ActiveDirectory {
                 dirContext.close();
             }
         } catch (NamingException e) {
-            LOG.severe(e.getMessage());
+            Logger.logSevere(e, this.getClass());
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
         }
     } //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa).">
     public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
-        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
+        String filter = "";
+
+        try {
+            filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
 
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>    
+
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
+        String filter = "";
+        try {
+            filter = "(&(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
+    } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isUser(Pessoa).">
     public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
@@ -57,16 +72,9 @@ public class ActiveDirectory {
                 return false; // o usuário não existe
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return false; // o usuário não existe
-    } // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
-        String filter = "(&(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
-
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isMember(Pessoa, Grupo).">
@@ -79,7 +87,7 @@ public class ActiveDirectory {
                 return false; // o usuário não é membro do grupo
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return false; // o usuário não é membro do grupo
     } // </editor-fold>
@@ -96,7 +104,7 @@ public class ActiveDirectory {
                 cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return cn.trim(); // retorna o nome completo
     } // </editor-fold>
@@ -113,7 +121,7 @@ public class ActiveDirectory {
                 cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return cn.trim(); // retorna o nome completo
     } // </editor-fold>
@@ -130,7 +138,7 @@ public class ActiveDirectory {
                 title = title.substring(title.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return title.replaceAll("^\\s+|\\s+$", "").trim(); // retorno do cargo
     } // </editor-fold>
@@ -147,7 +155,7 @@ public class ActiveDirectory {
                 depto = depto.substring(depto.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return depto.trim(); // retorno do cargo
     } // </editor-fold>
@@ -164,7 +172,7 @@ public class ActiveDirectory {
                 givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return givenName.trim(); // retorno do nome
     } // </editor-fold>
@@ -181,7 +189,7 @@ public class ActiveDirectory {
                 givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
         return givenName.trim(); // retorno do nome
     } // </editor-fold>
@@ -198,7 +206,7 @@ public class ActiveDirectory {
                 physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição na variável
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logSevere(e, this.getClass());
         }
 
         return physicalDeliveryOfficeName.replaceAll("\\D+", "").trim();
@@ -215,7 +223,7 @@ public class ActiveDirectory {
                 pic = (byte[]) attrs.get("jpegPhoto ").get();
             }
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            Logger.logWarning(e, this.getClass());
         }
         return pic;
     } // </editor-fold>
@@ -233,7 +241,7 @@ public class ActiveDirectory {
             try {
                 dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
             } catch (Exception e) {
-                System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+                Logger.logSevere(e, this.getClass());
                 return false;
             }
 
@@ -243,8 +251,7 @@ public class ActiveDirectory {
 
             return true; // login efetuado
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
-            e.printStackTrace();
+            Logger.logSevere(e, this.getClass());
             return false; // login não efetuado
         }
     }// </editor-fold>

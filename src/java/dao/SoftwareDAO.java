@@ -33,8 +33,7 @@ public class SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
-            throw e;
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return sws;
@@ -55,7 +54,7 @@ public class SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return s;

@@ -121,7 +121,6 @@ if (!document.createElement('canvas').getContext) {
                 doc.createElement('canvas');
                 doc.attachEvent('onreadystatechange', bind(this.init_, this, doc));
             },
-
             init_: function (doc) {
                 // find all canvas elements
                 var els = doc.getElementsByTagName('canvas');
@@ -129,7 +128,6 @@ if (!document.createElement('canvas').getContext) {
                     this.initElement(els[i]);
                 }
             },
-
             /**
              * Public initializes a canvas element so that it can be used as canvas
              * element from now on. This is called automatically before the page is
@@ -1219,7 +1217,7 @@ if (!document.createElement('canvas').getContext) {
                     left = 0,
                     right = delta,
                     offset = {x: 0, y: 0},
-                    lineStr = [];
+            lineStr = [];
 
             var fontStyle = getComputedStyle(processFontStyle(this.font),
                     this.element_);

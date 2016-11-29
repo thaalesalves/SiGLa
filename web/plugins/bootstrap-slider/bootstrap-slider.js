@@ -257,7 +257,6 @@
                     return 100 * (value - this.options.min) / (this.options.max - this.options.min);
                 }
             },
-
             logarithmic: {
                 /* Based on http://stackoverflow.com/questions/846221/logarithmic-slider */
                 toValue: function (percentage) {
@@ -713,7 +712,6 @@
             _init: function () {}, // NOTE: Must exist to support bridget
 
             constructor: Slider,
-
             defaultOptions: {
                 id: "",
                 min: 0,
@@ -746,11 +744,9 @@
                 tooltip_position: null,
                 labelledby: null
             },
-
             getElement: function () {
                 return this.sliderElem;
             },
-
             getValue: function () {
                 if (this.options.range) {
                     return this._state.value;
@@ -758,7 +754,6 @@
                     return this._state.value[0];
                 }
             },
-
             setValue: function (val, triggerSlideEvent, triggerChangeEvent) {
                 if (!val) {
                     val = 0;
@@ -810,7 +805,6 @@
 
                 return this;
             },
-
             destroy: function () {
                 // Remove event handlers on slider elements
                 this._removeSliderEventHandlers();
@@ -832,7 +826,6 @@
                     this.$element.removeData('slider');
                 }
             },
-
             disable: function () {
                 this._state.enabled = false;
                 this.handle1.removeAttribute("tabindex");
@@ -842,7 +835,6 @@
 
                 return this;
             },
-
             enable: function () {
                 this._state.enabled = true;
                 this.handle1.setAttribute("tabindex", 0);
@@ -852,7 +844,6 @@
 
                 return this;
             },
-
             toggle: function () {
                 if (this._state.enabled) {
                     this.disable();
@@ -861,16 +852,13 @@
                 }
                 return this;
             },
-
             isEnabled: function () {
                 return this._state.enabled;
             },
-
             on: function (evt, callback) {
                 this._bindNonQueryEventHandler(evt, callback);
                 return this;
             },
-
             off: function (evt, callback) {
                 if ($) {
                     this.$element.off(evt, callback);
@@ -879,7 +867,6 @@
                     this._unbindNonQueryEventHandler(evt, callback);
                 }
             },
-
             getAttribute: function (attribute) {
                 if (attribute) {
                     return this.options[attribute];
@@ -887,12 +874,10 @@
                     return this.options;
                 }
             },
-
             setAttribute: function (attribute, value) {
                 this.options[attribute] = value;
                 return this;
             },
-
             refresh: function () {
                 this._removeSliderEventHandlers();
                 createNewSlider.call(this, this.element, this.options);
@@ -902,12 +887,10 @@
                 }
                 return this;
             },
-
             relayout: function () {
                 this._layout();
                 return this;
             },
-
             /******************************+
              
              HELPERS

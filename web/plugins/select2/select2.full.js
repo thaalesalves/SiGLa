@@ -1290,7 +1290,6 @@
                 });
 
                 S2.define('select2/keys', [
-
                 ], function () {
                     var KEYS = {
                         BACKSPACE: 8,
@@ -2139,7 +2138,6 @@
                 });
 
                 S2.define('select2/diacritics', [
-
                 ], function () {
                     var diacritics = {
                         '\u24B6': 'A',
@@ -3747,7 +3745,6 @@
                 });
 
                 S2.define('select2/data/minimumInputLength', [
-
                 ], function () {
                     function MinimumInputLength(decorated, $e, options) {
                         this.minimumInputLength = options.get('minimumInputLength');
@@ -3778,7 +3775,6 @@
                 });
 
                 S2.define('select2/data/maximumInputLength', [
-
                 ], function () {
                     function MaximumInputLength(decorated, $e, options) {
                         this.maximumInputLength = options.get('maximumInputLength');
@@ -3810,7 +3806,6 @@
                 });
 
                 S2.define('select2/data/maximumSelectionLength', [
-
                 ], function () {
                     function MaximumSelectionLength(decorated, $e, options) {
                         this.maximumSelectionLength = options.get('maximumSelectionLength');
@@ -3987,7 +3982,6 @@
                 });
 
                 S2.define('select2/dropdown/hidePlaceholder', [
-
                 ], function () {
                     function HidePlaceholder(decorated, $element, options, dataAdapter) {
                         this.placeholder = this.normalizePlaceholder(options.get('placeholder'));
@@ -4343,7 +4337,6 @@
                 });
 
                 S2.define('select2/dropdown/minimumResultsForSearch', [
-
                 ], function () {
                     function countResults(data) {
                         var count = 0;
@@ -4383,7 +4376,6 @@
                 });
 
                 S2.define('select2/dropdown/selectOnClose', [
-
                 ], function () {
                     function SelectOnClose() { }
 
@@ -4434,7 +4426,6 @@
                 });
 
                 S2.define('select2/dropdown/closeOnSelect', [
-
                 ], function () {
                     function CloseOnSelect() { }
 
@@ -4517,20 +4508,16 @@
                 S2.define('select2/defaults', [
                     'jquery',
                     'require',
-
                     './results',
-
                     './selection/single',
                     './selection/multiple',
                     './selection/placeholder',
                     './selection/allowClear',
                     './selection/search',
                     './selection/eventRelay',
-
                     './utils',
                     './translation',
                     './diacritics',
-
                     './data/select',
                     './data/array',
                     './data/ajax',
@@ -4539,7 +4526,6 @@
                     './data/minimumInputLength',
                     './data/maximumInputLength',
                     './data/maximumSelectionLength',
-
                     './dropdown',
                     './dropdown/search',
                     './dropdown/hidePlaceholder',
@@ -4548,7 +4534,6 @@
                     './dropdown/minimumResultsForSearch',
                     './dropdown/selectOnClose',
                     './dropdown/closeOnSelect',
-
                     './i18n/en'
                 ], function ($, require,
                         ResultsList,
@@ -6014,7 +5999,6 @@
                 });
 
                 S2.define('select2/compat/query', [
-
                 ], function () {
                     function Query(decorated, $element, options) {
                         if (options.get('debug') && window.console && console.warn) {
@@ -6041,7 +6025,6 @@
                 });
 
                 S2.define('select2/dropdown/attachContainer', [
-
                 ], function () {
                     function AttachContainer(decorated, $element, options) {
                         decorated.call(this, $element, options);
@@ -6060,7 +6043,6 @@
                 });
 
                 S2.define('select2/dropdown/stopPropagation', [
-
                 ], function () {
                     function StopPropagation() { }
 
@@ -6099,7 +6081,6 @@
                 });
 
                 S2.define('select2/selection/stopPropagation', [
-
                 ], function () {
                     function StopPropagation() { }
 
@@ -6172,7 +6153,6 @@
 
                     var special = $.event.special.mousewheel = {
                         version: '3.1.12',
-
                         setup: function () {
                             if (this.addEventListener) {
                                 for (var i = toBind.length; i; ) {
@@ -6185,7 +6165,6 @@
                             $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
                             $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
                         },
-
                         teardown: function () {
                             if (this.removeEventListener) {
                                 for (var i = toBind.length; i; ) {
@@ -6198,7 +6177,6 @@
                             $.removeData(this, 'mousewheel-line-height');
                             $.removeData(this, 'mousewheel-page-height');
                         },
-
                         getLineHeight: function (elem) {
                             var $elem = $(elem),
                                     $parent = $elem['offsetParent' in $.fn ? 'offsetParent' : 'parent']();
@@ -6207,11 +6185,9 @@
                             }
                             return parseInt($parent.css('fontSize'), 10) || parseInt($elem.css('fontSize'), 10) || 16;
                         },
-
                         getPageHeight: function (elem) {
                             return $(elem).height();
                         },
-
                         settings: {
                             adjustOldDeltas: true, // see shouldAdjustOldDeltas() below
                             normalizeOffset: true  // calls getBoundingClientRect for each event
@@ -6222,7 +6198,6 @@
                         mousewheel: function (fn) {
                             return fn ? this.bind('mousewheel', fn) : this.trigger('mousewheel');
                         },
-
                         unmousewheel: function (fn) {
                             return this.unbind('mousewheel', fn);
                         }
@@ -6376,7 +6351,6 @@
                 S2.define('jquery.select2', [
                     'jquery',
                     'jquery-mousewheel',
-
                     './select2/core',
                     './select2/defaults'
                 ], function ($, _, Select2, Defaults) {

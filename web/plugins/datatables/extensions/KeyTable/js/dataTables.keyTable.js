@@ -690,7 +690,7 @@ var KeyTable;
                         y = _iOldY;
                         break;
 
-                    case - 1:
+                    case -1:
                     case 37: /* left arrow */
                         if (_iOldX > 0) {
                             x = _iOldX - 1;

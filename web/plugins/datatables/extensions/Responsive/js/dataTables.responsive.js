@@ -169,7 +169,6 @@
                 // First pass - draw the table for the current viewport size
                 this._resize();
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Private methods
              */
@@ -280,7 +279,6 @@
 
                 return display;
             },
-
             /**
              * Create the internal `columns` array with information about the columns
              * for the table. This includes determining which breakpoints the column
@@ -407,7 +405,6 @@
 
                 this.s.columns = columns;
             },
-
             /**
              * Initialisation for the details handler
              *
@@ -466,7 +463,6 @@
                     }
                 });
             },
-
             /**
              * Update the child rows in the table whenever the column visibility changes
              *
@@ -517,7 +513,6 @@
                     });
                 }
             },
-
             /**
              * Find a breakpoint object from a name
              * @param  {string} name Breakpoint name to find
@@ -533,7 +528,6 @@
                     }
                 }
             },
-
             /**
              * Alter the table display for a resized viewport. This involves first
              * determining what breakpoint the window currently is in, getting the
@@ -578,7 +572,6 @@
                     dt.column(colIdx).visible(columnsVis[i]);
                 });
             },
-
             /**
              * Determine the width of each column in the table so the auto column hiding
              * has that information to work with. This method is never going to be 100%
@@ -697,7 +690,6 @@
              * @default Takes the value of `Responsive.breakpoints`
              */
             breakpoints: Responsive.breakpoints,
-
             /**
              * Enable / disable auto hiding calculations. It can help to increase
              * performance slightly if you disable this option, but all columns would
@@ -707,7 +699,6 @@
              * @default  `true`
              */
             auto: true,
-
             /**
              * Details control. If given as a string value, the `type` property of the
              * default object is set to that value, and the defaults used for the rest
@@ -760,9 +751,7 @@
                             $('<ul data-dtr-index="' + rowIdx + '"/>').append(data) :
                             false;
                 },
-
                 target: 0,
-
                 type: 'inline'
             }
         };

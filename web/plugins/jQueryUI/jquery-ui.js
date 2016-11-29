@@ -31,7 +31,6 @@
 
     $.extend($.ui, {
         version: "1.11.4",
-
         keyCode: {
             BACKSPACE: 8,
             COMMA: 188,
@@ -68,7 +67,6 @@
 
             return position === "fixed" || !scrollParent.length ? $(this[ 0 ].ownerDocument || document) : scrollParent;
         },
-
         uniqueId: (function () {
             var uuid = 0;
 
@@ -80,7 +78,6 @@
                 });
             };
         })(),
-
         removeUniqueId: function () {
             return this.each(function () {
                 if (/^ui-id-\d+$/.test(this.id)) {
@@ -130,11 +127,9 @@
                         function (elem, i, match) {
                             return !!$.data(elem, match[ 3 ]);
                         },
-
                 focusable: function (element) {
                     return focusable(element, !isNaN($.attr(element, "tabindex")));
                 },
-
                 tabbable: function (element) {
                     var tabIndex = $.attr(element, "tabindex"),
                             isTabIndexNaN = isNaN(tabIndex);
@@ -230,7 +225,6 @@
                         orig.apply(this, arguments);
             };
         })($.fn.focus),
-
         disableSelection: (function () {
             var eventType = "onselectstart" in document.createElement("div") ?
                     "selectstart" :
@@ -242,11 +236,9 @@
                 });
             };
         })(),
-
         enableSelection: function () {
             return this.unbind(".ui-disableSelection");
         },
-
         zIndex: function (zIndex) {
             if (zIndex !== undefined) {
                 return this.css("zIndex", zIndex);
@@ -547,7 +539,6 @@
         defaultElement: "<div>",
         options: {
             disabled: false,
-
             // callbacks
             create: null
         },
@@ -591,7 +582,6 @@
         _getCreateEventData: $.noop,
         _create: $.noop,
         _init: $.noop,
-
         destroy: function () {
             this._destroy();
             // we can probably remove the unbind calls in 2.0
@@ -615,11 +605,9 @@
             this.focusable.removeClass("ui-state-focus");
         },
         _destroy: $.noop,
-
         widget: function () {
             return this.element;
         },
-
         option: function (key, value) {
             var options = key,
                     parts,
@@ -684,14 +672,12 @@
 
             return this;
         },
-
         enable: function () {
             return this._setOptions({disabled: false});
         },
         disable: function () {
             return this._setOptions({disabled: true});
         },
-
         _on: function (suppressDisabledCheck, element, handlers) {
             var delegateElement,
                     instance = this;
@@ -743,7 +729,6 @@
                 }
             });
         },
-
         _off: function (element, eventName) {
             eventName = (eventName || "").split(" ").join(this.eventNamespace + " ") +
                     this.eventNamespace;
@@ -754,7 +739,6 @@
             this.focusable = $(this.focusable.not(element).get());
             this.hoverable = $(this.hoverable.not(element).get());
         },
-
         _delay: function (handler, delay) {
             function handlerProxy() {
                 return (typeof handler === "string" ? instance[ handler ] : handler)
@@ -763,7 +747,6 @@
             var instance = this;
             return setTimeout(handlerProxy, delay || 0);
         },
-
         _hoverable: function (element) {
             this.hoverable = this.hoverable.add(element);
             this._on(element, {
@@ -775,7 +758,6 @@
                 }
             });
         },
-
         _focusable: function (element) {
             this.focusable = this.focusable.add(element);
             this._on(element, {
@@ -787,7 +769,6 @@
                 }
             });
         },
-
         _trigger: function (type, event, data) {
             var prop, orig,
                     callback = this.options[ type ];
@@ -898,7 +879,6 @@
 
             this.started = false;
         },
-
         // TODO: make sure destroying one instance of mouse doesn't mess with
         // other instances of mouse
         _mouseDestroy: function () {
@@ -909,7 +889,6 @@
                         .unbind("mouseup." + this.widgetName, this._mouseUpDelegate);
             }
         },
-
         _mouseDown: function (event) {
             // don't let more than one widget handle mouseStart
             if (mouseHandled) {
@@ -969,7 +948,6 @@
             mouseHandled = true;
             return true;
         },
-
         _mouseMove: function (event) {
             // Only check for mouseups outside the document if you've moved inside the document
             // at least once. This prevents the firing of mouseup in the case of IE<9, which will
@@ -1003,7 +981,6 @@
 
             return !this._mouseStarted;
         },
-
         _mouseUp: function (event) {
             this.document
                     .unbind("mousemove." + this.widgetName, this._mouseMoveDelegate)
@@ -1022,7 +999,6 @@
             mouseHandled = false;
             return false;
         },
-
         _mouseDistanceMet: function (event) {
             return (Math.max(
                     Math.abs(this._mouseDownEvent.pageX - event.pageX),
@@ -1030,11 +1006,9 @@
                     ) >= this.options.distance
                     );
         },
-
         _mouseDelayMet: function (/* event */) {
             return this.mouseDelayMet;
         },
-
         // These are placeholder methods, to be overriden by extending plugin
         _mouseStart: function (/* event */) {},
         _mouseDrag: function (/* event */) {},
@@ -1160,7 +1134,6 @@
                     offset: withinElement.offset() || {left: 0, top: 0},
                     scrollLeft: withinElement.scrollLeft(),
                     scrollTop: withinElement.scrollTop(),
-
                     // support: jQuery 1.6.x
                     // jQuery 1.6 doesn't support .outerWidth/Height() on documents or windows
                     width: isWindow || isDocument ? withinElement.width() : withinElement.outerWidth(),
@@ -1577,12 +1550,10 @@
                 activeHeader: "ui-icon-triangle-1-s",
                 header: "ui-icon-triangle-1-e"
             },
-
             // callbacks
             activate: null,
             beforeActivate: null
         },
-
         hideProps: {
             borderTopWidth: "hide",
             borderBottomWidth: "hide",
@@ -1590,7 +1561,6 @@
             paddingBottom: "hide",
             height: "hide"
         },
-
         showProps: {
             borderTopWidth: "show",
             borderBottomWidth: "show",
@@ -1598,7 +1568,6 @@
             paddingBottom: "show",
             height: "show"
         },
-
         _create: function () {
             var options = this.options;
             this.prevShow = this.prevHide = $();
@@ -1618,14 +1587,12 @@
             }
             this._refresh();
         },
-
         _getCreateEventData: function () {
             return {
                 header: this.active,
                 panel: !this.active.length ? $() : this.active.next()
             };
         },
-
         _createIcons: function () {
             var icons = this.options.icons;
             if (icons) {
@@ -1638,14 +1605,12 @@
                 this.headers.addClass("ui-accordion-icons");
             }
         },
-
         _destroyIcons: function () {
             this.headers
                     .removeClass("ui-accordion-icons")
                     .children(".ui-accordion-header-icon")
                     .remove();
         },
-
         _destroy: function () {
             var contents;
 
@@ -1681,7 +1646,6 @@
                 contents.css("height", "");
             }
         },
-
         _setOption: function (key, value) {
             if (key === "active") {
                 // _activate() will handle invalid values and update this.options
@@ -1720,7 +1684,6 @@
                         .toggleClass("ui-state-disabled", !!value);
             }
         },
-
         _keydown: function (event) {
             if (event.altKey || event.ctrlKey) {
                 return;
@@ -1759,13 +1722,11 @@
                 event.preventDefault();
             }
         },
-
         _panelKeyDown: function (event) {
             if (event.keyCode === $.ui.keyCode.UP && event.ctrlKey) {
                 $(event.currentTarget).prev().focus();
             }
         },
-
         refresh: function () {
             var options = this.options;
             this._processPanels();
@@ -1797,7 +1758,6 @@
 
             this._refresh();
         },
-
         _processPanels: function () {
             var prevHeaders = this.headers,
                     prevPanels = this.panels;
@@ -1816,7 +1776,6 @@
                 this._off(prevPanels.not(this.panels));
             }
         },
-
         _refresh: function () {
             var maxHeight,
                     options = this.options,
@@ -1906,7 +1865,6 @@
                         .height(maxHeight);
             }
         },
-
         _activate: function (index) {
             var active = this._findActive(index)[ 0 ];
 
@@ -1924,11 +1882,9 @@
                 preventDefault: $.noop
             });
         },
-
         _findActive: function (selector) {
             return typeof selector === "number" ? this.headers.eq(selector) : $();
         },
-
         _setupEvents: function (event) {
             var events = {
                 keydown: "_keydown"
@@ -1945,7 +1901,6 @@
             this._hoverable(this.headers);
             this._focusable(this.headers);
         },
-
         _eventHandler: function (event) {
             var options = this.options,
                     active = this.active,
@@ -2002,7 +1957,6 @@
                                 .addClass("ui-accordion-content-active");
                     }
                 },
-
                 _toggle: function (data) {
                     var toShow = data.newPanel,
                             toHide = this.prevShow.length ? this.prevShow : data.oldPanel;
@@ -2051,7 +2005,6 @@
                                 tabIndex: 0
                             });
                 },
-
                 _animate: function (toShow, toHide, data) {
                     var total, easing, duration,
                             that = this,
@@ -2109,7 +2062,6 @@
                                 }
                             });
                 },
-
                 _toggleComplete: function (data) {
                     var toHide = data.oldPanel;
 
@@ -2155,13 +2107,11 @@
                 at: "right top"
             },
             role: "menu",
-
             // callbacks
             blur: null,
             focus: null,
             select: null
         },
-
         _create: function () {
             this.activeMenu = this.element;
 
@@ -2263,7 +2213,6 @@
                 }
             });
         },
-
         _destroy: function () {
             // Destroy (sub)menus
             this.element
@@ -2299,7 +2248,6 @@
             // Destroy menu dividers
             this.element.find(".ui-menu-divider").removeClass("ui-menu-divider ui-widget-content");
         },
-
         _keydown: function (event) {
             var match, prev, character, skip,
                     preventDefault = true;
@@ -2379,7 +2327,6 @@
                 event.preventDefault();
             }
         },
-
         _activate: function (event) {
             if (!this.active.is(".ui-state-disabled")) {
                 if (this.active.is("[aria-haspopup='true']")) {
@@ -2389,7 +2336,6 @@
                 }
             }
         },
-
         refresh: function () {
             var menus, items,
                     that = this,
@@ -2448,14 +2394,12 @@
                 this.blur();
             }
         },
-
         _itemRole: function () {
             return {
                 menu: "menuitem",
                 listbox: "option"
             }[ this.options.role ];
         },
-
         _setOption: function (key, value) {
             if (key === "icons") {
                 this.element.find(".ui-menu-icon")
@@ -2469,7 +2413,6 @@
             }
             this._super(key, value);
         },
-
         focus: function (event, item) {
             var nested, focused;
             this.blur(event, event && event.type === "focus");
@@ -2506,7 +2449,6 @@
 
             this._trigger("focus", event, {item: item});
         },
-
         _scrollIntoView: function (item) {
             var borderTop, paddingTop, offset, scroll, elementHeight, itemHeight;
             if (this._hasScroll()) {
@@ -2524,7 +2466,6 @@
                 }
             }
         },
-
         blur: function (event, fromFocus) {
             if (!fromFocus) {
                 clearTimeout(this.timer);
@@ -2539,7 +2480,6 @@
 
             this._trigger("blur", event, {item: this.active});
         },
-
         _startOpening: function (submenu) {
             clearTimeout(this.timer);
 
@@ -2554,7 +2494,6 @@
                 this._open(submenu);
             }, this.delay);
         },
-
         _open: function (submenu) {
             var position = $.extend({
                 of: this.active
@@ -2571,7 +2510,6 @@
                     .attr("aria-expanded", "true")
                     .position(position);
         },
-
         collapseAll: function (event, all) {
             clearTimeout(this.timer);
             this.timer = this._delay(function () {
@@ -2590,7 +2528,6 @@
                 this.activeMenu = currentMenu;
             }, this.delay);
         },
-
         // With no arguments, closes the currently active menu - if nothing is active
         // it closes all menus.  If passed an argument, it will search for menus BELOW
         _close: function (startMenu) {
@@ -2607,17 +2544,14 @@
                     .find(".ui-state-active").not(".ui-state-focus")
                     .removeClass("ui-state-active");
         },
-
         _closeOnDocumentClick: function (event) {
             return !$(event.target).closest(".ui-menu").length;
         },
-
         _isDivider: function (item) {
 
             // Match hyphen, em dash, en dash
             return !/[^\-\u2014\u2013\s]/.test(item.text());
         },
-
         collapse: function (event) {
             var newItem = this.active &&
                     this.active.parent().closest(".ui-menu-item", this.element);
@@ -2626,7 +2560,6 @@
                 this.focus(event, newItem);
             }
         },
-
         expand: function (event) {
             var newItem = this.active &&
                     this.active
@@ -2643,23 +2576,18 @@
                 });
             }
         },
-
         next: function (event) {
             this._move("next", "first", event);
         },
-
         previous: function (event) {
             this._move("prev", "last", event);
         },
-
         isFirstItem: function () {
             return this.active && !this.active.prevAll(".ui-menu-item").length;
         },
-
         isLastItem: function () {
             return this.active && !this.active.nextAll(".ui-menu-item").length;
         },
-
         _move: function (direction, filter, event) {
             var next;
             if (this.active) {
@@ -2679,7 +2607,6 @@
 
             this.focus(event, next);
         },
-
         nextPage: function (event) {
             var item, base, height;
 
@@ -2704,7 +2631,6 @@
                 [ !this.active ? "first" : "last" ]());
             }
         },
-
         previousPage: function (event) {
             var item, base, height;
             if (!this.active) {
@@ -2727,11 +2653,9 @@
                 this.focus(event, this.activeMenu.find(this.options.items).first());
             }
         },
-
         _hasScroll: function () {
             return this.element.outerHeight() < this.element.prop("scrollHeight");
         },
-
         select: function (event) {
             // TODO: It should never be possible to not have an active item at this
             // point, but the tests don't trigger mouseenter before click.
@@ -2742,7 +2666,6 @@
             }
             this._trigger("select", event, ui);
         },
-
         _filterMenuItems: function (character) {
             var escapedCharacter = character.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"),
                     regex = new RegExp("^" + escapedCharacter, "i");
@@ -2785,7 +2708,6 @@
                 collision: "none"
             },
             source: null,
-
             // callbacks
             change: null,
             close: null,
@@ -2795,10 +2717,8 @@
             search: null,
             select: null
         },
-
         requestIndex: 0,
         pending: 0,
-
         _create: function () {
             // Some browsers only repeat keydown events, not keypress events,
             // so we use the suppressKeyPress flag to determine if we've already
@@ -3064,7 +2984,6 @@
                 }
             });
         },
-
         _destroy: function () {
             clearTimeout(this.searching);
             this.element
@@ -3073,7 +2992,6 @@
             this.menu.element.remove();
             this.liveRegion.remove();
         },
-
         _setOption: function (key, value) {
             this._super(key, value);
             if (key === "source") {
@@ -3086,7 +3004,6 @@
                 this.xhr.abort();
             }
         },
-
         _appendTo: function () {
             var element = this.options.appendTo;
 
@@ -3106,7 +3023,6 @@
 
             return element;
         },
-
         _initSource: function () {
             var array, url,
                     that = this;
@@ -3137,7 +3053,6 @@
                 this.source = this.options.source;
             }
         },
-
         _searchTimeout: function (event) {
             clearTimeout(this.searching);
             this.searching = this._delay(function () {
@@ -3153,7 +3068,6 @@
                 }
             }, this.options.delay);
         },
-
         search: function (value, event) {
             value = value != null ? value : this._value();
 
@@ -3170,7 +3084,6 @@
 
             return this._search(value);
         },
-
         _search: function (value) {
             this.pending++;
             this.element.addClass("ui-autocomplete-loading");
@@ -3178,7 +3091,6 @@
 
             this.source({term: value}, this._response());
         },
-
         _response: function () {
             var index = ++this.requestIndex;
 
@@ -3193,7 +3105,6 @@
                 }
             }, this);
         },
-
         __response: function (content) {
             if (content) {
                 content = this._normalize(content);
@@ -3207,12 +3118,10 @@
                 this._close();
             }
         },
-
         close: function (event) {
             this.cancelSearch = true;
             this._close(event);
         },
-
         _close: function (event) {
             if (this.menu.element.is(":visible")) {
                 this.menu.element.hide();
@@ -3221,13 +3130,11 @@
                 this._trigger("close", event);
             }
         },
-
         _change: function (event) {
             if (this.previous !== this._value()) {
                 this._trigger("change", event, {item: this.selectedItem});
             }
         },
-
         _normalize: function (items) {
             // assume all items have the right format when the first item is complete
             if (items.length && items[ 0 ].label && items[ 0 ].value) {
@@ -3246,7 +3153,6 @@
                 });
             });
         },
-
         _suggest: function (items) {
             var ul = this.menu.element.empty();
             this._renderMenu(ul, items);
@@ -3264,7 +3170,6 @@
                 this.menu.next();
             }
         },
-
         _resizeMenu: function () {
             var ul = this.menu.element;
             ul.outerWidth(Math.max(
@@ -3274,22 +3179,18 @@
                     this.element.outerWidth()
                     ));
         },
-
         _renderMenu: function (ul, items) {
             var that = this;
             $.each(items, function (index, item) {
                 that._renderItemData(ul, item);
             });
         },
-
         _renderItemData: function (ul, item) {
             return this._renderItem(ul, item).data("ui-autocomplete-item", item);
         },
-
         _renderItem: function (ul, item) {
             return $("<li>").text(item.label).appendTo(ul);
         },
-
         _move: function (direction, event) {
             if (!this.menu.element.is(":visible")) {
                 this.search(null, event);
@@ -3307,15 +3208,12 @@
             }
             this.menu[ direction ](event);
         },
-
         widget: function () {
             return this.menu.element;
         },
-
         _value: function () {
             return this.valueMethod.apply(this.element, arguments);
         },
-
         _keyEvent: function (keyEvent, event) {
             if (!this.isMultiLine || this.menu.element.is(":visible")) {
                 this._move(keyEvent, event);
@@ -3351,7 +3249,6 @@
                 }
             }
         },
-
         __response: function (content) {
             var message;
             this._superApply(arguments);
@@ -3556,7 +3453,6 @@
             this._setOption("disabled", options.disabled);
             this._resetButton();
         },
-
         _determineButtonType: function () {
             var ancestor, labelSelector, checked;
 
@@ -3594,11 +3490,9 @@
                 this.buttonElement = this.element;
             }
         },
-
         widget: function () {
             return this.buttonElement;
         },
-
         _destroy: function () {
             this.element
                     .removeClass("ui-helper-hidden-accessible");
@@ -3612,7 +3506,6 @@
                 this.buttonElement.removeAttr("title");
             }
         },
-
         _setOption: function (key, value) {
             this._super(key, value);
             if (key === "disabled") {
@@ -3629,7 +3522,6 @@
             }
             this._resetButton();
         },
-
         refresh: function () {
             //See #8237 & #8828
             var isDisabled = this.element.is("input, button") ? this.element.is(":disabled") : this.element.hasClass("ui-button-disabled");
@@ -3661,7 +3553,6 @@
                 }
             }
         },
-
         _resetButton: function () {
             if (this.type === "input") {
                 if (this.options.label) {
@@ -3711,15 +3602,12 @@
         options: {
             items: "button, input[type=button], input[type=submit], input[type=reset], input[type=checkbox], input[type=radio], a, :data(ui-button)"
         },
-
         _create: function () {
             this.element.addClass("ui-buttonset");
         },
-
         _init: function () {
             this.refresh();
         },
-
         _setOption: function (key, value) {
             if (key === "disabled") {
                 this.buttons.button("option", key, value);
@@ -3727,7 +3615,6 @@
 
             this._super(key, value);
         },
-
         refresh: function () {
             var rtl = this.element.css("direction") === "rtl",
                     allButtons = this.element.find(this.options.items),
@@ -3752,7 +3639,6 @@
                     .end()
                     .end();
         },
-
         _destroy: function () {
             this.element.removeClass("ui-buttonset");
             this.buttons
@@ -3904,15 +3790,12 @@
     $.extend(Datepicker.prototype, {
         /* Class name added to elements to indicate already configured with a date picker. */
         markerClassName: "hasDatepicker",
-
         //Keep track of the maximum number of rows displayed (see #7043)
         maxRows: 4,
-
         // TODO rename to "widget" when switching to widget factory
         _widgetDatepicker: function () {
             return this.dpDiv;
         },
-
         /* Override the default settings for all instances of the date picker.
          * @param  settings  object - the new settings to use as defaults (anonymous object)
          * @return the manager object
@@ -3921,7 +3804,6 @@
             datepicker_extendRemove(this._defaults, settings || {});
             return this;
         },
-
         /* Attach the date picker to a jQuery selection.
          * @param  target	element - the target input field or division or span
          * @param  settings  object - the new settings to use for this date picker instance (anonymous)
@@ -3942,7 +3824,6 @@
                 this._inlineDatepicker(target, inst);
             }
         },
-
         /* Create a new instance object. */
         _newInst: function (target, inline) {
             var id = target[0].id.replace(/([^A-Za-z0-9_\-])/g, "\\\\$1"); // escape jQuery meta chars
@@ -3953,7 +3834,6 @@
                 dpDiv: (!inline ? this.dpDiv : // presentation div
                         datepicker_bindHover($("<div class='" + this._inlineClass + " ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>")))};
         },
-
         /* Attach the date picker to an input field. */
         _connectDatepicker: function (target, inst) {
             var input = $(target);
@@ -3972,7 +3852,6 @@
                 this._disableDatepicker(target);
             }
         },
-
         /* Make attachments based on settings. */
         _attachments: function (input, inst) {
             var showOn, buttonText, buttonImage,
@@ -4020,7 +3899,6 @@
                 });
             }
         },
-
         /* Apply the maximum length for the date format. */
         _autoSize: function (inst) {
             if (this._get(inst, "autoSize") && !inst.inline) {
@@ -4048,7 +3926,6 @@
                 inst.input.attr("size", this._formatDate(inst, date).length);
             }
         },
-
         /* Attach an inline date picker to a div. */
         _inlineDatepicker: function (target, inst) {
             var divSpan = $(target);
@@ -4068,7 +3945,6 @@
             // http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
             inst.dpDiv.css("display", "block");
         },
-
         /* Pop-up the date picker in a "dialog" box.
          * @param  input element - ignored
          * @param  date	string or Date - the initial date to display
@@ -4120,7 +3996,6 @@
             $.data(this._dialogInput[0], "datepicker", inst);
             return this;
         },
-
         /* Detach a datepicker from its control.
          * @param  target	element - the target input field or division or span
          */
@@ -4151,7 +4026,6 @@
                 datepicker_instActive = null;
             }
         },
-
         /* Enable the date picker to a jQuery selection.
          * @param  target	element - the target input field or division or span
          */
@@ -4183,7 +4057,6 @@
                         return (value === target ? null : value);
                     }); // delete entry
         },
-
         /* Disable the date picker to a jQuery selection.
          * @param  target	element - the target input field or division or span
          */
@@ -4216,7 +4089,6 @@
                     }); // delete entry
             this._disabledInputs[this._disabledInputs.length] = target;
         },
-
         /* Is the first field in a jQuery collection disabled as a datepicker?
          * @param  target	element - the target input field or division or span
          * @return boolean - true if disabled, false if enabled
@@ -4232,7 +4104,6 @@
             }
             return false;
         },
-
         /* Retrieve the instance data for the target control.
          * @param  target  element - the target input field or division or span
          * @return  object - the associated instance data
@@ -4245,7 +4116,6 @@
                 throw "Missing instance data for this datepicker";
             }
         },
-
         /* Update or retrieve the settings for a date picker attached to an input field or division.
          * @param  target  element - the target input field or division or span
          * @param  name	object - the new settings to update or
@@ -4301,12 +4171,10 @@
                 this._updateDatepicker(inst);
             }
         },
-
         // change method deprecated
         _changeDatepicker: function (target, name, value) {
             this._optionDatepicker(target, name, value);
         },
-
         /* Redraw the date picker attached to an input field or division.
          * @param  target  element - the target input field or division or span
          */
@@ -4316,7 +4184,6 @@
                 this._updateDatepicker(inst);
             }
         },
-
         /* Set the dates for a jQuery selection.
          * @param  target element - the target input field or division or span
          * @param  date	Date - the new date
@@ -4329,7 +4196,6 @@
                 this._updateAlternate(inst);
             }
         },
-
         /* Get the date(s) for the first entry in a jQuery selection.
          * @param  target element - the target input field or division or span
          * @param  noDefault boolean - true if no default date is to be used
@@ -4342,7 +4208,6 @@
             }
             return (inst ? this._getDate(inst) : null);
         },
-
         /* Handle keystrokes. */
         _doKeyDown: function (event) {
             var onSelect, dateStr, sel,
@@ -4452,7 +4317,6 @@
                 event.stopPropagation();
             }
         },
-
         /* Filter entered characters - based on date format. */
         _doKeyPress: function (event) {
             var chars, chr,
@@ -4464,7 +4328,6 @@
                 return event.ctrlKey || event.metaKey || (chr < " " || !chars || chars.indexOf(chr) > -1);
             }
         },
-
         /* Synchronise manual entry and field/alternate field. */
         _doKeyUp: function (event) {
             var date,
@@ -4486,7 +4349,6 @@
             }
             return true;
         },
-
         /* Pop-up the date picker for a given input field.
          * If false returned from beforeShow event handler do not show.
          * @param  input  element - the input field attached to the date picker or
@@ -4571,7 +4433,6 @@
                 $.datepicker._curInst = inst;
             }
         },
-
         /* Generate the date picker content. */
         _updateDatepicker: function (inst) {
             this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
@@ -4614,14 +4475,12 @@
                 }, 0);
             }
         },
-
         // #6694 - don't focus the input if it's already focused
         // this breaks the change event in IE
         // Support: IE and jQuery <1.9
         _shouldFocusInput: function (inst) {
             return inst.input && inst.input.is(":visible") && !inst.input.is(":disabled") && !inst.input.is(":focus");
         },
-
         /* Check positioning to remain on screen. */
         _checkOffset: function (inst, offset, isFixed) {
             var dpWidth = inst.dpDiv.outerWidth(),
@@ -4643,7 +4502,6 @@
 
             return offset;
         },
-
         /* Find an object's position on the screen. */
         _findPos: function (obj) {
             var position,
@@ -4657,7 +4515,6 @@
             position = $(obj).offset();
             return [position.left, position.top];
         },
-
         /* Hide the date picker from view.
          * @param  input  element - the input field attached to the date picker
          */
@@ -4705,12 +4562,10 @@
                 this._inDialog = false;
             }
         },
-
         /* Tidy up after a dialog display. */
         _tidyDialog: function (inst) {
             inst.dpDiv.removeClass(this._dialogClass).unbind(".ui-datepicker-calendar");
         },
-
         /* Close date picker if clicked elsewhere. */
         _checkExternalClick: function (event) {
             if (!$.datepicker._curInst) {
@@ -4729,7 +4584,6 @@
                 $.datepicker._hideDatepicker();
             }
         },
-
         /* Adjust one of the date sub-fields. */
         _adjustDate: function (id, offset, period) {
             var target = $(id),
@@ -4743,7 +4597,6 @@
                     period);
             this._updateDatepicker(inst);
         },
-
         /* Action for current link. */
         _gotoToday: function (id) {
             var date,
@@ -4763,7 +4616,6 @@
             this._notifyChange(inst);
             this._adjustDate(target);
         },
-
         /* Action for selecting a new month/year. */
         _selectMonthYear: function (id, select, period) {
             var target = $(id),
@@ -4776,7 +4628,6 @@
             this._notifyChange(inst);
             this._adjustDate(target);
         },
-
         /* Action for selecting a day. */
         _selectDay: function (id, month, year, td) {
             var inst,
@@ -4793,13 +4644,11 @@
             this._selectDate(id, this._formatDate(inst,
                     inst.currentDay, inst.currentMonth, inst.currentYear));
         },
-
         /* Erase the input field and hide the date picker. */
         _clearDate: function (id) {
             var target = $(id);
             this._selectDate(target, "");
         },
-
         /* Update the input field with the selected date. */
         _selectDate: function (id, dateStr) {
             var onSelect,
@@ -4830,7 +4679,6 @@
                 this._lastInput = null;
             }
         },
-
         /* Update any alternate field to synchronise with the main field. */
         _updateAlternate: function (inst) {
             var altFormat, date, dateStr,
@@ -4845,7 +4693,6 @@
                 });
             }
         },
-
         /* Set as beforeShowDay function to prevent selection of weekends.
          * @param  date  Date - the date to customise
          * @return [boolean, string] - is this date selectable?, what is its CSS class?
@@ -4854,7 +4701,6 @@
             var day = date.getDay();
             return [(day > 0 && day < 6), ""];
         },
-
         /* Set as calculateWeek to determine the week of the year based on the ISO 8601 definition.
          * @param  date  Date - the date to get the week for
          * @return  number - the number of the week within the year that contains this date
@@ -4871,7 +4717,6 @@
             checkDate.setDate(1);
             return Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
         },
-
         /* Parse a string value into a date object.
          * See formatDate below for the possible formats.
          *
@@ -5048,7 +4893,6 @@
             }
             return date;
         },
-
         /* Standard date formats. */
         ATOM: "yy-mm-dd", // RFC 3339 (ISO 8601)
         COOKIE: "D, dd M yy",
@@ -5065,7 +4909,6 @@
 
         _ticksTo1970: (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
                 Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000),
-
         /* Format a date object into a string value.
          * The format can be combinations of the following:
          * d  - day of month (no leading zero)
@@ -5180,7 +5023,6 @@
             }
             return output;
         },
-
         /* Extract all possible characters from the date format. */
         _possibleChars: function (format) {
             var iFormat,
@@ -5227,13 +5069,11 @@
             }
             return chars;
         },
-
         /* Get a setting value, defaulting if necessary. */
         _get: function (inst, name) {
             return inst.settings[name] !== undefined ?
                     inst.settings[name] : this._defaults[name];
         },
-
         /* Parse existing date and initialise date picker. */
         _setDateFromField: function (inst, noDefault) {
             if (inst.input.val() === inst.lastVal) {
@@ -5259,13 +5099,11 @@
             inst.currentYear = (dates ? date.getFullYear() : 0);
             this._adjustInstDate(inst);
         },
-
         /* Retrieve the default date shown on opening. */
         _getDefaultDate: function (inst) {
             return this._restrictMinMax(inst,
                     this._determineDate(inst, this._get(inst, "defaultDate"), new Date()));
         },
-
         /* A date may be specified as an exact value or a relative one. */
         _determineDate: function (inst, date, defaultDate) {
             var offsetNumeric = function (offset) {
@@ -5326,7 +5164,6 @@
             }
             return this._daylightSavingAdjust(newDate);
         },
-
         /* Handle switch to/from daylight saving.
          * Hours may be non-zero on daylight saving cut-over:
          * > 12 when midnight changeover, but then cannot generate
@@ -5341,7 +5178,6 @@
             date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
             return date;
         },
-
         /* Set the date(s) directly. */
         _setDate: function (inst, date, noChange) {
             var clear = !date,
@@ -5360,7 +5196,6 @@
                 inst.input.val(clear ? "" : this._formatDate(inst));
             }
         },
-
         /* Retrieve the date(s) directly. */
         _getDate: function (inst) {
             var startDate = (!inst.currentYear || (inst.input && inst.input.val() === "") ? null :
@@ -5368,7 +5203,6 @@
                             inst.currentYear, inst.currentMonth, inst.currentDay)));
             return startDate;
         },
-
         /* Attach the onxxx handlers.  These are declared statically so
          * they work with static code transformers like Caja.
          */
@@ -5405,7 +5239,6 @@
                 $(this).bind(this.getAttribute("data-event"), handler[this.getAttribute("data-handler")]);
             });
         },
-
         /* Generate the HTML for the current state of the date picker. */
         _generateHTML: function (inst) {
             var maxDraw, prevText, prev, nextText, next, currentText, gotoDate,
@@ -5596,7 +5429,6 @@
             inst._keyEvent = false;
             return html;
         },
-
         /* Generate the month and year header. */
         _generateMonthYearHeader: function (inst, drawMonth, drawYear, minDate, maxDate,
                 secondary, monthNames, monthNamesShort) {
@@ -5668,7 +5500,6 @@
             html += "</div>"; // Close datepicker_header
             return html;
         },
-
         /* Adjust one of the date sub-fields. */
         _adjustInstDate: function (inst, offset, period) {
             var year = inst.drawYear + (period === "Y" ? offset : 0),
@@ -5683,7 +5514,6 @@
                 this._notifyChange(inst);
             }
         },
-
         /* Ensure a date is within any min/max bounds. */
         _restrictMinMax: function (inst, date) {
             var minDate = this._getMinMaxDate(inst, "min"),
@@ -5691,7 +5521,6 @@
                     newDate = (minDate && date < minDate ? minDate : date);
             return (maxDate && newDate > maxDate ? maxDate : newDate);
         },
-
         /* Notify change of month/year. */
         _notifyChange: function (inst) {
             var onChange = this._get(inst, "onChangeMonthYear");
@@ -5700,28 +5529,23 @@
                         [inst.selectedYear, inst.selectedMonth + 1, inst]);
             }
         },
-
         /* Determine the number of months to show. */
         _getNumberOfMonths: function (inst) {
             var numMonths = this._get(inst, "numberOfMonths");
             return (numMonths == null ? [1, 1] : (typeof numMonths === "number" ? [1, numMonths] : numMonths));
         },
-
         /* Determine the current maximum date - ensure no time components are set. */
         _getMinMaxDate: function (inst, minMax) {
             return this._determineDate(inst, this._get(inst, minMax + "Date"), null);
         },
-
         /* Find the number of days in a given month. */
         _getDaysInMonth: function (year, month) {
             return 32 - this._daylightSavingAdjust(new Date(year, month, 32)).getDate();
         },
-
         /* Find the day of the week of the first of a month. */
         _getFirstDayOfMonth: function (year, month) {
             return new Date(year, month, 1).getDay();
         },
-
         /* Determines if we should allow a "next/prev" month display change. */
         _canAdjustMonth: function (inst, offset, curYear, curMonth) {
             var numMonths = this._getNumberOfMonths(inst),
@@ -5733,7 +5557,6 @@
             }
             return this._isInRange(inst, date);
         },
-
         /* Is the given date in the accepted range? */
         _isInRange: function (inst, date) {
             var yearSplit, currentYear,
@@ -5760,7 +5583,6 @@
                     (!minYear || date.getFullYear() >= minYear) &&
                     (!maxYear || date.getFullYear() <= maxYear));
         },
-
         /* Provide the configuration settings for formatting/parsing. */
         _getFormatConfig: function (inst) {
             var shortYearCutoff = this._get(inst, "shortYearCutoff");
@@ -5770,7 +5592,6 @@
                 dayNamesShort: this._get(inst, "dayNamesShort"), dayNames: this._get(inst, "dayNames"),
                 monthNamesShort: this._get(inst, "monthNamesShort"), monthNames: this._get(inst, "monthNames")};
         },
-
         /* Format the given date for display. */
         _formatDate: function (inst, day, month, year) {
             if (!day) {
@@ -5915,7 +5736,6 @@
             snapTolerance: 20,
             stack: false,
             zIndex: false,
-
             // callbacks
             drag: null,
             start: null,
@@ -5936,7 +5756,6 @@
 
             this._mouseInit();
         },
-
         _setOption: function (key, value) {
             this._super(key, value);
             if (key === "handle") {
@@ -5944,7 +5763,6 @@
                 this._setHandleClassName();
             }
         },
-
         _destroy: function () {
             if ((this.helper || this.element).is(".ui-draggable-dragging")) {
                 this.destroyOnClear = true;
@@ -5954,7 +5772,6 @@
             this._removeHandleClassName();
             this._mouseDestroy();
         },
-
         _mouseCapture: function (event) {
             var o = this.options;
 
@@ -5976,7 +5793,6 @@
             return true;
 
         },
-
         _blockFrames: function (selector) {
             this.iframeBlocks = this.document.find(selector).map(function () {
                 var iframe = $(this);
@@ -5989,14 +5805,12 @@
                         .offset(iframe.offset())[ 0 ];
             });
         },
-
         _unblockFrames: function () {
             if (this.iframeBlocks) {
                 this.iframeBlocks.remove();
                 delete this.iframeBlocks;
             }
         },
-
         _blurActiveElement: function (event) {
             var document = this.document[ 0 ];
 
@@ -6019,7 +5833,6 @@
             } catch (error) {
             }
         },
-
         _mouseStart: function (event) {
 
             var o = this.options;
@@ -6095,7 +5908,6 @@
 
             return true;
         },
-
         _refreshOffsets: function (event) {
             this.offset = {
                 top: this.positionAbs.top - this.margins.top,
@@ -6110,7 +5922,6 @@
                 top: event.pageY - this.offset.top
             };
         },
-
         _mouseDrag: function (event, noPropagation) {
             // reset any necessary cached properties (see #5009)
             if (this.hasFixedAncestor) {
@@ -6140,7 +5951,6 @@
 
             return false;
         },
-
         _mouseStop: function (event) {
 
             //If we are using droppables, inform the manager about the drop
@@ -6170,7 +5980,6 @@
 
             return false;
         },
-
         _mouseUp: function (event) {
             this._unblockFrames();
 
@@ -6187,7 +5996,6 @@
 
             return $.ui.mouse.prototype._mouseUp.call(this, event);
         },
-
         cancel: function () {
 
             if (this.helper.is(".ui-draggable-dragging")) {
@@ -6199,23 +6007,19 @@
             return this;
 
         },
-
         _getHandle: function (event) {
             return this.options.handle ?
                     !!$(event.target).closest(this.element.find(this.options.handle)).length :
                     true;
         },
-
         _setHandleClassName: function () {
             this.handleElement = this.options.handle ?
                     this.element.find(this.options.handle) : this.element;
             this.handleElement.addClass("ui-draggable-handle");
         },
-
         _removeHandleClassName: function () {
             this.handleElement.removeClass("ui-draggable-handle");
         },
-
         _createHelper: function (event) {
 
             var o = this.options,
@@ -6244,13 +6048,11 @@
             return helper;
 
         },
-
         _setPositionRelative: function () {
             if (!(/^(?:r|a|f)/).test(this.element.css("position"))) {
                 this.element[ 0 ].style.position = "relative";
             }
         },
-
         _adjustOffsetFromHelper: function (obj) {
             if (typeof obj === "string") {
                 obj = obj.split(" ");
@@ -6271,11 +6073,9 @@
                 this.offset.click.top = this.helperProportions.height - obj.bottom + this.margins.top;
             }
         },
-
         _isRootNode: function (element) {
             return (/(html|body)/i).test(element.tagName) || element === this.document[ 0 ];
         },
-
         _getParentOffset: function () {
 
             //Get the offsetParent and cache its position
@@ -6301,7 +6101,6 @@
             };
 
         },
-
         _getRelativeOffset: function () {
             if (this.cssPosition !== "relative") {
                 return {top: 0, left: 0};
@@ -6316,7 +6115,6 @@
             };
 
         },
-
         _cacheMargins: function () {
             this.margins = {
                 left: (parseInt(this.element.css("marginLeft"), 10) || 0),
@@ -6325,14 +6123,12 @@
                 bottom: (parseInt(this.element.css("marginBottom"), 10) || 0)
             };
         },
-
         _cacheHelperProportions: function () {
             this.helperProportions = {
                 width: this.helper.outerWidth(),
                 height: this.helper.outerHeight()
             };
         },
-
         _setContainment: function () {
 
             var isUserScrollable, c, ce,
@@ -6402,7 +6198,6 @@
             ];
             this.relativeContainer = c;
         },
-
         _convertPositionTo: function (d, pos) {
 
             if (!pos) {
@@ -6428,7 +6223,6 @@
             };
 
         },
-
         _generatePosition: function (event, constrainPosition) {
 
             var containment, co, top, left,
@@ -6515,7 +6309,6 @@
             };
 
         },
-
         _clear: function () {
             this.helper.removeClass("ui-draggable-dragging");
             if (this.helper[0] !== this.element[0] && !this.cancelHelperRemoval) {
@@ -6527,7 +6320,6 @@
                 this.destroy();
             }
         },
-
         _normalizeRightBottom: function () {
             if (this.options.axis !== "y" && this.helper.css("right") !== "auto") {
                 this.helper.width(this.helper.width());
@@ -6538,7 +6330,6 @@
                 this.helper.css("bottom", "auto");
             }
         },
-
         // From now on bulk stuff - mainly helpers
 
         _trigger: function (type, event, ui) {
@@ -6552,9 +6343,7 @@
             }
             return $.Widget.prototype._trigger.call(this, type, event, ui);
         },
-
         plugins: {},
-
         _uiHash: function () {
             return {
                 helper: this.helper,
@@ -7028,21 +6817,17 @@
             minWidth: 10,
             // See #7960
             zIndex: 90,
-
             // callbacks
             resize: null,
             start: null,
             stop: null
         },
-
         _num: function (value) {
             return parseInt(value, 10) || 0;
         },
-
         _isNumber: function (value) {
             return !isNaN(parseInt(value, 10));
         },
-
         _hasScroll: function (el, a) {
 
             if ($(el).css("overflow") === "hidden") {
@@ -7064,7 +6849,6 @@
             el[ scroll ] = 0;
             return has;
         },
-
         _create: function () {
 
             var n, i, handle, axis, hname,
@@ -7245,7 +7029,6 @@
 
             this._mouseInit();
         },
-
         _destroy: function () {
 
             this._mouseDestroy();
@@ -7280,7 +7063,6 @@
 
             return this;
         },
-
         _mouseCapture: function (event) {
             var i, handle,
                     capture = false;
@@ -7294,7 +7076,6 @@
 
             return !this.options.disabled && capture;
         },
-
         _mouseStart: function (event) {
 
             var curleft, curtop, cursor,
@@ -7351,7 +7132,6 @@
             this._propagate("start", event);
             return true;
         },
-
         _mouseDrag: function (event) {
 
             var data, props,
@@ -7394,7 +7174,6 @@
 
             return false;
         },
-
         _mouseStop: function (event) {
 
             this.resizing = false;
@@ -7442,7 +7221,6 @@
             return false;
 
         },
-
         _updatePrevProperties: function () {
             this.prevPosition = {
                 top: this.position.top,
@@ -7453,7 +7231,6 @@
                 height: this.size.height
             };
         },
-
         _applyChanges: function () {
             var props = {};
 
@@ -7474,7 +7251,6 @@
 
             return props;
         },
-
         _updateVirtualBoundaries: function (forceAspectRatio) {
             var pMinWidth, pMaxWidth, pMinHeight, pMaxHeight, b,
                     o = this.options;
@@ -7507,7 +7283,6 @@
             }
             this._vBoundaries = b;
         },
-
         _updateCache: function (data) {
             this.offset = this.helper.offset();
             if (this._isNumber(data.left)) {
@@ -7523,7 +7298,6 @@
                 this.size.width = data.width;
             }
         },
-
         _updateRatio: function (data) {
 
             var cpos = this.position,
@@ -7547,7 +7321,6 @@
 
             return data;
         },
-
         _respectSize: function (data) {
 
             var o = this._vBoundaries,
@@ -7594,7 +7367,6 @@
 
             return data;
         },
-
         _getPaddingPlusBorderDimensions: function (element) {
             var i = 0,
                     widths = [],
@@ -7621,7 +7393,6 @@
                 width: widths[ 1 ] + widths[ 3 ]
             };
         },
-
         _proportionallyResize: function () {
 
             if (!this._proportionallyResizeElements.length) {
@@ -7650,7 +7421,6 @@
             }
 
         },
-
         _renderProxy: function () {
 
             var el = this.element, o = this.options;
@@ -7678,7 +7448,6 @@
             }
 
         },
-
         _change: {
             e: function (event, dx) {
                 return {width: this.originalSize.width + dx};
@@ -7711,14 +7480,11 @@
                         this._change.w.apply(this, [event, dx, dy]));
             }
         },
-
         _propagate: function (n, event) {
             $.ui.plugin.call(this, n, [event, this.ui()]);
             (n !== "resize" && this._trigger(n, event, this.ui()));
         },
-
         plugins: {},
-
         ui: function () {
             return {
                 originalElement: this.originalElement,
@@ -7738,7 +7504,6 @@
      */
 
     $.ui.plugin.add("resizable", "animate", {
-
         stop: function (event) {
             var that = $(this).resizable("instance"),
                     o = that.options,
@@ -7747,8 +7512,8 @@
                     soffseth = ista && that._hasScroll(pr[0], "left") ? 0 : that.sizeDiff.height,
                     soffsetw = ista ? 0 : that.sizeDiff.width,
                     style = {width: (that.size.width - soffsetw), height: (that.size.height - soffseth)},
-                    left = (parseInt(that.element.css("left"), 10) +
-                            (that.position.left - that.originalPosition.left)) || null,
+            left = (parseInt(that.element.css("left"), 10) +
+                    (that.position.left - that.originalPosition.left)) || null,
                     top = (parseInt(that.element.css("top"), 10) +
                             (that.position.top - that.originalPosition.top)) || null;
 
@@ -7781,7 +7546,6 @@
     });
 
     $.ui.plugin.add("resizable", "containment", {
-
         start: function () {
             var element, p, co, ch, cw, width, height,
                     that = $(this).resizable("instance"),
@@ -7842,7 +7606,6 @@
                 };
             }
         },
-
         resize: function (event) {
             var woset, hoset, isParent, isOffsetRelative,
                     that = $(this).resizable("instance"),
@@ -7854,7 +7617,7 @@
                         top: 0,
                         left: 0
                     },
-                    ce = that.containerElement,
+            ce = that.containerElement,
                     continueResize = true;
 
             if (ce[ 0 ] !== document && (/static/).test(ce.css("position"))) {
@@ -7931,7 +7694,6 @@
                 that.size.height = that.prevSize.height;
             }
         },
-
         stop: function () {
             var that = $(this).resizable("instance"),
                     o = that.options,
@@ -7962,7 +7724,6 @@
     });
 
     $.ui.plugin.add("resizable", "alsoResize", {
-
         start: function () {
             var that = $(this).resizable("instance"),
                     o = that.options;
@@ -7975,7 +7736,6 @@
                 });
             });
         },
-
         resize: function (event, ui) {
             var that = $(this).resizable("instance"),
                     o = that.options,
@@ -8004,14 +7764,12 @@
                 el.css(style);
             });
         },
-
         stop: function () {
             $(this).removeData("resizable-alsoresize");
         }
     });
 
     $.ui.plugin.add("resizable", "ghost", {
-
         start: function () {
 
             var that = $(this).resizable("instance"), o = that.options, cs = that.size;
@@ -8034,7 +7792,6 @@
             that.ghost.appendTo(that.helper);
 
         },
-
         resize: function () {
             var that = $(this).resizable("instance");
             if (that.ghost) {
@@ -8045,7 +7802,6 @@
                 });
             }
         },
-
         stop: function () {
             var that = $(this).resizable("instance");
             if (that.ghost && that.helper) {
@@ -8056,7 +7812,6 @@
     });
 
     $.ui.plugin.add("resizable", "grid", {
-
         resize: function () {
             var outerDimensions,
                     that = $(this).resizable("instance"),
@@ -8178,7 +7933,6 @@
             show: null,
             title: null,
             width: 300,
-
             // callbacks
             beforeClose: null,
             close: null,
@@ -8191,7 +7945,6 @@
             resizeStart: null,
             resizeStop: null
         },
-
         sizeRelatedOptions: {
             buttons: true,
             height: true,
@@ -8201,14 +7954,12 @@
             minWidth: true,
             width: true
         },
-
         resizableRelatedOptions: {
             maxHeight: true,
             maxWidth: true,
             minHeight: true,
             minWidth: true
         },
-
         _create: function () {
             this.originalCss = {
                 display: this.element[ 0 ].style.display,
@@ -8246,13 +7997,11 @@
 
             this._trackFocus();
         },
-
         _init: function () {
             if (this.options.autoOpen) {
                 this.open();
             }
         },
-
         _appendTo: function () {
             var element = this.options.appendTo;
             if (element && (element.jquery || element.nodeType)) {
@@ -8260,7 +8009,6 @@
             }
             return this.document.find(element || "body").eq(0);
         },
-
         _destroy: function () {
             var next,
                     originalPosition = this.originalPosition;
@@ -8289,14 +8037,11 @@
                 originalPosition.parent.append(this.element);
             }
         },
-
         widget: function () {
             return this.uiDialog;
         },
-
         disable: $.noop,
         enable: $.noop,
-
         close: function (event) {
             var activeElement,
                     that = this;
@@ -8334,15 +8079,12 @@
                 that._trigger("close", event);
             });
         },
-
         isOpen: function () {
             return this._isOpen;
         },
-
         moveToTop: function () {
             this._moveToTop();
         },
-
         _moveToTop: function (event, silent) {
             var moved = false,
                     zIndices = this.uiDialog.siblings(".ui-front:visible").map(function () {
@@ -8360,7 +8102,6 @@
             }
             return moved;
         },
-
         open: function () {
             var that = this;
             if (this._isOpen) {
@@ -8397,7 +8138,6 @@
 
             this._trigger("open");
         },
-
         _focusTabbable: function () {
             // Set focus to the first match:
             // 1. An element that was focused previously
@@ -8424,7 +8164,6 @@
             }
             hasFocus.eq(0).focus();
         },
-
         _keepFocus: function (event) {
             function checkFocus() {
                 var activeElement = this.document[0].activeElement,
@@ -8441,7 +8180,6 @@
             // so we check again later
             this._delay(checkFocus);
         },
-
         _createWrapper: function () {
             this.uiDialog = $("<div>")
                     .addClass("ui-dialog ui-widget ui-widget-content ui-corner-all ui-front " +
@@ -8499,7 +8237,6 @@
                 });
             }
         },
-
         _createTitlebar: function () {
             var uiDialogTitle;
 
@@ -8548,14 +8285,12 @@
                 "aria-labelledby": uiDialogTitle.attr("id")
             });
         },
-
         _title: function (title) {
             if (!this.options.title) {
                 title.html("&#160;");
             }
             title.text(this.options.title);
         },
-
         _createButtonPane: function () {
             this.uiDialogButtonPane = $("<div>")
                     .addClass("ui-dialog-buttonpane ui-widget-content ui-helper-clearfix");
@@ -8566,7 +8301,6 @@
 
             this._createButtons();
         },
-
         _createButtons: function () {
             var that = this,
                     buttons = this.options.buttons;
@@ -8605,7 +8339,6 @@
             this.uiDialog.addClass("ui-dialog-buttons");
             this.uiDialogButtonPane.appendTo(this.uiDialog);
         },
-
         _makeDraggable: function () {
             var that = this,
                     options = this.options;
@@ -8645,7 +8378,6 @@
                 }
             });
         },
-
         _makeResizable: function () {
             var that = this,
                     options = this.options,
@@ -8703,7 +8435,6 @@
             })
                     .css("position", position);
         },
-
         _trackFocus: function () {
             this._on(this.widget(), {
                 focusin: function (event) {
@@ -8712,12 +8443,10 @@
                 }
             });
         },
-
         _makeFocusTarget: function () {
             this._untrackInstance();
             this._trackingInstances().unshift(this);
         },
-
         _untrackInstance: function () {
             var instances = this._trackingInstances(),
                     exists = $.inArray(this, instances);
@@ -8725,7 +8454,6 @@
                 instances.splice(exists, 1);
             }
         },
-
         _trackingInstances: function () {
             var instances = this.document.data("ui-dialog-instances");
             if (!instances) {
@@ -8734,7 +8462,6 @@
             }
             return instances;
         },
-
         _minHeight: function () {
             var options = this.options;
 
@@ -8742,7 +8469,6 @@
                     options.minHeight :
                     Math.min(options.minHeight, options.height);
         },
-
         _position: function () {
             // Need to show the dialog to get the actual offset in the position plugin
             var isVisible = this.uiDialog.is(":visible");
@@ -8754,7 +8480,6 @@
                 this.uiDialog.hide();
             }
         },
-
         _setOptions: function (options) {
             var that = this,
                     resize = false,
@@ -8779,7 +8504,6 @@
                 this.uiDialog.resizable("option", resizableOptions);
             }
         },
-
         _setOption: function (key, value) {
             var isDraggable, isResizable,
                     uiDialog = this.uiDialog;
@@ -8848,7 +8572,6 @@
                 this._title(this.uiDialogTitlebar.find(".ui-dialog-title"));
             }
         },
-
         _size: function () {
             // If the user has resized the dialog, the .ui-dialog and .ui-dialog-content
             // divs will both have width and height set, so we need to reset them
@@ -8893,7 +8616,6 @@
                 this.uiDialog.resizable("option", "minHeight", this._minHeight());
             }
         },
-
         _blockFrames: function () {
             this.iframeBlocks = this.document.find("iframe").map(function () {
                 var iframe = $(this);
@@ -8908,14 +8630,12 @@
                         .offset(iframe.offset())[0];
             });
         },
-
         _unblockFrames: function () {
             if (this.iframeBlocks) {
                 this.iframeBlocks.remove();
                 delete this.iframeBlocks;
             }
         },
-
         _allowInteraction: function (event) {
             if ($(event.target).closest(".ui-dialog").length) {
                 return true;
@@ -8925,7 +8645,6 @@
             // the .ui-front logic (#8989)
             return !!$(event.target).closest(".ui-datepicker").length;
         },
-
         _createOverlay: function () {
             if (!this.options.modal) {
                 return;
@@ -8966,7 +8685,6 @@
             this.document.data("ui-dialog-overlays",
                     (this.document.data("ui-dialog-overlays") || 0) + 1);
         },
-
         _destroyOverlay: function () {
             if (!this.options.modal) {
                 return;
@@ -9013,7 +8731,6 @@
             hoverClass: false,
             scope: "default",
             tolerance: "intersect",
-
             // callbacks
             activate: null,
             deactivate: null,
@@ -9054,13 +8771,11 @@
             o.addClasses && this.element.addClass("ui-droppable");
 
         },
-
         _addToManager: function (scope) {
             // Add the reference and positions to the manager
             $.ui.ddmanager.droppables[ scope ] = $.ui.ddmanager.droppables[ scope ] || [];
             $.ui.ddmanager.droppables[ scope ].push(this);
         },
-
         _splice: function (drop) {
             var i = 0;
             for (; i < drop.length; i++) {
@@ -9069,7 +8784,6 @@
                 }
             }
         },
-
         _destroy: function () {
             var drop = $.ui.ddmanager.droppables[ this.options.scope ];
 
@@ -9077,7 +8791,6 @@
 
             this.element.removeClass("ui-droppable ui-droppable-disabled");
         },
-
         _setOption: function (key, value) {
 
             if (key === "accept") {
@@ -9093,7 +8806,6 @@
 
             this._super(key, value);
         },
-
         _activate: function (event) {
             var draggable = $.ui.ddmanager.current;
             if (this.options.activeClass) {
@@ -9103,7 +8815,6 @@
                 this._trigger("activate", event, this.ui(draggable));
             }
         },
-
         _deactivate: function (event) {
             var draggable = $.ui.ddmanager.current;
             if (this.options.activeClass) {
@@ -9113,7 +8824,6 @@
                 this._trigger("deactivate", event, this.ui(draggable));
             }
         },
-
         _over: function (event) {
 
             var draggable = $.ui.ddmanager.current;
@@ -9131,7 +8841,6 @@
             }
 
         },
-
         _out: function (event) {
 
             var draggable = $.ui.ddmanager.current;
@@ -9149,7 +8858,6 @@
             }
 
         },
-
         _drop: function (event, custom) {
 
             var draggable = custom || $.ui.ddmanager.current,
@@ -9191,7 +8899,6 @@
             return false;
 
         },
-
         ui: function (c) {
             return {
                 draggable: (c.currentItem || c.element),
@@ -9500,7 +9207,6 @@
                             }
                         }
                     },
-
                     hsla: {
                         props: {
                             hue: {
@@ -9518,20 +9224,20 @@
                         }
                     }
                 },
-                propTypes = {
-                    "byte": {
-                        floor: true,
-                        max: 255
-                    },
-                    "percent": {
-                        max: 1
-                    },
-                    "degrees": {
-                        mod: 360,
-                        floor: true
-                    }
-                },
-                support = color.support = {},
+        propTypes = {
+            "byte": {
+                floor: true,
+                max: 255
+            },
+            "percent": {
+                max: 1
+            },
+            "degrees": {
+                mod: 360,
+                floor: true
+            }
+        },
+        support = color.support = {},
                 // element for support tests
                 supportElem = jQuery("<p>")[ 0 ],
                 // colors = jQuery.Color.names
@@ -10060,10 +9766,8 @@
             teal: "#008080",
             white: "#ffffff",
             yellow: "#ffff00",
-
             // 4.2.3. "transparent" color keyword
             transparent: [null, null, null, 0],
-
             _default: "#ffffff"
         };
 
@@ -10234,7 +9938,6 @@
                             orig.apply(this, arguments);
                 };
             })($.fn.addClass),
-
             removeClass: (function (orig) {
                 return function (classNames, speed, easing, callback) {
                     return arguments.length > 1 ?
@@ -10243,7 +9946,6 @@
                             orig.apply(this, arguments);
                 };
             })($.fn.removeClass),
-
             toggleClass: (function (orig) {
                 return function (classNames, force, speed, easing, callback) {
                     if (typeof force === "boolean" || force === undefined) {
@@ -10262,7 +9964,6 @@
                     }
                 };
             })($.fn.toggleClass),
-
             switchClass: function (remove, add, speed, easing, callback) {
                 return $.effects.animateClass.call(this, {
                     add: add,
@@ -10281,7 +9982,6 @@
 
         $.extend($.effects, {
             version: "1.11.4",
-
             // Saves a set of properties in a data storage
             save: function (element, set) {
                 for (var i = 0; i < set.length; i++) {
@@ -10290,7 +9990,6 @@
                     }
                 }
             },
-
             // Restores a set of previously saved properties from a data storage
             restore: function (element, set) {
                 var val, i;
@@ -10309,14 +10008,12 @@
                     }
                 }
             },
-
             setMode: function (el, mode) {
                 if (mode === "toggle") {
                     mode = el.is(":hidden") ? "show" : "hide";
                 }
                 return mode;
             },
-
             // Translates a [top,left] array into a baseline value
             // this should be a little more flexible in the future to handle a string & hash
             getBaseline: function (origin, original) {
@@ -10352,7 +10049,6 @@
                     y: y
                 };
             },
-
             // Wraps the element around a wrapper that copies position properties
             createWrapper: function (element) {
 
@@ -10367,7 +10063,7 @@
                     height: element.outerHeight(true),
                     "float": element.css("float")
                 },
-                        wrapper = $("<div></div>")
+                wrapper = $("<div></div>")
                         .addClass("ui-effects-wrapper")
                         .css({
                             fontSize: "100%",
@@ -10381,7 +10077,7 @@
                             width: element.width(),
                             height: element.height()
                         },
-                        active = document.activeElement;
+                active = document.activeElement;
 
                 // support: Firefox
                 // Firefox incorrectly exposes anonymous content
@@ -10428,7 +10124,6 @@
 
                 return wrapper.css(props).show();
             },
-
             removeWrapper: function (element) {
                 var active = document.activeElement;
 
@@ -10443,7 +10138,6 @@
 
                 return element;
             },
-
             setTransition: function (element, list, factor, value) {
                 value = value || {};
                 $.each(list, function (i, x) {
@@ -10580,7 +10274,6 @@
 
                 return queue === false ? this.each(run) : this.queue(queue || "fx", run);
             },
-
             show: (function (orig) {
                 return function (option) {
                     if (standardAnimationOption(option)) {
@@ -10592,7 +10285,6 @@
                     }
                 };
             })($.fn.show),
-
             hide: (function (orig) {
                 return function (option) {
                     if (standardAnimationOption(option)) {
@@ -10604,7 +10296,6 @@
                     }
                 };
             })($.fn.hide),
-
             toggle: (function (orig) {
                 return function (option) {
                     if (standardAnimationOption(option) || typeof option === "boolean") {
@@ -10616,7 +10307,6 @@
                     }
                 };
             })($.fn.toggle),
-
             // helper functions
             cssUnit: function (key) {
                 var style = this.css(key),
@@ -10961,7 +10651,7 @@
                 animation = {
                     opacity: show ? 1 : 0
                 },
-                distance;
+        distance;
 
         // Adjust
         $.effects.save(el, props);
@@ -11482,10 +11172,10 @@
                     outerHeight: el.outerHeight(),
                     outerWidth: el.outerWidth()
                 },
-                factor = {
-                    y: direction !== "horizontal" ? (percent / 100) : 1,
-                    x: direction !== "vertical" ? (percent / 100) : 1
-                };
+        factor = {
+            y: direction !== "horizontal" ? (percent / 100) : 1,
+            x: direction !== "vertical" ? (percent / 100) : 1
+        };
 
         // We are going to pass this effect to the size effect:
         options.effect = "size";
@@ -11791,7 +11481,7 @@
                     height: target.innerHeight(),
                     width: target.innerWidth()
                 },
-                startPosition = elem.offset(),
+        startPosition = elem.offset(),
                 transfer = $("<div class='ui-effects-transfer'></div>")
                 .appendTo(document.body)
                 .addClass(o.className)
@@ -11826,13 +11516,10 @@
         options: {
             max: 100,
             value: 0,
-
             change: null,
             complete: null
         },
-
         min: 0,
-
         _create: function () {
             // Constrain initial value
             this.oldValue = this.options.value = this._constrainedValue();
@@ -11851,7 +11538,6 @@
 
             this._refreshValue();
         },
-
         _destroy: function () {
             this.element
                     .removeClass("ui-progressbar ui-widget ui-widget-content ui-corner-all")
@@ -11862,7 +11548,6 @@
 
             this.valueDiv.remove();
         },
-
         value: function (newValue) {
             if (newValue === undefined) {
                 return this.options.value;
@@ -11871,7 +11556,6 @@
             this.options.value = this._constrainedValue(newValue);
             this._refreshValue();
         },
-
         _constrainedValue: function (newValue) {
             if (newValue === undefined) {
                 newValue = this.options.value;
@@ -11887,7 +11571,6 @@
             return this.indeterminate ? false :
                     Math.min(this.options.max, Math.max(this.min, newValue));
         },
-
         _setOptions: function (options) {
             // Ensure "value" option is set after other values (like max)
             var value = options.value;
@@ -11898,7 +11581,6 @@
             this.options.value = this._constrainedValue(value);
             this._refreshValue();
         },
-
         _setOption: function (key, value) {
             if (key === "max") {
                 // Don't allow a max less than min
@@ -11911,11 +11593,9 @@
             }
             this._super(key, value);
         },
-
         _percentage: function () {
             return this.indeterminate ? 100 : 100 * (this.options.value - this.min) / (this.options.max - this.min);
         },
-
         _refreshValue: function () {
             var value = this.options.value,
                     percentage = this._percentage();
@@ -11974,7 +11654,6 @@
             distance: 0,
             filter: "*",
             tolerance: "touch",
-
             // callbacks
             selected: null,
             selecting: null,
@@ -12020,7 +11699,6 @@
 
             this.helper = $("<div class='ui-selectable-helper'></div>");
         },
-
         _destroy: function () {
             this.selectees
                     .removeClass("ui-selectee")
@@ -12029,7 +11707,6 @@
                     .removeClass("ui-selectable ui-selectable-disabled");
             this._mouseDestroy();
         },
-
         _mouseStart: function (event) {
             var that = this,
                     options = this.options;
@@ -12098,7 +11775,6 @@
             });
 
         },
-
         _mouseDrag: function (event) {
 
             this.dragged = true;
@@ -12199,7 +11875,6 @@
 
             return false;
         },
-
         _mouseStop: function (event) {
             var that = this;
 
@@ -12261,7 +11936,6 @@
                 collision: "none"
             },
             width: null,
-
             // callbacks
             change: null,
             close: null,
@@ -12269,7 +11943,6 @@
             open: null,
             select: null
         },
-
         _create: function () {
             var selectmenuId = this.element.uniqueId().attr("id");
             this.ids = {
@@ -12285,7 +11958,6 @@
                 this.disable();
             }
         },
-
         _drawButton: function () {
             var that = this;
 
@@ -12339,7 +12011,6 @@
             this._hoverable(this.button);
             this._focusable(this.button);
         },
-
         _drawMenu: function () {
             var that = this;
 
@@ -12407,7 +12078,6 @@
                 return false;
             };
         },
-
         refresh: function () {
             this._refreshMenu();
             this._setText(this.buttonText, this._getSelectedItem().text());
@@ -12415,7 +12085,6 @@
                 this._resizeButton();
             }
         },
-
         _refreshMenu: function () {
             this.menu.empty();
 
@@ -12441,7 +12110,6 @@
             // Set disabled state
             this._setOption("disabled", this.element.prop("disabled"));
         },
-
         open: function (event) {
             if (this.options.disabled) {
                 return;
@@ -12466,11 +12134,9 @@
 
             this._trigger("open", event);
         },
-
         _position: function () {
             this.menuWrap.position($.extend({of: this.button}, this.options.position));
         },
-
         close: function (event) {
             if (!this.isOpen) {
                 return;
@@ -12484,15 +12150,12 @@
 
             this._trigger("close", event);
         },
-
         widget: function () {
             return this.button;
         },
-
         menuWidget: function () {
             return this.menu;
         },
-
         _renderMenu: function (ul, items) {
             var that = this,
                     currentOptgroup = "";
@@ -12514,11 +12177,9 @@
                 that._renderItemData(ul, item);
             });
         },
-
         _renderItemData: function (ul, item) {
             return this._renderItem(ul, item).data("ui-selectmenu-item", item);
         },
-
         _renderItem: function (ul, item) {
             var li = $("<li>");
 
@@ -12529,7 +12190,6 @@
 
             return li.appendTo(ul);
         },
-
         _setText: function (element, value) {
             if (value) {
                 element.text(value);
@@ -12537,7 +12197,6 @@
                 element.html("&#160;");
             }
         },
-
         _move: function (direction, event) {
             var item, next,
                     filter = ".ui-menu-item";
@@ -12559,15 +12218,12 @@
                 this.menuInstance.focus(event, next);
             }
         },
-
         _getSelectedItem: function () {
             return this.menuItems.eq(this.element[ 0 ].selectedIndex);
         },
-
         _toggle: function (event) {
             this[ this.isOpen ? "close" : "open" ](event);
         },
-
         _setSelection: function () {
             var selection;
 
@@ -12590,7 +12246,6 @@
             // restoring the focus doesn't kill the selection.
             this.button.focus();
         },
-
         _documentClick: {
             mousedown: function (event) {
                 if (!this.isOpen) {
@@ -12602,9 +12257,7 @@
                 }
             }
         },
-
         _buttonEvents: {
-
             // Prevent text selection from being reset when interacting with the selectmenu (#10144)
             mousedown: function () {
                 var selection;
@@ -12620,12 +12273,10 @@
                     this.range = document.selection.createRange();
                 }
             },
-
             click: function (event) {
                 this._setSelection();
                 this._toggle(event);
             },
-
             keydown: function (event) {
                 var preventDefault = true;
                 switch (event.keyCode) {
@@ -12684,14 +12335,12 @@
                 }
             }
         },
-
         _selectFocusedItem: function (event) {
             var item = this.menuItems.eq(this.focusIndex);
             if (!item.hasClass("ui-state-disabled")) {
                 this._select(item.data("ui-selectmenu-item"), event);
             }
         },
-
         _select: function (item, event) {
             var oldIndex = this.element[ 0 ].selectedIndex;
 
@@ -12707,7 +12356,6 @@
 
             this.close(event);
         },
-
         _setAria: function (item) {
             var id = this.menuItems.eq(item.index).attr("id");
 
@@ -12717,7 +12365,6 @@
             });
             this.menu.attr("aria-activedescendant", id);
         },
-
         _setOption: function (key, value) {
             if (key === "icons") {
                 this.button.find("span.ui-icon")
@@ -12750,7 +12397,6 @@
                 this._resizeButton();
             }
         },
-
         _appendTo: function () {
             var element = this.options.appendTo;
 
@@ -12770,7 +12416,6 @@
 
             return element;
         },
-
         _toggleAttr: function () {
             this.button
                     .toggleClass("ui-corner-top", this.isOpen)
@@ -12779,7 +12424,6 @@
             this.menuWrap.toggleClass("ui-selectmenu-open", this.isOpen);
             this.menu.attr("aria-hidden", !this.isOpen);
         },
-
         _resizeButton: function () {
             var width = this.options.width;
 
@@ -12790,7 +12434,6 @@
 
             this.button.outerWidth(width);
         },
-
         _resizeMenu: function () {
             this.menu.outerWidth(Math.max(
                     this.button.outerWidth(),
@@ -12800,11 +12443,9 @@
                     this.menu.width("").outerWidth() + 1
                     ));
         },
-
         _getCreateOptions: function () {
             return {disabled: this.element.prop("disabled")};
         },
-
         _parseOptions: function (options) {
             var data = [];
             options.each(function (index, item) {
@@ -12821,7 +12462,6 @@
             });
             this.items = data;
         },
-
         _destroy: function () {
             this.menuWrap.remove();
             this.button.remove();
@@ -12847,7 +12487,6 @@
     var slider = $.widget("ui.slider", $.ui.mouse, {
         version: "1.11.4",
         widgetEventPrefix: "slide",
-
         options: {
             animate: false,
             distance: 0,
@@ -12858,18 +12497,15 @@
             step: 1,
             value: 0,
             values: null,
-
             // callbacks
             change: null,
             slide: null,
             start: null,
             stop: null
         },
-
         // number of pages in a slider
         // (how many times can you page up/down to go through the whole range)
         numPages: 5,
-
         _create: function () {
             this._keySliding = false;
             this._mouseSliding = false;
@@ -12891,14 +12527,12 @@
 
             this._animateOff = false;
         },
-
         _refresh: function () {
             this._createRange();
             this._createHandles();
             this._setupEvents();
             this._refreshValue();
         },
-
         _createHandles: function () {
             var i, handleCount,
                     options = this.options,
@@ -12925,7 +12559,6 @@
                 $(this).data("ui-slider-handle-index", i);
             });
         },
-
         _createRange: function () {
             var options = this.options,
                     classes = "";
@@ -12967,14 +12600,12 @@
                 this.range = null;
             }
         },
-
         _setupEvents: function () {
             this._off(this.handles);
             this._on(this.handles, this._handleEvents);
             this._hoverable(this.handles);
             this._focusable(this.handles);
         },
-
         _destroy: function () {
             this.handles.remove();
             if (this.range) {
@@ -12991,7 +12622,6 @@
 
             this._mouseDestroy();
         },
-
         _mouseCapture: function (event) {
             var position, normValue, distance, closestHandle, index, allowed, offset, mouseOverHandle,
                     that = this,
@@ -13050,20 +12680,17 @@
             this._animateOff = true;
             return true;
         },
-
         _mouseStart: function () {
             return true;
         },
-
         _mouseDrag: function (event) {
             var position = {x: event.pageX, y: event.pageY},
-                    normValue = this._normValueFromMouse(position);
+            normValue = this._normValueFromMouse(position);
 
             this._slide(event, this._handleIndex, normValue);
 
             return false;
         },
-
         _mouseStop: function (event) {
             this.handles.removeClass("ui-state-active");
             this._mouseSliding = false;
@@ -13077,11 +12704,9 @@
 
             return false;
         },
-
         _detectOrientation: function () {
             this.orientation = (this.options.orientation === "vertical") ? "vertical" : "horizontal";
         },
-
         _normValueFromMouse: function (position) {
             var pixelTotal,
                     pixelMouse,
@@ -13113,7 +12738,6 @@
 
             return this._trimAlignValue(valueMouse);
         },
-
         _start: function (event, index) {
             var uiHash = {
                 handle: this.handles[ index ],
@@ -13125,7 +12749,6 @@
             }
             return this._trigger("start", event, uiHash);
         },
-
         _slide: function (event, index, newVal) {
             var otherVal,
                     newValues,
@@ -13167,7 +12790,6 @@
                 }
             }
         },
-
         _stop: function (event, index) {
             var uiHash = {
                 handle: this.handles[ index ],
@@ -13180,7 +12802,6 @@
 
             this._trigger("stop", event, uiHash);
         },
-
         _change: function (event, index) {
             if (!this._keySliding && !this._mouseSliding) {
                 var uiHash = {
@@ -13198,7 +12819,6 @@
                 this._trigger("change", event, uiHash);
             }
         },
-
         value: function (newValue) {
             if (arguments.length) {
                 this.options.value = this._trimAlignValue(newValue);
@@ -13209,7 +12829,6 @@
 
             return this._value();
         },
-
         values: function (index, newValue) {
             var vals,
                     newValues,
@@ -13242,7 +12861,6 @@
                 return this._values();
             }
         },
-
         _setOption: function (key, value) {
             var i,
                     valsLength = 0;
@@ -13307,7 +12925,6 @@
                     break;
             }
         },
-
         //internal value getter
         // _value() returns value trimmed by min and max, aligned by step
         _value: function () {
@@ -13316,7 +12933,6 @@
 
             return val;
         },
-
         //internal values getter
         // _values() returns array of values trimmed by min and max, aligned by step
         // _values( index ) returns single value trimmed by min and max, aligned by step
@@ -13343,7 +12959,6 @@
                 return [];
             }
         },
-
         // returns the step-aligned value that val is closest to, between (inclusive) min and max
         _trimAlignValue: function (val) {
             if (val <= this._valueMin()) {
@@ -13364,7 +12979,6 @@
             // the final value to 5 digits after the decimal point (see #4124)
             return parseFloat(alignValue.toFixed(5));
         },
-
         _calculateNewMax: function () {
             var max = this.options.max,
                     min = this._valueMin(),
@@ -13373,7 +12987,6 @@
             max = aboveMin + min;
             this.max = parseFloat(max.toFixed(this._precision()));
         },
-
         _precision: function () {
             var precision = this._precisionOf(this.options.step);
             if (this.options.min !== null) {
@@ -13381,21 +12994,17 @@
             }
             return precision;
         },
-
         _precisionOf: function (num) {
             var str = num.toString(),
                     decimal = str.indexOf(".");
             return decimal === -1 ? 0 : str.length - decimal - 1;
         },
-
         _valueMin: function () {
             return this.options.min;
         },
-
         _valueMax: function () {
             return this.max;
         },
-
         _refreshValue: function () {
             var lastValPercent, valPercent, value, valueMin, valueMax,
                     oRange = this.options.range,
@@ -13452,7 +13061,6 @@
                 }
             }
         },
-
         _handleEvents: {
             keydown: function (event) {
                 var allowed, curVal, newVal, step,
@@ -13573,7 +13181,6 @@
             scope: "default",
             tolerance: "intersect",
             zIndex: 1000,
-
             // callbacks
             activate: null,
             beforeStop: null,
@@ -13588,15 +13195,12 @@
             stop: null,
             update: null
         },
-
         _isOverAxis: function (x, reference, size) {
             return (x >= reference) && (x < (reference + size));
         },
-
         _isFloating: function (item) {
             return (/left|right/).test(item.css("float")) || (/inline|table-cell/).test(item.css("display"));
         },
-
         _create: function () {
             this.containerCache = {};
             this.element.addClass("ui-sortable");
@@ -13616,7 +13220,6 @@
             this.ready = true;
 
         },
-
         _setOption: function (key, value) {
             this._super(key, value);
 
@@ -13624,7 +13227,6 @@
                 this._setHandleClassName();
             }
         },
-
         _setHandleClassName: function () {
             this.element.find(".ui-sortable-handle").removeClass("ui-sortable-handle");
             $.each(this.items, function () {
@@ -13633,7 +13235,6 @@
                         .addClass("ui-sortable-handle");
             });
         },
-
         _destroy: function () {
             this.element
                     .removeClass("ui-sortable ui-sortable-disabled")
@@ -13647,7 +13248,6 @@
 
             return this;
         },
-
         _mouseCapture: function (event, overrideHandle) {
             var currentItem = null,
                     validHandle = false,
@@ -13694,7 +13294,6 @@
             return true;
 
         },
-
         _mouseStart: function (event, overrideHandle, noActivation) {
 
             var i, body,
@@ -13828,7 +13427,6 @@
             return true;
 
         },
-
         _mouseDrag: function (event) {
             var i, item, itemElement, intersection,
                     o = this.options,
@@ -13949,7 +13547,6 @@
             return false;
 
         },
-
         _mouseStop: function (event, noPropagation) {
 
             if (!event) {
@@ -13984,7 +13581,6 @@
             return false;
 
         },
-
         cancel: function () {
 
             if (this.dragging) {
@@ -14034,7 +13630,6 @@
             return this;
 
         },
-
         serialize: function (o) {
 
             var items = this._getItemsAsjQuery(o && o.connected),
@@ -14055,7 +13650,6 @@
             return str.join("&");
 
         },
-
         toArray: function (o) {
 
             var items = this._getItemsAsjQuery(o && o.connected),
@@ -14069,7 +13663,6 @@
             return ret;
 
         },
-
         /* Be careful with the following core functions */
         _intersectsWith: function (item) {
 
@@ -14101,7 +13694,6 @@
 
             }
         },
-
         _intersectsWithPointer: function (item) {
 
             var isOverElementHeight = (this.options.axis === "x") || this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top, item.height),
@@ -14119,7 +13711,6 @@
                     : (verticalDirection && (verticalDirection === "down" ? 2 : 1));
 
         },
-
         _intersectsWithSides: function (item) {
 
             var isOverBottomHalf = this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top + (item.height / 2), item.height),
@@ -14134,29 +13725,24 @@
             }
 
         },
-
         _getDragVerticalDirection: function () {
             var delta = this.positionAbs.top - this.lastPositionAbs.top;
             return delta !== 0 && (delta > 0 ? "down" : "up");
         },
-
         _getDragHorizontalDirection: function () {
             var delta = this.positionAbs.left - this.lastPositionAbs.left;
             return delta !== 0 && (delta > 0 ? "right" : "left");
         },
-
         refresh: function (event) {
             this._refreshItems(event);
             this._setHandleClassName();
             this.refreshPositions();
             return this;
         },
-
         _connectWith: function () {
             var options = this.options;
             return options.connectWith.constructor === String ? [options.connectWith] : options.connectWith;
         },
-
         _getItemsAsjQuery: function (connected) {
 
             var i, j, cur, inst,
@@ -14188,7 +13774,6 @@
             return $(items);
 
         },
-
         _removeCurrentsFromItems: function () {
 
             var list = this.currentItem.find(":data(" + this.widgetName + "-item)");
@@ -14203,7 +13788,6 @@
             });
 
         },
-
         _refreshItems: function (event) {
 
             this.items = [];
@@ -14246,7 +13830,6 @@
             }
 
         },
-
         refreshPositions: function (fast) {
 
             // Determine whether items are being displayed horizontally
@@ -14295,7 +13878,6 @@
 
             return this;
         },
-
         _createPlaceholder: function (that) {
             that = that || this;
             var className,
@@ -14357,7 +13939,6 @@
             o.placeholder.update(that, that.placeholder);
 
         },
-
         _createTrPlaceholder: function (sourceTr, targetTr) {
             var that = this;
 
@@ -14367,7 +13948,6 @@
                         .appendTo(targetTr);
             });
         },
-
         _contactContainers: function (event) {
             var i, j, dist, itemWithLeastDistance, posProperty, sizeProperty, cur, nearBottom, floating, axis,
                     innermostContainer = null,
@@ -14470,7 +14050,6 @@
 
 
         },
-
         _createHelper: function (event) {
 
             var o = this.options,
@@ -14495,7 +14074,6 @@
             return helper;
 
         },
-
         _adjustOffsetFromHelper: function (obj) {
             if (typeof obj === "string") {
                 obj = obj.split(" ");
@@ -14516,7 +14094,6 @@
                 this.offset.click.top = this.helperProportions.height - obj.bottom + this.margins.top;
             }
         },
-
         _getParentOffset: function () {
 
 
@@ -14545,7 +14122,6 @@
             };
 
         },
-
         _getRelativeOffset: function () {
 
             if (this.cssPosition === "relative") {
@@ -14559,21 +14135,18 @@
             }
 
         },
-
         _cacheMargins: function () {
             this.margins = {
                 left: (parseInt(this.currentItem.css("marginLeft"), 10) || 0),
                 top: (parseInt(this.currentItem.css("marginTop"), 10) || 0)
             };
         },
-
         _cacheHelperProportions: function () {
             this.helperProportions = {
                 width: this.helper.outerWidth(),
                 height: this.helper.outerHeight()
             };
         },
-
         _setContainment: function () {
 
             var ce, co, over,
@@ -14604,7 +14177,6 @@
             }
 
         },
-
         _convertPositionTo: function (d, pos) {
 
             if (!pos) {
@@ -14630,7 +14202,6 @@
             };
 
         },
-
         _generatePosition: function (event) {
 
             var top, left,
@@ -14697,7 +14268,6 @@
             };
 
         },
-
         _rearrange: function (event, i, a, hardRefresh) {
 
             a ? a[0].appendChild(this.placeholder[0]) : i.item[0].parentNode.insertBefore(this.placeholder[0], (this.direction === "down" ? i.item[0] : i.item[0].nextSibling));
@@ -14717,7 +14287,6 @@
             });
 
         },
-
         _clear: function (event, noPropagation) {
 
             this.reverting = false;
@@ -14831,13 +14400,11 @@
             return !this.cancelHelperRemoval;
 
         },
-
         _trigger: function () {
             if ($.Widget.prototype._trigger.apply(this, arguments) === false) {
                 this.cancel();
             }
         },
-
         _uiHash: function (_inst) {
             var inst = _inst || this;
             return {
@@ -14893,13 +14460,11 @@
             numberFormat: null,
             page: 10,
             step: 1,
-
             change: null,
             spin: null,
             start: null,
             stop: null
         },
-
         _create: function () {
             // handle string values that need to be parsed
             this._setOption("max", this.options.max);
@@ -14926,7 +14491,6 @@
                 }
             });
         },
-
         _getCreateOptions: function () {
             var options = {},
                     element = this.element;
@@ -14940,7 +14504,6 @@
 
             return options;
         },
-
         _events: {
             keydown: function (event) {
                 if (this._start(event) && this._keydown(event)) {
@@ -15041,7 +14604,6 @@
             // we trigger the stop event?
             "mouseleave .ui-spinner-button": "_stop"
         },
-
         _draw: function () {
             var uiSpinner = this.uiSpinner = this.element
                     .addClass("ui-spinner-input")
@@ -15071,7 +14633,6 @@
                 this.disable();
             }
         },
-
         _keydown: function (event) {
             var options = this.options,
                     keyCode = $.ui.keyCode;
@@ -15093,11 +14654,9 @@
 
             return false;
         },
-
         _uiSpinnerHtml: function () {
             return "<span class='ui-spinner ui-widget ui-widget-content ui-corner-all'></span>";
         },
-
         _buttonHtml: function () {
             return "" +
                     "<a class='ui-spinner-button ui-spinner-up ui-corner-tr'>" +
@@ -15107,7 +14666,6 @@
                     "<span class='ui-icon " + this.options.icons.down + "'>&#9660;</span>" +
                     "</a>";
         },
-
         _start: function (event) {
             if (!this.spinning && this._trigger("start", event) === false) {
                 return false;
@@ -15119,7 +14677,6 @@
             this.spinning = true;
             return true;
         },
-
         _repeat: function (i, steps, event) {
             i = i || 500;
 
@@ -15130,7 +14687,6 @@
 
             this._spin(steps * this.options.step, event);
         },
-
         _spin: function (step, event) {
             var value = this.value() || 0;
 
@@ -15145,7 +14701,6 @@
                 this.counter++;
             }
         },
-
         _increment: function (i) {
             var incremental = this.options.incremental;
 
@@ -15157,7 +14712,6 @@
 
             return 1;
         },
-
         _precision: function () {
             var precision = this._precisionOf(this.options.step);
             if (this.options.min !== null) {
@@ -15165,13 +14719,11 @@
             }
             return precision;
         },
-
         _precisionOf: function (num) {
             var str = num.toString(),
                     decimal = str.indexOf(".");
             return decimal === -1 ? 0 : str.length - decimal - 1;
         },
-
         _adjustValue: function (value) {
             var base, aboveMin,
                     options = this.options;
@@ -15198,7 +14750,6 @@
 
             return value;
         },
-
         _stop: function (event) {
             if (!this.spinning) {
                 return;
@@ -15210,7 +14761,6 @@
             this.spinning = false;
             this._trigger("stop", event);
         },
-
         _setOption: function (key, value) {
             if (key === "culture" || key === "numberFormat") {
                 var prevValue = this._parse(this.element.val());
@@ -15241,11 +14791,9 @@
                 this.buttons.button(value ? "disable" : "enable");
             }
         },
-
         _setOptions: spinner_modifier(function (options) {
             this._super(options);
         }),
-
         _parse: function (val) {
             if (typeof val === "string" && val !== "") {
                 val = window.Globalize && this.options.numberFormat ?
@@ -15253,7 +14801,6 @@
             }
             return val === "" || isNaN(val) ? null : val;
         },
-
         _format: function (value) {
             if (value === "") {
                 return "";
@@ -15262,7 +14809,6 @@
                     Globalize.format(value, this.options.numberFormat, this.options.culture) :
                     value;
         },
-
         _refresh: function () {
             this.element.attr({
                 "aria-valuemin": this.options.min,
@@ -15271,7 +14817,6 @@
                 "aria-valuenow": this._parse(this.element.val())
             });
         },
-
         isValid: function () {
             var value = this.value();
 
@@ -15283,7 +14828,6 @@
             // if value gets adjusted, it's invalid
             return value === this._adjustValue(value);
         },
-
         // update the value without triggering change
         _value: function (value, allowAny) {
             var parsed;
@@ -15299,7 +14843,6 @@
             this.element.val(value);
             this._refresh();
         },
-
         _destroy: function () {
             this.element
                     .removeClass("ui-spinner-input")
@@ -15311,7 +14854,6 @@
                     .removeAttr("aria-valuenow");
             this.uiSpinner.replaceWith(this.element);
         },
-
         stepUp: spinner_modifier(function (steps) {
             this._stepUp(steps);
         }),
@@ -15321,7 +14863,6 @@
                 this._stop();
             }
         },
-
         stepDown: spinner_modifier(function (steps) {
             this._stepDown(steps);
         }),
@@ -15331,22 +14872,18 @@
                 this._stop();
             }
         },
-
         pageUp: spinner_modifier(function (pages) {
             this._stepUp((pages || 1) * this.options.page);
         }),
-
         pageDown: spinner_modifier(function (pages) {
             this._stepDown((pages || 1) * this.options.page);
         }),
-
         value: function (newVal) {
             if (!arguments.length) {
                 return this._parse(this.element.val());
             }
             spinner_modifier(this._value).call(this, newVal);
         },
-
         widget: function () {
             return this.uiSpinner;
         }
@@ -15375,14 +14912,12 @@
             heightStyle: "content",
             hide: null,
             show: null,
-
             // callbacks
             activate: null,
             beforeActivate: null,
             beforeLoad: null,
             load: null
         },
-
         _isLocal: (function () {
             var rhash = /#.*$/;
 
@@ -15409,7 +14944,6 @@
                 return anchor.hash.length > 1 && anchorUrl === locationUrl;
             };
         })(),
-
         _create: function () {
             var that = this,
                     options = this.options;
@@ -15446,7 +14980,6 @@
                 this.load(options.active);
             }
         },
-
         _initialActive: function () {
             var active = this.options.active,
                     collapsible = this.options.collapsible,
@@ -15489,14 +15022,12 @@
 
             return active;
         },
-
         _getCreateEventData: function () {
             return {
                 tab: this.active,
                 panel: !this.active.length ? $() : this._getPanelForTab(this.active)
             };
         },
-
         _tabKeydown: function (event) {
             var focusedTab = $(this.document[0].activeElement).closest("li"),
                     selectedIndex = this.tabs.index(focusedTab),
@@ -15558,7 +15089,6 @@
                 }, this.delay);
             }
         },
-
         _panelKeydown: function (event) {
             if (this._handlePageNav(event)) {
                 return;
@@ -15570,7 +15100,6 @@
                 this.active.focus();
             }
         },
-
         // Alt+page up/down moves focus to the previous/next tab (and activates)
         _handlePageNav: function (event) {
             if (event.altKey && event.keyCode === $.ui.keyCode.PAGE_UP) {
@@ -15582,7 +15111,6 @@
                 return true;
             }
         },
-
         _findNextTab: function (index, goingForward) {
             var lastTabIndex = this.tabs.length - 1;
 
@@ -15602,13 +15130,11 @@
 
             return index;
         },
-
         _focusNextTab: function (index, goingForward) {
             index = this._findNextTab(index, goingForward);
             this.tabs.eq(index).focus();
             return index;
         },
-
         _setOption: function (key, value) {
             if (key === "active") {
                 // _activate() will handle invalid values and update this.options
@@ -15640,11 +15166,9 @@
                 this._setupHeightStyle(value);
             }
         },
-
         _sanitizeSelector: function (hash) {
             return hash ? hash.replace(/[!"$%&'()*+,.\/:;<=>?@\[\]\^`{|}~]/g, "\\$&") : "";
         },
-
         refresh: function () {
             var options = this.options,
                     lis = this.tablist.children(":has(a[href])");
@@ -15679,7 +15203,6 @@
 
             this._refresh();
         },
-
         _refresh: function () {
             this._setupDisabled(this.options.disabled);
             this._setupEvents(this.options.event);
@@ -15714,7 +15237,6 @@
                         });
             }
         },
-
         _processTabs: function () {
             var that = this,
                     prevTabs = this.tabs,
@@ -15811,19 +15333,16 @@
                 this._off(prevPanels.not(this.panels));
             }
         },
-
         // allow overriding how to find the list for rare usage scenarios (#7715)
         _getList: function () {
             return this.tablist || this.element.find("ol,ul").eq(0);
         },
-
         _createPanel: function (id) {
             return $("<div>")
                     .attr("id", id)
                     .addClass("ui-tabs-panel ui-widget-content ui-corner-bottom")
                     .data("ui-tabs-destroy", true);
         },
-
         _setupDisabled: function (disabled) {
             if ($.isArray(disabled)) {
                 if (!disabled.length) {
@@ -15848,7 +15367,6 @@
 
             this.options.disabled = disabled;
         },
-
         _setupEvents: function (event) {
             var events = {};
             if (event) {
@@ -15871,7 +15389,6 @@
             this._focusable(this.tabs);
             this._hoverable(this.tabs);
         },
-
         _setupHeightStyle: function (heightStyle) {
             var maxHeight,
                     parent = this.element.parent();
@@ -15906,7 +15423,6 @@
                 }).height(maxHeight);
             }
         },
-
         _eventHandler: function (event) {
             var options = this.options,
                     active = this.active,
@@ -15953,7 +15469,6 @@
                     }
                     this._toggle(event, eventData);
                 },
-
                 // handles show/hide for selecting tabs
                 _toggle: function (event, eventData) {
                     var that = this,
@@ -16014,7 +15529,6 @@
                         tabIndex: 0
                     });
                 },
-
                 _activate: function (index) {
                     var anchor,
                             active = this._findActive(index);
@@ -16036,11 +15550,9 @@
                         preventDefault: $.noop
                     });
                 },
-
                 _findActive: function (index) {
                     return index === false ? $() : this.tabs.eq(index);
                 },
-
                 _getIndex: function (index) {
                     // meta-function to give users option to provide a href string instead of a numerical index.
                     if (typeof index === "string") {
@@ -16049,7 +15561,6 @@
 
                     return index;
                 },
-
                 _destroy: function () {
                     if (this.xhr) {
                         this.xhr.abort();
@@ -16105,7 +15616,6 @@
                         this.panels.css("height", "");
                     }
                 },
-
                 enable: function (index) {
                     var disabled = this.options.disabled;
                     if (disabled === false) {
@@ -16128,7 +15638,6 @@
                     }
                     this._setupDisabled(disabled);
                 },
-
                 disable: function (index) {
                     var disabled = this.options.disabled;
                     if (disabled === true) {
@@ -16150,7 +15659,6 @@
                     }
                     this._setupDisabled(disabled);
                 },
-
                 load: function (index, event) {
                     index = this._getIndex(index);
                     var that = this,
@@ -16161,18 +15669,18 @@
                                 tab: tab,
                                 panel: panel
                             },
-                            complete = function (jqXHR, status) {
-                                if (status === "abort") {
-                                    that.panels.stop(false, true);
-                                }
+                    complete = function (jqXHR, status) {
+                        if (status === "abort") {
+                            that.panels.stop(false, true);
+                        }
 
-                                tab.removeClass("ui-tabs-loading");
-                                panel.removeAttr("aria-busy");
+                        tab.removeClass("ui-tabs-loading");
+                        panel.removeAttr("aria-busy");
 
-                                if (jqXHR === that.xhr) {
-                                    delete that.xhr;
-                                }
-                            };
+                        if (jqXHR === that.xhr) {
+                            delete that.xhr;
+                        }
+                    };
 
                     // not remote
                     if (this._isLocal(anchor[ 0 ])) {
@@ -16208,7 +15716,6 @@
                                 });
                     }
                 },
-
                 _ajaxSettings: function (anchor, event, eventData) {
                     var that = this;
                     return {
@@ -16219,7 +15726,6 @@
                         }
                     };
                 },
-
                 _getPanelForTab: function (tab) {
                     var id = $(tab).attr("aria-controls");
                     return this.element.find(this._sanitizeSelector("#" + id));
@@ -16260,12 +15766,10 @@
             show: true,
             tooltipClass: null,
             track: false,
-
             // callbacks
             close: null,
             open: null
         },
-
         _addDescribedBy: function (elem, id) {
             var describedby = (elem.attr("aria-describedby") || "").split(/\s+/);
             describedby.push(id);
@@ -16273,7 +15777,6 @@
                     .data("ui-tooltip-id", id)
                     .attr("aria-describedby", $.trim(describedby.join(" ")));
         },
-
         _removeDescribedBy: function (elem) {
             var id = elem.data("ui-tooltip-id"),
                     describedby = (elem.attr("aria-describedby") || "").split(/\s+/),
@@ -16291,7 +15794,6 @@
                 elem.removeAttr("aria-describedby");
             }
         },
-
         _create: function () {
             this._on({
                 mouseover: "open",
@@ -16318,7 +15820,6 @@
                     .addClass("ui-helper-hidden-accessible")
                     .appendTo(this.document[ 0 ].body);
         },
-
         _setOption: function (key, value) {
             var that = this;
 
@@ -16337,7 +15838,6 @@
                 });
             }
         },
-
         _disable: function () {
             var that = this;
 
@@ -16358,7 +15858,6 @@
                 }
             });
         },
-
         _enable: function () {
             // restore title attributes
             this.element.find(this.options.items).addBack().each(function () {
@@ -16368,7 +15867,6 @@
                 }
             });
         },
-
         open: function (event) {
             var that = this,
                     target = $(event ? event.target : this.element)
@@ -16411,7 +15909,6 @@
             this._registerCloseHandlers(event, target);
             this._updateContent(target, event);
         },
-
         _updateContent: function (target, event) {
             var content,
                     contentOption = this.options.content,
@@ -16448,7 +15945,6 @@
                 this._open(event, target, content);
             }
         },
-
         _open: function (event, target, content) {
             var tooltipData, tooltip, delayedShow, a11yContent,
                     positionOption = $.extend({}, this.options.position);
@@ -16533,7 +16029,6 @@
 
             this._trigger("open", event, {tooltip: tooltip});
         },
-
         _registerCloseHandlers: function (event, target) {
             var events = {
                 keyup: function (event) {
@@ -16561,7 +16056,6 @@
             }
             this._on(true, target, events);
         },
-
         close: function (event) {
             var tooltip,
                     that = this,
@@ -16626,7 +16120,6 @@
                 tooltipData.closing = false;
             }
         },
-
         _tooltip: function (element) {
             var tooltip = $("<div>")
                     .attr("role", "tooltip")
@@ -16645,17 +16138,14 @@
                 tooltip: tooltip
             };
         },
-
         _find: function (target) {
             var id = target.data("ui-tooltip-id");
             return id ? this.tooltips[ id ] : null;
         },
-
         _removeTooltip: function (tooltip) {
             tooltip.remove();
             delete this.tooltips[ tooltip.attr("id") ];
         },
-
         _destroy: function () {
             var that = this;
 

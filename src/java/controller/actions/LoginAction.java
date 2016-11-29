@@ -84,13 +84,15 @@ public class LoginAction implements ICommand {
                 return request.getContextPath(); // chama de volta a página de login
             } // </editor-fold>
         } catch (AuthenticationException e) {
+            util.Logger.logSevere(e, e.getClass());
             session.setAttribute("auth", "false");
             return request.getContextPath(); // chama de volta a página de login
         } catch (FileNotFoundException e) {
+            util.Logger.logSevere(e, e.getClass());
             session.setAttribute("exception", e);
             return request.getContextPath() + "/error/error";
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
         return null;
     }

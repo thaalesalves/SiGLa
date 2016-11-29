@@ -99,14 +99,12 @@
                  *  @default  Obtained from DataTables instance
                  */
                 "dt": dtSettings,
-
                 /**
                  * Number of columns in the DataTable - stored for quick access
                  *  @type     int
                  *  @default  Obtained from DataTables instance
                  */
                 "iTableColumns": dtSettings.aoColumns.length,
-
                 /**
                  * Original outer widths of the columns as rendered by DataTables - used to calculate
                  * the FixedColumns grid bounding box
@@ -114,7 +112,6 @@
                  *  @default  []
                  */
                 "aiOuterWidths": [],
-
                 /**
                  * Original inner widths of the columns as rendered by DataTables - used to apply widths
                  * to the columns
@@ -138,28 +135,24 @@
                  *  @default  null
                  */
                 "scroller": null,
-
                 /**
                  * DataTables header table
                  *  @type     node
                  *  @default  null
                  */
                 "header": null,
-
                 /**
                  * DataTables body table
                  *  @type     node
                  *  @default  null
                  */
                 "body": null,
-
                 /**
                  * DataTables footer table
                  *  @type     node
                  *  @default  null
                  */
                 "footer": null,
-
                 /**
                  * Display grid elements
                  * @namespace
@@ -171,7 +164,6 @@
                      *  @default  null
                      */
                     "wrapper": null,
-
                     /**
                      * DataTables scrolling element. This element is the DataTables
                      * component in the display grid (making up the main table - i.e.
@@ -180,7 +172,6 @@
                      *  @default  null
                      */
                     "dt": null,
-
                     /**
                      * Left fixed column grid components
                      * @namespace
@@ -191,7 +182,6 @@
                         "body": null,
                         "foot": null
                     },
-
                     /**
                      * Right fixed column grid components
                      * @namespace
@@ -203,7 +193,6 @@
                         "foot": null
                     }
                 },
-
                 /**
                  * Cloned table nodes
                  * @namespace
@@ -220,14 +209,12 @@
                          *  @default  null
                          */
                         "header": null,
-
                         /**
                          * Cloned body table
                          *  @type     node
                          *  @default  null
                          */
                         "body": null,
-
                         /**
                          * Cloned footer table
                          *  @type     node
@@ -235,7 +222,6 @@
                          */
                         "footer": null
                     },
-
                     /**
                      * Right column cloned table nodes
                      * @namespace
@@ -247,14 +233,12 @@
                          *  @default  null
                          */
                         "header": null,
-
                         /**
                          * Cloned body table
                          *  @type     node
                          *  @default  null
                          */
                         "body": null,
-
                         /**
                          * Cloned footer table
                          *  @type     node
@@ -304,7 +288,6 @@
             {
                 this._fnDraw(true);
             },
-
             /**
              * Recalculate the resizes of the 3x3 grid that FixedColumns uses for display of the table.
              * This is useful if you update the width of the table container. Note that FixedColumns will
@@ -326,7 +309,6 @@
                 this._fnGridLayout();
                 this.fnUpdate();
             },
-
             /**
              * Mark a row such that it's height should be recalculated when using 'semiauto' row
              * height matching. This function will have no effect when 'none' or 'auto' row height
@@ -350,7 +332,6 @@
                 delete nTr._DTTC_iHeight;
                 nTr.style.height = 'auto';
             },
-
             /**
              * Set the height of a given row - provides cross browser compatibility
              *  @param   {Node} nTarget TR element that should have it's height recalculated
@@ -369,7 +350,6 @@
             {
                 nTarget.style.height = iHeight + "px";
             },
-
             /**
              * Get data index information about a row or cell in the table body.
              * This function is functionally identical to fnGetPosition in DataTables,
@@ -412,7 +392,6 @@
                     }
                 }
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Private methods (they are of course public in JS, but recommended as private)
              * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -566,7 +545,6 @@
                 this._fnGridLayout();
                 this.s.dt.oInstance.fnDraw(false);
             },
-
             /**
              * Calculate the column widths for the grid layout
              *  @returns {void}
@@ -626,7 +604,6 @@
                 this.s.iLeftWidth = iLeftWidth;
                 this.s.iRightWidth = iRightWidth;
             },
-
             /**
              * Set up the DOM for the fixed column. The way the layout works is to create a 1x3 grid
              * for the left column, the DataTable (for which we just reuse the scrolling element DataTable
@@ -718,7 +695,6 @@
                     }
                 }
             },
-
             /**
              * Style and position the grid used for the FixedColumns layout
              *  @returns {void}
@@ -791,7 +767,6 @@
                     oGrid.right.footBlock.style.display = oOverflow.y ? 'block' : 'none';
                 }
             },
-
             /**
              * Get information about the DataTable's scrolling state - specifically if the table is scrolling
              * on either the x or y axis, and also the scrollbar width.
@@ -821,7 +796,6 @@
 
                 return out;
             },
-
             /**
              * Clone and position the fixed columns
              *  @returns {void}
@@ -846,7 +820,6 @@
                     "rightClone": this.dom.clone.right
                 });
             },
-
             /**
              * Clone the right columns
              *  @returns {void}
@@ -871,7 +844,6 @@
 
                 this._fnClone(this.dom.clone.right, this.dom.grid.right, aiColumns, bAll);
             },
-
             /**
              * Clone the left columns
              *  @returns {void}
@@ -896,7 +868,6 @@
 
                 this._fnClone(this.dom.clone.left, this.dom.grid.left, aiColumns, bAll);
             },
-
             /**
              * Make a copy of the layout object for a header or footer element from DataTables. Note that
              * this method will clone the nodes in the layout object.
@@ -948,7 +919,6 @@
 
                 return aReturn;
             },
-
             /**
              * Clone the DataTable nodes and place them in the DOM (sized correctly)
              *  @returns {void}
@@ -1188,7 +1158,6 @@
                     });
                 }
             },
-
             /**
              * From a given table node (THEAD etc), get a list of TR direct child elements
              *  @param   {Node} nIn Table element to search for TR elements (THEAD, TBODY or TFOOT element)
@@ -1207,7 +1176,6 @@
                 }
                 return aOut;
             },
-
             /**
              * Equalise the heights of the rows in a given table node in a cross browser way
              *  @returns {void}
@@ -1282,7 +1250,6 @@
              *      } );
              */
             "iLeftColumns": 1,
-
             /**
              * Number of right hand columns to fix in position
              *  @type     int
@@ -1297,7 +1264,6 @@
              *      } );
              */
             "iRightColumns": 0,
-
             /**
              * Draw callback function which is called when FixedColumns has redrawn the fixed assets
              *  @type     function(object, object):void
@@ -1314,7 +1280,6 @@
              *      } );
              */
             "fnDrawCallback": null,
-
             /**
              * Height matching algorthim to use. This can be "none" which will result in no height
              * matching being applied by FixedColumns (height matching could be forced by CSS in this

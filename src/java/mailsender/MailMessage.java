@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import util.Logger;
 
 public class MailMessage extends Mail {
 
@@ -15,7 +16,7 @@ public class MailMessage extends Mail {
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
-            final Message message = new MimeMessage(mail.getSession(mail));
+            final Message message = new MimeMessage(getSession(mail));
             message.setFrom(new InternetAddress(mail.getReserva().getPessoa().getEmail()));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getRecipient()));
             message.setSubject(mail.getSubject());
@@ -23,9 +24,9 @@ public class MailMessage extends Mail {
             message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         } catch (Exception e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         }
     } //</editor-fold>
 

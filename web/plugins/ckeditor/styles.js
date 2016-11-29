@@ -42,7 +42,6 @@
                     border: '1px solid #ccc'
                 }
             },
-
             /* Inline Styles */
 
             // These are core styles available as toolbar buttons. You may opt enabling
@@ -58,25 +57,19 @@
              */
 
             {name: 'Marker', element: 'span', attributes: {'class': 'marker'}},
-
             {name: 'Big', element: 'big'},
             {name: 'Small', element: 'small'},
             {name: 'Typewriter', element: 'tt'},
-
             {name: 'Computer Code', element: 'code'},
             {name: 'Keyboard Phrase', element: 'kbd'},
             {name: 'Sample Text', element: 'samp'},
             {name: 'Variable', element: 'var'},
-
             {name: 'Deleted Text', element: 'del'},
             {name: 'Inserted Text', element: 'ins'},
-
             {name: 'Cited Work', element: 'cite'},
             {name: 'Inline Quotation', element: 'q'},
-
             {name: 'Language: RTL', element: 'span', attributes: {'dir': 'rtl'}},
             {name: 'Language: LTR', element: 'span', attributes: {'dir': 'ltr'}},
-
             /* Object Styles */
 
             {
@@ -84,13 +77,11 @@
                 element: 'img',
                 attributes: {'class': 'left'}
             },
-
             {
                 name: 'Styled image (right)',
                 element: 'img',
                 attributes: {'class': 'right'}
             },
-
             {
                 name: 'Compact table',
                 element: 'table',
@@ -104,7 +95,6 @@
                     'border-collapse': 'collapse'
                 }
             },
-
             {name: 'Borderless Table', element: 'table', styles: {'border-style': 'hidden', 'background-color': '#E6E6FA'}},
             {name: 'Square Bulleted List', element: 'ul', styles: {'list-style-type': 'square'}}
         ]);

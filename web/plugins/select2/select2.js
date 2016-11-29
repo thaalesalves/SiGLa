@@ -1290,7 +1290,6 @@
                 });
 
                 S2.define('select2/keys', [
-
                 ], function () {
                     var KEYS = {
                         BACKSPACE: 8,
@@ -2139,7 +2138,6 @@
                 });
 
                 S2.define('select2/diacritics', [
-
                 ], function () {
                     var diacritics = {
                         '\u24B6': 'A',
@@ -3747,7 +3745,6 @@
                 });
 
                 S2.define('select2/data/minimumInputLength', [
-
                 ], function () {
                     function MinimumInputLength(decorated, $e, options) {
                         this.minimumInputLength = options.get('minimumInputLength');
@@ -3778,7 +3775,6 @@
                 });
 
                 S2.define('select2/data/maximumInputLength', [
-
                 ], function () {
                     function MaximumInputLength(decorated, $e, options) {
                         this.maximumInputLength = options.get('maximumInputLength');
@@ -3810,7 +3806,6 @@
                 });
 
                 S2.define('select2/data/maximumSelectionLength', [
-
                 ], function () {
                     function MaximumSelectionLength(decorated, $e, options) {
                         this.maximumSelectionLength = options.get('maximumSelectionLength');
@@ -3987,7 +3982,6 @@
                 });
 
                 S2.define('select2/dropdown/hidePlaceholder', [
-
                 ], function () {
                     function HidePlaceholder(decorated, $element, options, dataAdapter) {
                         this.placeholder = this.normalizePlaceholder(options.get('placeholder'));
@@ -4343,7 +4337,6 @@
                 });
 
                 S2.define('select2/dropdown/minimumResultsForSearch', [
-
                 ], function () {
                     function countResults(data) {
                         var count = 0;
@@ -4383,7 +4376,6 @@
                 });
 
                 S2.define('select2/dropdown/selectOnClose', [
-
                 ], function () {
                     function SelectOnClose() { }
 
@@ -4434,7 +4426,6 @@
                 });
 
                 S2.define('select2/dropdown/closeOnSelect', [
-
                 ], function () {
                     function CloseOnSelect() { }
 
@@ -4517,20 +4508,16 @@
                 S2.define('select2/defaults', [
                     'jquery',
                     'require',
-
                     './results',
-
                     './selection/single',
                     './selection/multiple',
                     './selection/placeholder',
                     './selection/allowClear',
                     './selection/search',
                     './selection/eventRelay',
-
                     './utils',
                     './translation',
                     './diacritics',
-
                     './data/select',
                     './data/array',
                     './data/ajax',
@@ -4539,7 +4526,6 @@
                     './data/minimumInputLength',
                     './data/maximumInputLength',
                     './data/maximumSelectionLength',
-
                     './dropdown',
                     './dropdown/search',
                     './dropdown/hidePlaceholder',
@@ -4548,7 +4534,6 @@
                     './dropdown/minimumResultsForSearch',
                     './dropdown/selectOnClose',
                     './dropdown/closeOnSelect',
-
                     './i18n/en'
                 ], function ($, require,
                         ResultsList,
@@ -5651,7 +5636,6 @@
                 S2.define('jquery.select2', [
                     'jquery',
                     'jquery-mousewheel',
-
                     './select2/core',
                     './select2/defaults'
                 ], function ($, _, Select2, Defaults) {

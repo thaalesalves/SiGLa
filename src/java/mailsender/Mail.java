@@ -18,39 +18,32 @@ public abstract class Mail {
     private String recipient;
     private String subject;
     private String message;
-    private final static Logger LOGGER = Logger.getAnonymousLogger();
 
     public abstract void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException;
 
     public abstract String getMessage(Mail mail);
 
-    // <editor-fold defaultstate="collapsed" desc="Método da API: logger(Exception)">
-    public void logger(Exception e) {
-        LOGGER.log(Level.WARNING, "Erro: " + e.getMessage(), e);
-    } //</editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Método da API: getSession(Mail)">
     public Session getSession(Mail mail) {
-        final Session session = Session.getInstance(this.getProperties(), new Authenticator() {
+        final Properties props = new Properties();
+        
+        props.put("mail.smtp.host", "direct.uesp.net.br");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", 25);
+        props.put("mail.smtp.user", "thales");
+        props.put("mail.smtp.password", "rosebud");
+        
+        final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail.getReserva().getPessoa().getEmail(), mail.getReserva().getPessoa().getSenha());
+                return new PasswordAuthentication("thales", "rosebud");
             }
         });
-
+        
         return session;
     } //</editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Método da API: getProperties()">
-    public Properties getProperties() {
-        final Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.office365.com");
-        props.put("mail.smtp.port", 587);
-        return props;
-    } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos de Acesso">
     public void setReserva(Reserva reserva) {

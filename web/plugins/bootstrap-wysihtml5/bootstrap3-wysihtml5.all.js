@@ -55,7 +55,7 @@ return Object.prototype.toString.call(arg) === '[object Array]';
                 ESCAPE_KEY: 27,
                 SPACE_KEY: 32,
                 DELETE_KEY: 46
-                };
+        };
         ; /**
          * Rangy, a cross-browser JavaScript range and selection library
          * http://code.google.com/p/rangy/

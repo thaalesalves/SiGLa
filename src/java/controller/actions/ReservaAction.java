@@ -30,7 +30,7 @@ public class ReservaAction implements ICommand {
             } else {
                 reserva = dao.selectReserva(); // chama reservas gerais
             }
-            
+
             for (Reserva res : reserva) {
                 reserva.get(reserva.indexOf(res)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(res)).getPessoa()));
                 reserva.get(reserva.indexOf(res)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(res)).getPessoa()));
@@ -38,7 +38,7 @@ public class ReservaAction implements ICommand {
 
             request.getSession().setAttribute("reserva", reserva);
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return "lista";

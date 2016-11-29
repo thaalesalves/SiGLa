@@ -402,7 +402,6 @@
                  *  @default  null
                  */
                 "dt": null,
-
                 /**
                  * Initialisation object used for this instance
                  *  @property init
@@ -410,7 +409,6 @@
                  *  @default  {}
                  */
                 "init": $.extend(true, {}, ColReorder.defaults, opts),
-
                 /**
                  * Number of columns to fix (not allow to be reordered)
                  *  @property fixed
@@ -418,7 +416,6 @@
                  *  @default  0
                  */
                 "fixed": 0,
-
                 /**
                  * Number of columns to fix counting from right (not allow to be reordered)
                  *  @property fixedRight
@@ -426,7 +423,6 @@
                  *  @default  0
                  */
                 "fixedRight": 0,
-
                 /**
                  * Callback function for once the reorder has been done
                  *  @property reorderCallback
@@ -434,7 +430,6 @@
                  *  @default  null
                  */
                 "reorderCallback": null,
-
                 /**
                  * @namespace Information used for the mouse drag
                  */
@@ -447,7 +442,6 @@
                     "targetIndex": -1,
                     "fromIndex": -1
                 },
-
                 /**
                  * Information which is used for positioning the insert cusor and knowing where to do the
                  * insert. Array of objects with the properties:
@@ -472,7 +466,6 @@
                  *  @default  null
                  */
                 "drag": null,
-
                 /**
                  * The insert cursor
                  *  @property pointer
@@ -530,7 +523,6 @@
 
                 return this;
             },
-
             /**
              * `Deprecated` - Get the current order of the columns, as an array.
              *  @return {array} Array of column identifiers
@@ -541,7 +533,6 @@
             {
                 return this.fnOrder();
             },
-
             /**
              * Get the current order of the columns, as an array. Note that the values
              * given in the array are unique identifiers for each column. Currently
@@ -594,7 +585,6 @@
 
                 return this;
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Private methods (they are of course public in JS, but recommended as private)
              * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -688,7 +678,6 @@
                     this._fnSetColumnIndexes();
                 }
             },
-
             /**
              * Set the column order from an array
              *  @method  _fnOrderColumns
@@ -734,7 +723,6 @@
                     this.s.reorderCallback.call(this);
                 }
             },
-
             /**
              * Because we change the indexes of columns in the table, relative to their starting point
              * we need to reorder the state columns to what they are at the starting point so we can
@@ -794,7 +782,6 @@
                     }
                 }
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Mouse drop and drag
              */
@@ -815,7 +802,6 @@
                     that._fnMouseDown.call(that, e, nTh);
                 });
             },
-
             /**
              * Mouse down on a TH element in the table header
              *  @method  _fnMouseDown
@@ -856,7 +842,6 @@
                             that._fnMouseUp.call(that, e);
                         });
             },
-
             /**
              * Deal with a mouse move event while dragging a node
              *  @method  _fnMouseMove
@@ -919,7 +904,6 @@
                     this._fnRegions();
                 }
             },
-
             /**
              * Finish off the mouse drag and insert the column where needed
              *  @method  _fnMouseUp
@@ -960,7 +944,6 @@
                     }
                 }
             },
-
             /**
              * Calculate a cached array with the points of the column inserts, and the
              * 'to' points
@@ -1012,7 +995,6 @@
                     this.s.aoTargets.splice(0, this.s.fixed);
                 }
             },
-
             /**
              * Copy the TH element that is being drags so the user has the idea that they are actually
              * moving it around the page.
@@ -1064,7 +1046,6 @@
                         })
                         .appendTo('body');
             },
-
             /**
              * Clean up ColReorder memory references and event handlers
              *  @method  _fnDestroy
@@ -1093,7 +1074,6 @@
                 this.s.dt._colReorder = null;
                 this.s = null;
             },
-
             /**
              * Add a data attribute to the column headers, so we know the index of
              * the row to be reordered. This allows fast detection of the index, and
@@ -1148,7 +1128,6 @@
              *      } );
              */
             aiOrder: null,
-
             /**
              * Redraw the table's column ordering as the end user draws the column
              * (`true`) or wait until the mouse is released (`false` - default). Note
@@ -1176,7 +1155,6 @@
              *      } );
              */
             bRealtime: false,
-
             /**
              * Indicate how many columns should be fixed in position (counting from the
              * left). This will typically be 1 if used, but can be as high as you like.
@@ -1201,7 +1179,6 @@
              *      } );
              */
             iFixedColumns: 0,
-
             /**
              * As `iFixedColumnsRight` but counting from the right.
              *  @type int
@@ -1225,7 +1202,6 @@
              *      } );
              */
             iFixedColumnsRight: 0,
-
             /**
              * Callback function that is fired when columns are reordered
              *  @type function():void

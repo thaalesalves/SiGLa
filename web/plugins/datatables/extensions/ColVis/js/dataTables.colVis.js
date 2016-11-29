@@ -72,7 +72,6 @@
                  *  @default  null
                  */
                 "dt": null,
-
                 /**
                  * Customisation object
                  *  @property oInit
@@ -80,7 +79,6 @@
                  *  @default  passed in
                  */
                 "oInit": oInit,
-
                 /**
                  * Flag to say if the collection is hidden
                  *  @property hidden
@@ -88,7 +86,6 @@
                  *  @default  true
                  */
                 "hidden": true,
-
                 /**
                  * Store the original visibility settings so they could be restored
                  *  @property abOriginal
@@ -110,7 +107,6 @@
                  *  @default  null
                  */
                 "wrapper": null,
-
                 /**
                  * Activation button
                  *  @property button
@@ -118,7 +114,6 @@
                  *  @default  null
                  */
                 "button": null,
-
                 /**
                  * Collection list node
                  *  @property collection
@@ -126,7 +121,6 @@
                  *  @default  null
                  */
                 "collection": null,
-
                 /**
                  * Background node used for shading the display and event capturing
                  *  @property background
@@ -134,7 +128,6 @@
                  *  @default  null
                  */
                 "background": null,
-
                 /**
                  * Element to position over the activation button to catch mouse events when using mouseover
                  *  @property catcher
@@ -142,7 +135,6 @@
                  *  @default  null
                  */
                 "catcher": null,
-
                 /**
                  * List of button elements
                  *  @property buttons
@@ -150,7 +142,6 @@
                  *  @default  []
                  */
                 "buttons": [],
-
                 /**
                  * List of group button elements
                  *  @property groupButtons
@@ -158,7 +149,6 @@
                  *  @default  []
                  */
                 "groupButtons": [],
-
                 /**
                  * Restore button
                  *  @property restore
@@ -197,7 +187,6 @@
             {
                 return this.dom.wrapper;
             },
-
             /**
              * Alias of `rebuild` for backwards compatibility
              *  @method  fnRebuild
@@ -206,7 +195,6 @@
             {
                 this.rebuild();
             },
-
             /**
              * Rebuild the list of buttons for this instance (i.e. if there is a column
              * header update)
@@ -232,7 +220,6 @@
                 /* Update the checkboxes */
                 this._fnDrawCallback();
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Private methods (they are of course public in JS, but recommended as private)
              * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -306,7 +293,6 @@
                 // Set the initial state
                 this._fnDrawCallback();
             },
-
             /**
              * Apply any customisation to the settings from the DataTables initialisation
              *  @method  _fnApplyCustomisation
@@ -340,7 +326,6 @@
                     }
                 }
             },
-
             /**
              * On each table draw, check the visibility checkboxes as needed. This allows any process to
              * update the table's column visibility and ColVis will still be accurate.
@@ -398,7 +383,6 @@
                     }
                 }
             },
-
             /**
              * Loop through the groups (provided in the settings) and create a button for each.
              *  @method  _fnAddgroups
@@ -420,7 +404,6 @@
                     }
                 }
             },
-
             /**
              * Loop through the columns in the table and as a new button for each one.
              *  @method  _fnAddButtons
@@ -481,7 +464,6 @@
 
                 $(this.dom.collection).append(this.dom.buttons);
             },
-
             /**
              * Create a button which allows a "restore" action
              *  @method  _fnDomRestoreButton
@@ -509,7 +491,6 @@
                             that.s.dt.oInstance.fnDraw(false);
                         })[0];
             },
-
             /**
              * Create a button which allows show all and show node actions
              *  @method  _fnDomShowXButton
@@ -540,7 +521,6 @@
                             that.s.dt.oInstance.fnDraw(false);
                         })[0];
             },
-
             /**
              * Create the DOM for a show / hide group button
              *  @method  _fnDomGroupButton
@@ -576,7 +556,6 @@
                             }
                         })[0];
             },
-
             /**
              * Create the DOM for a show / hide button
              *  @method  _fnDomColumnButton
@@ -646,7 +625,6 @@
                             }
                         })[0];
             },
-
             /**
              * Get the position in the DataTables instance array of the table for this
              * instance of ColVis
@@ -665,7 +643,6 @@
                 }
                 return 0;
             },
-
             /**
              * Create the element used to contain list the columns (it is shown and
              * hidden as needed)
@@ -688,7 +665,6 @@
                                     ''
                         })[0];
             },
-
             /**
              * An element to be placed on top of the activate button to catch events
              *  @method  _fnDomCatcher
@@ -708,7 +684,6 @@
 
                 return nCatcher;
             },
-
             /**
              * Create the element used to shade the background, and capture hide events (it is shown and
              * hidden as needed)
@@ -741,7 +716,6 @@
 
                 return background[0];
             },
-
             /**
              * Show the show / hide list and the background
              *  @method  _fnCollectionShow
@@ -816,7 +790,6 @@
 
                 this.s.hidden = false;
             },
-
             /**
              * Hide the show / hide list and the background
              *  @method  _fnCollectionHide
@@ -841,7 +814,6 @@
                     });
                 }
             },
-
             /**
              * Alter the colspan on any fnOpen rows
              */
@@ -899,7 +871,6 @@
              *  @default  click
              */
             active: 'click',
-
             /**
              * Text used for the button
              *  @property buttonText
@@ -907,7 +878,6 @@
              *  @default  Show / hide columns
              */
             buttonText: 'Show / hide columns',
-
             /**
              * List of columns (integers) which should be excluded from the list
              *  @property aiExclude
@@ -915,7 +885,6 @@
              *  @default  []
              */
             aiExclude: [],
-
             /**
              * Show restore button
              *  @property bRestore
@@ -923,7 +892,6 @@
              *  @default  false
              */
             bRestore: false,
-
             /**
              * Restore button text
              *  @property sRestore
@@ -931,7 +899,6 @@
              *  @default  Restore original
              */
             sRestore: 'Restore original',
-
             /**
              * Show Show-All button
              *  @property bShowAll
@@ -939,7 +906,6 @@
              *  @default  false
              */
             bShowAll: false,
-
             /**
              * Show All button text
              *  @property sShowAll
@@ -947,7 +913,6 @@
              *  @default  Restore original
              */
             sShowAll: 'Show All',
-
             /**
              * Position of the collection menu when shown - align "left" or "right"
              *  @property sAlign
@@ -955,7 +920,6 @@
              *  @default  left
              */
             sAlign: 'left',
-
             /**
              * Callback function to tell the user when the state has changed
              *  @property fnStateChange
@@ -963,7 +927,6 @@
              *  @default  null
              */
             fnStateChange: null,
-
             /**
              * Overlay animation duration in mS
              *  @property iOverlayFade
@@ -971,7 +934,6 @@
              *  @default  500
              */
             iOverlayFade: 500,
-
             /**
              * Label callback for column names. Takes three parameters: 1. the
              * column index, 2. the column title detected by DataTables and 3. the
@@ -981,7 +943,6 @@
              *  @default  null
              */
             fnLabel: null,
-
             /**
              * Indicate if the column list should be positioned by Javascript,
              * visually below the button or allow CSS to do the positioning
@@ -990,7 +951,6 @@
              *  @default  false
              */
             bCssPosition: false,
-
             /**
              * Group buttons
              *  @property aoGroups
@@ -998,7 +958,6 @@
              *  @default  []
              */
             aoGroups: [],
-
             /**
              * Button ordering - 'alpha' (alphabetical) or 'column' (table column
              * order)

@@ -29,7 +29,6 @@
             defaultValue: "",
             prefix: "",
             suffix: "",
-
             //todo
             getMaskLength: function (buffer, greedy, repeat, currentBuffer, opts) { //custom getMaskLength to take the groupSeparator into account
                 var calculatedLength = buffer.length;

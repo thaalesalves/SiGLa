@@ -17,12 +17,15 @@ public class ListarCursoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        HttpSession session = request.getSession();
+        try {
+            HttpSession session = request.getSession();
 
-        CursoDAO cdao = new CursoDAO();
-        ArrayList<Curso> ac = cdao.selectAll();
-        session.setAttribute("lista-cursos", ac);
-
+            CursoDAO cdao = new CursoDAO();
+            ArrayList<Curso> ac = cdao.selectAll();
+            session.setAttribute("lista-cursos", ac);
+        } catch (Exception e) {
+            util.Logger.logSevere(e, e.getClass());
+        }
         return request.getContextPath() + "/curso/lista";
     }
 

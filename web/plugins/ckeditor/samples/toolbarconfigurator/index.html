@@ -316,11 +316,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
                     // 		isFixed: boolean // Whether element float now.
                     // }
                     watched: [],
-
                     active: [],
-
                     staticContainer: null,
-
                     init: function () {
                         var element = CKEDITOR.dom.element.createFromHtml(
                                 '<div class="staticContainer">' +
@@ -335,7 +332,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
                         CKEDITOR.document.getBody().append(element);
                     },
-
                     watch: function (element, preventFunc) {
                         this.watched.push({
                             element: element,
@@ -344,13 +340,11 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
                             preventFunc: preventFunc
                         });
                     },
-
                     checkAll: function () {
                         for (var i = 0; i < this.watched.length; i++) {
                             this.check(this.watched[ i ]);
                         }
                     },
-
                     check: function (element) {
                         var isFixed = element.isFixed;
                         var shouldBeFixed = this.shouldBeFixed(element);
@@ -387,7 +381,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
                         element.isFixed = !element.isFixed;
                     },
-
                     shouldBeFixed: function (element) {
                         if (element.preventFunc && element.preventFunc()) {
                             return false;
@@ -430,7 +423,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
                             SF.modal({
                                 // Clone modal content from DOM.
                                 content: helpContent.getHtml(),
-
                                 afterCreate: function (modal) {
                                     // Enable modal content button to close the modal.
                                     new CKEDITOR.dom.element(modal.modalElem()).findOne('.help-content-close').once('click', modal.close);

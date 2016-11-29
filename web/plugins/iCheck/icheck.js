@@ -126,16 +126,16 @@
                             border: 0,
                             opacity: 0
                         },
-                        // Choose how to hide input
-                        hide = _mobile ? {
-                            position: 'absolute',
-                            visibility: 'hidden'
-                        } : area ? layer : {
+                // Choose how to hide input
+                hide = _mobile ? {
+                    position: 'absolute',
+                    visibility: 'hidden'
+                } : area ? layer : {
                     position: 'absolute',
                     opacity: 0
                 },
-                        // Get proper class
-                        className = node[_type] == _checkbox ? settings.checkboxClass || 'i' + _checkbox : settings.radioClass || 'i' + _radio,
+                // Get proper class
+                className = node[_type] == _checkbox ? settings.checkboxClass || 'i' + _checkbox : settings.radioClass || 'i' + _radio,
                         // Find assigned labels
                         label = $(_label + '[for="' + id + '"]').add(self.closest(_label)),
                         // Check ARIA option

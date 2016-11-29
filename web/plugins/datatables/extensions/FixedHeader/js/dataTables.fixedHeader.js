@@ -234,7 +234,6 @@ var FixedHeader;
 
                 s.bInitComplete = true;
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Support functions
              */
@@ -297,7 +296,6 @@ var FixedHeader;
                     }
                 }
             },
-
             /*
              * Function: _fnCloneTable
              * Purpose:  Clone the table node and do basic initialisation
@@ -363,7 +361,6 @@ var FixedHeader;
                     "iCells": iCells
                 };
             },
-
             /*
              * Function: _fnMeasure
              * Purpose:  Get the current positioning of the table in the DOM
@@ -388,7 +385,6 @@ var FixedHeader;
                 m.iTableRight = FixedHeader.oDoc.iWidth - m.iTableLeft - m.iTableWidth;
                 m.iTableBottom = FixedHeader.oDoc.iHeight - m.iTableTop - m.iTableHeight;
             },
-
             /*
              * Function: _fnSumScroll
              * Purpose:  Sum node parameters all the way to the top
@@ -409,7 +405,6 @@ var FixedHeader;
                 }
                 return i;
             },
-
             /*
              * Function: _fnUpdatePositions
              * Purpose:  Loop over the fixed elements for this table and update their positions
@@ -438,7 +433,6 @@ var FixedHeader;
                     }
                 }
             },
-
             /*
              * Function: _fnUpdateClones
              * Purpose:  Loop over the fixed elements for this table and call their cloning functions
@@ -465,7 +459,6 @@ var FixedHeader;
                     s.bInitComplete = true;
                 }
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Scrolling functions
              */
@@ -506,7 +499,6 @@ var FixedHeader;
                     this._fnUpdateCache(oCache, 'sLeft', oMes.iTableLeft + "px", 'left', nTable.style);
                 }
             },
-
             /*
              * Function: _fnScrollHorizontalLeft
              * Purpose:  Update the positioning of the scrolling elements
@@ -542,7 +534,6 @@ var FixedHeader;
                     this._fnUpdateCache(oCache, 'sLeft', (oMes.iTableLeft + oMes.iTableWidth - iCellWidth) + "px", 'left', nTable.style);
                 }
             },
-
             /*
              * Function: _fnScrollFixedFooter
              * Purpose:  Update the positioning of the scrolling elements
@@ -579,7 +570,6 @@ var FixedHeader;
                     this._fnUpdateCache(oCache, 'sLeft', oMes.iTableLeft + "px", 'left', nTable.style);
                 }
             },
-
             /*
              * Function: _fnScrollFixedHeader
              * Purpose:  Update the positioning of the scrolling elements
@@ -621,7 +611,6 @@ var FixedHeader;
                     this._fnUpdateCache(oCache, 'sLeft', (oMes.iTableLeft - oWin.iScrollLeft) + "px", 'left', nTable.style);
                 }
             },
-
             /*
              * Function: _fnUpdateCache
              * Purpose:  Check the cache and update cache and value if needed
@@ -640,7 +629,6 @@ var FixedHeader;
                     oCache[sCache] = sSet;
                 }
             },
-
             /**
              * Copy the classes of all child nodes from one element to another. This implies
              * that the two have identical structure - no error checking is performed to that
@@ -662,7 +650,6 @@ var FixedHeader;
                     that._fnClassUpdate($(source).children()[i], $(dest).children()[i]);
                 });
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Cloning functions
              */
@@ -728,7 +715,6 @@ var FixedHeader;
                     this.blur();
                 });
             },
-
             /*
              * Function: _fnCloneTfoot
              * Purpose:  Clone the tfoot element
@@ -762,7 +748,6 @@ var FixedHeader;
                     $("tfoot:eq(0)>tr td:eq(" + i + ")", nTable).width($(this).width());
                 });
             },
-
             /*
              * Function: _fnCloneTLeft
              * Purpose:  Clone the left column(s)
@@ -814,7 +799,6 @@ var FixedHeader;
                 nTable.style.width = iWidth + "px";
                 oCache.nWrapper.style.width = iWidth + "px";
             },
-
             /*
              * Function: _fnCloneTRight
              * Purpose:  Clone the right most column(s)
@@ -860,7 +844,6 @@ var FixedHeader;
                 nTable.style.width = iWidth + "px";
                 oCache.nWrapper.style.width = iWidth + "px";
             },
-
             /**
              * Equalise the heights of the rows in a given table node in a cross browser way. Note that this
              * is more or less lifted as is from FixedColumns

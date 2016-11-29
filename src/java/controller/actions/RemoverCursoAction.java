@@ -16,7 +16,6 @@ public class RemoverCursoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        HttpSession session = request.getSession();
         try {
             Curso c = new Curso();
             CursoDAO cdao = new CursoDAO();
@@ -25,7 +24,7 @@ public class RemoverCursoAction implements ICommand {
 
             cdao.delete(c);
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
         return request.getContextPath() + "/curso/listar";
     }

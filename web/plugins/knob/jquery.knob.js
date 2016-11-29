@@ -102,7 +102,6 @@
                 max: this.$.data('max') !== undefined ? this.$.data('max') : 100,
                 stopper: true,
                 readOnly: this.$.data('readonly') || (this.$.attr('readonly') === 'readonly'),
-
                 // UI
                 cursor: this.$.data('cursor') === true && 30
                         || this.$.data('cursor') || 0,
@@ -121,7 +120,6 @@
                 inline: false,
                 step: this.$.data('step') || 1,
                 rotation: this.$.data('rotation'),
-
                 // Hooks
                 draw: null, // function () {}
                 change: null, // function (value) {}

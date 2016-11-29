@@ -19,7 +19,7 @@ public class ReservaDAO {
     private final String SELECT_ALL_DIA = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE dia_semana = ?";
     private final String INSERT_SEMESTRAL = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), (SELECT id FROM laboratorio WHERE numero = '12-14'), ?, ?, ?, ?, 1, ?, ?, ?)";
     private final String INSERT_PONTUAL = "";
-    
+
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> ares = new ArrayList<Reserva>();
@@ -54,7 +54,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return ares;
@@ -95,7 +95,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return arrayRes;
@@ -134,12 +134,12 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return arrayRes;
     }//</editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReserva(Reserva)">
     public ArrayList<Reserva> selectReserva(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
@@ -174,7 +174,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return arrayRes;
@@ -197,7 +197,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return qtd;
@@ -217,7 +217,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return qtd;
@@ -227,12 +227,12 @@ public class ReservaDAO {
     public void insertPontual(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT_PONTUAL);
-            
+
             pstmt.executeUpdate();
-            
+
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
     }//</editor-fold>
 
@@ -253,7 +253,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
     }//</editor-fold>
 
@@ -268,7 +268,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
     }//</editor-fold>
 }

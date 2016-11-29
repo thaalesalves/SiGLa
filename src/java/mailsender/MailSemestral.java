@@ -3,12 +3,12 @@ package mailsender;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.logging.Level;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import util.Logger;
 
 public class MailSemestral extends Mail {
 
@@ -17,16 +17,16 @@ public class MailSemestral extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(mail.getSession(mail));
-            message.setFrom(new InternetAddress(mail.getReserva().getPessoa().getEmail()));
+            message.setFrom(new InternetAddress("Laboratório de Informática <suporte.lab.mc@umc.br>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getReserva().getPessoa().getEmail()));
             message.setSubject("Reserva de Laboratório");
             message.setText(mail.getMessage(mail));
             message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         } catch (Exception e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         }
     } //</editor-fold>
 

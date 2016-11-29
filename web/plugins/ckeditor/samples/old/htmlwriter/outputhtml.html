@@ -64,17 +64,14 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                          * Ensure that htmlwriter plugin, which is required for this sample, is loaded.
                          */
                         extraPlugins: 'htmlwriter',
-
                         /*
                          * Style sheet for the contents
                          */
                         contentsCss: 'body {color:#000; background-color#:FFF;}',
-
                         /*
                          * Simple HTML5 doctype
                          */
                         docType: '<!DOCTYPE HTML>',
-
                         /*
                          * Allowed content rules which beside limiting allowed HTML
                          * will also take care of transforming styles to attributes
@@ -86,7 +83,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 'h1 h2 h3 p pre[align]; ' +
                                 'blockquote code kbd samp var del ins cite q b i u strike ul ol li hr table tbody tr td th caption; ' +
                                 'img[!src,alt,align,width,height]; font[!face]; font[!family]; font[!color]; font[!size]; font{!background-color}; a[!href]; a[!name]',
-
                         /*
                          * Core styles.
                          */
@@ -94,7 +90,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                         coreStyles_italic: {element: 'i'},
                         coreStyles_underline: {element: 'u'},
                         coreStyles_strike: {element: 'strike'},
-
                         /*
                          * Font face.
                          */
@@ -105,7 +100,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                             element: 'font',
                             attributes: {'face': '#(family)'}
                         },
-
                         /*
                          * Font sizes.
                          */
@@ -114,7 +108,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                             element: 'font',
                             attributes: {'size': '#(size)'}
                         },
-
                         /*
                          * Font colors.
                          */
@@ -123,12 +116,10 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                             element: 'font',
                             attributes: {'color': '#(color)'}
                         },
-
                         colorButton_backStyle: {
                             element: 'font',
                             styles: {'background-color': '#(color)'}
                         },
-
                         /*
                          * Styles combo.
                          */
@@ -142,7 +133,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                             {name: 'Cited Work', element: 'cite'},
                             {name: 'Inline Quotation', element: 'q'}
                         ],
-
                         on: {
                             pluginsLoaded: configureTransformations,
                             loaded: configureHtmlWriter

@@ -35,8 +35,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
-            throw e;
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return ac;
@@ -56,7 +55,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return c;
@@ -74,7 +73,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
     }//</editor-fold>
 
@@ -89,7 +88,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
     }//</editor-fold>
 }

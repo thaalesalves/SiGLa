@@ -63,14 +63,12 @@
                     "height": 0,
                     "width": 0
                 },
-
                 /**
                  * @namespace Cached information about the border display
                  */
                 "border": {
                     "width": 2
                 },
-
                 /**
                  * @namespace Store for live information for the current drag
                  */
@@ -81,7 +79,6 @@
                     "endTd": null,
                     "dragging": false
                 },
-
                 /**
                  * @namespace Data cache for information that we need for scrolling the screen when we near
                  *   the edges
@@ -92,7 +89,6 @@
                     "height": 0,
                     "scrollTop": 0
                 },
-
                 /**
                  * @namespace Data cache for the position of the DataTables scrolling element (when scrolling
                  *   is enabled)
@@ -101,7 +97,6 @@
                     "top": 0,
                     "bottom": 0
                 },
-
                 /**
                  * @namespace Information stored for each column. An array of objects
                  */
@@ -230,7 +225,6 @@
                     $('tbody', this.dom.table).off('mouseover.DTAF mouseout.DTAF');
                 });
             },
-
             _initColumns: function ( )
             {
                 var that = this;
@@ -267,7 +261,6 @@
                     }
                 }
             },
-
             "_fnColumnOptions": function (i, opts)
             {
                 var column = this.s.columns[ i ];
@@ -287,7 +280,6 @@
                 set('step', ['fnStep', 'step']);
                 set('increment', ['bIncrement', 'increment']);
             },
-
             /**
              * Find out the coordinates of a given TD cell in a table
              *  @method  _fnTargetCoords
@@ -306,7 +298,6 @@
                     "column": position[2]
                 };
             },
-
             /**
              * Display the border around one or more cells (from start to end)
              *  @method  _fnUpdateBorder
@@ -377,7 +368,6 @@
                 oStyle.height = height + "px";
                 oStyle.width = this.s.border.width + "px";
             },
-
             /**
              * Mouse down event handler for starting a drag
              *  @method  _fnFillerDragStart
@@ -460,7 +450,6 @@
                     }
                 }, 250);
             },
-
             /**
              * Mouse move event handler for during a move. See if we want to update the display based on the
              * new cursor position
@@ -521,7 +510,6 @@
                     this.s.scroller.bottom = this.s.scroller.top + $(this.s.dt.nTable.parentNode).height();
                 }
             },
-
             /**
              * Mouse release handler - end the drag and take action to update the cells with the needed values
              *  @method  _fnFillerFinish
@@ -634,7 +622,6 @@
                     this.s.dt.oInstance.fnDraw();
                 }
             },
-
             /**
              * Display the drag handle on mouse over cell
              *  @method  _fnFillerDisplay
@@ -671,7 +658,6 @@
                     filler.style.display = "none";
                 }
             },
-
             /**
              * Position the filler icon over a cell
              *  @method  _fnFillerPosition
@@ -724,9 +710,7 @@
              * @default `y`
              */
             mode: 'y',
-
             complete: null,
-
             /**
              * Column definition defaults
              *  @namespace
@@ -739,7 +723,6 @@
                  * @default true
                  */
                 enable: true,
-
                 /**
                  * Allow automatic increment / decrement on this column if a number
                  * is found.
@@ -748,7 +731,6 @@
                  * @default true
                  */
                 increment: true,
-
                 /**
                  * Cell read function
                  *
@@ -762,7 +744,6 @@
                 read: function (cell) {
                     return $(cell).html();
                 },
-
                 /**
                  * Cell write function
                  *
@@ -785,7 +766,6 @@
                         dt.fnUpdate(val, pos[0], pos[2], false);
                     }
                 },
-
                 /**
                  * Step function. This provides the ability to customise how the values
                  * are incremented.

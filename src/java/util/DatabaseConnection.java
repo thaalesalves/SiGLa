@@ -12,8 +12,11 @@ public class DatabaseConnection {
             Class.forName("org.postgresql.Driver");
             connString = DriverManager.getConnection("jdbc:postgresql://admlab001:5432/sigladb", "sigla", "sigladb");
         } catch (ClassNotFoundException e) {
-            System.err.println("Erro na conexão com o banco: " + e.getMessage());
+            Logger.logSevere(e, e.getClass());
+        } catch (Exception e) {
+            Logger.logSevere(e, e.getClass());
         }
+
         return connString;
     }
 

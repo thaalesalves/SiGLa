@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import util.Logger;
 
 public class MailPontual extends Mail {
 
@@ -23,9 +24,9 @@ public class MailPontual extends Mail {
             message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         } catch (Exception e) {
-            logger(e);
+            Logger.logWarning(e, this.getClass());
         }
     } //</editor-fold>
 

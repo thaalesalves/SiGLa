@@ -50,19 +50,14 @@
         global: {
             // Boolean - Whether to animate the chart
             animation: true,
-
             // Number - Number of animation steps
             animationSteps: 60,
-
             // String - Animation easing effect
             animationEasing: "easeOutQuart",
-
             // Boolean - If we should show the scale at all
             showScale: true,
-
             // Boolean - If we want to override with a hard coded scale
             scaleOverride: false,
-
             // ** Required if scaleOverride is true **
             // Number - The number of steps in a hard coded scale
             scaleSteps: null,
@@ -70,115 +65,78 @@
             scaleStepWidth: null,
             // Number - The scale starting value
             scaleStartValue: null,
-
             // String - Colour of the scale line
             scaleLineColor: "rgba(0,0,0,.1)",
-
             // Number - Pixel width of the scale line
             scaleLineWidth: 1,
-
             // Boolean - Whether to show labels on the scale
             scaleShowLabels: true,
-
             // Interpolated JS string - can access value
             scaleLabel: "<%=value%>",
-
             // Boolean - Whether the scale should stick to integers, and not show any floats even if drawing space is there
             scaleIntegersOnly: true,
-
             // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: false,
-
             // String - Scale label font declaration for the scale label
             scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
             // Number - Scale label font size in pixels
             scaleFontSize: 12,
-
             // String - Scale label font weight style
             scaleFontStyle: "normal",
-
             // String - Scale label font colour
             scaleFontColor: "#666",
-
             // Boolean - whether or not the chart should be responsive and resize when the browser does.
             responsive: false,
-
             // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio: true,
-
             // Boolean - Determines whether to draw tooltips on the canvas or not - attaches events to touchmove & mousemove
             showTooltips: true,
-
             // Boolean - Determines whether to draw built-in tooltip or call custom tooltip function
             customTooltips: false,
-
             // Array - Array of string names to attach tooltip events
             tooltipEvents: ["mousemove", "touchstart", "touchmove", "mouseout"],
-
             // String - Tooltip background colour
             tooltipFillColor: "rgba(0,0,0,0.8)",
-
             // String - Tooltip label font declaration for the scale label
             tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
             // Number - Tooltip label font size in pixels
             tooltipFontSize: 14,
-
             // String - Tooltip font weight style
             tooltipFontStyle: "normal",
-
             // String - Tooltip label font colour
             tooltipFontColor: "#fff",
-
             // String - Tooltip title font declaration for the scale label
             tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
             // Number - Tooltip title font size in pixels
             tooltipTitleFontSize: 14,
-
             // String - Tooltip title font weight style
             tooltipTitleFontStyle: "bold",
-
             // String - Tooltip title font colour
             tooltipTitleFontColor: "#fff",
-
             // String - Tooltip title template
             tooltipTitleTemplate: "<%= label%>",
-
             // Number - pixel width of padding around tooltip text
             tooltipYPadding: 6,
-
             // Number - pixel width of padding around tooltip text
             tooltipXPadding: 6,
-
             // Number - Size of the caret on the tooltip
             tooltipCaretSize: 8,
-
             // Number - Pixel radius of the tooltip border
             tooltipCornerRadius: 6,
-
             // Number - Pixel offset from point x to tooltip edge
             tooltipXOffset: 10,
-
             // String - Template string for single tooltips
             tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
-
             // String - Template string for single tooltips
             multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>",
-
             // String - Colour behind the legend colour block
             multiTooltipKeyBackground: '#fff',
-
             // Array - A list of colors to use as the defaults
             segmentColorDefault: ["#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A", "#B4B482", "#B15928"],
-
             // Array - A list of highlight colors to use as the defaults
             segmentHighlightColorDefaults: ["#CEF6FF", "#47A0DC", "#DAFFB2", "#5BC854", "#FFC2C1", "#FF4244", "#FFE797", "#FFA728", "#F2DAFE", "#9265C2", "#DCDCAA", "#D98150"],
-
             // Function - Will fire on animation progression.
             onAnimationProgress: function () {},
-
             // Function - Will fire on animation completion.
             onAnimationComplete: function () {}
 
@@ -732,17 +690,17 @@
                     return easingEffects.easeOutBounce(t * 2 - 1) * 0.5 + 1 * 0.5;
                 }
             },
-            //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-            requestAnimFrame = helpers.requestAnimFrame = (function () {
-                return window.requestAnimationFrame ||
-                        window.webkitRequestAnimationFrame ||
-                        window.mozRequestAnimationFrame ||
-                        window.oRequestAnimationFrame ||
-                        window.msRequestAnimationFrame ||
-                        function (callback) {
-                            return window.setTimeout(callback, 1000 / 60);
-                        };
-            })(),
+    //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    requestAnimFrame = helpers.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback) {
+                    return window.setTimeout(callback, 1000 / 60);
+                };
+    })(),
             cancelAnimFrame = helpers.cancelAnimFrame = (function () {
                 return window.cancelAnimationFrame ||
                         window.webkitCancelAnimationFrame ||
@@ -1975,7 +1933,6 @@
             // Always vertically in the centre as the text height doesn't change
             this.yCenter = (this.height / 2);
         },
-
         getIndexAngle: function (index) {
             var angleMultiplier = (Math.PI * 2) / this.valuesCount;
             // Start from the top instead of right, so remove a quarter of the circle
@@ -2252,34 +2209,24 @@
     var defaultConfig = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero: true,
-
         //Boolean - Whether grid lines are shown across the chart
         scaleShowGridLines: true,
-
         //String - Colour of the grid lines
         scaleGridLineColor: "rgba(0,0,0,.05)",
-
         //Number - Width of the grid lines
         scaleGridLineWidth: 1,
-
         //Boolean - Whether to show horizontal lines (except X axis)
         scaleShowHorizontalLines: true,
-
         //Boolean - Whether to show vertical lines (except Y axis)
         scaleShowVerticalLines: true,
-
         //Boolean - If there is a stroke on each bar
         barShowStroke: true,
-
         //Number - Pixel width of the bar stroke
         barStrokeWidth: 2,
-
         //Number - Spacing between each of the X value sets
         barValueSpacing: 5,
-
         //Number - Spacing between data sets within X values
         barDatasetSpacing: 1,
-
         //String - A legend template
         legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
 
@@ -2558,28 +2505,20 @@
     var defaultConfig = {
         //Boolean - Whether we should show a stroke on each segment
         segmentShowStroke: true,
-
         //String - The colour of each segment stroke
         segmentStrokeColor: "#fff",
-
         //Number - The width of each segment stroke
         segmentStrokeWidth: 2,
-
         //The percentage of the chart that we cut out of the middle.
         percentageInnerCutout: 50,
-
         //Number - Amount of animation steps
         animationSteps: 100,
-
         //String - Animation easing effect
         animationEasing: "easeOutBounce",
-
         //Boolean - Whether we animate the rotation of the Doughnut
         animateRotate: true,
-
         //Boolean - Whether we animate scaling the Doughnut from the centre
         animateScale: false,
-
         //String - A legend template
         legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
 
@@ -2690,14 +2629,12 @@
             });
             this.render();
         },
-
         removeData: function (atIndex) {
             var indexToDelete = (helpers.isNumber(atIndex)) ? atIndex : this.segments.length - 1;
             this.segments.splice(indexToDelete, 1);
             this.reflow();
             this.update();
         },
-
         reflow: function () {
             helpers.extend(this.SegmentArc.prototype, {
                 x: this.chart.width / 2,
@@ -2751,52 +2688,36 @@
             helpers = Chart.helpers;
 
     var defaultConfig = {
-
         ///Boolean - Whether grid lines are shown across the chart
         scaleShowGridLines: true,
-
         //String - Colour of the grid lines
         scaleGridLineColor: "rgba(0,0,0,.05)",
-
         //Number - Width of the grid lines
         scaleGridLineWidth: 1,
-
         //Boolean - Whether to show horizontal lines (except X axis)
         scaleShowHorizontalLines: true,
-
         //Boolean - Whether to show vertical lines (except Y axis)
         scaleShowVerticalLines: true,
-
         //Boolean - Whether the line is curved between points
         bezierCurve: true,
-
         //Number - Tension of the bezier curve between points
         bezierCurveTension: 0.4,
-
         //Boolean - Whether to show a dot for each point
         pointDot: true,
-
         //Number - Radius of each point dot in pixels
         pointDotRadius: 4,
-
         //Number - Pixel width of point dot stroke
         pointDotStrokeWidth: 1,
-
         //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
         pointHitDetectionRadius: 20,
-
         //Boolean - Whether to show a stroke for datasets
         datasetStroke: true,
-
         //Number - Pixel width of dataset stroke
         datasetStrokeWidth: 2,
-
         //Boolean - Whether to fill the dataset with a colour
         datasetFill: true,
-
         //String - A legend template
         legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].strokeColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>",
-
         //Boolean - Whether to horizontally center the label and point dot inside the grid
         offsetGridLines: false
 
@@ -3136,43 +3057,30 @@
     var defaultConfig = {
         //Boolean - Show a backdrop to the scale label
         scaleShowLabelBackdrop: true,
-
         //String - The colour of the label backdrop
         scaleBackdropColor: "rgba(255,255,255,0.75)",
-
         // Boolean - Whether the scale should begin at zero
         scaleBeginAtZero: true,
-
         //Number - The backdrop padding above & below the label in pixels
         scaleBackdropPaddingY: 2,
-
         //Number - The backdrop padding to the side of the label in pixels
         scaleBackdropPaddingX: 2,
-
         //Boolean - Show line for each value in the scale
         scaleShowLine: true,
-
         //Boolean - Stroke a line around each segment in the chart
         segmentShowStroke: true,
-
         //String - The colour of the stroke on each segment.
         segmentStrokeColor: "#fff",
-
         //Number - The width of the stroke value in pixels
         segmentStrokeWidth: 2,
-
         //Number - Amount of animation steps
         animationSteps: 100,
-
         //String - Animation easing effect.
         animationEasing: "easeOutBounce",
-
         //Boolean - Whether to animate the rotation of the chart
         animateRotate: true,
-
         //Boolean - Whether to animate scaling the chart from the centre
         animateScale: false,
-
         //String - A legend template
         legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
     };
@@ -3391,63 +3299,44 @@
         defaults: {
             //Boolean - Whether to show lines for each scale point
             scaleShowLine: true,
-
             //Boolean - Whether we show the angle lines out of the radar
             angleShowLineOut: true,
-
             //Boolean - Whether to show labels on the scale
             scaleShowLabels: false,
-
             // Boolean - Whether the scale should begin at zero
             scaleBeginAtZero: true,
-
             //String - Colour of the angle line
             angleLineColor: "rgba(0,0,0,.1)",
-
             //Number - Pixel width of the angle line
             angleLineWidth: 1,
-
             //Number - Interval at which to draw angle lines ("every Nth point")
             angleLineInterval: 1,
-
             //String - Point label font declaration
             pointLabelFontFamily: "'Arial'",
-
             //String - Point label font weight
             pointLabelFontStyle: "normal",
-
             //Number - Point label font size in pixels
             pointLabelFontSize: 10,
-
             //String - Point label font colour
             pointLabelFontColor: "#666",
-
             //Boolean - Whether to show a dot for each point
             pointDot: true,
-
             //Number - Radius of each point dot in pixels
             pointDotRadius: 3,
-
             //Number - Pixel width of point dot stroke
             pointDotStrokeWidth: 1,
-
             //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
             pointHitDetectionRadius: 20,
-
             //Boolean - Whether to show a stroke for datasets
             datasetStroke: true,
-
             //Number - Pixel width of dataset stroke
             datasetStrokeWidth: 2,
-
             //Boolean - Whether to fill the dataset with a colour
             datasetFill: true,
-
             //String - A legend template
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].strokeColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
 
         },
-
         initialize: function (data) {
             this.PointClass = Chart.Point.extend({
                 strokeWidth: this.options.pointDotStrokeWidth,
@@ -3520,7 +3409,6 @@
                 helpers.each(dataset.points, callback, this);
             }, this);
         },
-
         getPointsAtEvent: function (evt) {
             var mousePosition = helpers.getRelativePosition(evt),
                     fromCenter = helpers.getAngleFromPoint({
@@ -3545,7 +3433,6 @@
 
             return activePointsCollection;
         },
-
         buildScale: function (data) {
             this.scale = new Chart.RadialScale({
                 display: this.options.showScale,

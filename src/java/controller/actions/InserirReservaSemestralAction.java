@@ -53,8 +53,7 @@ public class InserirReservaSemestralAction implements ICommand {
 
             dao.insertSemestral(r);
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Erro em " + this.getClass().getSimpleName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
             session.setAttribute("status", "error");
             return request.getContextPath() + "/reserva/listar-semestral";
         }

@@ -63,7 +63,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                          * Style sheet for the contents
                          */
                         contentsCss: 'assets/outputxhtml/outputxhtml.css',
-
                         /*
                          * Special allowed content rules for spans used by
                          * font face, size, and color buttons.
@@ -75,7 +74,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 'span(!FontColor1BG);span(!FontColor2BG);span(!FontColor3BG);' +
                                 'span(!FontComic);span(!FontCourier);span(!FontTimes);' +
                                 'span(!FontSmaller);span(!FontLarger);span(!FontSmall);span(!FontBig);span(!FontDouble)',
-
                         /*
                          * Core styles.
                          */
@@ -106,7 +104,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                             attributes: {'class': 'Superscript'},
                             overrides: 'sup'
                         },
-
                         /*
                          * Font face.
                          */
@@ -115,7 +112,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                         // separated by a semi-colon (;). We are using class names here, so each font
                         // is defined by {Combo Label}/{Class Name}.
                         font_names: 'Comic Sans MS/FontComic;Courier New/FontCourier;Times New Roman/FontTimes',
-
                         // Define the way font elements will be applied to the document. The "span"
                         // element will be used. When a font is selected, the font name defined in the
                         // above list is passed to this definition with the name "Font", being it
@@ -134,7 +130,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 }
                             ]
                         },
-
                         /*
                          * Font sizes.
                          */
@@ -151,12 +146,10 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 }
                             ]
                         },
-
                         /*
                          * Font colors.
                          */
                         colorButton_enableMore: false,
-
                         colorButton_colors: 'FontColor1/FF9900,FontColor2/0066CC,FontColor3/F00',
                         colorButton_foreStyle: {
                             element: 'span',
@@ -170,7 +163,6 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 }
                             ]
                         },
-
                         colorButton_backStyle: {
                             element: 'span',
                             attributes: {'class': '#(color)BG'},
@@ -183,32 +175,26 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
                                 }
                             ]
                         },
-
                         /*
                          * Indentation.
                          */
                         indentClasses: ['Indent1', 'Indent2', 'Indent3'],
-
                         /*
                          * Paragraph justification.
                          */
                         justifyClasses: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyFull'],
-
                         /*
                          * Styles combo.
                          */
                         stylesSet: [
                             {name: 'Strong Emphasis', element: 'strong'},
                             {name: 'Emphasis', element: 'em'},
-
                             {name: 'Computer Code', element: 'code'},
                             {name: 'Keyboard Phrase', element: 'kbd'},
                             {name: 'Sample Text', element: 'samp'},
                             {name: 'Variable', element: 'var'},
-
                             {name: 'Deleted Text', element: 'del'},
                             {name: 'Inserted Text', element: 'ins'},
-
                             {name: 'Cited Work', element: 'cite'},
                             {name: 'Inline Quotation', element: 'q'}
                         ]

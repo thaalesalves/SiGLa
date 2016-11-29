@@ -20,19 +20,23 @@ public class ListarReservaSemestralAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        HttpSession session = request.getSession();
+        try {
+            HttpSession session = request.getSession();
 
-        CursoDAO cdao = new CursoDAO();
-        ArrayList<Curso> ac = cdao.selectAll();
+            CursoDAO cdao = new CursoDAO();
+            ArrayList<Curso> ac = cdao.selectAll();
 
-        SoftwareDAO swdao = new SoftwareDAO();
-        ArrayList<Software> asw = swdao.selectAll();
+            SoftwareDAO swdao = new SoftwareDAO();
+            ArrayList<Software> asw = swdao.selectAll();
 
-        Reserva r = new Reserva();
-        r.setCursos(ac);
-        r.setSoftwares(asw);
+            Reserva r = new Reserva();
+            r.setCursos(ac);
+            r.setSoftwares(asw);
 
-        session.setAttribute("dados-semestral", r);
+            session.setAttribute("dados-semestral", r);
+        } catch (Exception e) {
+            util.Logger.logSevere(e, e.getClass());
+        }
 
         return request.getContextPath() + "/reserva/semestral";
     }

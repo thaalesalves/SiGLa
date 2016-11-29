@@ -100,21 +100,18 @@
                  *  @default  Passed in as first parameter to constructor
                  */
                 "dt": oDTSettings,
-
                 /**
                  * Pixel location of the top of the drawn table in the viewport
                  *  @type     int
                  *  @default  0
                  */
                 "tableTop": 0,
-
                 /**
                  * Pixel location of the bottom of the drawn table in the viewport
                  *  @type     int
                  *  @default  0
                  */
                 "tableBottom": 0,
-
                 /**
                  * Pixel location of the boundary for when the next data set should be loaded and drawn
                  * when scrolling up the way.
@@ -123,7 +120,6 @@
                  *  @private
                  */
                 "redrawTop": 0,
-
                 /**
                  * Pixel location of the boundary for when the next data set should be loaded and drawn
                  * when scrolling down the way. Note that this is actually calculated as the offset from
@@ -133,21 +129,18 @@
                  *  @private
                  */
                 "redrawBottom": 0,
-
                 /**
                  * Auto row height or not indicator
                  *  @type     bool
                  *  @default  0
                  */
                 "autoHeight": true,
-
                 /**
                  * Number of rows calculated as visible in the visible viewport
                  *  @type     int
                  *  @default  0
                  */
                 "viewportRows": 0,
-
                 /**
                  * setTimeout reference for state saving, used when state saving is enabled in the DataTable
                  * and when the user scrolls the viewport in order to stop the cookie set taking too much
@@ -156,7 +149,6 @@
                  *  @default  0
                  */
                 "stateTO": null,
-
                 /**
                  * setTimeout reference for the redraw, used when server-side processing is enabled in the
                  * DataTables in order to prevent DoSing the server
@@ -164,20 +156,17 @@
                  *  @default  null
                  */
                 "drawTO": null,
-
                 heights: {
                     jump: null,
                     page: null,
                     virtual: null,
                     scroll: null,
-
                     /**
                      * Height of rows in the table
                      *  @type     int
                      *  @default  0
                      */
                     row: null,
-
                     /**
                      * Pixel height of the viewport
                      *  @type     int
@@ -185,7 +174,6 @@
                      */
                     viewport: null
                 },
-
                 topRowFloat: 0,
                 scrollDrawDiff: null,
                 loaderVisible: false
@@ -259,7 +247,6 @@
                         parseInt(pixels, 10) :
                         pixels;
             },
-
             /**
              * Calculate the row number that will be found at the given pixel position
              * (y-scroll).
@@ -297,7 +284,6 @@
                         parseInt(row, 10) :
                         row;
             },
-
             /**
              * Calculate the row number that will be found at the given pixel position (y-scroll)
              *  @param {int} iRow Row index to scroll to
@@ -360,7 +346,6 @@
                     $(this.dom.scroller).scrollTop(px);
                 }
             },
-
             /**
              * Calculate and store information about how many rows are to be displayed
              * in the scrolling viewport, based on current dimensions in the browser's
@@ -408,7 +393,6 @@
                     this.s.dt.oInstance.fnDraw();
                 }
             },
-
             /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
              * Private methods (they are of course public in JS, but recommended as private)
              * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -537,7 +521,6 @@
                     }
                 });
             },
-
             /**
              * Scrolling function - fired whenever the scrolling position is changed.
              * This method needs to use the stored values to see if the table should be
@@ -650,7 +633,6 @@
                 this.s.lastScrollTop = iScrollTop;
                 this.s.stateSaveThrottle();
             },
-
             /**
              * Convert from one domain to another. The physical domain is the actual
              * pixel count on the screen, while the virtual is if we had browsers which
@@ -710,7 +692,6 @@
                     }
                 }
             },
-
             /**
              * Draw callback function which is fired when the DataTable is redrawn. The main function of
              * this method is to position the drawn table correctly the scrolling container for the rows
@@ -821,7 +802,6 @@
                     this.s.loaderVisible = false;
                 }
             },
-
             /**
              * Force the scrolling container to have height beyond that of just the
              * table that has been drawn so the user can scroll the whole data set.
@@ -847,7 +827,6 @@
 
                 this.dom.force.style.height = heights.scroll + "px";
             },
-
             /**
              * Automatic calculation of table row height. This is just a little tricky here as using
              * initialisation DataTables has tale the table out of the document, so we need to create
@@ -893,7 +872,6 @@
                 this.s.heights.row = $('tr', tbody).eq(1).outerHeight();
                 container.remove();
             },
-
             /**
              * Update any information elements that are controlled by the DataTable based on the scrolling
              * viewport and what rows are visible in it. This function basically acts in the same way as
@@ -1008,7 +986,6 @@
              *    } );
              */
             "trace": false,
-
             /**
              * Scroller will attempt to automatically calculate the height of rows for it's internal
              * calculations. However the height that is used can be overridden using this parameter.
@@ -1026,7 +1003,6 @@
              *    } );
              */
             "rowHeight": "auto",
-
             /**
              * When using server-side processing, Scroller will wait a small amount of time to allow
              * the scrolling to finish before requesting more data from the server. This prevents
@@ -1045,7 +1021,6 @@
              *    } );
              */
             "serverWait": 200,
-
             /**
              * The display buffer is what Scroller uses to calculate how many rows it should pre-fetch
              * for scrolling. Scroller automatically adjusts DataTables' display length to pre-fetch
@@ -1070,7 +1045,6 @@
              *    } );
              */
             "displayBuffer": 9,
-
             /**
              * Scroller uses the boundary scaling factor to decide when to redraw the table - which it
              * typically does before you reach the end of the currently loaded data set (in order to
@@ -1092,7 +1066,6 @@
              *    } );
              */
             "boundaryScale": 0.5,
-
             /**
              * Show (or not) the loading element in the background of the table. Note that you should
              * include the dataTables.scroller.css file for this to be displayed correctly.

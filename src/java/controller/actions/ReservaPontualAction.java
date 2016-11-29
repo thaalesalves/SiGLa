@@ -20,7 +20,7 @@ public class ReservaPontualAction implements ICommand {
             ReservaDAO dao = new ReservaDAO();
 
         } catch (Exception e) {
-            System.err.println("Erro em " + this.getClass().getName() + ": " + e.getMessage());
+            util.Logger.logSevere(e, e.getClass());
         }
 
         return "";

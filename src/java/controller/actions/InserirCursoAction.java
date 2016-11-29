@@ -27,7 +27,7 @@ public class InserirCursoAction implements ICommand {
 
             dao.insert(c);
         } catch (Exception e) {
-            e.printStackTrace();
+            util.Logger.logSevere(e, e.getClass());
         }
         return request.getContextPath() + "/curso/novo";
     }
