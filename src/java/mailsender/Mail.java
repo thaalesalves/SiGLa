@@ -3,8 +3,6 @@ package mailsender;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Authenticator;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -27,18 +25,18 @@ public abstract class Mail {
     public Session getSession(Mail mail) {
         final Properties props = new Properties();
         
-        props.put("mail.smtp.host", "direct.uesp.net.br");
+        props.put("mail.smtp.host", "smtp.office365.com");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", 25);
-        props.put("mail.smtp.user", "thales");
-        props.put("mail.smtp.password", "rosebud");
+        props.put("mail.smtp.port", 587);
+        //props.put("mail.smtp.user", mail.getReserva().getPessoa().getEmail());
+        //props.put("mail.smtp.password", mail.getReserva().getPessoa().getSenha());
         
         final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("thales", "rosebud");
+                return new PasswordAuthentication(mail.getReserva().getPessoa().getEmail(), mail.getReserva().getPessoa().getSenha());
             }
         });
         
