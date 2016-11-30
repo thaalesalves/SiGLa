@@ -17,9 +17,9 @@ public abstract class Mail {
     private String subject;
     private String message;
 
+    public abstract String getMessageProfessor(Mail mail);
+    public abstract String getMessageFuncionario(Mail mail);
     public abstract void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException;
-
-    public abstract String getMessage(Mail mail);
 
     // <editor-fold defaultstate="collapsed" desc="Método da API: getSession(Mail)">
     public Session getSession(Mail mail) {

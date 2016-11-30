@@ -30,9 +30,15 @@ public class MailMessage extends Mail {
         }
     } //</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: getMessage(Mail)">
+    // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: getMessageProfessor(Mail)">
     @Override
-    public String getMessage(Mail mail) {
+    public String getMessageProfessor(Mail mail) {
         return "";
-    } //</editor-fold>
+    }//</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: getMessageFuncionario(Mail)">
+    @Override
+    public String getMessageFuncionario(Mail mail) {
+        return "";
+    }//</editor-fold>
 }
