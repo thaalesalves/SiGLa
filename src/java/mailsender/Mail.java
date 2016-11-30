@@ -25,7 +25,7 @@ public abstract class Mail {
     public Session getSession(Mail mail) {
         final Properties props = new Properties();
         
-        props.put("mail.smtp.host", "direct.uesp.net.br");
+        props.put("mail.smtp.host", "smtp.uesp.net.br");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", 25);
         
