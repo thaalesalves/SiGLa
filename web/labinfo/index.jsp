@@ -42,7 +42,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="${pageContext.request.contextPath}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>i<b>GL</b>a</span>
                     <!-- logo for regular state and mobile devices -->
@@ -144,7 +144,7 @@
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
                                     %>
-                                    <span class="hidden-xs"><% out.println(p.getNome());%></span>
+                                    <span class="hidden-xs"><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" "))); %></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -157,7 +157,7 @@
                                             }
                                         %>
                                         <p>
-                                            <% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
+                                            <% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
                                             <small><% out.println(p.getCargo() + " | " + p.getDepto()); %></small>
                                         </p>
                                     </li>
@@ -193,7 +193,7 @@
                             %>
                         </div>
                         <div class="pull-left info">
-                            <p><% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
+                            <p><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>

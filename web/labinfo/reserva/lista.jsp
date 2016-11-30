@@ -38,7 +38,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="${pageContext.request.contextPath}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>i<b>GL</b>a</span>
                     <!-- logo for regular state and mobile devices -->
@@ -189,7 +189,7 @@
                             %>
                         </div>
                         <div class="pull-left info">
-                            <p><% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
+                            <p><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
