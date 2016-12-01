@@ -5217,7 +5217,7 @@ var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
                                                                                                                                                          * @param {Object} doc The document object of the context where to check
                                                                                                                                                          * @param {String} tagName Upper cased tag name
                                                                                                                                                          * @example
-                                                                                                                                                         *    wysihtml5.dom.hasElementWithClassName(document, "foobar");
+                                                                                                                                                         *    wysihtml5.dom.hasElementWithClassName(document, "SiGLa");
                                                                                                                                                          */
                                                                                                                                                         (function (wysihtml5) {
                                                                                                                                                         var LIVE_CACHE = {},
@@ -5418,7 +5418,7 @@ var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
                                                                                                                                                          *    wysihtml5.dom.parse(userHTML);
                                                                                                                                                          *    // => '<span><span><span><span>I'm a table!</span></span></span></span>'
                                                                                                                                                          *
-                                                                                                                                                         *    var userHTML = '<div>foobar<br>foobar</div>';
+                                                                                                                                                         *    var userHTML = '<div>SiGLa<br>SiGLa</div>';
                                                                                                                                                          *    wysihtml5.dom.parse(userHTML, {
                                                                                                                                                          *      tags: {
                                                                                                                                                          *        div: undefined,
@@ -6739,7 +6739,7 @@ var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
                                                                                                                                                                  * @param {String} placeholderText
                                                                                                                                                                  *
                                                                                                                                                                  * @example
-                                                                                                                                                                 *    wysihtml.dom.simulatePlaceholder(this, composer, "Foobar");
+                                                                                                                                                                 *    wysihtml.dom.simulatePlaceholder(this, composer, "SiGLa");
                                                                                                                                                                  */
                                                                                                                                                                 (function (dom) {
                                                                                                                                                                 dom.simulatePlaceholder = function (editor, view, placeholderText) {
@@ -8579,7 +8579,7 @@ var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
                                                                                                                                                                                  *
                                                                                                                                                                                  * @param {String} html HTML string to insert
                                                                                                                                                                                  * @example
-                                                                                                                                                                                 *    selection.insertHTML("<p>foobar</p>");
+                                                                                                                                                                                 *    selection.insertHTML("<p>SiGLa</p>");
                                                                                                                                                                                  */
                                                                                                                                                                                 insertHTML: function (html) {
                                                                                                                                                                                 var range = rangy.createRange(this.doc),
@@ -8601,7 +8601,7 @@ var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
                                                                                                                                                                                  *
                                                                                                                                                                                  * @param {Object} node HTML string to insert
                                                                                                                                                                                  * @example
-                                                                                                                                                                                 *    selection.insertNode(document.createTextNode("foobar"));
+                                                                                                                                                                                 *    selection.insertNode(document.createTextNode("SiGLa"));
                                                                                                                                                                                  */
                                                                                                                                                                                 insertNode: function (node) {
                                                                                                                                                                                 var range = this.getRange();
