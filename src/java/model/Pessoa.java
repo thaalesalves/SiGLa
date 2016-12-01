@@ -24,6 +24,7 @@ public class Pessoa {
     public Pessoa() {
     }
 
+    private String personalEmail;
     private String username;
     private String nome;
     private String nomeCompleto;
@@ -34,6 +35,14 @@ public class Pessoa {
     private String chapa;
     private byte[] picture;
 
+    public void setPersonalEmail(String personalEmail) {
+        this.personalEmail = personalEmail;
+    }
+    
+    public String getPersonalEmail() {
+        return personalEmail;
+    }
+    
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
