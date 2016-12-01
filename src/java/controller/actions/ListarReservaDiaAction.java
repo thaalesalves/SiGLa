@@ -45,9 +45,9 @@ public class ListarReservaDiaAction implements ICommand {
             ad.login(r.getPessoa());
 
             if (r.getPessoa().getCargo().equals("Professor")) {
-                reserva = dao.selectReserva(r); // chama reserva de professor
+                reserva = dao.selectReservaDia(r); // chama reserva de professor
             } else {
-                reserva = dao.selectReserva(); // chama reservas gerais
+                reserva = dao.selectReservaDia(); // chama reservas gerais
             }
 
             for (Reserva res : reserva) {
