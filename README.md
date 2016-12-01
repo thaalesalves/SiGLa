@@ -1,14 +1,57 @@
 # SiGLa
-## Sistema de Gestão de Laboratórios
 
-O SiGLa é um sistema voltado para a gestão dos laboratórios de informática de instituições acadêmicas como colégios, faculdades e universidades, auxiliando no controle de tarefas diárias e gerando relatórios de estado dos laboratórios e seus equipamentos. O sistema é voltado também para o controle de reservas, permitindo que o corpo docente da instituição tenha acesso ao estado dos laboratórios e que ele possa solicitar reservas para utilização dos laboratórios no período de aulas.
+O SiGLa é um sistema voltado para instituições de ensino que utilizam laboratórios de informática, facilitar a tarefa de gestão de laboratórios.
+- Controle tarefas diárias da equipe do laboratório;
+- Gerencie as reservas de laboratório;
+- Gerencie os softwares que a Instituição possui;
+- Monitore e controle o estado do equipamento dos laboratórios de informática;
+- Tenha pleno controle sobre as oprações do laboratório.
 
+## Features
 ### Integração com o Active Directory
-Ao invés de um controle de usuários próprio, o SiGLa é integrado com o AD DC da Instituição, vinculando todos os usuários do domínio ao sistema, que, de acordo com grupos de segurança que o usuário faz parte, dá direitos de acesso a ele (validando entre professor, coordenador e funcionário da Instituição), invalidando o login dos usuários que não são parte dos grupos definidos.  
+O SiGLa possui integração com Active Directory, unificando o login de usuários com aqueles existentes no Active Directory Domain Controller. O controle de acesso é feito a partir de grupos de distribuição dados aos usuários no AD, que atribuem permissões específicas no sistema aos usuários.
 
-### Reservas de Laboratório
-O SiGLa permite que o corpo docente da instituição tenha acesso à interface de usuário e solicite o uso de laboratórios, informando os dados necessários com algum tempo de antecedência. Os professores com laboratórios reservados poderão monitorar o estado do equipamento contido no laboratório de uso dele, e também poderão controlar o uso e fazer solicitações adicionais. Os coordenadores poderão manipular as reservas dos professores que eles coordenam, invertendo reservas entre professores, e também poderão contatar outros coordenadores para rever reservas entre diferentes cursos.
+### Disparo de Emails
+O SiGLa dispara dois emails na solicitação de reserva, sendo um para o docente solicitante e outro para a equipe de gestão do laboratório. A análise da reserva é feita pela equipe do laboratório, e fica sujeita a aprovação, rejeição ou arquivamento. 
+
+### Controle de Reservas
+O SiGLa permite controlar reservas do laboratório, desde o momento da solicitação até o término da reserva. Uma reserva solicitada fica pendente até que um membro da equipe avalie a possibilidade de alocação e dê o retorno ao docente solicitante.
 
 ### Controle de Tarefas
-O SiGLa também permitirá que o departamento de TI da instituição monitore as tarefas diárias do laboratório, tendo controle sobre quais computadores foram retirados e porquê, estado da infraestrutura, pedidos de manutenção, instalação de softwares e afins. 
+O SiGLa possui um módulo de controle de tarefas, que permite delegar tarefas aos membros da equipe e acompanhar o desenrolar delas até que elas sejam concluídas, sendo necessário dar detalhes das etapas concluídas.
 
+### Controle de Estado de Equipamento
+O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos computadores e softwares dos laboratórios, que é integrado com as tarefas. Caso algum equipamento esteja danificado, uma tarefa de retirada do equipamento será criada, e o estado do laboratório será atualizado com o equipamento retirado, alterando o mapa do laboratório. O corpo docente terá acesso a esta informação.
+
+## Requerimentos
+### Sistema Operacional
+- O SiGLa é capaz de rodar em qualquer plataforma compatível com Java SE;
+ 
+### Banco de dados
+- O SiGLa necessita do PostgreSQL 9.5 (no mínimo) para funcionar;
+
+## Especificações Técnicas
+### Tecnologias Implementadas
+- Windows Server 2016 
+- Microsoft Exchange Server (para SMTP)
+- Postfix (para SMTP)
+- Active Directory Domain Services
+- Microsoft Office 365
+- Microsoft Azure (integração do O365 e do AD com a nuvem)
+- JavaMail
+- Apache Tomcat
+- PostgreSQL
+- Bootstrap
+- HTML5
+- jQuery
+- Java EE
+- Javacript
+- CSS3
+ 
+### Padrões de Desenvolvimento
+- Orientação a Objetos
+- DAO
+- Factory
+- ICommand
+- Facade
+- MVC
