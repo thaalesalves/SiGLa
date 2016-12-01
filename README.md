@@ -8,6 +8,7 @@ O SiGLa é um sistema voltado para instituições de ensino que utilizam laborat
 - Tenha pleno controle sobre as oprações do laboratório.
 
 ## Features
+--------
 ### Integração com o Active Directory
 O SiGLa possui integração com Active Directory, unificando o login de usuários com aqueles existentes no Active Directory Domain Controller. O controle de acesso é feito a partir de grupos de distribuição dados aos usuários no AD, que atribuem permissões específicas no sistema aos usuários.
 
@@ -24,6 +25,7 @@ O SiGLa possui um módulo de controle de tarefas, que permite delegar tarefas ao
 O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos computadores e softwares dos laboratórios, que é integrado com as tarefas. Caso algum equipamento esteja danificado, uma tarefa de retirada do equipamento será criada, e o estado do laboratório será atualizado com o equipamento retirado, alterando o mapa do laboratório. O corpo docente terá acesso a esta informação.
 
 ## Requerimentos
+--------
 ### Sistema Operacional
 - O SiGLa é capaz de rodar em qualquer plataforma compatível com Java SE;
  
@@ -31,6 +33,7 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - O SiGLa necessita do PostgreSQL 9.5 (no mínimo) para funcionar;
 
 ## Especificações Técnicas
+--------
 ### Tecnologias Implementadas
 - Windows Server 2016 
 - Microsoft Exchange Server (para SMTP)
