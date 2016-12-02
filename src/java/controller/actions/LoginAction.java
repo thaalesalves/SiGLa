@@ -21,6 +21,7 @@ package controller.actions;
 
 import util.ActiveDirectory;
 import dao.EquipamentoDAO;
+import dao.GrupoDAO;
 import dao.LaboratorioDAO;
 import dao.ReservaDAO;
 import java.io.File;
@@ -29,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.naming.AuthenticationException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -66,7 +68,9 @@ public class LoginAction implements ICommand {
                 LaboratorioDAO daolab = new LaboratorioDAO();
                 ReservaDAO resdao = new ReservaDAO();
                 EquipamentoDAO equipdao = new EquipamentoDAO();
-
+                GrupoDAO gdao = new GrupoDAO();
+                ArrayList<Grupo> arrayg = gdao.select();
+                
                 e.setQtd(equipdao.qtdEquip());
                 r.setQtd(resdao.qtdReservas());
                 r.setQtdDia(resdao.qtdReservasDia());
@@ -79,13 +83,12 @@ public class LoginAction implements ICommand {
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
 
                 boolean acesso = false;
-                for (String g : groups.getOu()) {
-                    groups.setGrupo(g + groups.getDc());
-                    if (ad.isMember(p, groups)) {
-                        acesso = true;
-                    }
+                for (Grupo g : arrayg) {
+                    g.setGrupo(arrayg.get(arrayg.indexOf(g)).getGrupo());
+                    if (ad.isMember(p, arrayg.get(arrayg.indexOf(g))));
+                    acesso = true;
                 }
-
+                
                 if (acesso) {
                     session.setAttribute("pessoa", p); // salva dados do login na sessão
                     session.setAttribute("laboratorio", l); // salva dados dos labs na sessão
