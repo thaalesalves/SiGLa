@@ -205,6 +205,9 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
+        
+        givenName = givenName + " " + givenName;
+        
         return givenName.trim(); // retorno do nome
     } // </editor-fold>
 
@@ -222,6 +225,9 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
+        
+        givenName = givenName + " " + givenName;
+        
         return givenName.trim(); // retorno do nome
     } // </editor-fold>
 

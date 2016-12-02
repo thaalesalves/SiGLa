@@ -217,7 +217,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
                                     %>
-                                    <span class="hidden-xs"><% out.println(p.getNome());%></span>
+                                    <span class="hidden-xs"><% out.println(p.getNome().substring(0, p.getNome().indexOf(" ")));%></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -230,7 +230,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             }
                                         %>
                                         <p>
-                                            <% out.println(p.getNome() + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
+                                            <% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
                                             <small><% out.println(p.getCargo() + " | " + p.getDepto()); %></small>
                                         </p>
                                     </li>
