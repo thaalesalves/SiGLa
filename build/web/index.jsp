@@ -21,6 +21,16 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <!-- saved from url=(0023)http://intranet.umc.br/ -->
 <html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <%
+            if (session.getAttribute("pessoa") != null) {
+                response.sendRedirect(request.getContextPath() + "/pagina/home");
+            }
+
+            String login = null;
+            if ((String) session.getAttribute("login") != null) {
+                login = (String) session.getAttribute("login");
+            }
+        %>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,43 +39,28 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="./login/login.css" rel="stylesheet" type="text/css">
         <script src="./login/jquery.min.js.download"></script>
         <script>
-            function valida() {
-                $('#errormsg').hide();
-                if (document.frm_login.txtUsuario.value == "") {
-                    $('#errormsg span').html('Informe seu Usu&aacute;rio');
+            var jslogin = "<%=login%>";
+
+            <% session.invalidate();%>
+
+            $(document).ready(function () {
+                if (jslogin == "false") {
+                    $('#errormsg span').html('Usu&aacute;rio ou senha incorreto');
                     $('#errormsg').fadeIn(200);
-                    document.frm_login.txtUsuario.focus();
+                    document.frm_login.password.focus();
                     return false;
-                } else if (document.frm_login.txtSenha.value == "") {
-                    $('#errormsg span').html('Informe sua Senha');
+                } else if (jslogin == "acesso") {
+                    $('#errormsg span').html('Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso');
                     $('#errormsg').fadeIn(200);
-                    document.frm_login.txtSenha.focus();
+                    document.frm_login.password.focus();
+                    return false;
+                } else if (jslogin == "auth") {
+                    $('#errormsg span').html('Erro ao contactar a controladora de dom&iacute;nio');
+                    $('#errormsg').fadeIn(200);
+                    document.frm_login.password.focus();
                     return false;
                 }
-                return true;
-            }
-
-            function validaEsqueceu() {
-                $('#errormsg_esqueceu').hide();
-                if (document.frm_esqueceu.txtUsuario.value == "") {
-                    $('#errormsg_esqueceu span').html('Informe seu Usu&aacute;rio');
-                    $('#errormsg_esqueceu').fadeIn(200);
-                    document.frm_esqueceu.txtUsuario.focus();
-                    return false;
-                } else if (document.frm_esqueceu.txtEmail.value == "") {
-                    $('#errormsg_esqueceu span').html('Informe seu Email');
-                    $('#errormsg_esqueceu').fadeIn(200);
-                    document.frm_esqueceu.txtEmail.focus();
-                    return false;
-                    /*				} else if (document.frm_esqueceu.txtLocal.selectedIndex == 0) {
-                     $('#errormsg_esqueceu span').html('Para prosseguir deve-se selecionar uma Origem');
-                     $('#errormsg_esqueceu').fadeIn(200);
-                     document.frm_esqueceu.txtLocal.focus();
-                     return false;*/
-                }
-
-                return true;
-            }
+            });
 
             function toggleBody() {
                 if ($(".help-btn").html() == 'X') {
@@ -132,10 +127,10 @@ Copyright (C) 2016 Thales Alves Pereira
                     <img alt="Erro" src="./login/warning.svg" height="16"> <span></span>
                 </div>
                 <div class="umc-field">
-                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus>
+                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus required>
                 </div>
                 <div class="umc-field">
-                    <input type="password" placeholder="Senha" name="password" maxlength="8">
+                    <input type="password" placeholder="Senha" name="password" maxlength="8" required>
                 </div>
                 <input type="hidden" name="txtLocal" value="1">
                 <!--<div class="umc-field">
