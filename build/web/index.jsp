@@ -39,6 +39,22 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="./login/login.css" rel="stylesheet" type="text/css">
         <script src="./login/jquery.min.js.download"></script>
         <script>
+            function valida() {
+                $('#errormsg').hide();
+                if (document.frm_login.username.value == "") {
+                    $('#errormsg span').html('Informe seu Usu&aacute;rio');
+                    $('#errormsg').fadeIn(200);
+                    document.frm_login.username.focus();
+                    return false;
+                } else if (document.frm_login.password.value == "") {
+                    $('#errormsg span').html('Informe sua Senha');
+                    $('#errormsg').fadeIn(200);
+                    document.frm_login.password.focus();
+                    return false;
+                }
+                return true;
+            }
+
             var jslogin = "<%=login%>";
 
             <% session.invalidate();%>
@@ -127,10 +143,10 @@ Copyright (C) 2016 Thales Alves Pereira
                     <img alt="Erro" src="./login/warning.svg" height="16"> <span></span>
                 </div>
                 <div class="umc-field">
-                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus required>
+                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus>
                 </div>
                 <div class="umc-field">
-                    <input type="password" placeholder="Senha" name="password" maxlength="8" required>
+                    <input type="password" placeholder="Senha" name="password" maxlength="8">
                 </div>
                 <input type="hidden" name="txtLocal" value="1">
                 <!--<div class="umc-field">
