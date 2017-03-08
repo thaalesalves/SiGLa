@@ -1,22 +1,22 @@
 /**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
-
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * Copyright (C) 2016 Thales Alves Pereira
+ *
+ *  This file is part of SiGla.
+ *
+ *   SiGla is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SiGla is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+*
+ */
 package controller.actions;
 
 import util.ActiveDirectory;
@@ -60,7 +60,7 @@ public class LoginAction implements ICommand {
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
 
-            String path = "//admlab001/c$/img/users/" + p.getUsername() + "_pic.jpg";
+            String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
             FileOutputStream pic = new FileOutputStream(new File(path));
             // </editor-fold>
             // <editor-fold defaultstate="collapsed" desc="Invocação do login.">
@@ -70,7 +70,7 @@ public class LoginAction implements ICommand {
                 EquipamentoDAO equipdao = new EquipamentoDAO();
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
-                
+
                 e.setQtd(equipdao.qtdEquip());
                 r.setQtd(resdao.qtdReservas());
                 r.setQtdDia(resdao.qtdReservasDia());
@@ -85,10 +85,11 @@ public class LoginAction implements ICommand {
                 boolean acesso = false;
                 for (Grupo g : arrayg) {
                     g.setGrupo(arrayg.get(arrayg.indexOf(g)).getGrupo());
-                    if (ad.isMember(p, arrayg.get(arrayg.indexOf(g))));
-                    acesso = true;
+                    if (ad.isMember(p, arrayg.get(arrayg.indexOf(g)))) {
+                        acesso = true;
+                    }
                 }
-                
+
                 if (acesso) {
                     session.setAttribute("pessoa", p); // salva dados do login na sessão
                     session.setAttribute("laboratorio", l); // salva dados dos labs na sessão

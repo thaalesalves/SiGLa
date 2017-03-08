@@ -29,7 +29,7 @@ public class DatabaseConnection {
         Connection connString = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connString = DriverManager.getConnection("jdbc:postgresql://marvel:5432/sigladb", "sigla", "sigladb");
+            connString = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sigladb", "sigla", "sigladb");
         } catch (ClassNotFoundException e) {
             Logger.logSevere(e, e.getClass());
         } catch (Exception e) {
