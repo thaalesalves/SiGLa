@@ -1,27 +1,26 @@
 /**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
-
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * Copyright (C) 2016 Thales Alves Pereira
+ *
+ *  This file is part of SiGla.
+ *
+ *   SiGla is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SiGla is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+*
+ */
 // <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -52,10 +51,12 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/pontual", "../labinfo/reserva/novo-pontual.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
             mapaUrl.put("/reserva/lista-dia", "../labinfo/reserva/lista_dia.jsp");
+            mapaUrl.put("/reserva/solicitacoes", "../labinfo/reserva/solicitacoes.jsp");
             mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
             mapaUrl.put("/reserva/listar-hoje", "../AlmightyController?acao=ListarReservaDia");
             mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
             mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
+            mapaUrl.put("/reserva/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoSemestral");
 
             /* Redirecionamentos de /curso/ */
             mapaUrl.put("/curso/novo", "../labinfo/curso/novo.jsp");

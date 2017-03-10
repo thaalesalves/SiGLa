@@ -206,9 +206,7 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
         
-        givenName = givenName + " " + givenName;
-        
-        return givenName.trim(); // retorno do nome
+        return givenName; // retorno do nome
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Reserva).">

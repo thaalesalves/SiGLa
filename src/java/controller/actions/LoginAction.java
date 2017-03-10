@@ -78,8 +78,7 @@ public class LoginAction implements ICommand {
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
-                p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo
-                p.setChapa(ad.getOffice(p)); // passa o atributo da chapa             
+                p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
 
                 boolean acesso = false;

@@ -34,7 +34,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>UMC | S i G L a |</title>
+        <title>Login | SiGLa</title>
         <link href="./login/css" rel="stylesheet" type="text/css">
         <link href="./login/login.css" rel="stylesheet" type="text/css">
         <script src="./login/jquery.min.js.download"></script>
@@ -146,7 +146,7 @@ Copyright (C) 2016 Thales Alves Pereira
                     <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus>
                 </div>
                 <div class="umc-field">
-                    <input type="password" placeholder="Senha" name="password" maxlength="8">
+                    <input type="password" placeholder="Senha" name="password">
                 </div>
                 <input type="hidden" name="txtLocal" value="1">
                 <!--<div class="umc-field">

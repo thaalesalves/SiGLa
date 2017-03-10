@@ -36,7 +36,7 @@ import mailsender.MailSemestral;
 import model.Pessoa;
 import model.Reserva;
 
-public class InserirReservaSemestralAction implements ICommand {
+public class InserirSolicitacaoSemestralAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -50,6 +50,7 @@ public class InserirReservaSemestralAction implements ICommand {
             Reserva r = new Reserva();
 
             r.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            r.setDiaDaSemana(request.getParameter("dia-semana"));
             r.setModulo(request.getParameter("modulo"));
             r.setTurma(request.getParameter("turma"));
             r.setQtd(Integer.parseInt(request.getParameter("qtd")));
