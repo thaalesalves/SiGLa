@@ -176,7 +176,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
                                     %>
-                                    <span class="hidden-xs"><% out.println(p.getNome().substring(0, p.getNome().indexOf(" ")));%></span>
+                                    <span class="hidden-xs"><% out.println(p.getNome());%></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->

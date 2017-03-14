@@ -52,7 +52,7 @@ public class SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return sws;
@@ -73,7 +73,7 @@ public class SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return s;

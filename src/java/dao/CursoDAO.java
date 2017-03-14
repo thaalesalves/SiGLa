@@ -54,7 +54,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return ac;
@@ -74,7 +74,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return c;
@@ -92,7 +92,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }//</editor-fold>
 
@@ -107,7 +107,7 @@ public class CursoDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }//</editor-fold>
 }

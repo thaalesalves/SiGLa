@@ -45,6 +45,13 @@ public class ActiveDirectory {
     private SearchControls searchCtls;
     // </editor-fold>
 
+    public ActiveDirectory() {
+        searchCtls = new SearchControls();
+        searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        searchCtls.setReturningAttributes(returnAttributes);
+    }
+    
+    
     // <editor-fold defaultstate="collapsed" desc="Métodos da API: closeLdapConnection().">
     public void closeLdapConnection() {
         try {
@@ -224,9 +231,7 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
         
-        givenName = givenName + " " + givenName;
-        
-        return givenName.trim(); // retorno do nome
+        return givenName; // retorno do nome
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getOffice(Pessoa).">
@@ -279,10 +284,6 @@ public class ActiveDirectory {
                 Logger.logSevere(e, this.getClass());
                 return false;
             }
-
-            searchCtls = new SearchControls();
-            searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            searchCtls.setReturningAttributes(returnAttributes);
 
             return true; // login efetuado
         } catch (Exception e) {

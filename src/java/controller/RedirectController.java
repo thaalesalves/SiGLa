@@ -76,7 +76,7 @@ public class RedirectController extends HttpServlet {
                 request.getRequestDispatcher("/labinfo/error/404.jsp").forward(request, response);
             }
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }
 

@@ -54,7 +54,7 @@ public class ListarReservaSemestralAction implements ICommand {
 
             session.setAttribute("dados-semestral", r);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return request.getContextPath() + "/reserva/semestral";

@@ -90,6 +90,7 @@ public class LoginAction implements ICommand {
                 }
 
                 if (acesso) {
+                    session.setAttribute("ad", ad);
                     session.setAttribute("pessoa", p); // salva dados do login na sessão
                     session.setAttribute("laboratorio", l); // salva dados dos labs na sessão
                     session.setAttribute("reserva-qtd", r); // salva dados das reservas na sessão
@@ -106,15 +107,15 @@ public class LoginAction implements ICommand {
                 return request.getContextPath(); // chama de volta a página de login
             } // </editor-fold>
         } catch (AuthenticationException e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
             session.setAttribute("auth", "false");
             return request.getContextPath(); // chama de volta a página de login
         } catch (FileNotFoundException e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
             return request.getContextPath() + "/error/error";
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
         return null;
     }

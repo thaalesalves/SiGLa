@@ -41,7 +41,7 @@ public class PessoaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e);
+            util.Logger.logSevere(e, this.getClass());
         }
     }
 
@@ -59,7 +59,7 @@ public class PessoaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e);
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return p;

@@ -54,7 +54,7 @@ public class ListarReservaPontualAction implements ICommand {
 
             session.setAttribute("dados-pontual", r);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return request.getContextPath() + "/reserva/pontual";

@@ -44,7 +44,7 @@ public class RemoverReservaDiaAction implements ICommand {
 
             dao.delete(r);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return request.getContextPath() + "/reserva/listar-hoje";

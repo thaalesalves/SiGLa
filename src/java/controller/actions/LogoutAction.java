@@ -34,7 +34,7 @@ public class LogoutAction implements ICommand {
         try {
             request.getSession().invalidate(); // invalida a sessão
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return request.getContextPath();

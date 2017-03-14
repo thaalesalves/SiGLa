@@ -43,7 +43,7 @@ public class RemoverCursoAction implements ICommand {
 
             cdao.delete(c);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
         return request.getContextPath() + "/curso/listar";
     }

@@ -31,25 +31,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Reserva;
+import util.ActiveDirectory;
 
 public class SolicitacoesAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
-            System.out.println("cheguei");
-
             HttpSession session = request.getSession();
 
+            ActiveDirectory ad = new ActiveDirectory();            
             ReservaDAO rdao = new ReservaDAO();
-            ArrayList<Reserva> ares = rdao.selectSolicitacoes();
+            ArrayList<Reserva> reserva = rdao.selectSolicitacoes();
 
-            session.setAttribute("dados-solicitacoes", ares);
+            for (Reserva r : reserva) {
+                reserva.get(reserva.indexOf(r)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(r))));
+                reserva.get(reserva.indexOf(r)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(r))));
+            }
+            
+            session.setAttribute("dados-solicitacoes", reserva);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
-
-        System.out.println("saí");
+        
         return request.getContextPath() + "/reserva/solicitacoes";
     }
 

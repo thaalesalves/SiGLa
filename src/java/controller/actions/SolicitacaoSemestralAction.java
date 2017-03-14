@@ -41,19 +41,18 @@ public class SolicitacaoSemestralAction implements ICommand {
 
             HttpSession session = request.getSession();
 
-            ActiveDirectory ad = new ActiveDirectory();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             ReservaDAO rdao = new ReservaDAO();
             ArrayList<Reserva> reserva = rdao.selectSolicitacoes();
 
             for (Reserva r : reserva) {
-                System.out.println("Nome: " + ad.getGivenName(reserva.get(reserva.indexOf(r))));
-                reserva.get(reserva.indexOf(r)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(r))));
+                r.getPessoa().setNome(ad.getGivenName(r));
                 reserva.get(reserva.indexOf(r)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(r))));
             }
             
             session.setAttribute("dados-solicitacoes", reserva);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
         
         return request.getContextPath() + "/reserva/solicitacoes";

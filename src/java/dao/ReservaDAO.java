@@ -66,7 +66,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return ares;
@@ -107,7 +107,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return ares;
@@ -148,7 +148,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return arrayRes;
@@ -187,7 +187,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return arrayRes;
@@ -227,7 +227,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return arrayRes;
@@ -250,7 +250,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return qtd;
@@ -270,7 +270,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return qtd;
@@ -285,7 +285,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }//</editor-fold>
 
@@ -305,7 +305,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }//</editor-fold>
 
@@ -320,7 +320,7 @@ public class ReservaDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
     }//</editor-fold>
 }

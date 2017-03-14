@@ -43,7 +43,7 @@ public class LaboratorioDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return qtd;

@@ -57,7 +57,7 @@ public class ReservaAction implements ICommand {
 
             request.getSession().setAttribute("reserva", reserva);
         } catch (Exception e) {
-            util.Logger.logSevere(e, e.getClass());
+            util.Logger.logSevere(e, this.getClass());
         }
 
         return "lista";
