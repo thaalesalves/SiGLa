@@ -38,7 +38,6 @@ public class SolicitacaoSemestralAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
-
             HttpSession session = request.getSession();
 
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
@@ -47,7 +46,7 @@ public class SolicitacaoSemestralAction implements ICommand {
 
             for (Reserva r : reserva) {
                 r.getPessoa().setNome(ad.getGivenName(r));
-                reserva.get(reserva.indexOf(r)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(r))));
+                r.getPessoa().setNomeCompleto(ad.getCN(r));
             }
             
             session.setAttribute("dados-solicitacoes", reserva);

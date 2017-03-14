@@ -29,6 +29,7 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import model.Reserva;
 
@@ -37,11 +38,13 @@ public class ListarReservaDiaAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
+            HttpSession session = request.getSession();
+            
             ReservaDAO dao = new ReservaDAO();
             Reserva r = new Reserva();
             r.setPessoa((Pessoa) request.getSession().getAttribute("pessoa"));
             ArrayList<Reserva> reserva = new ArrayList<Reserva>();
-            ActiveDirectory ad = new ActiveDirectory();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             ad.login(r.getPessoa());
 
             if (r.getPessoa().getCargo().equals("Professor")) {
@@ -51,8 +54,8 @@ public class ListarReservaDiaAction implements ICommand {
             }
 
             for (Reserva res : reserva) {
-                reserva.get(reserva.indexOf(res)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(res)).getPessoa()));
-                reserva.get(reserva.indexOf(res)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(res)).getPessoa()));
+                res.getPessoa().setNome(ad.getGivenName(res.getPessoa()));
+                res.getPessoa().setNomeCompleto(ad.getCN(res.getPessoa()));
             }
 
             request.getSession().setAttribute("reserva", reserva);

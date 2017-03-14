@@ -41,6 +41,9 @@ public class RedirectController extends HttpServlet {
         RequestDispatcher rd;
 
         try {
+            /* Redirecionamentos de /controle/ */
+            mapaUrl.put("/notif/solicitacoes", "../controle/solicitacoes.jsp");
+            
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
