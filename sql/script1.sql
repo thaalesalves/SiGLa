@@ -57,6 +57,7 @@ CREATE TABLE solicitacao_semestral (
     turma VARCHAR,
     professor VARCHAR NOT NULL,
     modulo VARCHAR NOT NULL,
+    dia_semana VARCHAR NOT NULL,
     obs VARCHAR NOT NULL
 );
 
@@ -103,9 +104,9 @@ INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'professor','memberOf=CN=profess
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'funcionario', 'memberOf=CN=DEPTI,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=COORDENADORES,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
-INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '1ºB', 'daniellemartin', '1º módulo', 'Sem observações.');
-INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '2ºB', 'erikam', '2º módulo', 'Sem observações.');
-INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '3ºB', 'adilson', '3º módulo', 'Sem observações.');
+INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '1ºB', 'daniellemartin', '1º módulo', 'Sexta-feira', 'Sem observações.');
+INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '2ºB', 'erikam', '2º módulo', 'Segunda-feira', 'Sem observações.');
+INSERT INTO solicitacao_semestral VALUES (NEXTVAL('seq_soli_semes'), 1, 1, '3ºB', 'adilson', '3º módulo', 'Terça-feira', 'Sem observações.');
 
 -- Definição de Constraints
 ALTER TABLE ONLY equipamento ADD CONSTRAINT equipamento_laboratorio_fkey FOREIGN KEY (laboratorio) REFERENCES laboratorio(id);
