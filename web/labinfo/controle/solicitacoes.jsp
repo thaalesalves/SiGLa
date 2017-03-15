@@ -1,3 +1,4 @@
+<%@page import="dao.ReservaDAO"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 
@@ -25,6 +26,9 @@ Copyright (C) 2016 Thales Alves Pereira
         <title>Contagem de Reservas</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            ReservaDAO rdao = new ReservaDAO();
+        %>
+        <div id="qtd-soli"><% out.println(rdao.countSolicitacoes()); %></div>
     </body>
 </html>

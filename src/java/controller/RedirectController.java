@@ -42,7 +42,7 @@ public class RedirectController extends HttpServlet {
 
         try {
             /* Redirecionamentos de /controle/ */
-            mapaUrl.put("/notif/solicitacoes", "../controle/solicitacoes.jsp");
+            mapaUrl.put("/notif/solicitacoes", "../labinfo/controle/solicitacoes.jsp");
             
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
