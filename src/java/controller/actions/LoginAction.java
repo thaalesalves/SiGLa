@@ -32,6 +32,7 @@ import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.AuthenticationException;
+import javax.naming.CommunicationException;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +46,8 @@ import model.Reserva;
 
 public class LoginAction implements ICommand {
 
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
+    @Override 
+   public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
@@ -100,13 +101,15 @@ public class LoginAction implements ICommand {
                     session.setAttribute("login", "acesso");
                     return request.getContextPath(); // chama de volta a página de login
                 }
-            } // </editor-fold>
-            // <editor-fold defaultstate="collapsed" desc="Login sem sucesso.">
-            else { // caso o usuário não exista
+            } else { // caso o usuário não exista
                 session.setAttribute("login", "false");
                 return request.getContextPath(); // chama de volta a página de login
             } // </editor-fold>
         } catch (AuthenticationException e) {
+            util.Logger.logSevere(e, this.getClass());
+            session.setAttribute("auth", "false");
+            return request.getContextPath(); // chama de volta a página de login
+        } catch (CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("auth", "false");
             return request.getContextPath(); // chama de volta a página de login

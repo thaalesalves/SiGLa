@@ -56,6 +56,16 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: "AlmightyController?acao=ContagemSolicitacoes",
+                    success: function (result) {
+                        $("#qtd-notif").text(result);
+                    }
+                });
+            });
+        </script>
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
         <div class="wrapper">
@@ -112,7 +122,9 @@ Copyright (C) 2016 Thales Alves Pereira
                             <li class="dropdown tasks-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-flag-o"></i>
-                                    <span class="label label-danger">9</span>
+                                    <div id="qtd-notif">
+                                        <span class="label label-danger"></span>
+                                    </div>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="header">Você tem 9 tarefas</li>

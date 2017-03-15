@@ -20,15 +20,20 @@ Copyright (C) 2016 Thales Alves Pereira
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String qtdSoli = "";
+
+    if ((qtdSoli = (String) session.getAttribute("qtd-soli")) == null) {
+        response.sendRedirect(request.getContextPath() +"/AlmightyController?acao=ContagemSolicitacoes");
+    }
+
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Contagem de Reservas</title>
     </head>
     <body>
-        <%
-            ReservaDAO rdao = new ReservaDAO();
-        %>
-        <div id="qtd-soli"><% out.println(rdao.countSolicitacoes()); %></div>
+        <div id="qtd-soli"><% out.println(qtdSoli);%></div>
     </body>
 </html>

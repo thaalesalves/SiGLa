@@ -60,6 +60,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
             mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
             mapaUrl.put("/reserva/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoSemestral");
+            mapaUrl.put("/reserva/contar-solicitacoes", "../AlmightyController?acao=ContagemSolicitacoes");
 
             /* Redirecionamentos de /curso/ */
             mapaUrl.put("/curso/novo", "../labinfo/curso/novo.jsp");

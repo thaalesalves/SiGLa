@@ -38,7 +38,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="./login/css" rel="stylesheet" type="text/css">
         <link href="./login/login.css" rel="stylesheet" type="text/css">
         <script src="./login/jquery.min.js.download"></script>
-        <script>
+        <script>     
             function valida() {
                 $('#errormsg').hide();
                 if (document.frm_login.username.value == "") {

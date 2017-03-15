@@ -18,6 +18,7 @@
  */
 package controller.actions;
 
+import dao.ReservaDAO;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
@@ -25,17 +26,23 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ContagemSolicitacoesAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
-
+            HttpSession session = request.getSession();
+            
+            ReservaDAO rdao = new ReservaDAO();
+            String qtdSoli = Integer.toString(rdao.countSolicitacoes());
+            
+            session.setAttribute("qtd-soli", qtdSoli);
         } catch (Exception e) {
             util.Logger.logWarning(e, this.getClass());
         }
 
-        return "lista-dia";
+        return request.getContextPath() + "/notif/solicitacoes";
     }
 }
