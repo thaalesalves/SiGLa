@@ -1,4 +1,3 @@
-<%@page import="dao.ReservaDAO"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 
@@ -18,6 +17,7 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<%@page import="dao.ReservaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -34,6 +34,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <title>Contagem de Reservas</title>
     </head>
     <body>
-        <div id="qtd-soli">9<% out.println(qtdSoli);%></div>
+        <div id="qtd-soli"><% out.println(qtdSoli);%></div>
     </body>
 </html>
