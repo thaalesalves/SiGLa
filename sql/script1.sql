@@ -98,8 +98,6 @@ INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 1, 2, '2', 'erikam', 2, '
 INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 1, 2, '2', 'daisyeb', 1, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 1, 1, 2, '2', 'wolley', 2, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 1, 2, '2', 'ptoledo', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 5, 1, 2, '2', 'andreaono', 2, '1º módulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 1, 2, '2', 'mapa', 2, '1º módulo', 'Sexta-feira', NULL);
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'professor','memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'funcionario', 'memberOf=CN=DEPTI,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');

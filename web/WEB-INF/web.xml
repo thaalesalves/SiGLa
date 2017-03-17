@@ -8,6 +8,10 @@
         <servlet-name>RedirectController</servlet-name>
         <servlet-class>controller.RedirectController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CounterController</servlet-name>
+        <servlet-class>controller.CounterController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
         <url-pattern>/AlmightyController</url-pattern>
@@ -24,13 +28,15 @@
         <url-pattern>/controle/*</url-pattern>
         <url-pattern>/notif/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CounterController</servlet-name>
+        <url-pattern>/CounterController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
-    
     <!-- PÁGINAS DE ERRO - CÓDIGOS -->
     <error-page>
         <error-code>500</error-code>

@@ -34,6 +34,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <title>Contagem de Reservas</title>
     </head>
     <body>
-        <div id="qtd-soli"><% out.println(qtdSoli);%></div>
+        <div id="qtd-soli">9<% out.println(qtdSoli);%></div>
     </body>
 </html>

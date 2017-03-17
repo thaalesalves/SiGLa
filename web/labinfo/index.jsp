@@ -57,13 +57,9 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <script>
+            var val;
             $(document).ready(function () {
-                $.ajax({
-                    url: "AlmightyController?acao=ContagemSolicitacoes",
-                    success: function (result) {
-                        $("#qtd-notif").text(result);
-                    }
-                });
+                $('#qtd-notif').load('${pageContext.request.contextPath}/labinfo/controle/solicitacoes.jsp');
             });
         </script>
     </head>
