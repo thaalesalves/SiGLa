@@ -18,6 +18,8 @@
  */
 package controller;
 
+import dao.EquipamentoDAO;
+import dao.LaboratorioDAO;
 import dao.ReservaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,28 +56,76 @@ public class CounterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String acao = request.getParameter("acao");
         HttpSession session = request.getSession();
-        
+
         try (PrintWriter out = response.getWriter()) {
-            if (acao.equals("counter")) {
+            out.println("<style>"
+                    + ".id0 { text-indent: 0px; margin-bottom: -0px; margin-top: -0px; } "
+                    + ".id1 { text-indent: 25px; margin-bottom: -0px; margin-top: -0px; } "
+                    + ".id2 { text-indent: 50px; margin-bottom: -0px; margin-top: -0px; } "
+                    + ".id3 { text-indent: 75px; margin-bottom: -0px; margin-top: -0px; } "
+                    + ".id4 { text-indent: 100px margin-bottom: -0px; margin-top: -0px; } "
+                    + "</style>");
+
+            if (acao.equals("reserva")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
                 ReservaDAO rdao = new ReservaDAO();
 
-                out.println(rdao.countSolicitacoes());
-            } else if (acao.equals("reserva")) {
-                ReservaDAO rdao = new ReservaDAO();
-                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
                 ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
                 char quote = '"';
-                
-                out.println("{" + quote + "count" + quote + " : " + quote + rdao.countSolicitacoes() + quote + "}"); 
+
+                out.println("{" + quote + "count" + quote + " : " + quote + rdao.countSolicitacoes() + quote + "}");
                 for (Reserva i : r) {
                     i.getPessoa().setNomeCompleto(ad.getCN(i));
                     out.println(", {" + quote + "prof" + quote + " : " + quote + i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "}");
                 }
+            } else if (acao.equals("teste")) {
+
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
+                ReservaDAO rdao = new ReservaDAO();
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                EquipamentoDAO edao = new EquipamentoDAO();
+
+                ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
+                char quote = '"';
+                
+                for (Reserva i : r) {
+                    i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
+                }
+                
+                out.println(""
+                        + "<p class='id0'>{</p>"
+                        + "<p class='id1'>" + quote + "counter" + quote + " : [{ </p>"
+                        + "<p class='id2'>" + quote + "solicitacoes" + quote + " : " + quote + rdao.countSolicitacoes() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "reservas" + quote + " : " + quote + rdao.qtdReservas() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "reservas-hoje" + quote + " : " + quote + rdao.qtdReservasDia() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "laboratorios" + quote + " : " + quote + ldao.qtdLabs() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "computadores" + quote + " : " + quote + edao.qtdEquip() + quote + ",</p>"
+                        + "<p class='id1'>}],<br/>"
+                        + "<p class='id1'>" + quote + "solicitacoes" + quote + " : [{ </p>"
+                        + "<p class='id2'>" + quote + "id" + quote + " : " + quote + r.get(0).getId() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "professor" + quote + " : " + quote + r.get(0).getPessoa().getNomeCompleto().substring(0, r.get(0).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(0).getPessoa().getNomeCompleto().substring(r.get(0).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "</p>"
+                        + "<p class='id1'>}, {</p>"
+                        + "<p class='id2'>" + quote + "id" + quote + " : " + quote + r.get(1).getId() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "professor" + quote + " : " + quote + r.get(1).getPessoa().getNomeCompleto().substring(0, r.get(1).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(1).getPessoa().getNomeCompleto().substring(r.get(1).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "</p>"
+                        + "<p class='id1'>}, {</p>"
+                        + "<p class='id2'>" + quote + "id" + quote + " : " + quote + r.get(2).getId() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "professor" + quote + " : " + quote + r.get(2).getPessoa().getNomeCompleto().substring(0, r.get(2).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(2).getPessoa().getNomeCompleto().substring(r.get(2).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "</p>"
+                        + "<p class='id1'>}, {</p>"
+                        + "<p class='id2'>" + quote + "id" + quote + " : " + quote + r.get(3).getId() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "professor" + quote + " : " + quote + r.get(3).getPessoa().getNomeCompleto().substring(0, r.get(3).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(3).getPessoa().getNomeCompleto().substring(r.get(3).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "</p>"
+                        + "<p class='id1'>}, {</p>"
+                        + "<p class='id2'>" + quote + "id" + quote + " : " + quote + r.get(4).getId() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "professor" + quote + " : " + quote + r.get(4).getPessoa().getNomeCompleto().substring(0, r.get(4).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(4).getPessoa().getNomeCompleto().substring(r.get(4).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "</p>"
+                        + "<p class='id1'>}]</p>"
+                        + "<p class='id0'>}</p>"
+                );
             }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -3,32 +3,32 @@ CREATE SCHEMA public;
 
 -- Criação das tabelas
 CREATE TABLE curso (
-    id integer PRIMARY KEY,
-    nome character varying(50) NOT NULL,
-    modalidade character varying(50) NOT NULL
+    id INT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    modalidade VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE equipamento (
     id INT PRIMARY KEY,
-    nome character varying(20) NOT NULL,
-    laboratorio integer,
-    ip character varying(15) NOT NULL,
-    mac character varying(30) NOT NULL,
-    config character varying NOT NULL,
-    status integer NOT NULL
+    nome VARCHAR(20) NOT NULL,
+    laboratorio INT,
+    ip VARCHAR(15) NOT NULL,
+    mac VARCHAR(30) NOT NULL,
+    config VARCHAR NOT NULL,
+    status INT NOT NULL
 );
 
 CREATE TABLE laboratorio (
-    id integer PRIMARY KEY,
-    numero character varying(6) NOT NULL,
-    qtd_comps integer NOT NULL,
-    qtd_alunos integer NOT NULL
+    id INT PRIMARY KEY,
+    numero VARCHAR(6) NOT NULL,
+    qtd_comps INT NOT NULL,
+    qtd_alunos INT NOT NULL
 );
 
 CREATE TABLE software (
-    id integer PRIMARY KEY,
-    nome character varying(50) NOT NULL,
-    fabricante character varying(50) NOT NULL
+    id INT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    fabricante VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE grupo (
@@ -38,16 +38,16 @@ CREATE TABLE grupo (
 );
 
 CREATE TABLE reserva (
-    id integer PRIMARY KEY,
-    laboratorio integer,
-    softwares integer,
-    curso integer,
-    turma character varying NOT NULL,
-    professor character varying NOT NULL,
-    tipo integer NOT NULL,
-    modulo character varying NOT NULL,
-    dia_semana character varying NOT NULL,
-    obs character varying
+    id INT PRIMARY KEY,
+    laboratorio INT,
+    softwares INT,
+    curso INT,
+    turma VARCHAR NOT NULL,
+    professor VARCHAR NOT NULL,
+    tipo INT NOT NULL,
+    modulo VARCHAR NOT NULL,
+    dia_semana VARCHAR NOT NULL,
+    obs VARCHAR
 );
 
 CREATE TABLE solicitacao_semestral (

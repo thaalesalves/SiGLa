@@ -357,6 +357,7 @@ public class ReservaDAO {
             while (rs.next()) {
                 Reserva r = new Reserva();
 
+                r.setId(rs.getInt("id"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 
                 arrayRes.add(r);

@@ -53,7 +53,6 @@ public class LoginAction implements ICommand {
             // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
-            Grupo groups = new Grupo();
             Reserva r = new Reserva();
             Equipamento e = new Equipamento();
             Laboratorio l = new Laboratorio();

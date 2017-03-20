@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  */
-var addNotification = function(counter, obj) {
+var addNotification = function (counter, obj) {
     $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj[counter].prof + " pendente.</a></li>");
 };
 setInterval(function () {
@@ -43,9 +43,13 @@ setInterval(function () {
                         break;
                 }
             }
+
+            for (var i = 1; i < obj.length; i++) {
+                addNotification(i, obj)
+            }
         }
     });
-}, 1000);
+}, 100);
 $(document).ready(function () {
     $.ajax({
         url: '/SiGLa/CounterController?acao=reserva',
