@@ -22,10 +22,16 @@ import dao.ReservaDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Pessoa;
+import model.Reserva;
+import util.ActiveDirectory;
 
 /**
  *
@@ -44,23 +50,28 @@ public class CounterController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws NamingException, SQLException, ClassNotFoundException, ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String acao = request.getParameter("acao");
+        HttpSession session = request.getSession();
+        
         try (PrintWriter out = response.getWriter()) {
             if (acao.equals("counter")) {
                 ReservaDAO rdao = new ReservaDAO();
-                String qtdSoli = Integer.toString(rdao.countSolicitacoes());
+
+                out.println(rdao.countSolicitacoes());
+            } else if (acao.equals("reserva")) {
+                ReservaDAO rdao = new ReservaDAO();
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+                ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
+                char quote = '"';
+                
+                out.println("{" + quote + "count" + quote + " : " + quote + rdao.countSolicitacoes() + quote + "}"); 
+                for (Reserva i : r) {
+                    i.getPessoa().setNomeCompleto(ad.getCN(i));
+                    out.println(", {" + quote + "prof" + quote + " : " + quote + i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "}");
+                }
             }
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CounterController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 
