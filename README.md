@@ -47,6 +47,8 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - Java EE
 - Javacript
 - CSS3
+- JSON
+- Google Gson
 
 ### Tecnologias de Apoio
 - Microsoft Office 365
