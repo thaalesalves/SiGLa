@@ -58,14 +58,6 @@ public class CounterController extends HttpServlet {
         HttpSession session = request.getSession();
 
         try (PrintWriter out = response.getWriter()) {
-            out.println("<style>"
-                    + ".id0 { text-indent: 0px; margin-bottom: -0px; margin-top: -0px; } "
-                    + ".id1 { text-indent: 25px; margin-bottom: -0px; margin-top: -0px; } "
-                    + ".id2 { text-indent: 50px; margin-bottom: -0px; margin-top: -0px; } "
-                    + ".id3 { text-indent: 75px; margin-bottom: -0px; margin-top: -0px; } "
-                    + ".id4 { text-indent: 100px margin-bottom: -0px; margin-top: -0px; } "
-                    + "</style>");
-
             if (acao.equals("reserva")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
@@ -80,6 +72,13 @@ public class CounterController extends HttpServlet {
                     out.println(", {" + quote + "prof" + quote + " : " + quote + i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote + "}");
                 }
             } else if (acao.equals("teste")) {
+                out.println("<style>"
+                        + ".id0 { text-indent: 0px; margin-bottom: -0px; margin-top: -0px; } "
+                        + ".id1 { text-indent: 25px; margin-bottom: -0px; margin-top: -0px; } "
+                        + ".id2 { text-indent: 50px; margin-bottom: -0px; margin-top: -0px; } "
+                        + ".id3 { text-indent: 75px; margin-bottom: -0px; margin-top: -0px; } "
+                        + ".id4 { text-indent: 100px margin-bottom: -0px; margin-top: -0px; } "
+                        + "</style>");
 
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
@@ -89,17 +88,17 @@ public class CounterController extends HttpServlet {
 
                 ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
                 char quote = '"';
-                
+
                 for (Reserva i : r) {
                     i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
                 }
-                
+
                 out.println(""
                         + "<p class='id0'>{</p>"
                         + "<p class='id1'>" + quote + "counter" + quote + " : [{ </p>"
                         + "<p class='id2'>" + quote + "solicitacoes" + quote + " : " + quote + rdao.countSolicitacoes() + quote + ",</p>"
                         + "<p class='id2'>" + quote + "reservas" + quote + " : " + quote + rdao.qtdReservas() + quote + ",</p>"
-                        + "<p class='id2'>" + quote + "reservas-hoje" + quote + " : " + quote + rdao.qtdReservasDia() + quote + ",</p>"
+                        + "<p class='id2'>" + quote + "reservas_hoje" + quote + " : " + quote + rdao.qtdReservasDia() + quote + ",</p>"
                         + "<p class='id2'>" + quote + "laboratorios" + quote + " : " + quote + ldao.qtdLabs() + quote + ",</p>"
                         + "<p class='id2'>" + quote + "computadores" + quote + " : " + quote + edao.qtdEquip() + quote + ",</p>"
                         + "<p class='id1'>}],<br/>"
@@ -121,6 +120,60 @@ public class CounterController extends HttpServlet {
                         + "<p class='id1'>}]</p>"
                         + "<p class='id0'>}</p>"
                 );
+            } else if (acao.equals("teste2")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
+                ReservaDAO rdao = new ReservaDAO();
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                EquipamentoDAO edao = new EquipamentoDAO();
+
+                ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
+
+                for (Reserva i : r) {
+                    i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
+                }
+
+                out.println(util.Json.toJson(r));
+            } else if (acao.equals("teste3")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
+                ReservaDAO rdao = new ReservaDAO();
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                EquipamentoDAO edao = new EquipamentoDAO();
+
+                ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
+                char quote = '"';
+
+                for (Reserva i : r) {
+                    i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
+                }
+
+                String json = "{" + quote + "counter" + quote + " : [{"
+                        + quote + "solicitacoes" + quote + " : " + quote + rdao.countSolicitacoes() + quote + ","
+                        + quote + "reservas" + quote + " : " + quote + rdao.qtdReservas() + quote + ","
+                        + quote + "reservas_hoje" + quote + " : " + quote + rdao.qtdReservasDia() + quote + ","
+                        + quote + "laboratorios" + quote + " : " + quote + ldao.qtdLabs() + quote + ","
+                        + quote + "computadores" + quote + " : " + quote + edao.qtdEquip() + quote
+                        + "}],"
+                        + quote + "solicitacoes" + quote + " : [{"
+                        + quote + "id" + quote + " : " + quote + r.get(0).getId() + quote + ","
+                        + quote + "professor" + quote + " : " + quote + r.get(0).getPessoa().getNomeCompleto().substring(0, r.get(0).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(0).getPessoa().getNomeCompleto().substring(r.get(0).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
+                        + "}, {"
+                        + quote + "id" + quote + " : " + quote + r.get(1).getId() + quote + ","
+                        + quote + "professor" + quote + " : " + quote + r.get(1).getPessoa().getNomeCompleto().substring(0, r.get(1).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(1).getPessoa().getNomeCompleto().substring(r.get(1).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
+                        + "}, {"
+                        + quote + "id" + quote + " : " + quote + r.get(2).getId() + quote + ","
+                        + quote + "professor" + quote + " : " + quote + r.get(2).getPessoa().getNomeCompleto().substring(0, r.get(2).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(2).getPessoa().getNomeCompleto().substring(r.get(2).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
+                        + "}, {"
+                        + quote + "id" + quote + " : " + quote + r.get(3).getId() + quote + ","
+                        + quote + "professor" + quote + " : " + quote + r.get(3).getPessoa().getNomeCompleto().substring(0, r.get(3).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(3).getPessoa().getNomeCompleto().substring(r.get(3).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
+                        + "}, {"
+                        + quote + "id" + quote + " : " + quote + r.get(4).getId() + quote + ","
+                        + quote + "professor" + quote + " : " + quote + r.get(4).getPessoa().getNomeCompleto().substring(0, r.get(4).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(4).getPessoa().getNomeCompleto().substring(r.get(4).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
+                        + "}]"
+                        + "}";
+
+                out.println(util.Json.toJson(json));
             }
         }
     }

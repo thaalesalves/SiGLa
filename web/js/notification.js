@@ -19,7 +19,17 @@
 var addNotification = function (counter, obj) {
     $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj[counter].prof + " pendente.</a></li>");
 };
+
+var convertToValid = function (data) {
+    data.articleList.forEach(function (article) {
+        article.introduction = String(article.introduction)
+                .replace(/<\/?[^>]+>/gi, '');
+    });
+    return data;
+}
+
 setInterval(function () {
+    $("#res-notif").empty();
     $.ajax({
         url: '/SiGLa/CounterController?acao=reserva',
         type: 'POST',
@@ -45,7 +55,7 @@ setInterval(function () {
             }
 
             for (var i = 1; i < obj.length; i++) {
-                addNotification(i, obj)
+                addNotification(i, obj);
             }
         }
     });
@@ -60,10 +70,27 @@ $(document).ready(function () {
             var obj = e.responseText;
             obj = "[" + obj + "]";
             obj = JSON.parse(obj);
-            console.log(obj[1].prof);
             for (var i = 1; i < obj.length; i++) {
                 addNotification(i, obj);
             }
+        }
+    });
+});
+
+$(document).ready(function() {
+    $.ajax({
+        url: '/SiGLa/CounterController?acao=teste3',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = e.responseText;
+            obj = JSON.parse(obj);
+            console.log("Solicitações: " + obj.counter[0].solicitacoes);
+            console.log("Reservas: " + obj.counter[0].reservas);
+            console.log("Reservas hoje: " + obj.counter[0].reservas_hoje);
+            console.log("Laboratórios: " + obj.counter[0].laboratorios);
+            console.log("Computadores: "  + obj.counter[0].computadores);
         }
     });
 });
