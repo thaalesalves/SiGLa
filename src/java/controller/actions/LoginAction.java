@@ -50,7 +50,6 @@ public class LoginAction implements ICommand {
    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
-            // <editor-fold defaultstate="collapsed" desc="Atributos do método.">
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
             Reserva r = new Reserva();
@@ -62,8 +61,7 @@ public class LoginAction implements ICommand {
 
             String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
             FileOutputStream pic = new FileOutputStream(new File(path));
-            // </editor-fold>
-            // <editor-fold defaultstate="collapsed" desc="Invocação do login.">
+
             if (ad.login(p)) { // faz o login
                 LaboratorioDAO daolab = new LaboratorioDAO();
                 ReservaDAO resdao = new ReservaDAO();
@@ -100,25 +98,17 @@ public class LoginAction implements ICommand {
                     session.setAttribute("login", "acesso");
                     return request.getContextPath(); // chama de volta a página de login
                 }
-            } else { // caso o usuário não exista
-                session.setAttribute("login", "false");
-                return request.getContextPath(); // chama de volta a página de login
-            } // </editor-fold>
-        } catch (AuthenticationException e) {
+            }
+        } catch (AuthenticationException | CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("auth", "false");
+            session.setAttribute("login", util.ExceptionHandler.exceptionHandler(e));
             return request.getContextPath(); // chama de volta a página de login
-        } catch (CommunicationException e) {
-            util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("auth", "false");
-            return request.getContextPath(); // chama de volta a página de login
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
             return request.getContextPath() + "/error/error";
-        } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
         }
+        
         return null;
     }
 }

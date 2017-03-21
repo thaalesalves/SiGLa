@@ -1,22 +1,22 @@
 /**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
-
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * Copyright (C) 2016 Thales Alves Pereira
+ *
+ *  This file is part of SiGla.
+ *
+ *   SiGla is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SiGla is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 // <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
 package util;
 
@@ -50,8 +50,7 @@ public class ActiveDirectory {
         searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         searchCtls.setReturningAttributes(returnAttributes);
     }
-    
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos da API: closeLdapConnection().">
     public void closeLdapConnection() {
         try {
@@ -134,11 +133,11 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        
+
         if (cn.trim().equals("Ricardo Morales Miranda")) {
             cn = "Ricardo Morales";
         }
-        
+
         return cn.trim(); // retorna o nome completo
     } // </editor-fold>
 
@@ -156,11 +155,11 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        
+
         if (cn.trim().equals("Ricardo Morales Miranda")) {
             cn = "Ricardo Morales";
         }
-        
+
         return cn.trim(); // retorna o nome completo
     } // </editor-fold>
 
@@ -212,7 +211,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        
+
         return givenName; // retorno do nome
     } // </editor-fold>
 
@@ -230,7 +229,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        
+
         return givenName; // retorno do nome
     } // </editor-fold>
 
@@ -270,25 +269,14 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
-        try {
-            properties = new Properties();
+        properties = new Properties();
 
-            properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-            properties.put(Context.PROVIDER_URL, "LDAP://umc.br"); // conecta com o AD DC
-            properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
-            properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
+        properties.put(Context.PROVIDER_URL, "LDAP://umc.br"); // conecta com o AD DC
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
+        properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
+        dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
 
-            try {
-                dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
-            } catch (Exception e) {
-                Logger.logSevere(e, this.getClass());
-                return false;
-            }
-
-            return true; // login efetuado
-        } catch (Exception e) {
-            Logger.logSevere(e, this.getClass());
-            return false; // login não efetuado
-        }
+        return true; // login efetuado
     }// </editor-fold>
 }

@@ -19,6 +19,7 @@
 
 package util;
 
+import java.net.ConnectException;
 import java.util.logging.Level;
 
 public class Logger {
