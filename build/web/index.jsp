@@ -17,11 +17,14 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- saved from url=(0023)http://intranet.umc.br/ -->
 <html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <%
+            Calendar cal = Calendar.getInstance();
+            
             if (session.getAttribute("pessoa") != null) {
                 response.sendRedirect(request.getContextPath() + "/pagina/home");
             }
@@ -172,7 +175,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             Previs&atilde;o de retorno &agrave;s 21h30 de hoje
                     </p>
             </div>-->
-            <div class="text-small copyright"><span>Copyright © 2000 - 2016 UMC. Todos os direitos reservados. All rights reserved.</span></div>
+            <div class="text-small copyright"><span>Copyright © 2000 - <% out.println(cal.get(Calendar.YEAR));%> UMC. Todos os direitos reservados. All rights reserved.</span></div>
         </div>
 
         <script type="text/javascript">
