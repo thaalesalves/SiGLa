@@ -99,7 +99,7 @@ public class LoginAction implements ICommand {
                     return request.getContextPath(); // chama de volta a página de login
                 }
             }
-        } catch ( CommunicationException e) {
+        } catch (CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             return request.getContextPath(); // chama de volta a página de login

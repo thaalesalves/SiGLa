@@ -249,65 +249,57 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
                     <div class="row">
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <h3 id="qtd-reservas"></h3>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="fa fa-calendar"></i></span>
 
-                                    <p>Reservas</p>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Reservas</span>
+                                    <span class="info-box-number" id="qtd-reservas"></span>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
+                                <!-- /.info-box-content -->
                             </div>
-                        </div>
+                            <!-- /.info-box -->
+                        </div>                        
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-green">
-                                <div class="inner">
-                                    <h3 id="qtd-reservas-hoje"></h3>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-green"><i class="fa fa-calendar-times-o"></i></span>
 
-                                    <p>Reservas Hoje</p>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Reservas Hoje</span>
+                                    <span class="info-box-number" id="qtd-reservas-hoje"></span>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
+                                <!-- /.info-box-content -->
                             </div>
-                        </div>
+                            <!-- /.info-box -->
+                        </div> 
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <h3 id="qtd-labs"></h3>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-red"><i class="fa fa-desktop"></i></span>
 
-                                    <p>Laboratórios</p>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Laboratórios</span>
+                                    <span class="info-box-number" id="qtd-labs"></span>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-flag-o"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
+                                <!-- /.info-box-content -->
                             </div>
-                        </div>
+                            <!-- /.info-box -->
+                        </div>                         
                         <!-- ./col -->
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-red">
-                                <div class="inner">
-                                    <h3 id="qtd-computadores"></h3>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-yellow"><i class="fa fa-laptop"></i></span>
 
-                                    <p>Computadores</p>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Computadores</span>
+                                    <span class="info-box-number" id="qtd-computadores"></span>
                                 </div>
-                                <div class="icon">
-                                    <i class="fa fa-laptop"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
+                                <!-- /.info-box-content -->
                             </div>
-                        </div>
+                            <!-- /.info-box -->
+                        </div> 
                         <!-- ./col -->
                     </div>
                     <!-- /.row -->

@@ -25,6 +25,18 @@ import com.google.gson.JsonParser;
 
 public class Json {
 
+    public static String toCuteJson(Object obj) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        
+        return gson.toJson(obj);
+    }
+    
+    public static String toUglyJson(Object obj) {
+        Gson gson = new Gson();
+        
+        return gson.toJson(obj);
+    }
+    
     public static String toJson(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();;
 
