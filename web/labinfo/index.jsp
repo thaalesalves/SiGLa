@@ -23,9 +23,6 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="model.*"%>
 <%
     Calendar cal = Calendar.getInstance();
-    Laboratorio l = (Laboratorio) session.getAttribute("laboratorio");
-    Reserva r = (Reserva) session.getAttribute("reserva-qtd");
-    Equipamento e = (Equipamento) session.getAttribute("equipamento");
 
     Pessoa p;
     if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {

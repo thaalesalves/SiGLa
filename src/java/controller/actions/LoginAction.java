@@ -63,16 +63,9 @@ public class LoginAction implements ICommand {
             FileOutputStream pic = new FileOutputStream(new File(path));
 
             if (ad.login(p)) { // faz o login
-                LaboratorioDAO daolab = new LaboratorioDAO();
-                ReservaDAO resdao = new ReservaDAO();
-                EquipamentoDAO equipdao = new EquipamentoDAO();
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
 
-                e.setQtd(equipdao.qtdEquip());
-                r.setQtd(resdao.qtdReservas());
-                r.setQtdDia(resdao.qtdReservasDia());
-                l.setQtd(daolab.qtdLabs());
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
@@ -90,9 +83,6 @@ public class LoginAction implements ICommand {
                 if (acesso) {
                     session.setAttribute("ad", ad); // salva dados do AD na sessão
                     session.setAttribute("pessoa", p); // salva dados do login na sessão
-                    session.setAttribute("laboratorio", l); // salva dados dos labs na sessão
-                    session.setAttribute("reserva-qtd", r); // salva dados das reservas na sessão
-                    session.setAttribute("equipamento", e); // salva dados das equipamentos na sessão
                     return request.getContextPath() + "/pagina/home";
                 } else {
                     session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");

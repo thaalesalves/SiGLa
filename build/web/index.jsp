@@ -44,7 +44,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 var msg = "<%=login%>";
-            <% session.invalidate();%>
+                <% session.invalidate();%>
 
                 if (msg != "nada") {
                     $('#errormsg span').html(msg);
