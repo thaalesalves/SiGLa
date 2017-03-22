@@ -53,6 +53,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/notify.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
@@ -252,7 +253,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3><% out.println(r.getQtd()); %></h3>
+                                    <h3 id="qtd-reservas"></h3>
 
                                     <p>Reservas</p>
                                 </div>
@@ -267,7 +268,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <h3><% out.println(r.getQtdDia()); %></h3>
+                                    <h3 id="qtd-reservas-hoje"></h3>
 
                                     <p>Reservas Hoje</p>
                                 </div>
@@ -282,7 +283,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <!-- small box -->
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <h3><% out.println(l.getQtd()); %></h3>
+                                    <h3 id="qtd-labs"></h3>
 
                                     <p>Laboratórios</p>
                                 </div>
@@ -297,7 +298,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <!-- small box -->
                             <div class="small-box bg-red">
                                 <div class="inner">
-                                    <h3><% out.println(e.getQtd()); %></h3>
+                                    <h3 id="qtd-computadores"></h3>
 
                                     <p>Computadores</p>
                                 </div>

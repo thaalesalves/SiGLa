@@ -21,11 +21,7 @@ package util;
 public class ExceptionHandler {
 
     public static String exceptionHandler(Exception e) {
-        if (e.getClass().getSimpleName().equals("CommunicationException")) {
-            return "auth";
-        } else if (e.getClass().getSimpleName().equals("AuthenticationException")) {
-           return "false";
-        }
+        
 
         return null;
     }

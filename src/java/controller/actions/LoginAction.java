@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package controller.actions;
 
@@ -46,8 +46,8 @@ import model.Reserva;
 
 public class LoginAction implements ICommand {
 
-    @Override 
-   public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
             ActiveDirectory ad = new ActiveDirectory();
@@ -95,20 +95,24 @@ public class LoginAction implements ICommand {
                     session.setAttribute("equipamento", e); // salva dados das equipamentos na sessão
                     return request.getContextPath() + "/pagina/home";
                 } else {
-                    session.setAttribute("login", "acesso");
+                    session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
                     return request.getContextPath(); // chama de volta a página de login
                 }
             }
-        } catch (AuthenticationException | CommunicationException e) {
+        } catch ( CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("login", util.ExceptionHandler.exceptionHandler(e));
+            session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
+            return request.getContextPath(); // chama de volta a página de login
+        } catch (AuthenticationException e) {
+            util.Logger.logSevere(e, this.getClass());
+            session.setAttribute("msg", "Usu&aacute;rio ou senha incorreto");
             return request.getContextPath(); // chama de volta a página de login
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
             return request.getContextPath() + "/error/error";
         }
-        
+
         return null;
     }
 }

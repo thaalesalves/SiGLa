@@ -24,14 +24,14 @@ Copyright (C) 2016 Thales Alves Pereira
 <html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <%
             Calendar cal = Calendar.getInstance();
-            
+
             if (session.getAttribute("pessoa") != null) {
                 response.sendRedirect(request.getContextPath() + "/pagina/home");
             }
 
-            String login = null;
-            if ((String) session.getAttribute("login") != null) {
-                login = (String) session.getAttribute("login");
+            String login = "nada";
+            if ((String) session.getAttribute("msg") != null) {
+                login = (String) session.getAttribute("msg");
             }
         %>
 
@@ -41,8 +41,22 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="./login/css" rel="stylesheet" type="text/css">
         <link href="./login/login.css" rel="stylesheet" type="text/css">
         <script src="./login/jquery.min.js.download"></script>
-        <script>     
+        <script>
+            $(document).ready(function () {
+                var msg = "<%=login%>";
+            <% session.invalidate();%>
+
+                if (msg != "nada") {
+                    $('#errormsg span').html(msg);
+                    $('#errormsg').fadeIn(200);
+                    document.frm_login.username.focus();
+                    return false;
+                }
+            });
+
+
             function valida() {
+
                 $('#errormsg').hide();
                 if (document.frm_login.username.value == "") {
                     $('#errormsg span').html('Informe seu Usu&aacute;rio');
@@ -57,29 +71,6 @@ Copyright (C) 2016 Thales Alves Pereira
                 }
                 return true;
             }
-
-            var jslogin = "<%=login%>";
-
-            <% session.invalidate();%>
-
-            $(document).ready(function () {
-                if (jslogin == "false") {
-                    $('#errormsg span').html('Usu&aacute;rio ou senha incorreto');
-                    $('#errormsg').fadeIn(200);
-                    document.frm_login.password.focus();
-                    return false;
-                } else if (jslogin == "acesso") {
-                    $('#errormsg span').html('Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso');
-                    $('#errormsg').fadeIn(200);
-                    document.frm_login.password.focus();
-                    return false;
-                } else if (jslogin == "auth") {
-                    $('#errormsg span').html('Erro ao contactar a controladora de dom&iacute;nio');
-                    $('#errormsg').fadeIn(200);
-                    document.frm_login.password.focus();
-                    return false;
-                }
-            });
 
             function toggleBody() {
                 if ($(".help-btn").html() == 'X') {
@@ -109,7 +100,7 @@ Copyright (C) 2016 Thales Alves Pereira
     </head>
     <body cz-shortcut-listen="true">
         <div id="sidemenu" class="sidemenu">
-            <a class="sidemenu-btn" href="javascript:void(0)" onclick="toggleSidemenu()"><img src="./UMC _ I N T R A N E T __files/menu.svg" width="24"></a>
+            <a class="sidemenu-btn" href="javascript:void(0)" onclick="toggleSidemenu()"><img src="./login/menu.svg" width="24"></a>
             <div class="sidemenu-space"></div>
             <div class="menu-box">
                 <h3 class="title">Portais</h3>

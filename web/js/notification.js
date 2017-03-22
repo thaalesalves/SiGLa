@@ -16,81 +16,65 @@
  * You should have received a copy of the GNU General Public License
  * along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 var addNotification = function (counter, obj) {
-    $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj[counter].prof + " pendente.</a></li>");
+    $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[counter].professor + " pendente.</a></li>");
 };
 
-var convertToValid = function (data) {
-    data.articleList.forEach(function (article) {
-        article.introduction = String(article.introduction)
-                .replace(/<\/?[^>]+>/gi, '');
+var updateWidgets = function (obj) {
+    $("#qtd-reservas").text(obj.counter[0].reservas);
+    $("#qtd-reservas-hoje").text(obj.counter[0].reservas_hoje);
+    $("#qtd-labs").text(obj.counter[0].laboratorios);
+    $("#qtd-computadores").text(obj.counter[0].computadores);
+};
+
+var runNotifications = function (e) {
+    var obj = e.responseText;
+    obj = JSON.parse(obj);
+
+    if (obj.counter[0].solicitacoes !== null) {
+        $("#qtd-res").text(obj.counter[0].solicitacoes);
+        switch (true) {
+            case (obj.counter[0].solicitacoes === 1):
+                $("#msg-res").text("Você tem " + obj.counter[0].solicitacoes + " solicitação pendente");
+                break;
+            case (obj.counter[0].solicitacoes > 1):
+                $("#msg-res").text("Você tem " + obj.counter[0].solicitacoes + " solicitações pendentes");
+                break;
+            default:
+                $("#msg-res").text("Você não tem solicitações pendentes");
+                break;
+        }
+    }
+
+    for (var i = 0; i < 5; i++) {
+        addNotification(i, obj);
+    }
+
+    updateWidgets(obj);
+};
+
+$(document).ready(function() {
+    $.ajax({
+        url: '/SiGLa/CounterController',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            runNotifications(e);
+        }
     });
-    return data;
-}
+});
 
 setInterval(function () {
     $("#res-notif").empty();
     $.ajax({
-        url: '/SiGLa/CounterController?acao=reserva',
+        url: '/SiGLa/CounterController',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
-            var obj = e.responseText;
-            obj = "[" + obj + "]";
-            obj = JSON.parse(obj);
-            if (obj[0].count !== null) {
-                $("#qtd-res").text(obj[0].count);
-                switch (true) {
-                    case (obj[0].count === 1):
-                        $("#msg-res").text("Você tem " + obj[0].count + " solicitação pendente");
-                        break;
-                    case (obj[0].count > 1):
-                        $("#msg-res").text("Você tem " + obj[0].count + " solicitações pendentes");
-                        break;
-                    default:
-                        $("#msg-res").text("Você não tem solicitações pendentes");
-                        break;
-                }
-            }
-
-            for (var i = 1; i < obj.length; i++) {
-                addNotification(i, obj);
-            }
+            runNotifications(e);
         }
     });
-}, 100);
-$(document).ready(function () {
-    $.ajax({
-        url: '/SiGLa/CounterController?acao=reserva',
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            var obj = e.responseText;
-            obj = "[" + obj + "]";
-            obj = JSON.parse(obj);
-            for (var i = 1; i < obj.length; i++) {
-                addNotification(i, obj);
-            }
-        }
-    });
-});
-
-$(document).ready(function() {
-    $.ajax({
-        url: '/SiGLa/CounterController?acao=teste3',
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            var obj = e.responseText;
-            obj = JSON.parse(obj);
-            console.log("Solicitações: " + obj.counter[0].solicitacoes);
-            console.log("Reservas: " + obj.counter[0].reservas);
-            console.log("Reservas hoje: " + obj.counter[0].reservas_hoje);
-            console.log("Laboratórios: " + obj.counter[0].laboratorios);
-            console.log("Computadores: "  + obj.counter[0].computadores);
-        }
-    });
-});
+}, 10000);
