@@ -1,33 +1,31 @@
 /**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
-
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * Copyright (C) 2016 Thales Alves Pereira
+ *
+ *  This file is part of SiGla.
+ *
+ *   SiGla is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SiGla is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+*
+ */
 package model;
 
 public class Pessoa {
-
-    public Pessoa() {
-    }
 
     private String personalEmail;
     private String username;
     private String nome;
     private String nomeCompleto;
+    private String shownName;
     private String email;
     private String cargo;
     private String senha;
@@ -35,14 +33,22 @@ public class Pessoa {
     private String chapa;
     private byte[] picture;
 
+    public void setShownName(String shownName) {
+        this.shownName = shownName;
+    }
+    
+    public String getShownName() {
+        return shownName;
+    }
+    
     public void setPersonalEmail(String personalEmail) {
         this.personalEmail = personalEmail;
     }
-    
+
     public String getPersonalEmail() {
         return personalEmail;
     }
-    
+
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }

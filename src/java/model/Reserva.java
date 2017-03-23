@@ -38,6 +38,7 @@ public class Reserva {
     private Laboratorio lab = new Laboratorio();
     private Software software = new Software();
     private Curso curso = new Curso();
+    private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
@@ -129,6 +130,14 @@ public class Reserva {
         return cursos;
     }
 
+    public void setPessoas(ArrayList<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+    
+    public ArrayList<Pessoa> getPessoas() {
+        return pessoas;
+    }
+    
     public void setSoftwares(ArrayList<Software> softwares) {
         this.softwares = softwares;
     }

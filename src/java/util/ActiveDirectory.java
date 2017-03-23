@@ -17,7 +17,7 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-// <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
+
 package util;
 
 import java.io.FileNotFoundException;
@@ -34,7 +34,6 @@ import javax.naming.directory.SearchResult;
 import model.Grupo;
 import model.Pessoa;
 import model.Reserva;
-// </editor-fold>
 
 public class ActiveDirectory {
 
@@ -45,12 +44,26 @@ public class ActiveDirectory {
     private SearchControls searchCtls;
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Construtor.">
     public ActiveDirectory() {
         searchCtls = new SearchControls();
         searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         searchCtls.setReturningAttributes(returnAttributes);
-    }
+    } // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
+    public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
+        properties = new Properties();
+
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
+        properties.put(Context.PROVIDER_URL, "LDAP://canada.umc.br"); // conecta com o AD DC
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
+        properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
+        dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
+
+        return true; // login efetuado
+    }// </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Métodos da API: closeLdapConnection().">
     public void closeLdapConnection() {
         try {
@@ -265,18 +278,5 @@ public class ActiveDirectory {
             Logger.logWarning(e, this.getClass());
         }
         return pic;
-    } // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
-    public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
-        properties = new Properties();
-
-        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAP://canada.umc.br"); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
-        properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
-        dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
-
-        return true; // login efetuado
-    }// </editor-fold>
+    } // </editor-fold>    
 }

@@ -21,6 +21,7 @@ package controller;
 import dao.EquipamentoDAO;
 import dao.LaboratorioDAO;
 import dao.ReservaDAO;
+import dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -31,8 +32,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Counter;
 import model.Pessoa;
 import model.Reserva;
+import model.Solicitacao;
 import util.ActiveDirectory;
 
 /**
@@ -54,49 +57,33 @@ public class CounterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws NamingException, SQLException, ClassNotFoundException, ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String acao = request.getParameter("acao");
         HttpSession session = request.getSession();
 
         try (PrintWriter out = response.getWriter()) {
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-
+            
+            Counter counter = new Counter();
+            SolicitacaoDAO sdao = new SolicitacaoDAO();
             ReservaDAO rdao = new ReservaDAO();
             LaboratorioDAO ldao = new LaboratorioDAO();
             EquipamentoDAO edao = new EquipamentoDAO();
 
-            ArrayList<Reserva> r = rdao.selectSolicitacaoProf();
-            char quote = '"';
+            ArrayList<Solicitacao> r = sdao.selectSolicitacao();
 
-            for (Reserva i : r) {
+            for (Solicitacao i : r) {
                 i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
+                i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
+                i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
             }
-
-            String json = "{" + quote + "counter" + quote + " : [{"
-                    + quote + "solicitacoes" + quote + " : " + quote + rdao.countSolicitacoes() + quote + ","
-                    + quote + "reservas" + quote + " : " + quote + rdao.qtdReservas() + quote + ","
-                    + quote + "reservas_hoje" + quote + " : " + quote + rdao.qtdReservasDia() + quote + ","
-                    + quote + "laboratorios" + quote + " : " + quote + ldao.qtdLabs() + quote + ","
-                    + quote + "computadores" + quote + " : " + quote + edao.qtdEquip() + quote
-                    + "}],"
-                    + quote + "solicitacoes" + quote + " : [{"
-                    + quote + "id" + quote + " : " + quote + r.get(0).getId() + quote + ","
-                    + quote + "professor" + quote + " : " + quote + r.get(0).getPessoa().getNomeCompleto().substring(0, r.get(0).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(0).getPessoa().getNomeCompleto().substring(r.get(0).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
-                    + "}, {"
-                    + quote + "id" + quote + " : " + quote + r.get(1).getId() + quote + ","
-                    + quote + "professor" + quote + " : " + quote + r.get(1).getPessoa().getNomeCompleto().substring(0, r.get(1).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(1).getPessoa().getNomeCompleto().substring(r.get(1).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
-                    + "}, {"
-                    + quote + "id" + quote + " : " + quote + r.get(2).getId() + quote + ","
-                    + quote + "professor" + quote + " : " + quote + r.get(2).getPessoa().getNomeCompleto().substring(0, r.get(2).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(2).getPessoa().getNomeCompleto().substring(r.get(2).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
-                    + "}, {"
-                    + quote + "id" + quote + " : " + quote + r.get(3).getId() + quote + ","
-                    + quote + "professor" + quote + " : " + quote + r.get(3).getPessoa().getNomeCompleto().substring(0, r.get(3).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(3).getPessoa().getNomeCompleto().substring(r.get(3).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
-                    + "}, {"
-                    + quote + "id" + quote + " : " + quote + r.get(4).getId() + quote + ","
-                    + quote + "professor" + quote + " : " + quote + r.get(4).getPessoa().getNomeCompleto().substring(0, r.get(4).getPessoa().getNomeCompleto().indexOf(" ")) + r.get(4).getPessoa().getNomeCompleto().substring(r.get(4).getPessoa().getNomeCompleto().lastIndexOf(" ")) + quote
-                    + "}]"
-                    + "}";
-
-            out.println(util.Json.toJson(json));
+            
+            counter.setQtdComputadores(edao.qtdEquip());
+            counter.setQtdLaboratorios(ldao.qtdLabs());
+            counter.setQtdReservas(rdao.qtdReservas());
+            counter.setQtdReservasHoje(rdao.qtdReservasDia());
+            counter.setQtdSolicitacoes(sdao.countSolicitacoes());
+            counter.setSolicitacoes(r);
+            
+            out.println(util.Json.toCuteJson(counter));
         }
     }
 

@@ -18,28 +18,28 @@
  */
 
 var addNotification = function (counter, obj) {
-    $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[counter].professor + " pendente.</a></li>");
+    $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[counter].pessoa.shownName + " pendente.</a></li>");
 };
 
 var updateWidgets = function (obj) {
-    $("#qtd-reservas").text(obj.counter[0].reservas);
-    $("#qtd-reservas-hoje").text(obj.counter[0].reservas_hoje);
-    $("#qtd-labs").text(obj.counter[0].laboratorios);
-    $("#qtd-computadores").text(obj.counter[0].computadores);
+    $("#qtd-reservas").text(obj.qtdReservas);
+    $("#qtd-reservas-hoje").text(obj.qtdReservasHoje);
+    $("#qtd-labs").text(obj.qtdLaboratorios);
+    $("#qtd-computadores").text(obj.qtdComputadores);
 };
 
 var runNotifications = function (e) {
     var obj = e.responseText;
     obj = JSON.parse(obj);
 
-    if (obj.counter[0].solicitacoes !== null) {
-        $("#qtd-res").text(obj.counter[0].solicitacoes);
+    if (obj.qtdSolicitacoes !== null) {
+        $("#qtd-res").text(obj.qtdSolicitacoes);
         switch (true) {
-            case (obj.counter[0].solicitacoes === 1):
-                $("#msg-res").text("Você tem " + obj.counter[0].solicitacoes + " solicitação pendente");
+            case (obj.qtdSolicitacoes === 1):
+                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitação pendente");
                 break;
-            case (obj.counter[0].solicitacoes > 1):
-                $("#msg-res").text("Você tem " + obj.counter[0].solicitacoes + " solicitações pendentes");
+            case (obj.qtdSolicitacoes > 1):
+                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitações pendentes");
                 break;
             default:
                 $("#msg-res").text("Você não tem solicitações pendentes");
@@ -54,7 +54,7 @@ var runNotifications = function (e) {
     updateWidgets(obj);
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         url: '/SiGLa/CounterController',
         type: 'POST',

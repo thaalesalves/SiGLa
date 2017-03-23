@@ -20,35 +20,21 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class Json {
 
     public static String toCuteJson(Object obj) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         
         return gson.toJson(obj);
     }
     
-    public static String toUglyJson(Object obj) {
+    public static JsonElement toUglyJson(Object obj) {
         Gson gson = new Gson();
         
-        return gson.toJson(obj);
-    }
-    
-    public static String toJson(Object obj) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();;
-
-        return gson.toJson(obj);
-    }
-    
-    public static String toJson(String str) {
-        JsonParser parser = new JsonParser();
-        JsonObject json = parser.parse(str).getAsJsonObject();
-        
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        return gson.toJson(json);
+        return gson.toJsonTree(obj);
     }
 }
