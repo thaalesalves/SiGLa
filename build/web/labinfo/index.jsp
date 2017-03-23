@@ -49,8 +49,8 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notification.css" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/notify.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
@@ -61,7 +61,7 @@ Copyright (C) 2016 Thales Alves Pereira
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
         <div class="wrapper">
-            <header class="main-header">
+            <header class="main-header">                
                 <!-- Logo -->
                 <a href="${pageContext.request.contextPath}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -139,7 +139,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             }
                                         %>
                                         <p>
-                                            <% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
+                                            <% out.println(p.getShownName()); %>
                                             <small><% out.println(p.getCargo() + " | " + p.getDepto()); %></small>
                                         </p>
                                     </li>
@@ -175,7 +175,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             %>
                         </div>
                         <div class="pull-left info">
-                            <p><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
+                            <p><% out.println(p.getShownName());%></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>

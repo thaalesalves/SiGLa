@@ -81,6 +81,8 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilo.css">
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -166,41 +168,13 @@ Copyright (C) 2016 Thales Alves Pereira
                             <li class="dropdown tasks-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-flag-o"></i>
-                                    <span class="label label-danger">9</span>
+                                    <span id="qtd-res" class="label label-danger"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="header">Você tem 9 tarefas</li>
+                                    <li class="header" id="msg-res"></li>
                                     <li>
                                         <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li><!-- Task item -->
-                                                <a href="#">
-                                                    <h3>
-                                                        Design some buttons
-                                                        <small class="pull-right">20%</small>
-                                                    </h3>
-                                                    <div class="progress xs">
-                                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                            <span class="sr-only">20% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- end task item -->
-                                            <li><!-- Task item -->
-                                                <a href="#">
-                                                    <h3>
-                                                        Create a nice theme
-                                                        <small class="pull-right">40%</small>
-                                                    </h3>
-                                                    <div class="progress xs">
-                                                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                            <span class="sr-only">40% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li><!-- end task item -->
-                                        </ul>
+                                        <ul id="res-notif" class="menu"></ul>
                                     </li>
                                     <li class="footer">
                                         <a href="#">Ver tudo</a>
@@ -230,7 +204,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             }
                                         %>
                                         <p>
-                                            <% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" "))); %>
+                                            <% out.println(p.getShownName()); %>
                                             <small><% out.println(p.getCargo() + " | " + p.getDepto()); %></small>
                                         </p>
                                     </li>
@@ -266,7 +240,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             %>
                         </div>
                         <div class="pull-left info">
-                            <p><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" ")) + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ")));%></p>
+                            <p><% out.println(p.getShownName());%></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>

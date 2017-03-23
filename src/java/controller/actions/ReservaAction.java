@@ -51,8 +51,9 @@ public class ReservaAction implements ICommand {
             }
 
             for (Reserva res : reserva) {
-                reserva.get(reserva.indexOf(res)).getPessoa().setNome(ad.getGivenName(reserva.get(reserva.indexOf(res)).getPessoa()));
-                reserva.get(reserva.indexOf(res)).getPessoa().setNomeCompleto(ad.getCN(reserva.get(reserva.indexOf(res)).getPessoa()));
+                res.getPessoa().setNome(ad.getGivenName(res));
+                res.getPessoa().setNomeCompleto(ad.getCN(res));
+                res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
             }
 
             request.getSession().setAttribute("reserva", reserva);

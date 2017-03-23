@@ -25,13 +25,14 @@ Copyright (C) 2016 Thales Alves Pereira
         <%
             Calendar cal = Calendar.getInstance();
 
-            if (session.getAttribute("pessoa") != null) {
+            if (session.getAttribute("ad") != null) {
                 response.sendRedirect(request.getContextPath() + "/pagina/home");
             }
 
             String login = "nada";
             if ((String) session.getAttribute("msg") != null) {
                 login = (String) session.getAttribute("msg");
+                session.removeAttribute("msg");
             }
         %>
 
@@ -44,7 +45,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 var msg = "<%=login%>";
-                <% session.invalidate();%>
 
                 if (msg != "nada") {
                     $('#errormsg span').html(msg);

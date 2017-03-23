@@ -20,12 +20,8 @@
 package controller.actions;
 
 import util.ActiveDirectory;
-import dao.EquipamentoDAO;
 import dao.GrupoDAO;
-import dao.LaboratorioDAO;
-import dao.ReservaDAO;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -38,11 +34,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Equipamento;
 import model.Grupo;
-import model.Laboratorio;
 import model.Pessoa;
-import model.Reserva;
 
 public class LoginAction implements ICommand {
 
@@ -52,9 +45,6 @@ public class LoginAction implements ICommand {
         try {
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
-            Reserva r = new Reserva();
-            Equipamento e = new Equipamento();
-            Laboratorio l = new Laboratorio();
 
             p.setUsername(request.getParameter("username")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
@@ -68,6 +58,7 @@ public class LoginAction implements ICommand {
 
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
+                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   

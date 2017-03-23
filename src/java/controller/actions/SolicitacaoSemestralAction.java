@@ -47,6 +47,7 @@ public class SolicitacaoSemestralAction implements ICommand {
             for (Reserva r : reserva) {
                 r.getPessoa().setNome(ad.getGivenName(r));
                 r.getPessoa().setNomeCompleto(ad.getCN(r));
+                r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
             }
             
             session.setAttribute("dados-solicitacoes", reserva);

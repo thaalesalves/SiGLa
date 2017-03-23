@@ -56,6 +56,7 @@ public class ListarReservaDiaAction implements ICommand {
             for (Reserva res : reserva) {
                 res.getPessoa().setNome(ad.getGivenName(res.getPessoa()));
                 res.getPessoa().setNomeCompleto(ad.getCN(res.getPessoa()));
+                res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
             }
 
             request.getSession().setAttribute("reserva", reserva);
