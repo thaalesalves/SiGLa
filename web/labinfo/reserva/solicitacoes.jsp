@@ -53,7 +53,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
             ArrayList<Reserva> ares;
             if ((ares = (ArrayList<Reserva>) session.getAttribute("dados-solicitacoes")) == null) {
-                response.sendRedirect(request.getContextPath() +"/AlmightyController?acao=SolicitacaoSemestral");
+                response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoSemestral");
             }
         %>
         <div class="wrapper">
@@ -275,9 +275,9 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
                                         <td class="center"><% out.println(r.getModulo()); %></td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
-                                        <td class="center"><center><a href="javascript:showOptions()" class="fa fa-wrench"></center></a></td>
-                                    </tr>
-                                    <% } %>
+                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal"></button></center></a></td>
+                                </tr>
+                                <% } %>
                                 </tbody>
                             </table>
                         </div>
@@ -289,6 +289,27 @@ Copyright (C) 2016 Thales Alves Pereira
             </footer>
             <div class="control-sidebar-bg"></div>
         </div>
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
