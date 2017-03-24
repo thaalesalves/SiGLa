@@ -17,6 +17,7 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<%@page import="model.Solicitacao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Reserva"%>
 <%@page import="model.Pessoa"%>
@@ -27,7 +28,7 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Listagem de Reservas | SiGLa</title>
+        <title>Solicitações de Reserva | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -51,9 +52,9 @@ Copyright (C) 2016 Thales Alves Pereira
                 response.sendRedirect(request.getContextPath() + "/error/401");
             }
 
-            ArrayList<Reserva> ares;
-            if ((ares = (ArrayList<Reserva>) session.getAttribute("dados-solicitacoes")) == null) {
-                response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoSemestral");
+            ArrayList<Solicitacao> ares;
+            if ((ares = (ArrayList<Solicitacao>) session.getAttribute("dados-solicitacoes")) == null) {
+                response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoListagem");
             }
         %>
         <div class="wrapper">
@@ -236,7 +237,7 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Reservas
+                        Solicitações de Reserva
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
@@ -261,13 +262,13 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <th>Professor</th>
                                         <th>Módulo</th>
                                         <th>Observação</th>
-                                        <th style="width: 3%;">Opções</th>
+                                        <th style="width: 10%;">Opções</th>
                                     </tr>
                                 </thead>
+                                <%
+                                    for (Solicitacao r : ares) {
+                                %>
                                 <tbody>
-                                    <%
-                                        for (Reserva r : ares) {
-                                    %>
                                     <tr class="gradeC">
                                         <td class="center"><% out.println(r.getTurma()); %></td>
                                         <td class="center"><% out.println(r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
@@ -275,10 +276,10 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
                                         <td class="center"><% out.println(r.getModulo()); %></td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
-                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal"></button></center></a></td>
-                                </tr>
-                                <% } %>
+                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(ares.indexOf(r)); %>)"></button><button type="button" class="btn btn-default fa fa-close"></button></center></td>
+                                </tr>                                
                                 </tbody>
+                                <% } %>
                             </table>
                         </div>
                     </div>
@@ -300,10 +301,36 @@ Copyright (C) 2016 Thales Alves Pereira
                         <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
                     </div>
                     <div class="modal-body">
-                        Corpo da modal
+                        <div class='form-group' style="display: none;">
+                            <label>ID</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalId" id="modalId" placeholder="Nome do Professor" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Professor</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalProfessor" placeholder="Nome do Professor" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Turma</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalCurso" placeholder="Nome do Curso" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Software</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalSoftware" placeholder="Nome do Software" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Módulo</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalModulo" placeholder="Módulo" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Dia da Semana</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalDiaSemana" placeholder="Dia da Semana" />
+                        </div>
+                        <div class='form-group'>
+                            <label>Qtd. de Alunos</label>
+                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">Reprovar</button>
+                    <div id="modal-footer" class="modal-footer">
                         <button type="button" class="btn btn-success">Aprovar</button>
                     </div>
                 </div>
@@ -319,17 +346,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
         <script>
-            $(function () {
-                $("#example1").DataTable();
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
+                                            $(function () {
+                                                $("#example1").DataTable();
+                                                $('#example2').DataTable({
+                                                    "paging": true,
+                                                    "lengthChange": false,
+                                                    "searching": false,
+                                                    "ordering": true,
+                                                    "info": true,
+                                                    "autoWidth": false
+                                                });
+                                            });
         </script>
     </body>
 </html>

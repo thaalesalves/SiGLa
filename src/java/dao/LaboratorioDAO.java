@@ -23,12 +23,41 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import model.Laboratorio;
 import util.DatabaseConnection;
 
 public class LaboratorioDAO {
 
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
+    private final String SELECT_ALL = "SELECT * FROM laboratorio";
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectLaboratorios()">
+    public ArrayList<Laboratorio> selectLaboratorios() throws SQLException, ClassNotFoundException {
+        ArrayList<Laboratorio> laboratorios = new ArrayList<Laboratorio>();
+
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement(SELECT_ALL);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Laboratorio l = new Laboratorio();
+                l.setId(rs.getInt("id"));
+                l.setNumero(rs.getString("numero"));
+                l.setCapacidade(rs.getInt("qtd_alunos"));
+                l.setComputadores(rs.getInt("qtd_comps"));
+                
+                laboratorios.add(l);
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+
+        return laboratorios;
+    }//</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdLabs()">
     public int qtdLabs() throws SQLException, ClassNotFoundException {
         int qtd = 0;

@@ -17,8 +17,12 @@
  * along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var addNotification = function (counter, obj) {
-    $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[counter].pessoa.shownName + " pendente.</a></li>");
+var jsonObject;
+
+var addNotification = function (obj) {
+    for (i = 0; i < obj.qtdSolicitacoes; i++) {
+        $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
+    }
 };
 
 var updateWidgets = function (obj) {
@@ -47,11 +51,21 @@ var runNotifications = function (e) {
         }
     }
 
-    for (var i = 0; i < 5; i++) {
-        addNotification(i, obj);
-    }
+    addNotification(obj);
 
+    jsonObject = obj;
     updateWidgets(obj);
+};
+
+var showSolicitacaoModal = function (counter) {
+    var id = jsonObject.solicitacoes[counter].id;
+    id = $.trim(id);
+    $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
+    $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
+    $("#modalSoftware").val(jsonObject.solicitacoes[counter].software.fabricante + " " + jsonObject.solicitacoes[counter].software.nome);
+    $("#modalModulo").val(jsonObject.solicitacoes[counter].turma);
+    $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
+    $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
 };
 
 $(document).ready(function () {

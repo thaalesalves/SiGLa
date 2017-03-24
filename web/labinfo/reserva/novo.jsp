@@ -17,13 +17,14 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<%@page import="model.Curso"%>
-<%@page import="model.Software"%>
 <%@page import="model.Reserva"%>
-<%@page import="model.Pessoa"%>
+<%@page import="model.Curso"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.Pessoa"%>
+<%@page import="model.Software"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
     Calendar cal = Calendar.getInstance();
     Pessoa p;
@@ -35,8 +36,14 @@ Copyright (C) 2016 Thales Alves Pereira
         response.sendRedirect(request.getContextPath() + "/error/401");
     }
 
-    if ((r = (Reserva) session.getAttribute("dados-pontual")) == null) {
+    if ((r = (Reserva) session.getAttribute("dados-semestral")) == null) {
         request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
+    }
+
+    String msg = "nada";
+    if ((String) session.getAttribute("msg") != null) {
+        msg = (String) session.getAttribute("msg");
+        session.removeAttribute("msg");
     }
 
     asw = r.getSoftwares();
@@ -74,16 +81,36 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/estilo.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body class="hold-transition skin-black-light sidebar-mini">
-        <div class="wrapper">
 
+        <script>
+            var msg = "<%=msg%>";
+
+            $(document).ready(function () {
+                if (msg != "nada") {
+                    if (msg == "Solicita&ccedil;&atilde;o efetuada com sucesso.") {
+                        $("#msg").addClass("alert-success");
+                        $("#msg").text(msg);
+                        $("#msg").toggle();
+                    } else if (msg == "Erro ao efetivar a solicita&ccedil;&atilde;o.") {
+                        $("#msg").addClass(".alert-danger");
+                        $("#msg").text(msg);
+                        $("#msg").toggle();
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body class="hold-transition skin-black-light sidebar-mini">        
+        <div class="alert" style="display: none;"></div>
+        <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
                 <a href="${pageContext.request.contextPath}" class="logo">
@@ -281,7 +308,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Reserva pontual</h3>
+                            <h3 class="box-title">Reserva semestral</h3>
                         </div>
                         <div class="box-body">
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
@@ -308,31 +335,46 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input id="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Data</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input name="data" type="text" class="form-control pull-right" id='reservationtime' name="data" />
-                                    </div>
+                                    <label>Módulo</label>
+                                    <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
+                                        <option value="1º módulo">1º Módulo (8h às 9h30)</option>
+                                        <option value="2º módulo">2º Módulo (9h40 às 11h10)</option>
+                                        <option value="3º módulo">3º Módulo (11h10 às 12h40)</option>
+                                        <option value="4º módulo">4º Módulo (13h às 14h30)</option>
+                                        <option value="5º módulo">5º Módulo (14h30 às 17h30)</option>
+                                        <option value="6º módulo">6º Módulo (17h30 às 19h)</option>
+                                        <option value="7º módulo">7º Módulo (19h às 20h30)</option>
+                                        <option value="8º módulo">8º Módulo (20h40 às 22h)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dia da Semana</label>
+                                    <select name="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                    </select>
                                 </div>
                                 <div class='form-group'>
                                     <label>Softwares</label>
                                     <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
                                         <% for (Software sw : asw) { %>
-                                        <option value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
+                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
                                         <% } %>
                                     </select>
                                 </div>
-                                <div class='form-group'>
+                                <div id="obs" class='form-group'>
                                     <label>Observação</label>
-                                    <textarea id=obs" class="form-control"></textarea>
+                                    <textarea class="form-control"></textarea>
                                 </div>
                                 <div class="box-footer">
-                                    <button value="InserirReservaPontual" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -364,71 +406,53 @@ Copyright (C) 2016 Thales Alves Pereira
     <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
 
     <script>
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
+            $(function () {
+                //Initialize Select2 Elements
+                $(".select2").select2();
 
-            //Datemask dd/mm/yyyy
-            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-            //Datemask2 mm/dd/yyyy
-            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-            //Money Euro
-            $("[data-mask]").inputmask();
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                //Datemask2 mm/dd/yyyy
+                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                //Money Euro
+                $("[data-mask]").inputmask();
 
-            //Date range picker
-            $('#reservation').daterangepicker();
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-            //Date range as a button
-            $('#daterange-btn').daterangepicker(
-                    {
-                        ranges: {
-                            'Today': [moment(), moment()],
-                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                        },
-                        startDate: moment().subtract(29, 'days'),
-                        endDate: moment()
-                    },
-                    function (start, end) {
-                        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                    }
-            );
+                //Date range picker
+                $('#reservation').daterangepicker();
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
 
-            //Date picker
-            $('#datepicker').datepicker({
-                autoclose: true
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                });
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                });
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                });
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                });
+
+                //Colorpicker
+                $(".my-colorpicker1").colorpicker();
+                //color picker with addon
+                $(".my-colorpicker2").colorpicker();
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
             });
-
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-            //Colorpicker
-            $(".my-colorpicker1").colorpicker();
-            //color picker with addon
-            $(".my-colorpicker2").colorpicker();
-
-            //Timepicker
-            $(".timepicker").timepicker({
-                showInputs: false
-            });
-        });
     </script>
 </body>
 </html>

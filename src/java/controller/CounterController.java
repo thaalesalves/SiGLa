@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Counter;
+import model.Laboratorio;
 import model.Pessoa;
 import model.Reserva;
 import model.Solicitacao;
@@ -69,7 +70,8 @@ public class CounterController extends HttpServlet {
             EquipamentoDAO edao = new EquipamentoDAO();
 
             ArrayList<Solicitacao> r = sdao.selectSolicitacao();
-
+            ArrayList<Laboratorio> l = ldao.selectLaboratorios();
+            
             for (Solicitacao i : r) {
                 i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
                 i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
@@ -82,6 +84,7 @@ public class CounterController extends HttpServlet {
             counter.setQtdReservasHoje(rdao.qtdReservasDia());
             counter.setQtdSolicitacoes(sdao.countSolicitacoes());
             counter.setSolicitacoes(r);
+            counter.setLaboratorios(l);
             
             out.println(util.Json.toCuteJson(counter));
         }

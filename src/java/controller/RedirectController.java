@@ -50,8 +50,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
             /* Redirecionamentos de /reserva/ */
-            mapaUrl.put("/reserva/semestral", "../labinfo/reserva/novo-semestral.jsp");
-            mapaUrl.put("/reserva/pontual", "../labinfo/reserva/novo-pontual.jsp");
+            mapaUrl.put("/reserva/novo", "../labinfo/reserva/novo.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
             mapaUrl.put("/reserva/lista-dia", "../labinfo/reserva/lista_dia.jsp");
             mapaUrl.put("/reserva/solicitacoes", "../labinfo/reserva/solicitacoes.jsp");
@@ -59,7 +58,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/reserva/listar-hoje", "../AlmightyController?acao=ListarReservaDia");
             mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
             mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
-            mapaUrl.put("/reserva/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoSemestral");
+            mapaUrl.put("/reserva/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoListagem");
             mapaUrl.put("/reserva/contar-solicitacoes", "../AlmightyController?acao=ContagemSolicitacoes");
 
             /* Redirecionamentos de /curso/ */

@@ -57,7 +57,7 @@ public class ListarReservaSemestralAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return request.getContextPath() + "/reserva/semestral";
+        return request.getContextPath() + "/reserva/novo";
     }
 
 }

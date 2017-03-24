@@ -27,8 +27,17 @@ public class Counter {
     private int qtdLaboratorios;
     private int qtdComputadores;
     private Solicitacao solicitacao;
+    private ArrayList<Laboratorio> laboratorios;
     private ArrayList<Solicitacao> solicitacoes;
 
+    public void setLaboratorios(ArrayList<Laboratorio> laboratorios) {
+        this.laboratorios = laboratorios;
+    }
+    
+    public ArrayList<Laboratorio> getLaboratorios() {
+        return laboratorios;
+    }
+    
     public void setSolicitacao(Solicitacao solicitacao) {
         this.solicitacao = solicitacao;
     }

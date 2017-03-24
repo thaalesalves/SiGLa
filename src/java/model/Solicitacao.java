@@ -18,11 +18,10 @@
  */
 package model;
 
-import java.util.ArrayList;
-
 public class Solicitacao {
 
     private int id;    
+    private int qtdAlunos;
     private String diaSemana;
     private String turma;
     private String observacao;
@@ -30,6 +29,14 @@ public class Solicitacao {
     private Pessoa pessoa = new Pessoa();
     private Curso curso = new Curso();
     private Software software = new Software();
+    
+    public void setQtdAlunos(int qtdAlunos) {
+        this.qtdAlunos = qtdAlunos;
+    }
+    
+    public int getQtdAlunos() {
+        return qtdAlunos;
+    }
     
     public void setModulo(String modulo) {
         this.modulo = modulo;

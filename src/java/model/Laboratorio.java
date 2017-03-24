@@ -22,9 +22,27 @@ package model;
 public class Laboratorio {
 
     private int id;
-    private String numero;
     private int qtd;
+    private int capacidade;
+    private int computadores;
+    private String numero;    
 
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+    
+    public int getCapacidade() {
+        return capacidade;
+    }
+    
+    public void setComputadores(int computadores) {
+        this.computadores = computadores;
+    }
+    
+    public int getComputadores() {
+        return computadores;
+    }
+    
     public void setQtd(int qtd) {
         this.qtd = qtd;
     }

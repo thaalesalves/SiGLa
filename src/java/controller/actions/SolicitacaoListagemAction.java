@@ -20,6 +20,7 @@
 package controller.actions;
 
 import dao.ReservaDAO;
+import dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -31,9 +32,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Reserva;
+import model.Solicitacao;
 import util.ActiveDirectory;
 
-public class SolicitacaoSemestralAction implements ICommand {
+public class SolicitacaoListagemAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -41,16 +43,16 @@ public class SolicitacaoSemestralAction implements ICommand {
             HttpSession session = request.getSession();
 
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-            ReservaDAO rdao = new ReservaDAO();
-            ArrayList<Reserva> reserva = rdao.selectSolicitacoes();
+            SolicitacaoDAO dao = new SolicitacaoDAO();
+            ArrayList<Solicitacao> solicitacao = dao.selectSolicitacao();
 
-            for (Reserva r : reserva) {
-                r.getPessoa().setNome(ad.getGivenName(r));
-                r.getPessoa().setNomeCompleto(ad.getCN(r));
-                r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+            for (Solicitacao s : solicitacao) {
+                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
             }
             
-            session.setAttribute("dados-solicitacoes", reserva);
+            session.setAttribute("dados-solicitacoes", solicitacao);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

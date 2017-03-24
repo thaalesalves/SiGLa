@@ -23,17 +23,51 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Reserva;
 import model.Solicitacao;
 import util.DatabaseConnection;
 
 public class SolicitacaoDAO {
-
+    
+    public void deleteSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM solicitacao WHERE id = ?");
+            
+            pstmt.setInt(1, s.getId());
+            
+            pstmt.executeUpdate();
+            
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
+    
+    public void insertSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+            pstmt.setInt(1, s.getSoftware().getId()); // software
+            pstmt.setInt(2, s.getCurso().getId()); // curso
+            pstmt.setInt(3, s.getQtdAlunos()); // qtd de alunos
+            pstmt.setString(4, s.getTurma()); // turma
+            pstmt.setString(5, s.getPessoa().getUsername()); // professor
+            pstmt.setString(6, s.getModulo()); // modulo
+            pstmt.setString(7, s.getDiaSemana()); // dia da semana
+            pstmt.setString(8, s.getObservacao()); // observacao
+            
+            pstmt.executeUpdate();
+            
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
+    
     public int countSolicitacoes() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM solicitacao_semestral");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM solicitacao");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -52,13 +86,14 @@ public class SolicitacaoDAO {
         ArrayList<Solicitacao> arrayRes = new ArrayList<Solicitacao>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT s.id AS solicitacao, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao_semestral AS s WHERE s.softwares = software.id AND s.curso = curso.id");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT s.qtd_alunos AS qtd_alunos, s.id AS solicitacao, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id ORDER BY s.id DESC");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Solicitacao r = new Solicitacao();
 
                 r.setId(rs.getInt("solicitacao"));
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.getCurso().setModalidade(rs.getString("modalidade"));
                 r.getCurso().setNome(rs.getString("curso"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));

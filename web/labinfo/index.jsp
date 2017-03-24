@@ -112,7 +112,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <ul id="res-notif" class="menu"></ul>
                                     </li>
                                     <li class="footer">
-                                        <a href="#">Ver tudo</a>
+                                        <a href="${pageContext.request.contextPath}/reserva/listar-solicitacoes">Ver tudo</a>
                                     </li>
                                 </ul>
                             </li>
