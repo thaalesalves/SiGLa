@@ -37,6 +37,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         try {
             System.out.println("Professor: " + request.getParameter("modalProfessor"));
             System.out.println("Curso: " + request.getParameter("modalCurso"));
+            System.out.println("Laboratório: " + request.getParameter("modalLabCombo"));
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

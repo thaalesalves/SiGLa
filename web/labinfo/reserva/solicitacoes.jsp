@@ -327,10 +327,16 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <label>Qtd. de Alunos</label>
                                 <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
                             </div>
+                            <div class='form-group'>
+                                    <label>Laboratório</label>
+                                    <select style="width: 80%;" class='form-control pull-right' name="modalLabCombo" id="modalLabCombo">
+                                        <option default>Selecionar</option>
+                                    </select>
+                                </div>
                         </div>
                         <div id="modal-footer" class="modal-footer">
                             <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
-                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="modalRemover()">Reprovar</button>
+                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="modalRemover()">Reprovar</button><br/>
                         </div>
                     </div>
                 </div>
