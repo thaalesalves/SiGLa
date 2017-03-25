@@ -36,6 +36,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link href="${pageContext.request.contextPath}/css/estilo.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
@@ -262,7 +263,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <th>Professor</th>
                                         <th>Módulo</th>
                                         <th>Observação</th>
-                                        <th style="width: 10%;">Opções</th>
+                                        <th style="width: 5%;">Opções</th>
                                     </tr>
                                 </thead>
                                 <%
@@ -276,7 +277,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
                                         <td class="center"><% out.println(r.getModulo()); %></td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
-                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(ares.indexOf(r)); %>)"></button><button type="button" class="btn btn-default fa fa-close"></button></center></td>
+                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(ares.indexOf(r)); %>)"></button></center></td>
                                 </tr>                                
                                 </tbody>
                                 <% } %>
@@ -291,51 +292,73 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="control-sidebar-bg"></div>
         </div>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
-                    </div>
-                    <div class="modal-body">
-                        <div class='form-group' style="display: none;">
-                            <label>ID</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalId" id="modalId" placeholder="Nome do Professor" />
+        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
+                        </div>                    
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label>Professor</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
+                            </div>
+                            <div class='form-group'>
+                                <label>Turma</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalCurso" id="modalCurso" placeholder="Nome do Curso" />
+                            </div>
+                            <div class='form-group'>
+                                <label>Software</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software" />
+                            </div>
+                            <div class='form-group'>
+                                <label>Módulo</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo" />
+                            </div>
+                            <div class='form-group'>
+                                <label>Dia da Semana</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
+                            </div>
+                            <div class='form-group'>
+                                <label>Qtd. de Alunos</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
+                            </div>
                         </div>
-                        <div class='form-group'>
-                            <label>Professor</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalProfessor" placeholder="Nome do Professor" />
+                        <div id="modal-footer" class="modal-footer">
+                            <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
+                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="modalRemover()">Reprovar</button>
                         </div>
-                        <div class='form-group'>
-                            <label>Turma</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalCurso" placeholder="Nome do Curso" />
-                        </div>
-                        <div class='form-group'>
-                            <label>Software</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalSoftware" placeholder="Nome do Software" />
-                        </div>
-                        <div class='form-group'>
-                            <label>Módulo</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalModulo" placeholder="Módulo" />
-                        </div>
-                        <div class='form-group'>
-                            <label>Dia da Semana</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalDiaSemana" placeholder="Dia da Semana" />
-                        </div>
-                        <div class='form-group'>
-                            <label>Qtd. de Alunos</label>
-                            <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
-                        </div>
-                    </div>
-                    <div id="modal-footer" class="modal-footer">
-                        <button type="button" class="btn btn-success">Aprovar</button>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Selecionar Laboratório</h5>                                                        
+                        </div>                    
+                        <div class="modal-body">
+                            <div class='form-group'>
+                                <label>Laboratório</label>
+                                <select style="width: 80%;" class='form-control pull-right' name="modalLabCombo" id="modalLabCombo">
+                                    <option default>Selecionar</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="modal-footer" class="modal-footer">
+                            <button value="SolicitacaoAprovacao" type="submit" name="acao" class="btn btn-success">Aprovar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
@@ -346,17 +369,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
         <script>
-                                            $(function () {
-                                                $("#example1").DataTable();
-                                                $('#example2').DataTable({
-                                                    "paging": true,
-                                                    "lengthChange": false,
-                                                    "searching": false,
-                                                    "ordering": true,
-                                                    "info": true,
-                                                    "autoWidth": false
-                                                });
-                                            });
+                                $(function () {
+                                    $("#example1").DataTable();
+                                    $('#example2').DataTable({
+                                        "paging": true,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": true,
+                                        "autoWidth": false
+                                    });
+                                });
         </script>
     </body>
 </html>

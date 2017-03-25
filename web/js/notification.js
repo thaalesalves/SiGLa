@@ -18,6 +18,7 @@
  */
 
 var jsonObject;
+var id;
 
 var addNotification = function (obj) {
     for (i = 0; i < obj.qtdSolicitacoes; i++) {
@@ -58,7 +59,7 @@ var runNotifications = function (e) {
 };
 
 var showSolicitacaoModal = function (counter) {
-    var id = jsonObject.solicitacoes[counter].id;
+    id = jsonObject.solicitacoes[counter].id;
     id = $.trim(id);
     $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
     $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
@@ -66,6 +67,20 @@ var showSolicitacaoModal = function (counter) {
     $("#modalModulo").val(jsonObject.solicitacoes[counter].turma);
     $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
     $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
+    
+    for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
+        $("#modalLabCombo").append($('<option>', {
+            value: jsonObject.laboratorios[i].id,
+            text: jsonObject.laboratorios[i].numero
+        }));
+    }
+};
+
+var modalRemover = function () {
+    $("#btnModalReprovar").click(function () {
+        window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
+    });
+    console.log("Valor: " + id);
 };
 
 $(document).ready(function () {
@@ -74,6 +89,7 @@ $(document).ready(function () {
         type: 'POST',
         cache: false,
         dataType: 'JSON',
+        contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
         complete: function (e) {
             runNotifications(e);
         }
@@ -87,6 +103,7 @@ setInterval(function () {
         type: 'POST',
         cache: false,
         dataType: 'JSON',
+        contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
         complete: function (e) {
             runNotifications(e);
         }
