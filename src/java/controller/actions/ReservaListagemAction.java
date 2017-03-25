@@ -1,22 +1,21 @@
-/**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
+/*
+ * Copyright (C) 2017 Thales Alves Pereira
+ *
+ * This file is part of SiGLa.
 
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
+ * SiGLa is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
 
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
+ * SiGLa  is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
 
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * You should have received a copy of the GNU General Public License
+ * along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package controller.actions;
 
 import util.ActiveDirectory;
@@ -29,19 +28,22 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import model.Reserva;
 
-public class ReservaAction implements ICommand {
+public class ReservaListagemAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
+            HttpSession session = request.getSession();
+            
             ReservaDAO dao = new ReservaDAO();
             Reserva r = new Reserva();
             r.setPessoa((Pessoa) request.getSession().getAttribute("pessoa"));
             ArrayList<Reserva> reserva = new ArrayList<Reserva>();
-            ActiveDirectory ad = new ActiveDirectory();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             ad.login(r.getPessoa());
 
             if (r.getPessoa().getCargo().equals("Professor")) {
@@ -61,6 +63,6 @@ public class ReservaAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return "lista";
+        return request.getContextPath() + "/reserva/lista";
     }
 }

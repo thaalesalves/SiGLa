@@ -76,7 +76,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="${pageContext.request.contextPath}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>S</b>i<b>GL</b>a</span>
                     <!-- logo for regular state and mobile devices -->
@@ -136,7 +136,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <ul id="res-notif" class="menu"></ul>
                                     </li>
                                     <li class="footer">
-                                        <a href="#">Ver tudo</a>
+                                        <a href="${pageContext.request.contextPath}/reserva/listar-solicitacoes">Ver tudo</a>
                                     </li>
                                 </ul>
                             </li>
@@ -207,22 +207,15 @@ Copyright (C) 2016 Thales Alves Pereira
                     <ul class="sidebar-menu">
                         <li class="header">PRINCIPAL</li>
                         <li class="active treeview">
-                            <a href="../pagina/home">
+                            <a href="${pageContext.request.contextPath}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="header">RESERVAS</li>
                         <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i> <span>Solicitação</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                            <a href="${pageContext.request.contextPath}/controle/listar-solicitacoes">
+                                <i class="fa fa-edit"></i> <span>Solicitações</span>
                             </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
-                            </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -232,18 +225,18 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
-                                <li><a href="../reserva/listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>
                         </li>
                         <li class="header">CURSOS</li>
                         <li class="treeview">
-                            <a href="../curso/novo">
+                            <a href="${pageContext.request.contextPath}/curso/novo">
                                 <i class="fa fa-edit"></i> <span>Inserção</span>
                             </a>
                         </li>
                         <li class="treeview">
-                            <a href="../curso/listar">
+                            <a href="${pageContext.request.contextPath}/controle/listar-curso">
                                 <i class="fa fa-files-o"></i> <span>Listagem</span>
                             </a>
                         </li>
@@ -251,7 +244,6 @@ Copyright (C) 2016 Thales Alves Pereira
                 </section>
                 <!-- /.sidebar -->
             </aside>
-
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -294,7 +286,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                     </select>
                                 </div>
                                 <div class="box-footer">
-                                    <button value="InserirCurso" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="CursoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>

@@ -44,7 +44,6 @@ CREATE TABLE reserva (
     curso INT,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
-    tipo INT NOT NULL,
     modulo VARCHAR NOT NULL,
     dia_semana VARCHAR NOT NULL,
     obs VARCHAR
@@ -95,18 +94,18 @@ INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '12-10', 25, 50);
 INSERT INTO software VALUES (NEXTVAL('seq_software'), 'NetBeans', 'Oracle');
 INSERT INTO software VALUES (NEXTVAL('seq_software'), 'Visual Studio', 'Microsoft');
 INSERT INTO software VALUES (NEXTVAL('seq_software'), 'Creative Cloud', 'Adobe');
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 3, 1, 1, '2', 'daniellemartin', 1, '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2', 'erikam', 2, '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 3, 3, '2', 'daisyeb', 1, '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 1, 1, 1, '2', 'wolley', 2, '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2', 'ptoledo', 2, '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 3, 1, 1, '1&deg;A', 'daniellemartin','1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2&deg;B', 'erikam', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 3, 3, '3&deg;C', 'daisyeb', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 1, 1, 1, '1&deg;B', 'wolley', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
+INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2&deg;C', 'ptoledo', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'professor','memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'funcionario', 'memberOf=CN=DEPTI,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=COORDENADORES,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
-INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 20, '1&deg;B', 'daniellemartin', '1&deg; m&oacute;dulo', 'Sexta-feira', 'Sem observa&ccedil;&otilde;es.');
+INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 20, '1&deg;A', 'daniellemartin', '1&deg; m&oacute;dulo', 'Sexta-feira', 'Sem observa&ccedil;&otilde;es.');
 INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 30, '2&deg;B', 'erikam', '2&deg; m&oacute;dulo', 'Segunda-feira', 'Sem observa&ccedil;&otilde;es.');
-INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 40, '3&deg;B', 'ptoledo', '3&deg; m&oacute;dulo', 'Ter&ccedil;a-feira', 'Sem observa&ccedil;&otilde;es.');
+INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 40, '3&deg;C', 'ptoledo', '3&deg; m&oacute;dulo', 'Ter&ccedil;a-feira', 'Sem observa&ccedil;&otilde;es.');
 
 -- Definição de Constraints
 ALTER TABLE ONLY equipamento ADD CONSTRAINT equipamento_laboratorio_fkey FOREIGN KEY (laboratorio) REFERENCES laboratorio(id);

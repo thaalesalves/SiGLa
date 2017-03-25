@@ -54,7 +54,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
             ArrayList<Reserva> arrayRes;
             if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
-                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaDia").forward(request, response);
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ReservaDiaListagem").forward(request, response);
             }
         %>
         <div class="wrapper">
@@ -120,7 +120,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <ul id="res-notif" class="menu"></ul>
                                     </li>
                                     <li class="footer">
-                                        <a href="#">Ver tudo</a>
+                                        <a href="${pageContext.request.contextPath}/reserva/listar-solicitacoes">Ver tudo</a>
                                     </li>
                                 </ul>
                             </li>
@@ -191,22 +191,15 @@ Copyright (C) 2016 Thales Alves Pereira
                     <ul class="sidebar-menu">
                         <li class="header">PRINCIPAL</li>
                         <li class="active treeview">
-                            <a href="../pagina/home">
+                            <a href="${pageContext.request.contextPath}">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="header">RESERVAS</li>
                         <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i> <span>Solicitação</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
+                            <a href="${pageContext.request.contextPath}/controle/listar-solicitacoes">
+                                <i class="fa fa-edit"></i> <span>Solicitações</span>
                             </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-semestral"><i class="fa fa-circle-o"></i> Reserva Semestral</a></li>
-                                <li><a href="../reserva/listar-pontual"><i class="fa fa-circle-o"></i> Reserva Pontual</a></li>
-                            </ul>
                         </li>
                         <li class="treeview">
                             <a href="#">
@@ -216,23 +209,24 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="../reserva/listar-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
-                                <li><a href="../reserva/listar"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>
                         </li>
                         <li class="header">CURSOS</li>
                         <li class="treeview">
-                            <a href="../curso/novo">
+                            <a href="${pageContext.request.contextPath}/curso/novo">
                                 <i class="fa fa-edit"></i> <span>Inserção</span>
                             </a>
                         </li>
                         <li class="treeview">
-                            <a href="../curso/listar">
+                            <a href="${pageContext.request.contextPath}/controle/listar-curso">
                                 <i class="fa fa-files-o"></i> <span>Listagem</span>
                             </a>
                         </li>
                     </ul>
                 </section>
+                <!-- /.sidebar -->
             </aside>
             <div class="content-wrapper">
                 <section class="content-header">
@@ -256,12 +250,10 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Tipo</th>
-                                        <th>Turma</th>
-                                        <th>Curso</th>
-                                        <th>Laboratório</th>
-                                        <th>Software</th>
                                         <th>Professor</th>
+                                        <th>Turma</th>
+                                        <th>Laboratório</th>
+                                        <th>Software</th>                                        
                                         <th style="width: 3%;">Opções</th>
                                     </tr>
                                 </thead>
@@ -270,13 +262,11 @@ Copyright (C) 2016 Thales Alves Pereira
                                         for (Reserva r : arrayRes) {
                                     %>
                                     <tr class="gradeC">
-                                        <td class="center"><% out.println(r.getTipo()); %></td>
-                                        <td class="center"><% out.println(r.getTurma()); %></td>
-                                        <td class="center"><% out.println(r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
+                                        <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
+                                        <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(r.getLab().getNumero()); %></td>
                                         <td class="center"><% out.println(r.getSoftware().getFabricante() + " " + r.getSoftware().getNome()); %></td>
-                                        <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
-                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=RemoverReservaDia&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaDiaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
                                     </tr>
                                     <% } %>
                                 </tbody>

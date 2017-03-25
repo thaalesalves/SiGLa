@@ -42,7 +42,11 @@ public class RedirectController extends HttpServlet {
 
         try {
             /* Redirecionamentos de /controle/ */
-            mapaUrl.put("/notif/solicitacoes", "../labinfo/controle/solicitacoes.jsp");
+            mapaUrl.put("/controle/contar-solicitacoes", "../CounterController");
+            mapaUrl.put("/controle/listar-reservas", "../AlmightyController?acao=ReservaListagem");
+            mapaUrl.put("/controle/listar-reservas-hoje", "../AlmightyController?acao=ReservaDiaListagem");
+            mapaUrl.put("/controle/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoListagem");
+            mapaUrl.put("/controle/listar-curso", "../AlmightyController?acao=CursoListagem");
             
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
@@ -52,19 +56,12 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /reserva/ */
             mapaUrl.put("/reserva/novo", "../labinfo/reserva/novo.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
-            mapaUrl.put("/reserva/lista-dia", "../labinfo/reserva/lista_dia.jsp");
+            mapaUrl.put("/reserva/hoje", "../labinfo/reserva/lista_dia.jsp");
             mapaUrl.put("/reserva/solicitacoes", "../labinfo/reserva/solicitacoes.jsp");
-            mapaUrl.put("/reserva/listar", "../AlmightyController?acao=Reserva");
-            mapaUrl.put("/reserva/listar-hoje", "../AlmightyController?acao=ListarReservaDia");
-            mapaUrl.put("/reserva/listar-semestral", "../AlmightyController?acao=ListarReservaSemestral");
-            mapaUrl.put("/reserva/listar-pontual", "../AlmightyController?acao=ListarReservaPontual");
-            mapaUrl.put("/reserva/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoListagem");
-            mapaUrl.put("/reserva/contar-solicitacoes", "../AlmightyController?acao=ContagemSolicitacoes");
-
+            
             /* Redirecionamentos de /curso/ */
             mapaUrl.put("/curso/novo", "../labinfo/curso/novo.jsp");
             mapaUrl.put("/curso/lista", "../labinfo/curso/lista.jsp");
-            mapaUrl.put("/curso/listar", "../AlmightyController?acao=ListarCurso");
 
             /* Redirecionamentos de /error/ */
             mapaUrl.put("/error/error", "../labinfo/error/500_exception.jsp");

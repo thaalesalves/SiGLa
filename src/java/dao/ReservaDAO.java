@@ -31,48 +31,11 @@ public class ReservaDAO {
 
     private Reserva reserva = new Reserva();
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
-    private final String SELECT_ALL = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) ORDER BY reserva.id DESC";
-    private final String SELECT_PROF = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ?";
-    private final String SELECT_PROF_DIA = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ? AND dia_semana = ?";
-    private final String SELECT_ALL_DIA = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, reserva.tipo AS tipo, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE dia_semana = ?";
-    private final String INSERT_SEMESTRAL = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), (SELECT id FROM laboratorio WHERE numero = '12-14'), ?, ?, ?, ?, 1, ?, ?, ?)";
-    private final String INSERT_PONTUAL = "";
-    private final String SELECT_SOLICITACOES = "SELECT solicitacao_semestral.dia_semana, solicitacao_semestral.professor, solicitacao_semestral.id AS id, software.nome AS software, software.fabricante AS fabricante, curso.modalidade AS modalidade, curso.nome AS curso, solicitacao_semestral.turma, solicitacao_semestral.modulo, solicitacao_semestral.obs FROM solicitacao_semestral, software, curso WHERE solicitacao_semestral.curso = curso.id AND solicitacao_semestral.softwares = software.id";
-    private final String INSERT_SOLICITACOES = "INSERT INTO solicitacao_semestral VALUES(NEXTVAL('seq_soli_semes'), ?, ?, ?, ?, ?, ?, ?)";
-    
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectSolicitacoes()">
-    public ArrayList<Reserva> selectSolicitacoes() throws ClassNotFoundException, SQLException {
-        ArrayList<Reserva> ares = new ArrayList<Reserva>();
-
-        try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_SOLICITACOES);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Reserva r = new Reserva();
-
-                r.getPessoa().setUsername(rs.getString("professor"));
-                r.getSoftware().setFabricante(rs.getString("fabricante"));
-                r.getSoftware().setNome(rs.getString("software"));
-                r.getCurso().setModalidade(rs.getString("modalidade"));
-                r.getCurso().setNome(rs.getString("curso"));
-                r.setTurma(rs.getString("turma"));
-                r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setModulo(rs.getString("modulo"));
-                r.setObservacao(rs.getString("obs"));
-                r.setId(rs.getInt("id"));
-
-                ares.add(r);
-            }
-
-            connString.close();
-        } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
-        }
-
-        return ares;
-    }
-    // </editor-fold>
+    private final String SELECT_ALL = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) ORDER BY reserva.id DESC";
+    private final String SELECT_PROF = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ?";
+    private final String SELECT_PROF_DIA = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ? AND dia_semana = ?";
+    private final String SELECT_ALL_DIA = "SELECT reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE dia_semana = ?";
+    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), (SELECT id FROM laboratorio WHERE numero = '12-14'), ?, ?, ?, ?, ?, ?, ?)";
 
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
@@ -96,12 +59,6 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-
-                if (rs.getInt("tipo") == 1) {
-                    r.setTipo("Semestral");
-                } else {
-                    r.setTipo("Pontual");
-                }
 
                 ares.add(r);
             }
@@ -138,12 +95,6 @@ public class ReservaDAO {
                 r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
-                if (rs.getInt("tipo") == 1) {
-                    r.setTipo("Semestral");
-                } else {
-                    r.setTipo("Pontual");
-                }
-
                 arrayRes.add(r);
             }
 
@@ -176,12 +127,6 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-
-                if (rs.getInt("tipo") == 1) {
-                    r.setTipo("Semestral");
-                } else {
-                    r.setTipo("Pontual");
-                }
 
                 arrayRes.add(r);
             }
@@ -216,12 +161,6 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-
-                if (rs.getInt("tipo") == 1) {
-                    r.setTipo("Semestral");
-                } else {
-                    r.setTipo("Pontual");
-                }
 
                 arrayRes.add(r);
             }
@@ -277,23 +216,10 @@ public class ReservaDAO {
         return qtd;
     }//</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: insertPontual(Reserva)">
-    public void insertPontual(Reserva r) throws SQLException, ClassNotFoundException {
-        try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(INSERT_PONTUAL);
-
-            pstmt.executeUpdate();
-
-            connString.close();
-        } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
-        }
-    }//</editor-fold>
-
     // <editor-fold defaultstate="collapsed" desc="Método próprio: insertSemestral(Reserva)">
     public void insertSemestral(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(INSERT_SOLICITACOES);
+            PreparedStatement pstmt = connString.prepareStatement(INSERT);
 
             pstmt.setInt(1, r.getSoftware().getId());
             pstmt.setInt(2, r.getCurso().getId());
