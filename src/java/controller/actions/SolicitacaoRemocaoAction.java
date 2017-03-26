@@ -47,6 +47,6 @@ public class SolicitacaoRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return request.getContextPath() + "/reserva/listar-solicitacoes";
+        return request.getContextPath() + "/controle/listar-solicitacoes";
     }
 }

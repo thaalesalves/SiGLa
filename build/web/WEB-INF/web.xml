@@ -12,10 +12,14 @@
         <servlet-name>CounterController</servlet-name>
         <servlet-class>controller.CounterController</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>AlmightyController</servlet-name>
-        <url-pattern>/AlmightyController</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>DataController</servlet-name>
+        <servlet-class>controller.actions.DataController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InfoController</servlet-name>
+        <servlet-class>controller.InfoController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RedirectController</servlet-name>
         <url-pattern>/pagina/*</url-pattern>
@@ -26,11 +30,24 @@
         <url-pattern>/curso/*</url-pattern>
         <url-pattern>/error/*</url-pattern>
         <url-pattern>/controle/*</url-pattern>
-        <url-pattern>/notif/*</url-pattern>
+        <url-pattern>/info/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlmightyController</servlet-name>
+        <url-pattern>/AlmightyController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CounterController</servlet-name>
         <url-pattern>/CounterController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DataController</servlet-name>
+        <url-pattern>/DataController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InfoController</servlet-name>
+        <url-pattern>/InfoController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

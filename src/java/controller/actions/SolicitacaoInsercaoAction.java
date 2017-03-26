@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
-import mailsender.MailSemestral;
+import mailsender.MailSolicitacao;
 import model.Pessoa;
 import model.Solicitacao;
 
@@ -42,7 +42,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
         HttpSession session = request.getSession();
         
         try {
-            Mail mail = new MailSemestral();
+            Mail mail = new MailSolicitacao();
             
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
@@ -66,8 +66,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setSoftware(sdao.selectId(s.getSoftware()));
             s.setCurso(cdao.selectId(s.getCurso()));
 
-            //mail.setReserva(r);
-            //mail.sendMail(mail);
+            mail.setSolicitacao(s);
+            mail.sendMail(mail);
             dao.insertSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

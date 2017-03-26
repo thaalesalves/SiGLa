@@ -29,6 +29,24 @@ public class Counter {
     private Solicitacao solicitacao;
     private ArrayList<Laboratorio> laboratorios;
     private ArrayList<Solicitacao> solicitacoes;
+    private ArrayList<Curso> cursos;
+    private ArrayList<Software> softwares;
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void setSoftwares(ArrayList<Software> softwares) {
+        this.softwares = softwares;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public ArrayList<Software> getSoftwares() {
+        return softwares;
+    }
 
     public void setLaboratorios(ArrayList<Laboratorio> laboratorios) {
         this.laboratorios = laboratorios;

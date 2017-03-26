@@ -36,8 +36,10 @@ Copyright (C) 2016 Thales Alves Pereira
         response.sendRedirect(request.getContextPath() + "/error/401");
     }
 
-    if ((r = (Reserva) session.getAttribute("dados-semestral")) == null) {
-        request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ListarReservaSemestral").forward(request, response);
+    r = (Reserva) request.getAttribute("reserva");
+    
+    if ((r = (Reserva) session.getAttribute("reserva")) == null) {
+        request.getRequestDispatcher(request.getContextPath() + "/InfoController?acao=nova-reserva").forward(request, response);
     }
 
     String msg = "nada";
@@ -250,7 +252,7 @@ Copyright (C) 2016 Thales Alves Pereira
                         </li>
                         <li class="header">RESERVAS</li>
                         <li class="treeview">
-                            <a href="${pageContext.request.contextPath}/controle/listar-solicitacoes">
+                            <a href="${pageContext.request.contextPath}/info/nova-reserva">
                                 <i class="fa fa-edit"></i> <span>Solicitações</span>
                             </a>
                         </li>
@@ -262,6 +264,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </span>
                             </a>
                             <ul class="treeview-menu">
+                                <li><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
                                 <li><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                                 <li><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                             </ul>

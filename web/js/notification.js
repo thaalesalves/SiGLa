@@ -67,7 +67,7 @@ var showSolicitacaoModal = function (counter) {
     $("#modalModulo").val(jsonObject.solicitacoes[counter].turma);
     $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
     $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
-    
+
     for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
         $("#modalLabCombo").append($('<option>', {
             value: jsonObject.laboratorios[i].id,
@@ -83,6 +83,24 @@ var modalRemover = function () {
     console.log("Valor: " + id);
 };
 
+var showCursos = function () {
+    for (i = 0; i < jsonObject.cursos.length + 1; i++) {
+        $("#selectSolicitacaoCurso").append($('<option>', {
+            value: jsonObject.cursos[i].id,
+            text: jsonObject.cursos[i].modalidade + " em " + jsonObject.cursos[i].nome
+        }));
+    }
+};
+
+var showSoftwares = function () {
+    for (j = 0; j < jsonObject.softwares.length + 1; j++) {
+        $("#selectSolicitacaoSoftware").append($('<option>', {
+            value: jsonObject.softwares[j].id,
+            text: jsonObject.softwares[j].fabricante + " " + jsonObject.softwares[j].nome
+        }));
+    }
+};
+
 $(document).ready(function () {
     $.ajax({
         url: '/SiGLa/CounterController',
@@ -92,6 +110,8 @@ $(document).ready(function () {
         contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
         complete: function (e) {
             runNotifications(e);
+            showSoftwares();
+            showCursos();
         }
     });
 });

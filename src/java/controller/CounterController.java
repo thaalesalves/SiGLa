@@ -18,9 +18,11 @@
  */
 package controller;
 
+import dao.CursoDAO;
 import dao.EquipamentoDAO;
 import dao.LaboratorioDAO;
 import dao.ReservaDAO;
+import dao.SoftwareDAO;
 import dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,9 +35,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Counter;
+import model.Curso;
 import model.Laboratorio;
-import model.Pessoa;
-import model.Reserva;
+import model.Software;
 import model.Solicitacao;
 import util.ActiveDirectory;
 
@@ -68,7 +70,11 @@ public class CounterController extends HttpServlet {
             ReservaDAO rdao = new ReservaDAO();
             LaboratorioDAO ldao = new LaboratorioDAO();
             EquipamentoDAO edao = new EquipamentoDAO();
+            CursoDAO cdao = new CursoDAO();
+            SoftwareDAO swdao = new SoftwareDAO();
 
+            ArrayList<Software> sw = swdao.selectAll();
+            ArrayList<Curso> c = cdao.selectAll();
             ArrayList<Solicitacao> r = sdao.selectSolicitacao();
             ArrayList<Laboratorio> l = ldao.selectLaboratorios();
             
@@ -85,6 +91,8 @@ public class CounterController extends HttpServlet {
             counter.setQtdSolicitacoes(sdao.countSolicitacoes());
             counter.setSolicitacoes(r);
             counter.setLaboratorios(l);
+            counter.setCursos(c);
+            counter.setSoftwares(sw);
             
             out.println(util.Json.toCuteJson(counter));
         }

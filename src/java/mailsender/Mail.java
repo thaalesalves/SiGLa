@@ -27,10 +27,12 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import model.Reserva;
+import model.Solicitacao;
 
 public abstract class Mail {
 
     private Reserva reserva = new Reserva();
+    private Solicitacao solicitacao = new Solicitacao();
     private String sender;
     private String recipient;
     private String subject;
@@ -44,15 +46,16 @@ public abstract class Mail {
     public Session getSession(Mail mail) {
         final Properties props = new Properties();
         
-        props.put("mail.smtp.host", "smtp.uesp.net.br");
+        props.put("mail.smtp.starttls.enable","true");
+        props.put("mail.smtp.host", "smtp-mail.outlook.com");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", 25);
+        props.put("mail.smtp.port", 587);
         
         final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("thales", "rosebud");
+                return new PasswordAuthentication("thaalesalves@outlook.com", "Thales33");
             }
         });
         
@@ -64,6 +67,10 @@ public abstract class Mail {
         this.reserva = reserva;
     }
 
+    public void setSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+    }
+    
     public void setSender(String sender) {
         this.sender = sender;
     }
@@ -84,6 +91,10 @@ public abstract class Mail {
         return reserva;
     }
 
+    public Solicitacao getSolicitacao() {
+        return solicitacao;
+    }
+    
     public String getSender() {
         return sender;
     }
