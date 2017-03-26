@@ -37,15 +37,18 @@ Copyright (C) 2016 Thales Alves Pereira
     }
 
     r = (Reserva) request.getAttribute("reserva");
-    
+
     if ((r = (Reserva) session.getAttribute("reserva")) == null) {
         request.getRequestDispatcher(request.getContextPath() + "/InfoController?acao=nova-reserva").forward(request, response);
     }
 
-    String msg = "nada";
+    String status = null;
+    String msg = "null";
     if ((String) session.getAttribute("msg") != null) {
         msg = (String) session.getAttribute("msg");
+        status = (String) session.getAttribute("status");
         session.removeAttribute("msg");
+        session.removeAttribute("status");
     }
 
     asw = r.getSoftwares();
@@ -92,20 +95,21 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script>
-            var msg = "<%=msg%>";
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
+        <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
 
+        <script>
             $(document).ready(function () {
-                if (msg != "nada") {
-                    if (msg == "Solicita&ccedil;&atilde;o efetuada com sucesso.") {
-                        $("#msg").addClass("alert-success");
-                        $("#msg").text(msg);
-                        $("#msg").toggle();
-                    } else if (msg == "Erro ao efetivar a solicita&ccedil;&atilde;o.") {
-                        $("#msg").addClass(".alert-danger");
-                        $("#msg").text(msg);
-                        $("#msg").toggle();
-                    }
+                var msg = "<%=msg%>";
+                var status = "<%=status%>";
+
+                if (msg != "null") {
+                    MsgPop.closeAll();
+                    MsgPop.open({
+                        Type: status,
+                        Content: msg
+                    });
                 }
             });
         </script>

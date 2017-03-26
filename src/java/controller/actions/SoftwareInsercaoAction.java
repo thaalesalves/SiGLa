@@ -36,9 +36,9 @@ public class SoftwareInsercaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        try {
-            HttpSession session = request.getSession();
-
+        HttpSession session = request.getSession();
+        
+        try {   
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             SoftwareDAO dao = new SoftwareDAO();
             Software s = new Software();
@@ -49,7 +49,15 @@ public class SoftwareInsercaoAction implements ICommand {
             dao.insertSoftware(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            
+            session.setAttribute("msg", "Erro ao cadastrar o software");
+            session.setAttribute("status", "error");
+            
+            return request.getContextPath() + "/software/novo";
         }
+        session.setAttribute("msg", "Software cadastrado com sucesso");
+        session.setAttribute("status", "success");
+        
         
         return request.getContextPath() + "/software/novo";
     }

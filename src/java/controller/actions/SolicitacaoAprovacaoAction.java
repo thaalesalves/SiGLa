@@ -59,8 +59,15 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             sdao.deleteSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            
+            session.setAttribute("msg", "Erro ao efetivar a solicitação");
+            session.setAttribute("status", "error");
+            
+            return request.getContextPath() + "/controle/listar-solicitacoes";
         }
-
+        session.setAttribute("msg", "Reserva efetivada com sucesso");
+        session.setAttribute("status", "success");
+        
         return request.getContextPath() + "/controle/listar-solicitacoes";
     }
 }

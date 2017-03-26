@@ -47,10 +47,14 @@ public class LaboratorioInsercaoAction implements ICommand {
             dao.insertLaboratorio(l);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("msg", "Erro ao efetivar a solicita&ccedil;&atilde;o.");
+            
+            session.setAttribute("msg", "Erro ao cadastrar o laboratório");
+            session.setAttribute("status", "error");
+            
             return request.getContextPath() + "/reserva/novo";
         }
-        session.setAttribute("msg", "Solicita&ccedil;&atilde;o efetuada com sucesso.");
+        session.setAttribute("msg", "Laboratório cadastrado com sucesso");
+        session.setAttribute("status", "success");
         return request.getContextPath() + "/laboratorio/novo";
     }
 

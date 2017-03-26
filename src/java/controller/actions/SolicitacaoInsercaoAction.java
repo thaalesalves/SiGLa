@@ -36,19 +36,19 @@ import model.Pessoa;
 import model.Solicitacao;
 
 public class SolicitacaoInsercaoAction implements ICommand {
-    
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
-        
+
         try {
             Mail mail = new MailSolicitacao();
-            
+
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
-            
+
             s.setPessoa((Pessoa) session.getAttribute("pessoa"));
             s.setModulo(request.getParameter("modulo"));
             s.setTurma(request.getParameter("turma"));
@@ -56,13 +56,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.getSoftware().setId(Integer.parseInt(request.getParameter("softwares").trim()));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
-            
+
             if (request.getParameter("obs") != null) {
                 s.setObservacao(request.getParameter("obs"));
             } else {
                 s.setObservacao("Sem observa&ccedil;&otilde;es.");
             }
-            
+
             s.setSoftware(sdao.selectId(s.getSoftware()));
             s.setCurso(cdao.selectId(s.getCurso()));
 
@@ -71,11 +71,15 @@ public class SolicitacaoInsercaoAction implements ICommand {
             dao.insertSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("msg", "Erro ao efetivar a solicita&ccedil;&atilde;o.");
+            session.setAttribute("msg", "Erro ao efetivar a solicitação.");
+            session.setAttribute("status", "error");
+            
             return request.getContextPath() + "/reserva/novo";
         }
-        session.setAttribute("msg", "Solicita&ccedil;&atilde;o efetuada com sucesso.");
+        session.setAttribute("msg", "Solicitação efetuada com sucesso.");
+        session.setAttribute("status", "success");
+
         return request.getContextPath() + "/reserva/novo";
     }
-    
+
 }

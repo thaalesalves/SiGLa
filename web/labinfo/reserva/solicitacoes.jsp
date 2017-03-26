@@ -24,6 +24,29 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    Calendar cal = Calendar.getInstance();
+    Pessoa p;
+
+    if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
+        response.sendRedirect(request.getContextPath() + "/error/401");
+    }
+
+    ArrayList<Solicitacao> ares;
+    if ((ares = (ArrayList<Solicitacao>) session.getAttribute("dados-solicitacoes")) == null) {
+        response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoListagem");
+        session.removeAttribute("dados-solicitacoes");
+    }
+
+    String msg = "null";
+    String status = null;
+    if ((msg = (String) session.getAttribute("msg")) != null) {
+        msg = (String) session.getAttribute("msg");
+        status = (String) session.getAttribute("status");
+        session.removeAttribute("msg");
+        session.removeAttribute("status");
+    }
+%>
 <html>
     <head>
         <meta charset="utf-8">
@@ -43,21 +66,27 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
+        <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
+
+        <script>
+            $(document).ready(function () {
+                var msg = "<%=msg%>";
+                var status = "<%=status%>";
+
+                if (msg != "null") {
+                    MsgPop.closeAll();
+                    MsgPop.open({
+                        Type: status,
+                        Content: msg
+                    });
+                }
+            });
+        </script>
     </head>
-    <body class="hold-transition skin-black-light sidebar-mini">
-        <%
-            Calendar cal = Calendar.getInstance();
-            Pessoa p;
-
-            if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
-                response.sendRedirect(request.getContextPath() + "/error/401");
-            }
-
-            ArrayList<Solicitacao> ares;
-            if ((ares = (ArrayList<Solicitacao>) session.getAttribute("dados-solicitacoes")) == null) {
-                response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoListagem");
-            }
-        %>
+    <body class="hold-transition skin-black-light sidebar-mini">        
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
