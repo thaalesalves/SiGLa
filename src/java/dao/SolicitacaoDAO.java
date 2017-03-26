@@ -86,7 +86,7 @@ public class SolicitacaoDAO {
         ArrayList<Solicitacao> arrayRes = new ArrayList<Solicitacao>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT s.qtd_alunos AS qtd_alunos, s.id AS solicitacao, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id ORDER BY s.id DESC");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT curso.id AS curso_id, software.id AS sw_id, s.qtd_alunos AS qtd_alunos, s.id AS solicitacao, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id ORDER BY s.id DESC");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -94,8 +94,10 @@ public class SolicitacaoDAO {
 
                 r.setId(rs.getInt("solicitacao"));
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.getCurso().setId(rs.getInt("curso_id"));
                 r.getCurso().setModalidade(rs.getString("modalidade"));
                 r.getCurso().setNome(rs.getString("curso"));
+                r.getSoftware().setId(rs.getInt("sw_id"));
                 r.getSoftware().setFabricante(rs.getString("fabricante"));
                 r.getSoftware().setNome(rs.getString("software"));
                 r.getPessoa().setUsername(rs.getString("professor"));

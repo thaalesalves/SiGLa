@@ -17,8 +17,9 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<%@page import="model.Software"%>
+<%@page import="model.Curso"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.Reserva"%>
 <%@page import="model.Pessoa"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,7 +28,7 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Listagem de Reservas de Hoje | SiGLa</title>
+        <title>Listagem de Softwares | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -46,15 +47,15 @@ Copyright (C) 2016 Thales Alves Pereira
         <%
             Calendar cal = Calendar.getInstance();
             Pessoa p;
-            Reserva reserva = new Reserva();
-            
+
             if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
                 response.sendRedirect(request.getContextPath() + "/error/401");
             }
 
-            ArrayList<Reserva> arrayRes;
-            if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
-                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ReservaDiaListagem").forward(request, response);
+            ArrayList<Software> softwares;
+            if ((softwares = (ArrayList<Software>) session.getAttribute("softwares")) == null) {
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=SoftwareListagem").forward(request, response);
+                session.removeAttribute("softwares");
             }
         %>
         <div class="wrapper">
@@ -254,13 +255,13 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Reservas de <% out.println(reserva.getDiaSemana()); %>
+                        Softwares
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Reservas</a></li>
-                        <li class="active">Reservas de <% out.println(reserva.getDiaSemana()); %></li>
+                        <li><a href="#">Softwares</a></li>
+                        <li class="active">Cadastro de Software</li>
                     </ol>
                 </section>
 
@@ -273,23 +274,19 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Professor</th>
-                                        <th>Turma</th>
-                                        <th>Laboratório</th>
-                                        <th>Software</th>                                        
+                                        <th>Fabricante</th>
+                                        <th>Nome</th>
                                         <th style="width: 3%;">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <%
-                                        for (Reserva r : arrayRes) {
+                                        for (Software s : softwares) {
                                     %>
                                     <tr class="gradeC">
-                                        <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
-                                        <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
-                                        <td class="center"><% out.println(r.getLab().getNumero()); %></td>
-                                        <td class="center"><% out.println(r.getSoftware().getFabricante() + " " + r.getSoftware().getNome()); %></td>
-                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaDiaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                        <td class="center"><% out.println(s.getFabricante()); %></td>
+                                        <td class="center"><% out.println(s.getNome()); %></td>
+                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=CursoRemocao&curso_id=<% out.println(s.getId()); %>" class="fa fa-close"></a></td>
                                     </tr>
                                     <% } %>
                                 </tbody>

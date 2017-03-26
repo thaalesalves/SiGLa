@@ -217,6 +217,28 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <i class="fa fa-files-o"></i> <span>Listagem</span>
                             </a>
                         </li>
+                        <li class="header">SOFTWARES</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/software/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-softwares">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
+                        <li class="header">LABORATÓRIOS</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/laboratorio/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-labs">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->

@@ -31,7 +31,23 @@ public class SoftwareDAO {
 
     private final String SELECT_ALL = "SELECT id, nome, fabricante FROM software;";
     private final String SELECT_ID = "SELECT fabricante, nome FROM software WHERE id = ?";
-
+    private final String INSERT = "INSERT INTO software VALUES(NEXTVAL('seq_software'), ?, ?);";
+    
+    public void insertSoftware(Software s) throws SQLException, ClassNotFoundException, NullPointerException {
+        try (Connection connString = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement(INSERT);
+            
+            pstmt.setString(2, s.getFabricante());
+            pstmt.setString(1, s.getNome());
+            
+            pstmt.executeUpdate();
+            
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectAll()">
     public ArrayList<Software> selectAll() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Software> sws = new ArrayList<Software>();

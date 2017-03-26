@@ -56,7 +56,7 @@ public class ActiveDirectory {
         properties = new Properties();
 
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAP://umc.br"); // conecta com o AD DC
+        properties.put(Context.PROVIDER_URL, "LDAP://canada.umc.br"); // conecta com o AD DC
         properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais

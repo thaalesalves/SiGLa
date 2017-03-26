@@ -17,51 +17,22 @@ Copyright (C) 2016 Thales Alves Pereira
    along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<%@page import="model.Curso"%>
-<%@page import="model.Software"%>
-<%@page import="model.Reserva"%>
-<%@page import="model.Pessoa"%>
+<%@page import="model.Laboratorio"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.Pessoa"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    Calendar cal = Calendar.getInstance();
-    Pessoa p;
-
-    if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
-        response.sendRedirect(request.getContextPath() + "/error/401");
-    }
-%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Cadastro de Curso | SiGLa</title>
+        <title>Listagem de Laboratórios | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/flat/blue.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
@@ -72,8 +43,21 @@ Copyright (C) 2016 Thales Alves Pereira
         <![endif]-->
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
-        <div class="wrapper">
+        <%
+            Calendar cal = Calendar.getInstance();
+            Pessoa p;
 
+            if ((p = (Pessoa) session.getAttribute("pessoa")) == null) {
+                response.sendRedirect(request.getContextPath() + "/error/401");
+            }
+
+            ArrayList<Laboratorio> labs;
+            if ((labs = (ArrayList<Laboratorio>) session.getAttribute("laboratorios")) == null) {
+                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=LaboratorioListagem").forward(request, response);
+                session.removeAttribute("laboratorios");
+            }
+        %>
+        <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
                 <a href="${pageContext.request.contextPath}" class="logo">
@@ -241,149 +225,102 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <i class="fa fa-files-o"></i> <span>Listagem</span>
                             </a>
                         </li>
+                        <li class="header">SOFTWARES</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/software/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-softwares">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
+                        <li class="header">LABORATÓRIOS</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/laboratorio/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-labs">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
             </aside>
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Cursos
-                        <small>cadastro de curso</small>
+                        Laboratório
+                        <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li>Cursos</li>
-                        <li class="active">Cadastro de curso</li>
+                        <li><a href="#">Laboratórios</a></li>
+                        <li class="active">Listagem de laboratório</li>
                     </ol>
                 </section>
 
-                <!-- Main content -->
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Cadastro de curso</h3>
+                            <h3 class="box-title">Lista geral</h3>
                         </div>
                         <div class="box-body">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                                <div class='form-group'>
-                                    <label>Curso</label>
-                                    <input name="curso" type='text' class='form-control pull-right' name='nome' placeholder="Nome do curso" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Modalidade</label>
-                                    <select name="modalidade" class="select2 form-control" data-placeholder="Modalidade" style="width: 100%;" required>
-                                        <option disabled selected>Modalidade</option>
-                                        <option>Bacharel</option>
-                                        <option>MBA</option>
-                                        <option>Mestrado</option>
-                                        <option>Doutorado</option>
-                                        <option>Técnico</option>
-                                        <option>Pronatec</option>
-                                        <option>Tecnólogo</option>
-                                        <option>Licenciatura</option>
-                                    </select>
-                                </div>
-                                <div class="box-footer">
-                                    <button value="InserirCurso" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                                </div>
-                            </form>
+                            <table id="example1" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Qtd. de Computadores</th>
+                                        <th>Capacidade de Alunos</th>
+                                        <th style="width: 3%;">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        for (Laboratorio l : labs) {
+                                    %>
+                                    <tr class="gradeC">
+                                        <td class="center"><% out.println(l.getNumero()); %></td>
+                                        <td class="center"><% out.println(l.getComputadores()); %></td>
+                                        <td class="center"><% out.println(l.getCapacidade()); %></td>
+                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=LaboratorioRemocao&curso_id=<% out.println(l.getId()); %>" class="fa fa-close"></a></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </section>
             </div>
-        </section>
-    </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-    </footer>
-    <div class="control-sidebar-bg"></div>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-
-    <script>
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-
-            //Datemask dd/mm/yyyy
-            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-            //Datemask2 mm/dd/yyyy
-            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-            //Money Euro
-            $("[data-mask]").inputmask();
-
-            //Date range picker
-            $('#reservation').daterangepicker();
-            //Date range picker with time picker
-            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-            //Date range as a button
-            $('#daterange-btn').daterangepicker(
-                    {
-                        ranges: {
-                            'Today': [moment(), moment()],
-                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                            'This Month': [moment().startOf('month'), moment().endOf('month')],
-                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                        },
-                        startDate: moment().subtract(29, 'days'),
-                        endDate: moment()
-                    },
-                    function (start, end) {
-                        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                    }
-            );
-
-            //Date picker
-            $('#datepicker').datepicker({
-                autoclose: true
+            <footer class="main-footer">
+                <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <script>
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
             });
-
-            //iCheck for checkbox and radio inputs
-            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
-            });
-            //Red color scheme for iCheck
-            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                checkboxClass: 'icheckbox_minimal-red',
-                radioClass: 'iradio_minimal-red'
-            });
-            //Flat red color scheme for iCheck
-            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-
-            //Colorpicker
-            $(".my-colorpicker1").colorpicker();
-            //color picker with addon
-            $(".my-colorpicker2").colorpicker();
-
-            //Timepicker
-            $(".timepicker").timepicker({
-                showInputs: false
-            });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

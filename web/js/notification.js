@@ -19,6 +19,7 @@
 
 var jsonObject;
 var id;
+var dados;
 
 var addNotification = function (obj) {
     for (i = 0; i < obj.qtdSolicitacoes; i++) {
@@ -59,46 +60,53 @@ var runNotifications = function (e) {
 };
 
 var showSolicitacaoModal = function (counter) {
-    id = jsonObject.solicitacoes[counter].id;
-    id = $.trim(id);
+    id = $.trim(jsonObject.solicitacoes[counter].id);
+
     $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
     $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
     $("#modalSoftware").val(jsonObject.solicitacoes[counter].software.fabricante + " " + jsonObject.solicitacoes[counter].software.nome);
-    $("#modalModulo").val(jsonObject.solicitacoes[counter].turma);
+    $("#modalModulo").val(jsonObject.solicitacoes[counter].modulo);
     $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
     $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
+    $("#modalObservacao").val(jsonObject.solicitacoes[counter].observacao);
 
     for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
         $("#modalLabCombo").append($('<option>', {
             value: jsonObject.laboratorios[i].id,
             text: jsonObject.laboratorios[i].numero
         }));
+
+        dados = [
+            $.trim(jsonObject.solicitacoes[counter].id),
+            $.trim(jsonObject.solicitacoes[counter].pessoa.username),
+            $.trim(jsonObject.solicitacoes[counter].curso.id),
+            $.trim(jsonObject.solicitacoes[counter].turma),
+            $.trim(jsonObject.solicitacoes[counter].software.id),
+            $.trim(jsonObject.solicitacoes[counter].modulo),
+            $.trim(jsonObject.solicitacoes[counter].diaSemana),
+            $.trim(jsonObject.solicitacoes[counter].qtdAlunos),
+            $.trim(jsonObject.laboratorios[i].id),
+            $.trim(jsonObject.solicitacoes[counter].observacao)
+        ];
     }
+};
+
+var aprovarReserva = function () {
+    var parameter = "&solicitacao=" + id +
+            "&professor=" + dados[1] + 
+            "&curso=" + dados[2] + 
+            "&turma=" + dados[3] +
+            "&software=" + dados[4] +
+            "&modulo=" + dados[5] +
+            "&dia=" + dados[6] +
+            "&qtd=" + dados[7] +
+            "&laboratorio=" + dados[8] +
+            "&obs=" + dados[9];
+    window.location.href = "http://localhost:8084/SiGLa/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
 };
 
 var modalRemover = function () {
-    $("#btnModalReprovar").click(function () {
-        window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
-    });
-    console.log("Valor: " + id);
-};
-
-var showCursos = function () {
-    for (i = 0; i < jsonObject.cursos.length + 1; i++) {
-        $("#selectSolicitacaoCurso").append($('<option>', {
-            value: jsonObject.cursos[i].id,
-            text: jsonObject.cursos[i].modalidade + " em " + jsonObject.cursos[i].nome
-        }));
-    }
-};
-
-var showSoftwares = function () {
-    for (j = 0; j < jsonObject.softwares.length + 1; j++) {
-        $("#selectSolicitacaoSoftware").append($('<option>', {
-            value: jsonObject.softwares[j].id,
-            text: jsonObject.softwares[j].fabricante + " " + jsonObject.softwares[j].nome
-        }));
-    }
+    window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
 };
 
 $(document).ready(function () {
@@ -107,11 +115,8 @@ $(document).ready(function () {
         type: 'POST',
         cache: false,
         dataType: 'JSON',
-        contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
         complete: function (e) {
             runNotifications(e);
-            showSoftwares();
-            showCursos();
         }
     });
 });
@@ -123,7 +128,6 @@ setInterval(function () {
         type: 'POST',
         cache: false,
         dataType: 'JSON',
-        contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
         complete: function (e) {
             runNotifications(e);
         }

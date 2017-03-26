@@ -29,9 +29,26 @@ import util.DatabaseConnection;
 
 public class LaboratorioDAO {
 
+    private final String INSERT = "INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), ?, ?, ?)";
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
     private final String SELECT_ALL = "SELECT * FROM laboratorio";
 
+    public void insertLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
+        try (Connection connString = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement(INSERT);
+            
+            pstmt.setString(1, l.getNumero());
+            pstmt.setInt(2, l.getComputadores());
+            pstmt.setInt(3, l.getCapacidade());
+            
+            pstmt.executeUpdate();
+            
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectLaboratorios()">
     public ArrayList<Laboratorio> selectLaboratorios() throws SQLException, ClassNotFoundException {
         ArrayList<Laboratorio> laboratorios = new ArrayList<Laboratorio>();

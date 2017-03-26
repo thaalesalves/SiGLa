@@ -8,16 +8,6 @@ CREATE TABLE curso (
     modalidade VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE equipamento (
-    id INT PRIMARY KEY,
-    nome VARCHAR(20) NOT NULL,
-    laboratorio INT,
-    ip VARCHAR(15) NOT NULL,
-    mac VARCHAR(30) NOT NULL,
-    config VARCHAR NOT NULL,
-    status INT NOT NULL
-);
-
 CREATE TABLE laboratorio (
     id INT PRIMARY KEY,
     numero VARCHAR(6) NOT NULL,
@@ -31,6 +21,16 @@ CREATE TABLE software (
     fabricante VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE equipamento (
+    id INT PRIMARY KEY,
+    nome VARCHAR(20) NOT NULL,
+    laboratorio INT REFERENCES laboratorio(id),
+    ip VARCHAR(15) NOT NULL,
+    mac VARCHAR(30) NOT NULL,
+    config VARCHAR NOT NULL,
+    status INT NOT NULL
+);
+
 CREATE TABLE grupo (
 	id INT PRIMARY KEY,
 	cargo VARCHAR NOT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE grupo (
 
 CREATE TABLE reserva (
     id INT PRIMARY KEY,
-    laboratorio INT,
-    softwares INT,
-    curso INT,
+    laboratorio INT REFERENCES laboratorio(id),
+    softwares INT REFERENCES software(id),
+    curso INT REFERENCES curso(id),
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
     modulo VARCHAR NOT NULL,
@@ -83,32 +83,7 @@ ALTER TABLE seq_turma OWNER TO sigla;
 ALTER TABLE software OWNER TO sigla;
 
 -- Inserção de Valores
-INSERT INTO curso VALUES (NEXTVAL('seq_curso'), 'Sistemas de Informa&ccedil;&atilde;o', 'Bacharel');
-INSERT INTO curso VALUES (NEXTVAL('seq_curso'), 'Gest&atilde;o de Projetos', 'MBA');
-INSERT INTO curso VALUES (NEXTVAL('seq_curso'), 'An&aacute;lise e Desenvolvimento de Sistemas', 'Tecn&oacute;logo');
-INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '31-21', 25, 50);
-INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '12-14', 25, 50);
-INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '12-20', 25, 50);
-INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '12-13', 25, 50);
-INSERT INTO laboratorio VALUES (NEXTVAL('seq_lab'), '12-10', 25, 50);
-INSERT INTO software VALUES (NEXTVAL('seq_software'), 'NetBeans', 'Oracle');
-INSERT INTO software VALUES (NEXTVAL('seq_software'), 'Visual Studio', 'Microsoft');
-INSERT INTO software VALUES (NEXTVAL('seq_software'), 'Creative Cloud', 'Adobe');
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 3, 1, 1, '1&deg;A', 'daniellemartin','1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2&deg;B', 'erikam', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 3, 3, '3&deg;C', 'daisyeb', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 1, 1, 1, '1&deg;B', 'wolley', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
-INSERT INTO reserva VALUES (NEXTVAL('seq_reserva'), 2, 2, 2, '2&deg;C', 'ptoledo', '1&deg; m&oacute;dulo', 'Sexta-feira', NULL);
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'professor','memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'funcionario', 'memberOf=CN=DEPTI,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI_Estagio,OU=DEPTI,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=COORDENADORES,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
-INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 20, '1&deg;A', 'daniellemartin', '1&deg; m&oacute;dulo', 'Sexta-feira', 'Sem observa&ccedil;&otilde;es.');
-INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 30, '2&deg;B', 'erikam', '2&deg; m&oacute;dulo', 'Segunda-feira', 'Sem observa&ccedil;&otilde;es.');
-INSERT INTO solicitacao VALUES (NEXTVAL('seq_soli'), 1, 1, 40, '3&deg;C', 'ptoledo', '3&deg; m&oacute;dulo', 'Ter&ccedil;a-feira', 'Sem observa&ccedil;&otilde;es.');
-
--- Definição de Constraints
-ALTER TABLE ONLY equipamento ADD CONSTRAINT equipamento_laboratorio_fkey FOREIGN KEY (laboratorio) REFERENCES laboratorio(id);
-ALTER TABLE ONLY reserva ADD CONSTRAINT reserva_curso_fkey FOREIGN KEY (curso) REFERENCES curso(id);
-ALTER TABLE ONLY reserva ADD CONSTRAINT reserva_laboratorio_fkey FOREIGN KEY (laboratorio) REFERENCES laboratorio(id);
-ALTER TABLE ONLY reserva ADD CONSTRAINT reserva_softwares_fkey FOREIGN KEY (softwares) REFERENCES software(id);

@@ -19,7 +19,6 @@
  */
 package controller.actions;
 
-import dao.ReservaDAO;
 import dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +30,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Reserva;
 import model.Solicitacao;
 import util.ActiveDirectory;
 

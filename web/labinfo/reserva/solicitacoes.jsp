@@ -226,6 +226,28 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <i class="fa fa-files-o"></i> <span>Listagem</span>
                             </a>
                         </li>
+                        <li class="header">SOFTWARES</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/software/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-softwares">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
+                        <li class="header">LABORATÓRIOS</li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/laboratorio/novo">
+                                <i class="fa fa-edit"></i> <span>Inserção</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="${pageContext.request.contextPath}/controle/listar-labs">
+                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -321,13 +343,11 @@ Copyright (C) 2016 Thales Alves Pereira
                             <div class='form-group'>
                                 <label>Qtd. de Alunos</label>
                                 <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
-                            </div>
+                            </div>        
                             <div class='form-group'>
-                                    <label>Laboratório</label>
-                                    <select style="width: 80%;" class='form-control pull-right' name="modalLabCombo" id="modalLabCombo">
-                                        <option default>Selecionar</option>
-                                    </select>
-                                </div>
+                                <label>Observações</label>
+                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalObservacao" id="modalQtdAlunos" placeholder="Observações" />
+                            </div>    
                         </div>
                         <div id="modal-footer" class="modal-footer">
                             <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
@@ -354,7 +374,8 @@ Copyright (C) 2016 Thales Alves Pereira
                             </div>
                         </div>
                         <div id="modal-footer" class="modal-footer">
-                            <button value="SolicitacaoAprovacao" type="submit" name="acao" class="btn btn-success">Aprovar</button>
+                            <!--<button id='btnModalAprovar' value="SolicitacaoAprovacao" type="submit" name="acao" class="btn btn-success">Aprovar</button>-->
+                            <button id="btnModalAprovar" type="button" class="btn btn-success" onclick="aprovarReserva()">Aprovar</button><br/>
                         </div>
                     </div>
                 </div>

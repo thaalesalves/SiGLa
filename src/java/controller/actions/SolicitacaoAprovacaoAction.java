@@ -18,6 +18,8 @@
  */
 package controller.actions;
 
+import dao.ReservaDAO;
+import dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -27,6 +29,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Reserva;
+import model.Solicitacao;
 
 public class SolicitacaoAprovacaoAction implements ICommand {
 
@@ -35,13 +39,28 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         HttpSession session = request.getSession();
 
         try {
-            System.out.println("Professor: " + request.getParameter("modalProfessor"));
-            System.out.println("Curso: " + request.getParameter("modalCurso"));
-            System.out.println("Laboratório: " + request.getParameter("modalLabCombo"));
+            Solicitacao s = new Solicitacao();
+            SolicitacaoDAO sdao = new SolicitacaoDAO();
+            Reserva r = new Reserva();
+            ReservaDAO rdao = new ReservaDAO();
+            
+            s.setId(Integer.parseInt(request.getParameter("solicitacao")));
+            r.getPessoa().setUsername(request.getParameter("professor"));
+            r.getCurso().setId(Integer.parseInt(request.getParameter("curso")));
+            r.getSoftware().setId(Integer.parseInt(request.getParameter("software")));
+            r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio").trim()));
+            r.setModulo(request.getParameter("modulo"));
+            r.setTurma(request.getParameter("turma"));
+            r.setDiaDaSemana(request.getParameter("dia"));
+            r.setQtd(Integer.parseInt(request.getParameter("qtd")));
+            r.setObservacao(request.getParameter("obs"));
+            
+            rdao.insertSemestral(r);
+            sdao.deleteSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return request.getContextPath() + "/reserva/listar-solicitacoes";
+        return request.getContextPath() + "/controle/listar-solicitacoes";
     }
 }

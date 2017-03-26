@@ -48,6 +48,8 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/info/nova-reserva", "../InfoController?acao=nova-reserva");
             
             /* Redirecionamentos de /controle/ */
+            mapaUrl.put("/controle/listar-labs", "../AlmightyController?acao=LaboratorioListagem");
+            mapaUrl.put("/controle/listar-softwares", "../AlmightyController?acao=SoftwareListagem");
             mapaUrl.put("/controle/contar-solicitacoes", "../CounterController");
             mapaUrl.put("/controle/listar-reservas", "../AlmightyController?acao=ReservaListagem");
             mapaUrl.put("/controle/listar-reservas-hoje", "../AlmightyController?acao=ReservaDiaListagem");
@@ -76,6 +78,14 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/error/403", "../labinfo/error/403.jsp");
             mapaUrl.put("/error/401", "../labinfo/error/401.jsp");
 
+            /* Redirecionamentos de /software/ */
+            mapaUrl.put("/software/novo", "../labinfo/software/novo.jsp");
+            mapaUrl.put("/software/lista", "../labinfo/software/lista.jsp");
+            
+            /* Redirecionamentos de /lab/ */
+            mapaUrl.put("/laboratorio/novo", "../labinfo/lab/novo.jsp");
+            mapaUrl.put("/laboratorio/lista", "../labinfo/lab/lista.jsp");
+            
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);
             } else {

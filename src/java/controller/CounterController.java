@@ -95,6 +95,7 @@ public class CounterController extends HttpServlet {
             counter.setSoftwares(sw);
             
             out.println(util.Json.toCuteJson(counter));
+            //System.out.println(util.Json.toCuteJson(counter));
         }
     }
 
