@@ -1,6 +1,6 @@
 html, body {height: 99%;font-family: 'Lato', sans-serif;}
 body {
-    background: url("img/bg.jpg") no-repeat center #000000;
+    background: url("img/bg.png") no-repeat center #000000;
     background-size: 110%;
     margin: 0px;
 }
