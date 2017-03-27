@@ -81,7 +81,15 @@ public class CounterController extends HttpServlet {
             for (Solicitacao i : r) {
                 i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
                 i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
-                i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
+                //i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
+                if (i.getPessoa().getNomeCompleto().equals("Ricardo Morales Miranda")) {
+                    i.getPessoa().setShownName("Ricardo Morales");
+                } else if (i.getPessoa().getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
+                    i.getPessoa().setNome("Eduardo");
+                    i.getPessoa().setShownName("Eduardo Lobo");
+                } else {
+                    i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+                }
             }
             
             counter.setQtdComputadores(edao.qtdEquip());
