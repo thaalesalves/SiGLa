@@ -147,10 +147,6 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
 
-        if (cn.trim().equals("Ricardo Morales Miranda")) {
-            cn = "Ricardo Morales";
-        }
-
         return cn.trim(); // retorna o nome completo
     } // </editor-fold>
 
@@ -167,10 +163,6 @@ public class ActiveDirectory {
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
-        }
-
-        if (cn.trim().equals("Ricardo Morales Miranda")) {
-            cn = "Ricardo Morales";
         }
 
         return cn.trim(); // retorna o nome completo

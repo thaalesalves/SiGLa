@@ -38,7 +38,8 @@ public class MailSolicitacao extends Mail {
             message.setFrom(new InternetAddress("thaalesalves@gmail.com"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getSolicitacao().getPessoa().getEmail()));
             message.setSubject("Solicitação de Reserva");
-            message.setText(mail.getSolicitacao().getPessoa().getShownName() + " está solicitando uma reserva.");
+            message.setText(mail.getSolicitacao().getPessoa().getShownName() + " está solicitando uma reserva.\n"
+                    + "Turma: " + mail.getSolicitacao().getTurma() + " de " + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome());
             message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {

@@ -29,7 +29,7 @@ import util.DatabaseConnection;
 
 public class GrupoDAO {
     
-    private final String SELECT = "SELECT * FROM grupo";
+    private final String SELECT = "SELECT id, grupo, cargo FROM grupo";
     
     public ArrayList<Grupo> select() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Grupo> arrayg = new ArrayList<Grupo>();
@@ -43,6 +43,7 @@ public class GrupoDAO {
                 
                 g.setId(rs.getInt("id"));
                 g.setGrupo(rs.getString("grupo"));
+                g.setRole(rs.getString("cargo"));
                 
                 arrayg.add(g);
             }

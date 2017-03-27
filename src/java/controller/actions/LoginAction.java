@@ -57,16 +57,25 @@ public class LoginAction implements ICommand {
                 ArrayList<Grupo> arrayg = gdao.select();
 
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
-                p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo
-                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
+                p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo                
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
                 p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
+
+                if (p.getNomeCompleto().equals("Ricardo Morales Miranda")) {
+                    p.setShownName("Ricardo Morales");
+                } else if (p.getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
+                    p.setNome("Eduardo");
+                    p.setShownName("Eduardo Lobo");
+                } else {
+                    p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
+                }
 
                 boolean acesso = false;
                 for (Grupo g : arrayg) {
                     g.setGrupo(arrayg.get(arrayg.indexOf(g)).getGrupo());
                     if (ad.isMember(p, arrayg.get(arrayg.indexOf(g)))) {
+                        p.setRole(g.getRole());
                         acesso = true;
                     }
                 }

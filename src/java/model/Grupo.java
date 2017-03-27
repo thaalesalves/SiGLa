@@ -23,7 +23,16 @@ public class Grupo {
 
     private int id;
     private String grupo;
-
+    private String role;
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }

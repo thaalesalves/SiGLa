@@ -28,11 +28,20 @@ public class Pessoa {
     private String shownName;
     private String email;
     private String cargo;
+    private String role;
     private String senha;
     private String depto;
     private String chapa;
     private byte[] picture;
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
     public void setShownName(String shownName) {
         this.shownName = shownName;
     }

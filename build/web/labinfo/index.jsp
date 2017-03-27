@@ -41,7 +41,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/flat/blue.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
@@ -57,6 +57,13 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <script>
+            $(document).ready(function () {
+                accessControl("<%=p.getRole()%>");
+            });
+        </script>
+
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
         <div class="wrapper">
@@ -78,7 +85,7 @@ Copyright (C) 2016 Thales Alves Pereira
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <!-- Notifications: style can be found in dropdown.less -->
-                            <li class="dropdown notifications-menu">
+                            <li id='notif-menu' class="dropdown notifications-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i>
                                     <span class="label label-warning">10</span>
@@ -99,7 +106,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </ul>
                             </li>
                             <!-- Tasks: style can be found in dropdown.less -->
-                            <li class="dropdown tasks-menu">
+                            <li id='soli-menu' class="dropdown tasks-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-flag-o"></i>
                                     <span id="qtd-res" class="label label-danger"></span>
@@ -125,7 +132,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='user-image' alt='User Image'>");
                                         }
                                     %>
-                                    <span class="hidden-xs"><% out.println(p.getNomeCompleto().substring(0, p.getNomeCompleto().indexOf(" "))); %></span>
+                                    <span class="hidden-xs"><% out.println(p.getNome()); %></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -200,42 +207,42 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
-                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
-                                <li><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
+                                <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                                <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                             </ul>
                         </li>
                         <li class="header">CURSOS</li>
-                        <li class="treeview">
+                        <li id='item-novo-curso' class="treeview">
                             <a href="${pageContext.request.contextPath}/curso/novo">
                                 <i class="fa fa-edit"></i> <span>Inserção</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <li id='item-lista-curso' class="treeview">
                             <a href="${pageContext.request.contextPath}/controle/listar-curso">
-                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                                <i class="fa fa-graduation-cap"></i> <span>Listagem</span>
                             </a>
                         </li>
                         <li class="header">SOFTWARES</li>
-                        <li class="treeview">
+                        <li id='item-novo-software' class="treeview">
                             <a href="${pageContext.request.contextPath}/software/novo">
                                 <i class="fa fa-edit"></i> <span>Inserção</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <li id='item-lista-software' class="treeview">
                             <a href="${pageContext.request.contextPath}/controle/listar-softwares">
-                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                                <i class="fa fa-code"></i> <span>Listagem</span>
                             </a>
                         </li>
                         <li class="header">LABORATÓRIOS</li>
-                        <li class="treeview">
+                        <li id='item-novo-lab' class="treeview">
                             <a href="${pageContext.request.contextPath}/laboratorio/novo">
                                 <i class="fa fa-edit"></i> <span>Inserção</span>
                             </a>
                         </li>
-                        <li class="treeview">
+                        <li id='item-lista-lab' class="treeview">
                             <a href="${pageContext.request.contextPath}/controle/listar-labs">
-                                <i class="fa fa-files-o"></i> <span>Listagem</span>
+                                <i class="fa fa-desktop"></i> <span>Listagem</span>
                             </a>
                         </li>
                     </ul>
@@ -260,7 +267,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 <!-- Main content -->
                 <section class="content">
                     <!-- Small boxes (Stat box) -->
-                    <div class="row">
+                    <div id='counters' class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box">
                                 <span class="info-box-icon bg-aqua"><i class="fa fa-calendar"></i></span>

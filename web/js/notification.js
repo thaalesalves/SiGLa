@@ -54,7 +54,6 @@ var runNotifications = function (e) {
     }
 
     addNotification(obj);
-
     jsonObject = obj;
     updateWidgets(obj);
 };
@@ -107,6 +106,18 @@ var aprovarReserva = function () {
 
 var modalRemover = function () {
     window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
+};
+
+var accessControl = function (role) {
+    if (role == "professor" || role == "coordenador") {
+        $('#notif-menu').hide();
+        $('#soli-menu').hide();
+        $('#item-novo-curso').hide();
+        $('#item-novo-software').hide();
+        $('#item-novo-lab').hide();
+        $('#item-solicitacoes').hide();
+        $('#counters').hide();
+    }
 };
 
 $(document).ready(function () {
