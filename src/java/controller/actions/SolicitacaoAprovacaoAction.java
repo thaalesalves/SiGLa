@@ -52,10 +52,10 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.setModulo(request.getParameter("modulo"));
             r.setTurma(request.getParameter("turma"));
             r.setDiaDaSemana(request.getParameter("dia"));
-            r.setQtd(Integer.parseInt(request.getParameter("qtd")));
+            r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             r.setObservacao(request.getParameter("obs"));
             
-            rdao.insertSemestral(r);
+            rdao.insert(r);
             sdao.deleteSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

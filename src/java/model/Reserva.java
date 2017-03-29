@@ -43,7 +43,7 @@ public class Reserva {
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
-    public int getAlunos() {
+    public int getQtdAlunos() {
         return qtdAlunos;
     }
     

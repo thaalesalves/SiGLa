@@ -45,8 +45,16 @@ public class SolicitacaoRemocaoAction implements ICommand {
             dao.deleteSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            
+            session.setAttribute("msg", "Erro ao reprovar solicitação");
+            session.setAttribute("status", "error");
+            
+            return request.getContextPath() + "/controle/listar-solicitacoes";
         }
-
+        
+        session.setAttribute("msg", "Reserva reprovada");
+        session.setAttribute("status", "success");        
+        
         return request.getContextPath() + "/controle/listar-solicitacoes";
     }
 }
