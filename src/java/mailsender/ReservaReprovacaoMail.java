@@ -28,7 +28,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import util.Logger;
 
-public class MailSolicitacao extends Mail {
+public class ReservaReprovacaoMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {

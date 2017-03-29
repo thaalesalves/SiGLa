@@ -40,9 +40,8 @@ public class EnviarEmailAction implements ICommand {
         
         try {
             Mail mail = new MailMessage();
-            Pessoa pessoa = (Pessoa) session.getAttribute("pessoa");
-
-            mail.getReserva().setPessoa(pessoa);
+            
+            mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mail.setRecipient(request.getParameter("emailto"));
             mail.setSubject(request.getParameter("subject"));
             mail.setMessage(request.getParameter("message"));

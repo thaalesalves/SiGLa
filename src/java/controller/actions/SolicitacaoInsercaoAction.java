@@ -78,6 +78,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setCurso(cdao.selectId(s.getCurso()));
 
             if (dao.insertSolicitacao(s)) {
+                mail.setPessoa(s.getPessoa());
                 mail.setSolicitacao(s);
                 mail.sendMail(mail);
             } else {

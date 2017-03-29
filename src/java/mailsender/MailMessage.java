@@ -31,12 +31,11 @@ import util.Logger;
 
 public class MailMessage extends Mail {
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: sendMail(Mail)">
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession(mail));
-            message.setFrom(new InternetAddress(mail.getReserva().getPessoa().getEmail()));
+            message.setFrom(new InternetAddress(mail.getPessoa().getEmail()));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getRecipient()));
             message.setSubject(mail.getSubject());
             message.setText(mail.getMessage());
@@ -47,17 +46,11 @@ public class MailMessage extends Mail {
         } catch (Exception e) {
             Logger.logWarning(e, this.getClass());
         }
-    } //</editor-fold>
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: getMessageProfessor(Mail)">
     @Override
-    public String getMessageProfessor(Mail mail) {
-        return "";
-    }//</editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Métodos da Classe: getMessageFuncionario(Mail)">
-    @Override
-    public String getMessageFuncionario(Mail mail) {
+    public String getMessage(Mail mail) {
         return "";
     }//</editor-fold>
 }
