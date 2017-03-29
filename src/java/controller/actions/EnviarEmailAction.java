@@ -36,8 +36,9 @@ public class EnviarEmailAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
+        HttpSession session = request.getSession();
+        
         try {
-            HttpSession session = request.getSession();
             Mail mail = new MailMessage();
             Pessoa pessoa = (Pessoa) session.getAttribute("pessoa");
 
@@ -49,7 +50,15 @@ public class EnviarEmailAction implements ICommand {
             mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            session.setAttribute("status", "error");
+            session.setAttribute("msg", "Erro ao enviar o email");
+            
+            return request.getContextPath() + "/pagina/home";
         }
+        
+        session.setAttribute("status", "success");
+        session.setAttribute("msg", "Email enviado com sucesso");
+        
         return request.getContextPath() + "/pagina/home";
     }
 }

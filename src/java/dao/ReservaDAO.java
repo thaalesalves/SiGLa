@@ -58,6 +58,7 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 ares.add(r);
@@ -93,6 +94,7 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 arrayRes.add(r);
@@ -126,6 +128,7 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 arrayRes.add(r);
@@ -160,6 +163,7 @@ public class ReservaDAO {
                 r.setId(rs.getInt("reserva"));
                 r.setTurma(rs.getString("turma"));
                 r.setModulo(rs.getString("modulo"));
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
 
                 arrayRes.add(r);

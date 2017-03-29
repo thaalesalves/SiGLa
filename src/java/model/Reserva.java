@@ -27,6 +27,7 @@ public class Reserva {
     private int id;
     private int qtd;
     private int qtdDia;
+    private int qtdAlunos;
     private String tipo;
     private String diaDaSemana;
     private String modulo;
@@ -42,6 +43,14 @@ public class Reserva {
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
+    public int getAlunos() {
+        return qtdAlunos;
+    }
+    
+    public void setQtdAlunos(int qtdAlunos) {
+        this.qtdAlunos = qtdAlunos;
+    }
+    
     public void setQtdDia(int qtdDia) {
         this.qtdDia = qtdDia;
     }

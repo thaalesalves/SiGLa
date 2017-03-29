@@ -45,7 +45,7 @@ import util.ActiveDirectory;
  *
  * @author Administrator
  */
-public class CounterController extends HttpServlet {
+public class JsonController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

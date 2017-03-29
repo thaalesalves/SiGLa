@@ -42,7 +42,7 @@ public class SolicitacaoDAO {
         }
     }
     
-    public void insertSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
+    public boolean insertSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?, ?)");
             
@@ -60,7 +60,10 @@ public class SolicitacaoDAO {
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            return false;
         }
+        
+        return true;
     }
     
     public int countSolicitacoes() throws SQLException, ClassNotFoundException {

@@ -18,6 +18,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 public class Solicitacao {
 
     private int id;    
@@ -26,9 +28,27 @@ public class Solicitacao {
     private String turma;
     private String observacao;
     private String modulo;
+    ArrayList<String> modulos = new ArrayList<String>();
+    ArrayList<Software> softwares = new ArrayList<Software>();
     private Pessoa pessoa = new Pessoa();
     private Curso curso = new Curso();
     private Software software = new Software();
+    
+    public void setModulos(ArrayList<String> modulos) {
+        this.modulos = modulos;
+    }
+    
+    public ArrayList<String> getModulos() {
+        return modulos;
+    }
+    
+    public void setSoftwares(ArrayList<Software> softwares) {
+        this.softwares = softwares;
+    }
+    
+    public ArrayList<Software> getSoftwares() {
+        return softwares;
+    }
     
     public void setQtdAlunos(int qtdAlunos) {
         this.qtdAlunos = qtdAlunos;

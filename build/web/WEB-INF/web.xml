@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>CounterController</servlet-name>
-        <servlet-class>controller.CounterController</servlet-class>
+        <servlet-class>controller.JsonController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DataController</servlet-name>

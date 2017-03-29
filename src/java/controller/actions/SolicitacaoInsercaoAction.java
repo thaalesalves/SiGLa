@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 import mailsender.Mail;
 import mailsender.MailSolicitacao;
 import model.Pessoa;
+import model.Software;
 import model.Solicitacao;
 
 public class SolicitacaoInsercaoAction implements ICommand {
@@ -50,30 +51,46 @@ public class SolicitacaoInsercaoAction implements ICommand {
             Solicitacao s = new Solicitacao();
 
             s.setPessoa((Pessoa) session.getAttribute("pessoa"));
-            s.setModulo(request.getParameter("modulo"));
             s.setTurma(request.getParameter("turma"));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
-            s.getSoftware().setId(Integer.parseInt(request.getParameter("softwares").trim()));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
+            s.getSoftware().setId((Integer.parseInt(request.getParameter("softwares").trim())));
+            s.setModulo(request.getParameter("softwares").trim());
+
+            for (String i : request.getParameterValues("softwares")) {
+                Software sw = new Software();
+                sw.setId(Integer.parseInt(i.trim()));
+                s.getSoftwares().add(sw);
+            }
+
+            for (String i : request.getParameterValues("modulo")) {
+                s.getModulos().add(i.trim());
+            }
 
             if (request.getParameter("obs") != null) {
                 s.setObservacao(request.getParameter("obs"));
             } else {
-                s.setObservacao("Sem observa&ccedil;&otilde;es.");
+                s.setObservacao("Sem observaçõees.");
             }
 
             s.setSoftware(sdao.selectId(s.getSoftware()));
             s.setCurso(cdao.selectId(s.getCurso()));
 
-            mail.setSolicitacao(s);
-            mail.sendMail(mail);
-            dao.insertSolicitacao(s);
+            if (dao.insertSolicitacao(s)) {
+                mail.setSolicitacao(s);
+                mail.sendMail(mail);
+            } else {
+                session.setAttribute("msg", "Erro ao efetivar a solicitação.");
+                session.setAttribute("status", "error");
+
+                return request.getContextPath() + "/reserva/novo";
+            }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao efetivar a solicitação.");
             session.setAttribute("status", "error");
-            
+
             return request.getContextPath() + "/reserva/novo";
         }
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");

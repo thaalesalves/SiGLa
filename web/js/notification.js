@@ -122,7 +122,7 @@ var accessControl = function (role) {
 
 $(document).ready(function () {
     $.ajax({
-        url: '/SiGLa/CounterController',
+        url: '/SiGLa/JsonController',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -135,7 +135,7 @@ $(document).ready(function () {
 setInterval(function () {
     $("#res-notif").empty();
     $.ajax({
-        url: '/SiGLa/CounterController',
+        url: '/SiGLa/JsonController',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

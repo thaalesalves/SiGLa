@@ -122,7 +122,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Reserva semestral</h3>
+                            <h3 class="box-title">Reserva</h3>
                         </div>
                         <div class="box-body">
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
