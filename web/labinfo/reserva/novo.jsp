@@ -183,9 +183,9 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <% } %>
                                     </select>
                                 </div>
-                                <div id="obs" class='form-group'>
+                                <div class='form-group'>
                                     <label>Observação</label>
-                                    <textarea class="form-control"></textarea>
+                                    <textarea id="obs" name="obs" class="form-control"></textarea>
                                 </div>
                                 <div class="box-footer">
                                     <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>

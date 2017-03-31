@@ -29,6 +29,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mailsender.Mail;
+import mailsender.SolicitacaoAprovacaoMail;
+import model.Pessoa;
 import model.Reserva;
 import model.Solicitacao;
 
@@ -43,31 +46,37 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             SolicitacaoDAO sdao = new SolicitacaoDAO();
             Reserva r = new Reserva();
             ReservaDAO rdao = new ReservaDAO();
-            
+            Mail mail = new SolicitacaoAprovacaoMail();
+
             s.setId(Integer.parseInt(request.getParameter("solicitacao")));
-            r.getPessoa().setUsername(request.getParameter("professor"));
-            r.getCurso().setId(Integer.parseInt(request.getParameter("curso")));
-            r.getSoftware().setId(Integer.parseInt(request.getParameter("software")));
-            r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio").trim()));
-            r.setModulo(request.getParameter("modulo"));
-            r.setTurma(request.getParameter("turma"));
-            r.setDiaDaSemana(request.getParameter("dia"));
-            r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
-            r.setObservacao(request.getParameter("obs"));
+            s = sdao.selectSolicitacao(s);
+
+            r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
+            r.setPessoa(s.getPessoa());
+            r.setCurso(s.getCurso());
+            r.setSoftware(s.getSoftware());
+            r.setDiaDaSemana(s.getDiaSemana());
+            r.setModulo(s.getModulo());
+            r.setObservacao(s.getObservacao());
+            r.setQtdAlunos(s.getQtdAlunos());
+            r.setTurma(s.getTurma());
+            r = rdao.insert(r);
             
-            rdao.insert(r);
             sdao.deleteSolicitacao(s);
+            mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            mail.setReserva(r);
+            mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            
+
             session.setAttribute("msg", "Erro ao efetivar a solicitação");
             session.setAttribute("status", "error");
-            
+
             return request.getContextPath() + "/controle/listar-solicitacoes";
         }
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
-        
+
         return request.getContextPath() + "/controle/listar-solicitacoes";
     }
 }

@@ -28,13 +28,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import util.Logger;
 
-public class MailSolicitacao extends Mail {
+public class SolicitacaoReprovacaoMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress("thaalesalves@gmail.com"));
+            message.setFrom(new InternetAddress("Laboratório de Informátca <thaalesalves@gmail.com>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Solicitação de Reserva");
             message.setText(getMessage(mail));
@@ -50,13 +50,14 @@ public class MailSolicitacao extends Mail {
     @Override
     public String getMessage(Mail mail) {
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
-                + "Sua solicitação foi recebida e será avaliada pela nossa equipe. Você receberá um email dizendo se foi possível atendê-lo ou não.\n\n"
-                + "Número da solicitação: " + mail.getSolicitacao().getId() + "\n"
+                + "Sua solicitação foi aprovada!\n\n"
+                + "Número da solicitação: " + mail.getReserva().getId() + "\n"
                 + "Nome completo: " + mail.getPessoa().getNomeCompleto() + "\n"
-                + "Turma: " + mail.getSolicitacao().getTurma() + " de " + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "\n"
-                + "Dia da semana: " + mail.getSolicitacao().getDiaSemana() + "\n"
-                + "Quantidade de alunos: " + mail.getSolicitacao().getQtdAlunos() + "\n"
-                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n"
-                + "Software: " + mail.getSolicitacao().getSoftware().getFabricante() + " " + mail.getSolicitacao().getSoftware().getNome();
+                + "Turma: " + mail.getReserva().getTurma() + " de " + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "\n"
+                + "Dia da semana: " + mail.getReserva().getDiaSemana() + "\n"
+                + "Quantidade de alunos: " + mail.getReserva().getQtdAlunos() + "\n"
+                + "Módulo: " + mail.getReserva().getModulo() + "\n"
+                + "Software: " + mail.getReserva().getSoftware().getFabricante() + " " + mail.getReserva().getSoftware().getNome() + "\n"
+                + "Laboratório: " + mail.getLaboratorio().getNumero();
     }
 }

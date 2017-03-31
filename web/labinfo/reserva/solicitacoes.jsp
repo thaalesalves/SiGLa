@@ -145,6 +145,10 @@ Copyright (C) 2016 Thales Alves Pereira
                             <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
                         </div>                    
                         <div class="modal-body">
+                            <div class="form-group">
+                                <label>Solicitação</label>
+                                <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="modalIdSolicitacao" id="modalIdSolicitacao" placeholder="Número da Solicitação" />
+                            </div>
                             <div class='form-group'>
                                 <label>Professor</label>
                                 <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
@@ -176,7 +180,7 @@ Copyright (C) 2016 Thales Alves Pereira
                         </div>
                         <div id="modal-footer" class="modal-footer">
                             <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
-                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="modalRemover()">Reprovar</button><br/>
+                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button><br/>
                         </div>
                     </div>
                 </div>

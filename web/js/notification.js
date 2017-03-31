@@ -20,6 +20,7 @@
 var jsonObject;
 var id;
 var dados;
+var parameter;
 
 var addNotification = function (obj) {
     for (i = 0; i < obj.qtdSolicitacoes; i++) {
@@ -59,8 +60,7 @@ var runNotifications = function (e) {
 };
 
 var showSolicitacaoModal = function (counter) {
-    id = $.trim(jsonObject.solicitacoes[counter].id);
-
+    $("#modalIdSolicitacao").val(jsonObject.solicitacoes[counter].id);
     $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
     $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
     $("#modalSoftware").val(jsonObject.solicitacoes[counter].software.fabricante + " " + jsonObject.solicitacoes[counter].software.nome);
@@ -73,38 +73,16 @@ var showSolicitacaoModal = function (counter) {
         $("#modalLabCombo").append($('<option>', {
             value: jsonObject.laboratorios[i].id,
             text: jsonObject.laboratorios[i].numero
-        }));
-
-        dados = [
-            $.trim(jsonObject.solicitacoes[counter].id),
-            $.trim(jsonObject.solicitacoes[counter].pessoa.username),
-            $.trim(jsonObject.solicitacoes[counter].curso.id),
-            $.trim(jsonObject.solicitacoes[counter].turma),
-            $.trim(jsonObject.solicitacoes[counter].software.id),
-            $.trim(jsonObject.solicitacoes[counter].modulo),
-            $.trim(jsonObject.solicitacoes[counter].diaSemana),
-            $.trim(jsonObject.solicitacoes[counter].qtdAlunos),
-            $.trim(jsonObject.laboratorios[i].id),
-            $.trim(jsonObject.solicitacoes[counter].observacao)
-        ];
+        })); 
     }
 };
 
 var aprovarReserva = function () {
-    var parameter = "&solicitacao=" + id +
-            "&professor=" + dados[1] + 
-            "&curso=" + dados[2] + 
-            "&turma=" + dados[3] +
-            "&software=" + dados[4] +
-            "&modulo=" + dados[5] +
-            "&dia=" + dados[6] +
-            "&qtd=" + dados[7] +
-            "&laboratorio=" + dados[8] +
-            "&obs=" + dados[9];
+    parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
     window.location.href = "http://localhost:8084/SiGLa/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
 };
 
-var modalRemover = function () {
+var reprovarReserva = function () {
     window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
 };
 

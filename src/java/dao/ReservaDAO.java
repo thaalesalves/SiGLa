@@ -29,14 +29,14 @@ import model.Reserva;
 
 public class ReservaDAO {
 
-    private Reserva reserva = new Reserva();
+    private final Reserva reserva = new Reserva();
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
     private final String SELECT_ALL = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) ORDER BY reserva.id DESC";
     private final String SELECT_PROF = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ?";
     private final String SELECT_PROF_DIA = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ? AND dia_semana = ?";
     private final String SELECT_ALL_DIA = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE dia_semana = ?";
-    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+    
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> ares = new ArrayList<Reserva>();
@@ -220,8 +220,8 @@ public class ReservaDAO {
         return qtd;
     }//</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: insertSemestral(Reserva)">
-    public void insert(Reserva r) throws SQLException, ClassNotFoundException {
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: insert(Reserva)">
+    public Reserva insert(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT);
 
@@ -235,12 +235,24 @@ public class ReservaDAO {
             pstmt.setString(8, r.getDiaDaSemana());
             pstmt.setString(9, r.getObservacao());
 
-            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                r.setId(rs.getInt(1));
+            }
+            
+            pstmt.executeQuery();
 
+            LaboratorioDAO ldao = new LaboratorioDAO();
+            
+            r.setLab(ldao.selectLaboratorio(r.getLab()));
+            
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
+        
+        return r;
     }//</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Método próprio: delete(Reserva)">

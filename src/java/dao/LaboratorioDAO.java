@@ -33,6 +33,26 @@ public class LaboratorioDAO {
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
     private final String SELECT_ALL = "SELECT * FROM laboratorio";
 
+    public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
+        try (Connection connString = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM laboratorio WHERE id = ?");
+            
+            pstmt.setInt(1, l.getId());
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                l.setNumero(rs.getString("numero"));
+            }
+            
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }        
+        
+        return l;
+    }
+    
     public void insertLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT);

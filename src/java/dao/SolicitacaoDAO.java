@@ -28,6 +28,37 @@ import util.DatabaseConnection;
 
 public class SolicitacaoDAO {
     
+    public Solicitacao selectSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT curso.id AS curso_id, software.id AS sw_id, s.qtd_alunos AS qtd_alunos, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id AND s.id = ?");
+            
+            pstmt.setInt(1, s.getId());
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                s.getCurso().setId(rs.getInt("curso_id"));
+                s.getSoftware().setId(rs.getInt("sw_id"));
+                s.setQtdAlunos(rs.getInt("qtd_alunos"));
+                s.setTurma(rs.getString("turma"));
+                s.getPessoa().setUsername(rs.getString("professor"));
+                s.setModulo(rs.getString("modulo"));
+                s.setDiaSemana(rs.getString("dia_semana"));
+                s.setObservacao(rs.getString("obs"));
+                s.getSoftware().setFabricante(rs.getString("fabricante"));
+                s.getSoftware().setNome(rs.getString("software"));
+                s.getCurso().setModalidade(rs.getString("modalidade"));
+                s.getCurso().setNome(rs.getString("curso"));
+            }
+            
+            conn.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+        
+        return s;
+    }
+    
     public void deleteSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("DELETE FROM solicitacao WHERE id = ?");
@@ -42,9 +73,9 @@ public class SolicitacaoDAO {
         }
     }
     
-    public boolean insertSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
+    public Solicitacao insertSolicitacoes(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id");
             
             pstmt.setInt(1, s.getSoftware().getId()); // software
             pstmt.setInt(2, s.getCurso().getId()); // curso
@@ -55,15 +86,18 @@ public class SolicitacaoDAO {
             pstmt.setString(7, s.getDiaSemana()); // dia da semana
             pstmt.setString(8, s.getObservacao()); // observacao
             
-            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                s.setId(rs.getInt(1));
+            }
             
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            return false;
         }
         
-        return true;
+        return s;
     }
     
     public int countSolicitacoes() throws SQLException, ClassNotFoundException {

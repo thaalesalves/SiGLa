@@ -28,13 +28,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import util.Logger;
 
-public class ReservaReprovacaoMail extends Mail {
+public class SolicitacaoMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress("thaalesalves@gmail.com"));
+            message.setFrom(new InternetAddress("Laboratório de Informática <thaalesalves@gmail.com>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Solicitação de Reserva");
             message.setText(getMessage(mail));
