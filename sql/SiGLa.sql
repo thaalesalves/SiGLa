@@ -114,3 +114,7 @@ INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-10', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-13', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-14', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-17', 25, 50);
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'daniellemartin', '1', 'Sexta-feira', 'teste');
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'erikam', '1', 'Sexta-feira', 'teste');
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'ptoledo', '1', 'Sexta-feira', 'teste');
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'wolley', '1', 'Sexta-feira', 'teste');

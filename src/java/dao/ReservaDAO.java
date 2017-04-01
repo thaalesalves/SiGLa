@@ -240,8 +240,6 @@ public class ReservaDAO {
             while (rs.next()) {
                 r.setId(rs.getInt(1));
             }
-            
-            pstmt.executeQuery();
 
             LaboratorioDAO ldao = new LaboratorioDAO();
             
