@@ -117,3 +117,8 @@ INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 1, 1);
 INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 2, 1);
 INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 3, 1);
 INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 4, 1);
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 25, '2', 'erikam', '1', 'Sexta-feira', 'teste');
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 1, 2);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 2, 2);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 3, 2);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 4, 2);

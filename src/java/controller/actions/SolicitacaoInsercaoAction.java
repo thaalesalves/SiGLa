@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +50,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             SoftwareDAO sdao = new SoftwareDAO();
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
+            String[] softwares = request.getParameterValues("softwares");
 
             s.setPessoa((Pessoa) session.getAttribute("pessoa"));
             s.setTurma(request.getParameter("turma"));
@@ -59,13 +61,20 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setModulo(request.getParameter("modulo").trim());            
             s.setSoftware(sdao.selectId(s.getSoftware()));
             s.setCurso(cdao.selectId(s.getCurso()));
-            s = dao.insertSolicitacoes(s);
-
+            
+            for (String i : softwares) {
+                Software sw = new Software();
+                sw.setId(Integer.parseInt(i.trim()));
+                s.getSoftwares().add(sw);
+            }
+            
             if (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null) {
                 s.setObservacao("Não informado.");
             } else {
                 s.setObservacao(request.getParameter("obs").trim());
             }
+            
+            s = dao.insertSolicitacoes(s);
             
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);

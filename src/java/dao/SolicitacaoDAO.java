@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Software;
 import model.Solicitacao;
 import util.DatabaseConnection;
 
@@ -71,14 +72,13 @@ public class SolicitacaoDAO {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(INSERT_RETURN);
 
-            pstmt.setInt(1, s.getSoftware().getId()); // software
-            pstmt.setInt(2, s.getCurso().getId()); // curso
-            pstmt.setInt(3, s.getQtdAlunos()); // qtd de alunos
-            pstmt.setString(4, s.getTurma()); // turma
-            pstmt.setString(5, s.getPessoa().getUsername()); // professor
-            pstmt.setString(6, s.getModulo()); // modulo
-            pstmt.setString(7, s.getDiaSemana()); // dia da semana
-            pstmt.setString(8, s.getObservacao()); // observacao
+            pstmt.setInt(1, s.getCurso().getId()); // curso
+            pstmt.setInt(2, s.getQtdAlunos()); // qtd de alunos
+            pstmt.setString(3, s.getTurma()); // turma
+            pstmt.setString(4, s.getPessoa().getUsername()); // professor
+            pstmt.setString(5, s.getModulo()); // modulo
+            pstmt.setString(6, s.getDiaSemana()); // dia da semana
+            pstmt.setString(7, s.getObservacao()); // observacao
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -86,6 +86,14 @@ public class SolicitacaoDAO {
                 s.setId(rs.getInt(1));
             }
 
+            pstmt = connString.prepareStatement(INSERT_AUX);
+            
+            for (int i = 0; i < s.getSoftwares().size(); i++) {
+                pstmt.setInt(1, s.getSoftwares().get(i).getId());
+                pstmt.setInt(2, s.getId());
+                pstmt.executeUpdate();
+            }
+            
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
