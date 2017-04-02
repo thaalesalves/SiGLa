@@ -99,6 +99,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Solicitação</th>
                                         <th>Turma</th>
                                         <th>Curso</th>
                                         <th>Software</th>
@@ -113,6 +114,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 %>
                                 <tbody>
                                     <tr class="gradeC">
+                                        <td class="center"><% out.println(r.getId()); %></td>
                                         <td class="center"><% out.println(r.getTurma()); %></td>
                                         <td class="center"><% out.println(r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(r.getSoftware().getFabricante() + " " + r.getSoftware().getNome()); %></td>
