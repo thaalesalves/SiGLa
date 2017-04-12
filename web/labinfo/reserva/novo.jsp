@@ -124,7 +124,71 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Reserva</h3>
                         </div>
-                        <div class="box-body">
+                        <div id="form-soli" class="box-body" style="display: none;">
+                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                                <div class='form-group'>
+                                    <label>Nome de Usuário</label>
+                                    <input type='text' class='form-control pull-right' name='email' placeholder="<% out.println(p.getUsername()); %>" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Turma</label>
+                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Curso</label>
+                                    <select name="curso" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
+                                        <option selected disabled>Curso</option>
+                                        <% for (Curso c : ac) { %>
+                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " em " + ac.get(ac.indexOf(c)).getNome()); %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Qtd. de Alunos</label>
+                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Módulo</label>
+                                    <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
+                                        <option value="1º módulo">1º Módulo (8h às 9h30)</option>
+                                        <option value="2º módulo">2º Módulo (9h40 às 11h10)</option>
+                                        <option value="3º módulo">3º Módulo (11h10 às 12h40)</option>
+                                        <option value="4º módulo">4º Módulo (13h às 14h30)</option>
+                                        <option value="5º módulo">5º Módulo (14h30 às 17h30)</option>
+                                        <option value="6º módulo">6º Módulo (17h30 às 19h)</option>
+                                        <option value="7º módulo">7º Módulo (19h às 20h30)</option>
+                                        <option value="8º módulo">8º Módulo (20h40 às 22h)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Dia da Semana</label>
+                                    <select name="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Softwares</label>
+                                    <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
+                                        <% for (Software sw : asw) { %>
+                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Observação</label>
+                                    <textarea id="obs" name="obs" class="form-control"></textarea>
+                                </div>
+                                <div class="box-footer">
+                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="form-soli-fixo" class="box-body" style="display: none;">
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>Nome</label>

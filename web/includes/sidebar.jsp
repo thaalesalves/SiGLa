@@ -33,13 +33,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
+                    <li style="display: none;" id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
                     <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                     <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                 </ul>
             </li>
             <li class="header">CURSOS</li>
-            <li id='item-novo-curso' class="treeview">
+            <li style="display: none;" id='item-novo-curso' class="treeview">
                 <a href="${pageContext.request.contextPath}/curso/novo">
                     <i class="fa fa-edit"></i> <span>Inserção</span>
                 </a>
@@ -50,7 +50,7 @@
                 </a>
             </li>
             <li class="header">SOFTWARES</li>
-            <li id='item-novo-software' class="treeview">
+            <li style="display: none;" id='item-novo-software' class="treeview">
                 <a href="${pageContext.request.contextPath}/software/novo">
                     <i class="fa fa-edit"></i> <span>Inserção</span>
                 </a>
@@ -61,7 +61,7 @@
                 </a>
             </li>
             <li class="header">LABORATÓRIOS</li>
-            <li id='item-novo-lab' class="treeview">
+            <li style="display: none;" id='item-novo-lab' class="treeview">
                 <a href="${pageContext.request.contextPath}/laboratorio/novo">
                     <i class="fa fa-edit"></i> <span>Inserção</span>
                 </a>

@@ -87,14 +87,19 @@ var reprovarReserva = function () {
 };
 
 var accessControl = function (role) {
-    if (role == "professor" || role == "coordenador") {
-        $('#notif-menu').hide();
-        $('#soli-menu').hide();
-        $('#item-novo-curso').hide();
-        $('#item-novo-software').hide();
-        $('#item-novo-lab').hide();
-        $('#item-solicitacoes').hide();
-        $('#counters').hide();
+    if (role == "professor") {
+        $('#form-soli-fixo').show();
+    } else if (role == "coordenador") {
+        $('#form-soli').show();
+    } else {
+        $('#soli-menu').show();
+        $('#notif-menu').show();
+        $('#item-novo-curso').show();
+        $('#item-novo-software').show();
+        $('#item-novo-lab').show();
+        $('#item-solicitacoes').show();
+        $('#form-soli').show();
+        $('#counters').show();
     }
 };
 

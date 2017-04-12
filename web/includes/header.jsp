@@ -16,7 +16,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Notifications: style can be found in dropdown.less -->
-                <li id='notif-menu' class="dropdown notifications-menu">
+                <li style="display: none;" id='notif-menu' class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-warning">10</span>
@@ -37,7 +37,7 @@
                     </ul>
                 </li>
                 <!-- Tasks: style can be found in dropdown.less -->
-                <li id='soli-menu' class="dropdown tasks-menu">
+                <li style="display: none;" id='soli-menu' class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
                         <span id="qtd-res" class="label label-danger"></span>
