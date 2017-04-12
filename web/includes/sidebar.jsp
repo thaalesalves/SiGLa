@@ -22,7 +22,7 @@
             <li class="header">RESERVAS</li>
             <li class="treeview">
                 <a href="${pageContext.request.contextPath}/info/nova-reserva">
-                    <i class="fa fa-edit"></i> <span>Solicitações</span>
+                    <i class="fa fa-edit"></i> <span>Solicitar</span>
                 </a>
             </li>
             <li class="treeview">
