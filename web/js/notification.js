@@ -63,7 +63,7 @@ var showSolicitacaoModal = function (counter) {
     $("#modalIdSolicitacao").val(jsonObject.solicitacoes[counter].id);
     $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
     $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
-    $("#modalSoftware").val(jsonObject.solicitacoes[counter].software.fabricante + " " + jsonObject.solicitacoes[counter].software.nome);
+    $("#modalSoftware").val(jsonObject.solicitacoes[counter].softwares.fabricante + " " + jsonObject.solicitacoes[counter].softwares.nome);
     $("#modalModulo").val(jsonObject.solicitacoes[counter].modulo);
     $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
     $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);

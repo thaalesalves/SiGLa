@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import util.DatabaseConnection;
 import model.Reserva;
+import model.Software;
 
 public class ReservaDAO {
 
@@ -33,7 +34,7 @@ public class ReservaDAO {
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
     private final String SELECT_PROF_DIA = "SELECT * FROM reserva WHERE professor = ? AND dia_semana = ?";
     private final String SELECT_ALL_DIA = "SELECT * FROM reserva WHERE dia_semana = ?";
-    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
     
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
@@ -232,14 +233,13 @@ public class ReservaDAO {
             PreparedStatement pstmt = connString.prepareStatement(INSERT);
 
             pstmt.setInt(1, r.getLab().getId());
-            pstmt.setInt(2, r.getSoftware().getId());
-            pstmt.setInt(3, r.getCurso().getId());
-            pstmt.setInt(4, r.getQtdAlunos());
-            pstmt.setString(5, r.getTurma());
-            pstmt.setString(6, r.getPessoa().getUsername());
-            pstmt.setString(7, r.getModulo());
-            pstmt.setString(8, r.getDiaDaSemana());
-            pstmt.setString(9, r.getObservacao());
+            pstmt.setInt(2, r.getCurso().getId());
+            pstmt.setInt(3, r.getQtdAlunos());
+            pstmt.setString(4, r.getTurma());
+            pstmt.setString(5, r.getPessoa().getUsername());
+            pstmt.setString(6, r.getModulo());
+            pstmt.setString(7, r.getDiaDaSemana());
+            pstmt.setString(8, r.getObservacao());
 
             ResultSet rs = pstmt.executeQuery();
             
@@ -247,9 +247,17 @@ public class ReservaDAO {
                 r.setId(rs.getInt(1));
             }
 
-            LaboratorioDAO ldao = new LaboratorioDAO();
-            
+            LaboratorioDAO ldao = new LaboratorioDAO();            
             r.setLab(ldao.selectLaboratorio(r.getLab()));
+            
+            pstmt = connString.prepareStatement("INSERT INTO sw_res VALUES(NEXTVAL('seq_sw_res'), ?, ?)                              ");
+            
+            for (Software s : r.getSoftwares()) {
+                pstmt.setInt(1, s.getId());
+                pstmt.setInt(2, r.getId());
+                
+                pstmt.executeUpdate();
+            }
             
             connString.close();
         } catch (Exception e) {

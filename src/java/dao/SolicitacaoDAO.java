@@ -31,14 +31,13 @@ public class SolicitacaoDAO {
 
     private final String INSERT_AUX = "INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), ?, ?)";
     private final String INSERT_RETURN = "INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?) RETURNING id";
-    private final String SELECT_ID = "SELECT curso.id AS curso_id, software.id AS sw_id, s.qtd_alunos AS qtd_alunos, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id AND s.id = ?";
     private final String DELETE = "DELETE FROM solicitacao WHERE id = ?";
     private final String DELETE_AUX = "DELETE FROM sw_soli WHERE res = ?";
     private final String COUNT = "SELECT COUNT(id) FROM solicitacao";
 
     public Solicitacao selectSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement(SELECT_ID);
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM solicitacao WHERE id = ?");
             pstmt.setInt(1, s.getId());
 
             ResultSet rs = pstmt.executeQuery();
@@ -50,7 +49,7 @@ public class SolicitacaoDAO {
                 s.setModulo(rs.getString("modulo"));
                 s.setDiaSemana(rs.getString("dia_semana"));
                 s.setObservacao(rs.getString("obs"));                
-                s.getCurso().setId(rs.getInt("curso_id"));
+                s.getCurso().setId(rs.getInt("curso"));
                 
                 s.setCurso(new CursoDAO().selectId(s.getCurso()));
                 s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
