@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Reserva;
 import model.Software;
 import model.Solicitacao;
 import util.DatabaseConnection;
@@ -34,6 +35,7 @@ public class SoftwareDAO {
     private final String SELECT_ID = "SELECT fabricante, nome FROM software WHERE id = ?";
     private final String INSERT = "INSERT INTO software VALUES(NEXTVAL('seq_software'), ?, ?);";
     private final String SELECT_SOLICITACAO = "SELECT * from software s JOIN sw_soli ss ON s.id = ss.sw where ss.res = ?";
+    private final String SELECT_RESERVA = "SELECT * from software s JOIN sw_res ss ON s.id = ss.sw where ss.res = ?";
     
     public ArrayList<Software> selectSoftwareAux(Solicitacao solicitacao) throws SQLException, ClassNotFoundException, NullPointerException {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
@@ -41,6 +43,30 @@ public class SoftwareDAO {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(SELECT_SOLICITACAO);
             pstmt.setInt(1, solicitacao.getId());
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Software s = new Software();
+                
+                s.setId(rs.getInt("id"));
+                s.setFabricante(rs.getString("fabricante"));
+                s.setNome(rs.getString("nome"));
+                
+                arrayRes.add(s);
+            }
+            
+            conn.close();
+        }
+        
+        return arrayRes;
+    }
+    
+    public ArrayList<Software> selectSoftwareAux(Reserva r) throws SQLException, ClassNotFoundException, NullPointerException {
+        ArrayList<Software> arrayRes = new ArrayList<Software>();
+        
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(SELECT_RESERVA);
+            pstmt.setInt(1, r.getId());
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {

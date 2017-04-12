@@ -31,10 +31,8 @@ public class ReservaDAO {
 
     private final Reserva reserva = new Reserva();
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
-    private final String SELECT_ALL = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) ORDER BY reserva.id DESC";
-    private final String SELECT_PROF = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ?";
-    private final String SELECT_PROF_DIA = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE professor = ? AND dia_semana = ?";
-    private final String SELECT_ALL_DIA = "SELECT reserva.qtd_alunos AS qtd_alunos, reserva.dia_semana AS dia_semana, reserva.obs AS observacao, reserva.modulo AS modulo, reserva.turma AS turma, curso.modalidade AS modalidade, curso.nome AS curso, reserva.id AS reserva, laboratorio.numero AS laboratorio, software.fabricante AS fabricante, software.nome AS software, reserva.professor AS professor FROM reserva INNER JOIN laboratorio ON(laboratorio.id = reserva.laboratorio) INNER JOIN software ON (software.id = reserva.softwares) INNER JOIN curso ON (curso.id = reserva.curso) WHERE dia_semana = ?";
+    private final String SELECT_PROF_DIA = "SELECT * FROM reserva WHERE professor = ? AND dia_semana = ?";
+    private final String SELECT_ALL_DIA = "SELECT * FROM reserva WHERE dia_semana = ?";
     private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
     
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
@@ -49,17 +47,19 @@ public class ReservaDAO {
             while (rs.next()) {
                 Reserva r = new Reserva();
 
-                r.getPessoa().setUsername(rs.getString("professor"));
-                r.getLab().setNumero(rs.getString("laboratorio"));
-                r.getSoftware().setFabricante(rs.getString("fabricante"));
-                r.getSoftware().setNome(rs.getString("software"));
-                r.getCurso().setModalidade(rs.getString("modalidade"));
-                r.getCurso().setNome(rs.getString("curso"));
-                r.setId(rs.getInt("reserva"));
-                r.setTurma(rs.getString("turma"));
-                r.setModulo(rs.getString("modulo"));
+                r.setId(rs.getInt("id"));
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.setTurma(rs.getString("turma"));
+                r.getPessoa().setUsername(rs.getString("professor"));
+                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
+                r.setObservacao(rs.getString("obs"));                
+                r.getCurso().setId(rs.getInt("curso"));
+                r.getLab().setId(rs.getInt("laboratorio"));
+                
+                r.setCurso(new CursoDAO().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
 
                 ares.add(r);
             }
@@ -85,17 +85,19 @@ public class ReservaDAO {
             while (rs.next()) {
                 Reserva r = new Reserva();
 
-                r.getPessoa().setUsername(rs.getString("professor"));
-                r.getLab().setNumero(rs.getString("laboratorio"));
-                r.getSoftware().setFabricante(rs.getString("fabricante"));
-                r.getSoftware().setNome(rs.getString("software"));
-                r.getCurso().setModalidade(rs.getString("modalidade"));
-                r.getCurso().setNome(rs.getString("curso"));
-                r.setId(rs.getInt("reserva"));
-                r.setTurma(rs.getString("turma"));
-                r.setModulo(rs.getString("modulo"));
+                r.setId(rs.getInt("id"));
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.setTurma(rs.getString("turma"));
+                r.getPessoa().setUsername(rs.getString("professor"));
+                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
+                r.setObservacao(rs.getString("obs"));                
+                r.getCurso().setId(rs.getInt("curso"));
+                r.getLab().setId(rs.getInt("laboratorio"));
+                
+                r.setCurso(new CursoDAO().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
 
                 arrayRes.add(r);
             }
@@ -113,23 +115,25 @@ public class ReservaDAO {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_ALL);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM reserva");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Reserva r = new Reserva();
 
-                r.getPessoa().setUsername(rs.getString("professor"));
-                r.getLab().setNumero(rs.getString("laboratorio"));
-                r.getSoftware().setFabricante(rs.getString("fabricante"));
-                r.getSoftware().setNome(rs.getString("software"));
-                r.getCurso().setModalidade(rs.getString("modalidade"));
-                r.getCurso().setNome(rs.getString("curso"));
-                r.setId(rs.getInt("reserva"));
-                r.setTurma(rs.getString("turma"));
-                r.setModulo(rs.getString("modulo"));
+                r.setId(rs.getInt("id"));
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.setTurma(rs.getString("turma"));
+                r.getPessoa().setUsername(rs.getString("professor"));
+                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
+                r.setObservacao(rs.getString("obs"));                
+                r.getCurso().setId(rs.getInt("curso"));
+                r.getLab().setId(rs.getInt("laboratorio"));
+                
+                r.setCurso(new CursoDAO().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
 
                 arrayRes.add(r);
             }
@@ -147,24 +151,26 @@ public class ReservaDAO {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_PROF);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM reserva WHERE professor = ?");
             pstmt.setString(1, res.getPessoa().getUsername());
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Reserva r = new Reserva();
 
-                r.getPessoa().setUsername(rs.getString("professor"));
-                r.getLab().setNumero(rs.getString("laboratorio"));
-                r.getSoftware().setFabricante(rs.getString("fabricante"));
-                r.getSoftware().setNome(rs.getString("software"));
-                r.getCurso().setModalidade(rs.getString("modalidade"));
-                r.getCurso().setNome(rs.getString("curso"));
-                r.setId(rs.getInt("reserva"));
-                r.setTurma(rs.getString("turma"));
-                r.setModulo(rs.getString("modulo"));
+                r.setId(rs.getInt("id"));
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.setTurma(rs.getString("turma"));
+                r.getPessoa().setUsername(rs.getString("professor"));
+                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
+                r.setObservacao(rs.getString("obs"));                
+                r.getCurso().setId(rs.getInt("curso"));
+                r.getLab().setId(rs.getInt("laboratorio"));
+                
+                r.setCurso(new CursoDAO().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
 
                 arrayRes.add(r);
             }

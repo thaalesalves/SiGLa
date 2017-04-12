@@ -1,3 +1,4 @@
+<%@page import="model.Software"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 
@@ -82,10 +83,12 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Professor</th>
                                         <th>Turma</th>
                                         <th>Laboratório</th>
-                                        <th>Software</th>                                        
+                                        <th>Softwares</th>
+                                        <th>Dia da Semana</th>                                        
                                         <th style="width: 3%;">Opções</th>
                                     </tr>
                                 </thead>
@@ -94,11 +97,21 @@ Copyright (C) 2016 Thales Alves Pereira
                                         for (Reserva r : arrayRes) {
                                     %>
                                     <tr class="gradeC">
+                                        <td class='center'><% out.println(r.getId()); %></td>
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
                                         <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(r.getLab().getNumero()); %></td>
-                                        <td class="center"><% out.println(r.getSoftware().getFabricante() + " " + r.getSoftware().getNome()); %></td>
-                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaDiaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                        <td class="center">
+                                            <%
+                                                for (Software s : r.getSoftwares()) {
+                                            %>
+
+                                            <% out.println(s.getFabricante() + " " + s.getNome()); %><br>
+
+                                            <% } %>
+                                        </td>
+                                        <td class="center"><% out.println(r.getDiaDaSemana()); %></td>                                        
+                                        <td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
                                     </tr>
                                     <% } %>
                                 </tbody>
