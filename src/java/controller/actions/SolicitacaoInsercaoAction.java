@@ -69,7 +69,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             }
             
             if (isEmpty) {
-                s.setObservacao("Não informado.");
+                s.setObservacao("Nada informado.");
             } else {
                 s.setObservacao(request.getParameter("obs").trim());
             }
