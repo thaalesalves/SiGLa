@@ -39,11 +39,10 @@ CREATE TABLE grupo (
 
 CREATE TABLE reserva (
     id INT PRIMARY KEY,
-    laboratorio INT REFERENCES laboratorio(id),
-    softwares INT REFERENCES software(id),
-    curso INT REFERENCES curso(id),
-    qtd_alunos INT,
-    turma VARCHAR,
+    laboratorio INT REFERENCES laboratorio(id) NOT NULL,
+    curso INT REFERENCES curso(id) NOT NULL,
+    qtd_alunos INT NOT NULL,
+    turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
     modulo VARCHAR NOT NULL,
     dia_semana VARCHAR NOT NULL,
@@ -52,10 +51,9 @@ CREATE TABLE reserva (
 
 CREATE TABLE solicitacao (
     id INT PRIMARY KEY,
-    softwares INT REFERENCES software(id),
-    curso INT REFERENCES curso(id),
-    qtd_alunos INT,
-    turma VARCHAR,
+    curso INT REFERENCES curso(id) NOT NULL,
+    qtd_alunos INT NOT NULL,
+    turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
     modulo VARCHAR NOT NULL,
     dia_semana VARCHAR NOT NULL,
@@ -108,13 +106,20 @@ INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=COORDENADORES,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'NetBeans', 'Oracle');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'Visual Studio', 'Microsoft');
+INSERT INTO software VALUES(NEXTVAL('seq_software'), 'MIT', 'AppInventor');
+INSERT INTO software VALUES(NEXTVAL('seq_software'), 'PostgreSQL', 'EnterpriseDB');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'MatLab', 'Mathworks');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'LabVIEW', 'National Instruments');
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-10', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-13', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-14', 25, 50);
 INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), '12-17', 25, 50);
-INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'daniellemartin', '1', 'Sexta-feira', 'teste');
-INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'erikam', '1', 'Sexta-feira', 'teste');
-INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'ptoledo', '1', 'Sexta-feira', 'teste');
-INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 1, 25, '2', 'wolley', '1', 'Sexta-feira', 'teste');
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 25, '2', 'daniellemartin', '1', 'Segunda-feira', 'teste');
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 1, 1);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 2, 1);
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 25, '2', 'erikam', '1', 'Quarta-feira', 'teste');
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 3, 2);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 4, 2);
+INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), 1, 25, '2', 'barbuy', '1', 'Sexta-feira', 'teste');
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 5, 3);
+INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), 6, 3);
