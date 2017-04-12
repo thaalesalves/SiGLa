@@ -28,11 +28,11 @@ public class Solicitacao {
     private String turma;
     private String observacao;
     private String modulo;
-    ArrayList<String> modulos = new ArrayList<String>();
-    ArrayList<Software> softwares = new ArrayList<Software>();
+    private ArrayList<String> modulos = new ArrayList<String>();
+    private ArrayList<Software> softwares = new ArrayList<Software>();
     private Pessoa pessoa = new Pessoa();
     private Curso curso = new Curso();
-    private Software software = new Software();
+    
     
     public void setModulos(ArrayList<String> modulos) {
         this.modulos = modulos;
@@ -90,10 +90,6 @@ public class Solicitacao {
         this.curso = curso;
     }
 
-    public void setSoftware(Software software) {
-        this.software = software;
-    }
-
     public int getId() {
         return id;
     }
@@ -118,7 +114,4 @@ public class Solicitacao {
         return curso;
     }
 
-    public Software getSoftware() {
-        return software;
-    }
 }

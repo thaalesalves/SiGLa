@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/mailsender/SolicitacaoAprovacaoMail.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/web/includes/session.jsp</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/mailsender/SolicitacaoMail.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/dao/ReservaDAO.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/mailsender/SolicitacaoReprovacaoMail.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/SolicitacaoAprovacaoAction.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/sql/SiGLa.sql</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/web/index.jsp</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/web/js/notification.js</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/dao/SolicitacaoDAO.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/SolicitacaoInsercaoAction.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/sql/SiGLA_teste.sql</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/controller/JsonController.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/src/java/controller/actions/ReservaListagemAction.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/SiGLa/web/labinfo/reserva/lista.jsp</file>
         </group>
     </open-files>
 </project-private>

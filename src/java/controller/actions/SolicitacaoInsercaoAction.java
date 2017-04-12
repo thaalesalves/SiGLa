@@ -57,9 +57,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
-            s.getSoftware().setId((Integer.parseInt(request.getParameter("softwares").trim())));
             s.setModulo(request.getParameter("modulo").trim());            
-            s.setSoftware(sdao.selectId(s.getSoftware()));
+            s.setSoftwares(sdao.selectSoftwareAux(s));
             s.setCurso(cdao.selectId(s.getCurso()));
             
             for (String i : softwares) {

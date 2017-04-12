@@ -56,7 +56,7 @@ public class SolicitacaoMail extends Mail {
                 + "Turma: " + mail.getSolicitacao().getTurma() + " de " + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "\n"
                 + "Dia da semana: " + mail.getSolicitacao().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getSolicitacao().getQtdAlunos() + "\n"
-                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n"
-                + "Software: " + mail.getSolicitacao().getSoftware().getFabricante() + " " + mail.getSolicitacao().getSoftware().getNome();
+                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n";
+                //+ "Software: " + mail.getSolicitacao().getSoftware().getFabricante() + " " + mail.getSolicitacao().getSoftware().getNome();
     }
 }

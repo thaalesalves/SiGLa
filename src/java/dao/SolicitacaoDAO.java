@@ -40,31 +40,41 @@ public class SolicitacaoDAO {
     public Solicitacao selectSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT curso.id AS curso_id, software.id AS sw_id, s.qtd_alunos AS qtd_alunos, s.turma AS turma, s.professor AS professor, s.modulo AS modulo, s.dia_semana AS dia_semana, s.obs AS obs, software.fabricante AS fabricante, software.nome AS software, curso.modalidade AS modalidade, curso.nome AS curso FROM software, curso, solicitacao AS s WHERE s.softwares = software.id AND s.curso = curso.id AND s.id = ?");
-            
+
+//            Select * from solicitacao 
+//            
+//            while rs.next
+//                     r = new reserva
+//                     r.setQtdeAlunos
+//                    r.setModulo
+//                            Usuario u = new Usuario
+//                                    u.setLogin(rs.getProfessor)
+//                     r.setProfessor(u)
+//                             r.setCurso (new CursoDAO().consultarPorID(Rs.getIdCurso)())
+//                             r.setSoftware(new SoftwareDAO().consultarPorSolicitacao(r)))
             pstmt.setInt(1, s.getId());
-            
+
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
-                s.getCurso().setId(rs.getInt("curso_id"));
-                s.getSoftware().setId(rs.getInt("sw_id"));
                 s.setQtdAlunos(rs.getInt("qtd_alunos"));
                 s.setTurma(rs.getString("turma"));
                 s.getPessoa().setUsername(rs.getString("professor"));
                 s.setModulo(rs.getString("modulo"));
                 s.setDiaSemana(rs.getString("dia_semana"));
-                s.setObservacao(rs.getString("obs"));
-                s.getSoftware().setFabricante(rs.getString("fabricante"));
-                s.getSoftware().setNome(rs.getString("software"));
-                s.getCurso().setModalidade(rs.getString("modalidade"));
-                s.getCurso().setNome(rs.getString("curso"));
+                s.setObservacao(rs.getString("obs"));                
+                s.getCurso().setId(rs.getInt("curso_id"));
+                //s.getSoftware().setId(rs.getInt("sw_id"));
+                
+                s.setCurso(new CursoDAO().selectId(s.getCurso()));
+//                s.setSoftware(new SoftwareDAO().selectId(s.getSoftware()));
             }
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        
+
         return s;
     }
 
@@ -87,13 +97,13 @@ public class SolicitacaoDAO {
             }
 
             pstmt = connString.prepareStatement(INSERT_AUX);
-            
+
             for (int i = 0; i < s.getSoftwares().size(); i++) {
                 pstmt.setInt(1, s.getSoftwares().get(i).getId());
                 pstmt.setInt(2, s.getId());
                 pstmt.executeUpdate();
             }
-            
+
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
@@ -125,10 +135,28 @@ public class SolicitacaoDAO {
         ArrayList<Solicitacao> arrayRes = new ArrayList<Solicitacao>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_ALL);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM solicitacao");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                Solicitacao s = new Solicitacao();
+                
+                s.setId(rs.getInt("id"));
+                s.setQtdAlunos(rs.getInt("qtd_alunos"));
+                s.setTurma(rs.getString("turma"));
+                s.getPessoa().setUsername(rs.getString("professor"));
+                s.setModulo(rs.getString("modulo"));
+                s.setDiaSemana(rs.getString("dia_semana"));
+                s.setObservacao(rs.getString("obs"));
+                s.getCurso().setId(rs.getInt("curso"));
+               // s.getSoftware().setId(rs.getInt("sw"));
+                
+                s.setCurso(new CursoDAO().selectId(s.getCurso()));
+                s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
+                
+                arrayRes.add(s);
+            }
+            /*while (rs.next()) {
                 Solicitacao s = new Solicitacao();
 
                 s.setId(rs.getInt("soli"));
@@ -138,13 +166,15 @@ public class SolicitacaoDAO {
                 s.setModulo(rs.getString("modulo"));
                 s.setDiaSemana(rs.getString("dia_semana"));
                 s.setObservacao(rs.getString("obs"));
+                
+                
                 s.getCurso().setModalidade(rs.getString("modalidade"));
                 s.getCurso().setNome(rs.getString("curso"));
                 s.getSoftware().setFabricante(rs.getString("fabricante"));
                 s.getSoftware().setNome(rs.getString("software"));
 
                 arrayRes.add(s);
-            }
+            }*/
 
             connString.close();
         } catch (Exception e) {

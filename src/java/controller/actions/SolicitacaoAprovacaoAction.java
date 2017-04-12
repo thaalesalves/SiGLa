@@ -54,7 +54,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
             r.setPessoa(s.getPessoa());
             r.setCurso(s.getCurso());
-            r.setSoftware(s.getSoftware());
+            //r.setSoftware(s.getSoftware());
             r.setDiaDaSemana(s.getDiaSemana());
             r.setModulo(s.getModulo());
             r.setObservacao(s.getObservacao());

@@ -1,3 +1,4 @@
+<%@page import="model.Software"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 
@@ -25,8 +26,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
 <!DOCTYPE html>
-<%
-    ArrayList<Solicitacao> ares;
+<%    ArrayList<Solicitacao> ares;
     if ((ares = (ArrayList<Solicitacao>) session.getAttribute("dados-solicitacoes")) == null) {
         response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoListagem");
         session.removeAttribute("dados-solicitacoes");
@@ -59,7 +59,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 accessControl("<%=p.getRole()%>");
-                
+
                 var msg = "<%=msg%>";
                 var status = "<%=status%>";
 
@@ -99,12 +99,11 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Solicitação</th>
-                                        <th>Turma</th>
-                                        <th>Curso</th>
-                                        <th>Software</th>
+                                        <th>#</th>
                                         <th>Professor</th>
-                                        <th>Módulo</th>
+                                        <th>Módulos</th>
+                                        <th>Turma</th>
+                                        <th>Softwares</th>
                                         <th>Observação</th>
                                         <th style="width: 5%;">Opções</th>
                                     </tr>
@@ -115,14 +114,21 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <tbody>
                                     <tr class="gradeC">
                                         <td class="center"><% out.println(r.getId()); %></td>
-                                        <td class="center"><% out.println(r.getTurma()); %></td>
-                                        <td class="center"><% out.println(r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
-                                        <td class="center"><% out.println(r.getSoftware().getFabricante() + " " + r.getSoftware().getNome()); %></td>
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
                                         <td class="center"><% out.println(r.getModulo()); %></td>
+                                        <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
+                                        <td class="center">
+                                            <%
+                                                for (Software s : r.getSoftwares()) {
+                                            %>
+
+                                            <% out.println(s.getFabricante() + " " + s.getNome()); %><br>
+
+                                            <% } %>
+                                        </td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
                                         <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(ares.indexOf(r)); %>)"></button></center></td>
-                                </tr>                                
+                                    </tr>                                
                                 </tbody>
                                 <% } %>
                             </table>
