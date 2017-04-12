@@ -20,12 +20,15 @@ package mailsender;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.stream.Collectors;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Software;
 import util.Logger;
 
 public class SolicitacaoAprovacaoMail extends Mail {
@@ -48,7 +51,13 @@ public class SolicitacaoAprovacaoMail extends Mail {
     }
 
     @Override
-    public String getMessage(Mail mail) {
+    public String getMessage(Mail mail) {    
+        String softwares = "";
+        
+        for (Software s : mail.getReserva().getSoftwares()) {
+            softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
+        }
+        
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
                 + "Sua solicitação foi aprovada!\n\n"
                 + "Número da solicitação: " + mail.getReserva().getId() + "\n"
@@ -57,7 +66,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "Dia da semana: " + mail.getReserva().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getReserva().getQtdAlunos() + "\n"
                 + "Módulo: " + mail.getReserva().getModulo() + "\n"
-                + "Software: " + mail.getReserva().getSoftware().getFabricante() + " " + mail.getReserva().getSoftware().getNome() + "\n"
-                + "Laboratório: " + mail.getReserva().getLab().getNumero();
+                + "Software: " + softwares.substring(1) + "\n"
+                + "Laboratório: " + mail.getReserva().getLab().getNumero();                
     }
 }

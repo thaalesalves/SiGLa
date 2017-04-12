@@ -45,7 +45,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
         try {
             Mail mail = new SolicitacaoMail();
-
+            boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
+            
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
             SolicitacaoDAO dao = new SolicitacaoDAO();
@@ -67,13 +68,17 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 s.getSoftwares().add(sw);
             }
             
-            if (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null) {
+            if (isEmpty) {
                 s.setObservacao("Não informado.");
             } else {
                 s.setObservacao(request.getParameter("obs").trim());
             }
             
             s = dao.insertSolicitacoes(s);
+            
+            for (Software i : s.getSoftwares()) {
+                i = sdao.selectId(i);
+            }            
             
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);

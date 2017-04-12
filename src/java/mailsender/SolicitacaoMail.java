@@ -26,6 +26,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Software;
 import util.Logger;
 
 public class SolicitacaoMail extends Mail {
@@ -49,6 +50,12 @@ public class SolicitacaoMail extends Mail {
 
     @Override
     public String getMessage(Mail mail) {
+        String softwares = "";
+        
+        for (Software s : mail.getSolicitacao().getSoftwares()) {
+            softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
+        }
+        
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
                 + "Sua solicitação foi recebida e será avaliada pela nossa equipe. Você receberá um email dizendo se foi possível atendê-lo ou não.\n\n"
                 + "Número da solicitação: " + mail.getSolicitacao().getId() + "\n"
@@ -56,7 +63,7 @@ public class SolicitacaoMail extends Mail {
                 + "Turma: " + mail.getSolicitacao().getTurma() + " de " + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "\n"
                 + "Dia da semana: " + mail.getSolicitacao().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getSolicitacao().getQtdAlunos() + "\n"
-                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n";
-                //+ "Software: " + mail.getSolicitacao().getSoftware().getFabricante() + " " + mail.getSolicitacao().getSoftware().getNome();
+                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n"
+                + "Software: " + softwares.substring(1);
     }
 }
