@@ -196,7 +196,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Email</label>
-                                    <input disabled type='text' class='form-control pull-right' name='email' value="<% out.println(p.getEmail()); %>" placeholder="<% out.println(p.getEmail()); %>" />
+                                    <input disabled type='text' class='form-control pull-right' name='email' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getEmail()); %>" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>

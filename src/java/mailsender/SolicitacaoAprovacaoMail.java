@@ -67,6 +67,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "Quantidade de alunos: " + mail.getReserva().getQtdAlunos() + "\n"
                 + "Módulo: " + mail.getReserva().getModulo() + "\n"
                 + "Software: " + softwares.substring(1) + "\n"
+                + "Observação: " + mail.getReserva().getObservacao() + "\n"
                 + "Laboratório: " + mail.getReserva().getLab().getNumero();                
     }
 }

@@ -106,7 +106,7 @@ INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=DEPTI
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=COORDENADORES,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'NetBeans', 'Oracle');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'Visual Studio', 'Microsoft');
-INSERT INTO software VALUES(NEXTVAL('seq_software'), 'MIT', 'AppInventor');
+INSERT INTO software VALUES(NEXTVAL('seq_software'), 'AppInventor', 'MIT');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'PostgreSQL', 'EnterpriseDB');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'MatLab', 'Mathworks');
 INSERT INTO software VALUES(NEXTVAL('seq_software'), 'LabVIEW', 'National Instruments');

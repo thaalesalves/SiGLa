@@ -64,6 +64,7 @@ public class SolicitacaoMail extends Mail {
                 + "Dia da semana: " + mail.getSolicitacao().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getSolicitacao().getQtdAlunos() + "\n"
                 + "Módulo: " + mail.getSolicitacao().getModulo() + "\n"
-                + "Software: " + softwares.substring(1);
+                + "Software: " + softwares.substring(1) + "\n"
+                + "Observação: " + mail.getSolicitacao().getObservacao();
     }
 }

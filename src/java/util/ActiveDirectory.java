@@ -79,13 +79,7 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa).">
     public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
-        String filter = "";
-
-        try {
-            filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
-        } catch (Exception e) {
-            Logger.logSevere(e, this.getClass());
-        }
+        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
 
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>    
@@ -106,7 +100,7 @@ public class ActiveDirectory {
     public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca o método de busca de usuário
-            if (result.hasMoreElements()) { // caso algo seja retornado
+            if (result.hasMore()) { // caso algo seja retornado
                 return true; // o usuário existe
             } else {
                 return false; // o usuário não existe

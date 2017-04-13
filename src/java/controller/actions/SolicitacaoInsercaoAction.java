@@ -36,6 +36,7 @@ import mailsender.SolicitacaoMail;
 import model.Pessoa;
 import model.Software;
 import model.Solicitacao;
+import util.ActiveDirectory;
 
 public class SolicitacaoInsercaoAction implements ICommand {
 
@@ -46,40 +47,53 @@ public class SolicitacaoInsercaoAction implements ICommand {
         try {
             Mail mail = new SolicitacaoMail();
             boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
-            
+
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
             String[] softwares = request.getParameterValues("softwares");
 
-            s.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            if (ad.isUser(s.getPessoa())) {
+                s.getPessoa().setUsername(request.getParameter("email"));
+                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+                s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");
+            } else {
+                session.setAttribute("msg", "Erro ao efetivar a solicitação. O nome de usuário informado não existe.");
+                session.setAttribute("status", "error");
+
+                return request.getContextPath() + "/reserva/novo";
+            }
+
             s.setTurma(request.getParameter("turma"));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
-            s.setModulo(request.getParameter("modulo").trim());            
+            s.setModulo(request.getParameter("modulo").trim());
             s.setSoftwares(sdao.selectSoftwareAux(s));
             s.setCurso(cdao.selectId(s.getCurso()));
-            
+
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i.trim()));
                 s.getSoftwares().add(sw);
             }
-            
+
             if (isEmpty) {
                 s.setObservacao("Nada informado.");
             } else {
                 s.setObservacao(request.getParameter("obs").trim());
             }
-            
+
             s = dao.insertSolicitacoes(s);
-            
+
             for (Software i : s.getSoftwares()) {
                 i = sdao.selectId(i);
-            }            
-            
+            }
+
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);
             mail.sendMail(mail);
