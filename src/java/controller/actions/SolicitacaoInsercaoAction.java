@@ -55,7 +55,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
             String[] softwares = request.getParameterValues("softwares");
-            s.getPessoa().setUsername(request.getParameter("email"));
+            s.getPessoa().setUsername(request.getParameter("email").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " "));
 
             if (ad.isUser(s.getPessoa())) {                
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
@@ -68,7 +68,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 return request.getContextPath() + "/reserva/novo";
             }
 
-            s.setTurma(request.getParameter("turma"));
+            s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
@@ -85,7 +85,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             if (isEmpty) {
                 s.setObservacao("Nada informado.");
             } else {
-                s.setObservacao(request.getParameter("obs").trim());
+                s.setObservacao(request.getParameter("obs").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             }
 
             s = dao.insertSolicitacoes(s);

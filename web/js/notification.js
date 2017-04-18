@@ -73,7 +73,7 @@ var showSolicitacaoModal = function (counter) {
         $("#modalLabCombo").append($('<option>', {
             value: jsonObject.laboratorios[i].id,
             text: jsonObject.laboratorios[i].numero
-        })); 
+        }));
     }
 };
 

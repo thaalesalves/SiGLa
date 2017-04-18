@@ -125,10 +125,10 @@ Copyright (C) 2016 Thales Alves Pereira
                             <h3 class="box-title">Reserva</h3>
                         </div>
                         <div id="form-soli" class="box-body" style="display: none;">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post" onsubmit="secureInjection()">
                                 <div class='form-group'>
                                     <label>Nome de Usuário</label>
-                                    <input type='text' class='form-control pull-right' name='email' placeholder="<% out.println(p.getUsername()); %>" />
+                                    <input id="usuario" type='text' class='form-control pull-right' name='email' placeholder="<% out.println(p.getUsername()); %>" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>
