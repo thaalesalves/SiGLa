@@ -55,9 +55,9 @@ public class SolicitacaoInsercaoAction implements ICommand {
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
             String[] softwares = request.getParameterValues("softwares");
+            s.getPessoa().setUsername(request.getParameter("email"));
 
-            if (ad.isUser(s.getPessoa())) {
-                s.getPessoa().setUsername(request.getParameter("email"));
+            if (ad.isUser(s.getPessoa())) {                
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
                 s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
                 s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");

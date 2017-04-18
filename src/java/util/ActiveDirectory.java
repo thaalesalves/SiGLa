@@ -17,7 +17,6 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package util;
 
 import java.io.FileNotFoundException;
@@ -59,11 +58,12 @@ public class ActiveDirectory {
         properties.put(Context.PROVIDER_URL, "LDAP://canada"); // conecta com o AD DC
         properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
+        properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
 
         return true; // login efetuado
     }// </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos da API: closeLdapConnection().">
     public void closeLdapConnection() {
         try {
