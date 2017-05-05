@@ -127,8 +127,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <% } %>
                                         </td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
-                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(ares.indexOf(r)); %>)"></button></center></td>
-                                    </tr>                                
+                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(r.getId()); %>)"></button></center></td>
+                                </tr>                                
                                 </tbody>
                                 <% } %>
                             </table>
@@ -151,41 +151,93 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
-                        </div>                    
+                        </div>     
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label>Solicitação</label>
-                                <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="modalIdSolicitacao" id="modalIdSolicitacao" placeholder="Número da Solicitação" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Professor</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Turma</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalCurso" id="modalCurso" placeholder="Nome do Curso" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Software</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Módulo</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Dia da Semana</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
-                            </div>
-                            <div class='form-group'>
-                                <label>Qtd. de Alunos</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
-                            </div>        
-                            <div class='form-group'>
-                                <label>Observações</label>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalObservacao" id="modalQtdAlunos" placeholder="Observações" />
-                            </div>    
-                        </div>
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label>Solicitação</label>
+                                        </div>
+                                    </td>
+                                    <td style="width:100%;">
+                                        <div class="form-group">
+                                            <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="modalIdSolicitacao" id="modalIdSolicitacao" placeholder="Número da Solicitação" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Professor</label>                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" /
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Turma</label>                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalCurso" id="modalCurso" placeholder="Nome do Curso" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Software</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <textarea style="width: 80%;" disabled class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Módulo</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Dia da Semana</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Qtd. de Alunos</label>
+                                        </div>   
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' nome="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Observações</label>
+                                        </div>   
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='textarea' class='form-control pull-right' nome="modalObservacao" id="modalObservacao" placeholder="Observações" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>                        
                         <div id="modal-footer" class="modal-footer">
                             <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
                             <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button><br/>

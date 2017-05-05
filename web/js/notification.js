@@ -59,23 +59,55 @@ var runNotifications = function (e) {
     updateWidgets(obj);
 };
 
-var showSolicitacaoModal = function (counter) {
-    $("#modalIdSolicitacao").val(jsonObject.solicitacoes[counter].id);
-    $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
-    $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
-    $("#modalSoftware").val(jsonObject.solicitacoes[counter].softwares.fabricante + " " + jsonObject.solicitacoes[counter].softwares.nome);
-    $("#modalModulo").val(jsonObject.solicitacoes[counter].modulo);
-    $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
-    $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
-    $("#modalObservacao").val(jsonObject.solicitacoes[counter].observacao);
+var showSolicitacaoModal = function (item) {
+    id = item;
+    $.ajax({
+        url: '/SiGLa/JsonController?acao=solicitacao&id=' + item,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var jsonSolicitacao = JSON.parse(e.responseText);
+            $("#modalIdSolicitacao").val(jsonSolicitacao.id);
+            $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
+            $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
+            $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
+            $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
+            $("#modalObservacao").val(jsonSolicitacao.observacao);
 
-    for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
-        $("#modalLabCombo").append($('<option>', {
-            value: jsonObject.laboratorios[i].id,
-            text: jsonObject.laboratorios[i].numero
-        }));
-    }
+            for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
+                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome + "\r\n" ;
+                $("#modalSoftware").val($("#modalSoftware").val() + software);
+            }
+
+            for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
+                $("#modalLabCombo").append($('<option>', {
+                    value: jsonObject.laboratorios[i].id,
+                    text: jsonObject.laboratorios[i].numero
+                }));
+            }
+        }
+    });
 };
+
+/*var showSolicitacaoModal = function (counter) {
+ id = jsonObject.solicitacoes[counter].id;
+ $("#modalIdSolicitacao").val(jsonObject.solicitacoes[counter].id);
+ $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
+ $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
+ $("#modalSoftware").val(jsonObject.solicitacoes[counter].softwares.fabricante + " " + jsonObject.solicitacoes[counter].softwares.nome);
+ $("#modalModulo").val(jsonObject.solicitacoes[counter].modulo);
+ $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
+ $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
+ $("#modalObservacao").val(jsonObject.solicitacoes[counter].observacao);
+ 
+ for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
+ $("#modalLabCombo").append($('<option>', {
+ value: jsonObject.laboratorios[i].id,
+ text: jsonObject.laboratorios[i].numero
+ }));
+ }
+ };*/
 
 var aprovarReserva = function () {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
@@ -105,7 +137,7 @@ var accessControl = function (role) {
 
 $(document).ready(function () {
     $.ajax({
-        url: '/SiGLa/CounterController',
+        url: '/SiGLa/CounterController?acao=padrao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -118,7 +150,7 @@ $(document).ready(function () {
 setInterval(function () {
     $("#res-notif").empty();
     $.ajax({
-        url: '/SiGLa/CounterController',
+        url: '/SiGLa/CounterController?acao=padrao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

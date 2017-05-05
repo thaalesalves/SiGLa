@@ -53,7 +53,6 @@ public class InfoController extends HttpServlet {
         String acao = request.getParameter("acao");
 
         try (PrintWriter out = response.getWriter()) {
-
             if (acao.equals("nova-reserva")) {
                 Reserva reserva = new Reserva();
                 SoftwareDAO sdao = new SoftwareDAO();

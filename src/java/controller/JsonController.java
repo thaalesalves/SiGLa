@@ -60,50 +60,67 @@ public class JsonController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws NamingException, SQLException, ClassNotFoundException, ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
 
         try (PrintWriter out = response.getWriter()) {
-            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-            
-            Counter counter = new Counter();
-            SolicitacaoDAO sdao = new SolicitacaoDAO();
-            ReservaDAO rdao = new ReservaDAO();
-            LaboratorioDAO ldao = new LaboratorioDAO();
-            EquipamentoDAO edao = new EquipamentoDAO();
-            CursoDAO cdao = new CursoDAO();
-            SoftwareDAO swdao = new SoftwareDAO();
+            HttpSession session = request.getSession();
+            String acao = request.getParameter("acao");
 
-            ArrayList<Software> sw = swdao.selectAll();
-            ArrayList<Curso> c = cdao.selectAll();
-            ArrayList<Solicitacao> r = sdao.selectSolicitacao();
-            ArrayList<Laboratorio> l = ldao.selectLaboratorios();
-            
-            for (Solicitacao i : r) {
-                i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
-                i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
-                //i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
-                if (i.getPessoa().getNomeCompleto().equals("Ricardo Morales Miranda")) {
-                    i.getPessoa().setShownName("Ricardo Morales");
-                } else if (i.getPessoa().getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
-                    i.getPessoa().setNome("Eduardo");
-                    i.getPessoa().setShownName("Eduardo Lobo");
-                } else {
-                    i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+            if (acao.equals("solicitacao")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+                SolicitacaoDAO sdao = new SolicitacaoDAO();
+                Solicitacao s = new Solicitacao();
+
+                s.setId(Integer.parseInt(request.getParameter("id")));
+                s = sdao.selectSolicitacao(s);
+
+                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+
+                out.println(util.Json.toCuteJson(s));
+            } else if (acao.equals("padrao")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+
+                Counter counter = new Counter();
+                SolicitacaoDAO sdao = new SolicitacaoDAO();
+                ReservaDAO rdao = new ReservaDAO();
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                EquipamentoDAO edao = new EquipamentoDAO();
+                CursoDAO cdao = new CursoDAO();
+                SoftwareDAO swdao = new SoftwareDAO();
+
+                ArrayList<Software> sw = swdao.selectAll();
+                ArrayList<Curso> c = cdao.selectAll();
+                ArrayList<Solicitacao> r = sdao.selectSolicitacao();
+                ArrayList<Laboratorio> l = ldao.selectLaboratorios();
+
+                for (Solicitacao i : r) {
+                    i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
+                    i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
+                    //i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
+                    if (i.getPessoa().getNomeCompleto().equals("Ricardo Morales Miranda")) {
+                        i.getPessoa().setShownName("Ricardo Morales");
+                    } else if (i.getPessoa().getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
+                        i.getPessoa().setNome("Eduardo");
+                        i.getPessoa().setShownName("Eduardo Lobo");
+                    } else {
+                        i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+                    }
                 }
+
+                counter.setQtdComputadores(edao.qtdEquip());
+                counter.setQtdLaboratorios(ldao.qtdLabs());
+                counter.setQtdReservas(rdao.qtdReservas());
+                counter.setQtdReservasHoje(rdao.qtdReservasDia());
+                counter.setQtdSolicitacoes(sdao.countSolicitacoes());
+                counter.setSolicitacoes(r);
+                counter.setLaboratorios(l);
+                counter.setCursos(c);
+                counter.setSoftwares(sw);
+
+                out.println(util.Json.toCuteJson(counter));
+                //System.out.println(util.Json.toCuteJson(counter));
             }
-            
-            counter.setQtdComputadores(edao.qtdEquip());
-            counter.setQtdLaboratorios(ldao.qtdLabs());
-            counter.setQtdReservas(rdao.qtdReservas());
-            counter.setQtdReservasHoje(rdao.qtdReservasDia());
-            counter.setQtdSolicitacoes(sdao.countSolicitacoes());
-            counter.setSolicitacoes(r);
-            counter.setLaboratorios(l);
-            counter.setCursos(c);
-            counter.setSoftwares(sw);
-            
-            out.println(util.Json.toCuteJson(counter));
-            //System.out.println(util.Json.toCuteJson(counter));
         }
     }
 

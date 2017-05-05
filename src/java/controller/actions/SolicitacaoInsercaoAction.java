@@ -60,7 +60,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
             if (ad.isUser(s.getPessoa())) {                
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
                 s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-                s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");
+                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+                s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");                
             } else {
                 session.setAttribute("msg", "Erro ao efetivar a solicitação. O nome de usuário informado não existe.");
                 session.setAttribute("status", "error");
