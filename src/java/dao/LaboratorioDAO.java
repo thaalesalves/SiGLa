@@ -33,7 +33,7 @@ public class LaboratorioDAO {
     private final String INSERT = "INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), ?, ?, ?)";
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
     private final String SELECT_ALL = "SELECT * FROM laboratorio";
-    private final String SELECT_AVAILABLE = "SELECT * FROM laboratorio WHERE id NOT IN (SELECT l.id FROM laboratorio l, reserva r WHERE r.dia_semana = ? AND modulo = ? AND l.id = r.laboratorio)";
+    private final String SELECT_AVAILABLE = "SELECT * FROM laboratorio WHERE id NOT IN (SELECT l.id FROM laboratorio l, reserva r WHERE r.dia_semana = ? AND modulo ILIKE ? AND l.id = r.laboratorio)";
     
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
@@ -42,7 +42,7 @@ public class LaboratorioDAO {
             PreparedStatement pstmt = conn.prepareStatement(SELECT_AVAILABLE);
             
             pstmt.setString(1, reserva.getDiaDaSemana());
-            pstmt.setString(2, reserva.getModulo());
+            pstmt.setString(2, "%" + reserva.getModulo() + "%");
             
             ResultSet rs = pstmt.executeQuery();
             
