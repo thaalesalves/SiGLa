@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import model.Counter;
 import model.Curso;
 import model.Laboratorio;
+import model.Reserva;
 import model.Software;
 import model.Solicitacao;
 import util.ActiveDirectory;
@@ -78,6 +79,17 @@ public class JsonController extends HttpServlet {
                 s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
 
                 out.println(util.Json.toCuteJson(s));
+            } else if (acao.equals("laboratorios")) {
+                Reserva r = new Reserva();
+                LaboratorioDAO ldao = new LaboratorioDAO();
+                ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
+                
+                r.setModulo(request.getParameter("modulo"));
+                r.setDiaDaSemana(request.getParameter("dia"));
+                
+                al = ldao.selectAvailableLabs(r);
+                
+                out.println(util.Json.toCuteJson(al));
             } else if (acao.equals("padrao")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 

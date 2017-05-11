@@ -203,7 +203,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         </div>
                                     </td>
                                     <td>
-                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo" />
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalModulo" name="modalModulo" id="modalModulo" placeholder="Módulo" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -213,7 +213,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         </div>
                                     </td>
                                     <td>
-                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalDiaSemana" name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -239,7 +239,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             </table>
                         </div>                        
                         <div id="modal-footer" class="modal-footer">
-                            <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success">Aprovar</button>
+                            <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="showLaboratoriosDisponiveis()">Aprovar</button>
                             <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button><br/>
                         </div>
                     </div>

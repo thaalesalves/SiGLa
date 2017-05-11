@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Laboratorio;
+import model.Reserva;
 import util.DatabaseConnection;
 
 public class LaboratorioDAO {
@@ -32,7 +33,36 @@ public class LaboratorioDAO {
     private final String INSERT = "INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), ?, ?, ?)";
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
     private final String SELECT_ALL = "SELECT * FROM laboratorio";
-
+    private final String SELECT_AVAILABLE = "SELECT * FROM laboratorio WHERE id NOT IN (SELECT l.id FROM laboratorio l, reserva r WHERE r.dia_semana = ? AND modulo = ? AND l.id = r.laboratorio)";
+    
+    public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
+        ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
+        
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(SELECT_AVAILABLE);
+            
+            pstmt.setString(1, reserva.getDiaDaSemana());
+            pstmt.setString(2, reserva.getModulo());
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Laboratorio l = new Laboratorio();
+                
+                l.setId(rs.getInt("id"));
+                l.setNumero(rs.getString("numero"));
+                l.setComputadores(rs.getInt("qtd_comps"));
+                l.setCapacidade(rs.getInt("qtd_alunos"));
+                
+                arrayLab.add(l);
+            }
+            
+            conn.close();
+        }
+        
+        return arrayLab;
+    }
+    
     public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM laboratorio WHERE id = ?");

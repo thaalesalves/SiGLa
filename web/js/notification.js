@@ -74,40 +74,37 @@ var showSolicitacaoModal = function (item) {
             $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
+            $("#modalModulo").val(jsonSolicitacao.modulo);
 
             for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
-                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome + "\r\n" ;
+                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
+                software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
-            }
-
-            for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
-                $("#modalLabCombo").append($('<option>', {
-                    value: jsonObject.laboratorios[i].id,
-                    text: jsonObject.laboratorios[i].numero
-                }));
             }
         }
     });
 };
 
-/*var showSolicitacaoModal = function (counter) {
- id = jsonObject.solicitacoes[counter].id;
- $("#modalIdSolicitacao").val(jsonObject.solicitacoes[counter].id);
- $("#modalProfessor").val(jsonObject.solicitacoes[counter].pessoa.shownName);
- $("#modalCurso").val(jsonObject.solicitacoes[counter].turma + " de " + jsonObject.solicitacoes[counter].curso.modalidade + " em " + jsonObject.solicitacoes[counter].curso.nome);
- $("#modalSoftware").val(jsonObject.solicitacoes[counter].softwares.fabricante + " " + jsonObject.solicitacoes[counter].softwares.nome);
- $("#modalModulo").val(jsonObject.solicitacoes[counter].modulo);
- $("#modalDiaSemana").val(jsonObject.solicitacoes[counter].diaSemana);
- $("#modalQtdAlunos").val(jsonObject.solicitacoes[counter].qtdAlunos);
- $("#modalObservacao").val(jsonObject.solicitacoes[counter].observacao);
- 
- for (i = 0; i < jsonObject.laboratorios.length + 1; i++) {
- $("#modalLabCombo").append($('<option>', {
- value: jsonObject.laboratorios[i].id,
- text: jsonObject.laboratorios[i].numero
- }));
- }
- };*/
+var showLaboratoriosDisponiveis = function () {
+    var modulo = $("#modalModulo").val();
+    var dia = $("#modalDiaSemana").val();
+    $.ajax({
+        url: '/SiGLa/JsonController?acao=laboratorios&modulo=' + modulo.replace(/[^0-9\.]/g, '') + '&dia=' + dia,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var jsonLaboratorios = JSON.parse(e.responseText);
+
+            for (i = 0; i < jsonLaboratorios.length + 1; i++) {
+                $("#modalLabCombo").append($('<option>', {
+                    value: jsonLaboratorios[i].id,
+                    text: jsonLaboratorios[i].numero
+                }));
+            }
+        }
+    });
+};
 
 var aprovarReserva = function () {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
@@ -115,7 +112,7 @@ var aprovarReserva = function () {
 };
 
 var reprovarReserva = function () {
-    window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + id + "&acao=SolicitacaoRemocao";
+    window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
 };
 
 var accessControl = function (role) {
