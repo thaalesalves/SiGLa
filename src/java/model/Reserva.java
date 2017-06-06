@@ -30,7 +30,6 @@ public class Reserva {
     private int qtdAlunos;
     private String tipo;
     private String diaDaSemana;
-    private String modulo;
     private String turma;
     private String dataDeInicio;
     private String dataDeTermino;
@@ -39,10 +38,19 @@ public class Reserva {
     private Laboratorio lab = new Laboratorio();
     private Software software = new Software();
     private Curso curso = new Curso();
+    private ArrayList<Modulo> modulos = new ArrayList<Modulo>();
     private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
+    public ArrayList<Modulo> getModulos() {
+        return modulos;
+    }
+    
+    public void setModulos(ArrayList<Modulo> modulos) {
+        this.modulos = modulos;
+    }
+    
     public int getQtdAlunos() {
         return qtdAlunos;
     }
@@ -99,20 +107,12 @@ public class Reserva {
         return observacao;
     }
 
-    public void setModulo(String modulo) {
-        this.modulo = modulo;
-    }
-
     public void setDataDeInicio(String dataDeInicio) {
         this.dataDeInicio = dataDeInicio;
     }
 
     public void setDataDeTermino(String dataDeTermino) {
         this.dataDeTermino = dataDeTermino;
-    }
-
-    public String getModulo() {
-        return modulo;
     }
 
     public String getDataDeInicio() {

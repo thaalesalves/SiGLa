@@ -28,6 +28,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Modulo;
 import model.Software;
 import util.Logger;
 
@@ -53,9 +54,14 @@ public class SolicitacaoAprovacaoMail extends Mail {
     @Override
     public String getMessage(Mail mail) {    
         String softwares = "";
+        String modulos = "";
         
         for (Software s : mail.getReserva().getSoftwares()) {
             softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
+        }
+        
+        for (Modulo m : mail.getReserva().getModulos()) {
+            modulos = modulos + ", " + m.getId() + "º módulo";
         }
         
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
@@ -65,8 +71,8 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "Turma: " + mail.getReserva().getTurma() + " de " + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "\n"
                 + "Dia da semana: " + mail.getReserva().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getReserva().getQtdAlunos() + "\n"
-                + "Módulo: " + mail.getReserva().getModulo() + "\n"
-                + "Software: " + softwares.substring(1) + "\n"
+                + "Módulos: " + modulos.substring(1) + "\n"
+                + "Softwares: " + softwares.substring(1) + "\n"
                 + "Observação: " + mail.getReserva().getObservacao() + "\n"
                 + "Laboratório: " + mail.getReserva().getLab().getNumero();                
     }

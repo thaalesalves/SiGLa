@@ -34,7 +34,7 @@ public class ReservaDAO {
     private final String DELETE = "DELETE FROM reserva WHERE id = ?";
     private final String SELECT_PROF_DIA = "SELECT * FROM reserva WHERE professor = ? AND dia_semana = ?";
     private final String SELECT_ALL_DIA = "SELECT * FROM reserva WHERE dia_semana = ?";
-    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?) RETURNING id";
     
     // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
@@ -52,7 +52,6 @@ public class ReservaDAO {
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
                 r.setObservacao(rs.getString("obs"));                
                 r.getCurso().setId(rs.getInt("curso"));
@@ -61,6 +60,7 @@ public class ReservaDAO {
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAO().selectAux(r));
 
                 ares.add(r);
             }
@@ -90,7 +90,6 @@ public class ReservaDAO {
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
                 r.setObservacao(rs.getString("obs"));                
                 r.getCurso().setId(rs.getInt("curso"));
@@ -99,6 +98,7 @@ public class ReservaDAO {
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAO().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -126,7 +126,6 @@ public class ReservaDAO {
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
                 r.setObservacao(rs.getString("obs"));                
                 r.getCurso().setId(rs.getInt("curso"));
@@ -135,6 +134,7 @@ public class ReservaDAO {
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAO().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -163,7 +163,6 @@ public class ReservaDAO {
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
-                r.setModulo(rs.getString("modulo"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
                 r.setObservacao(rs.getString("obs"));                
                 r.getCurso().setId(rs.getInt("curso"));
@@ -172,6 +171,7 @@ public class ReservaDAO {
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAO().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -237,9 +237,8 @@ public class ReservaDAO {
             pstmt.setInt(3, r.getQtdAlunos());
             pstmt.setString(4, r.getTurma());
             pstmt.setString(5, r.getPessoa().getUsername());
-            pstmt.setString(6, r.getModulo());
-            pstmt.setString(7, r.getDiaDaSemana());
-            pstmt.setString(8, r.getObservacao());
+            pstmt.setString(6, r.getDiaDaSemana());
+            pstmt.setString(7, r.getObservacao());
 
             ResultSet rs = pstmt.executeQuery();
             
@@ -256,6 +255,14 @@ public class ReservaDAO {
                 pstmt.setInt(1, s.getId());
                 pstmt.setInt(2, r.getId());
                 
+                pstmt.executeUpdate();
+            }
+            
+            pstmt = connString.prepareStatement("INSERT INTO modulo_res VALUES(NEXTVAL('seq_modulo_res'), ?, ?)");
+            
+            for (int i = 0; i < r.getModulos().size(); i++) {
+                pstmt.setInt(1, r.getId());
+                pstmt.setInt(2, r.getModulos().get(i).getId());
                 pstmt.executeUpdate();
             }
             

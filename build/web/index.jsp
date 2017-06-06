@@ -137,20 +137,13 @@ Copyright (C) 2016 Thales Alves Pereira
                     <img alt="Erro" src="./login/warning.svg" height="16"> <span></span>
                 </div>
                 <div class="umc-field">
-                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus>
+                    <input type="text" autocomplete="off"  placeholder="<% out.println(System.getProperty("user.name")); %>" name="username" autofocus>
                 </div>
                 <div class="umc-field">
                     <input type="password" placeholder="Senha" name="password">
                 </div>
                 <input type="hidden" name="txtLocal" value="1">
-                <!--<div class="umc-field">
-                        <select name="txtLocal">
-                                <option value="">Selecione a Origem</option>
-                                                                                <option value=""></option>
-                                                                        </select>
-                </div>-->
                 <div class="umc-field">
-                    <!-- <input type="submit" value="Acessar"> -->
                     <button value="Login" name="acao" type="submit">Acessar</button>
                 </div>
             </form>
@@ -158,14 +151,6 @@ Copyright (C) 2016 Thales Alves Pereira
                 <h2>Intranet</h2>
                 <p>O <b>SiGLa</b> é uma área de acesso restrito a professores, coordenadores e funcionários do departamento de TI para solicitação, agendamento, controle e gestão dos <b>laboratórios de informática</b>.</p>
             </div>
-            <!-- Indisponibilidade -->
-            <!--<div class="manutencao">
-                    <img alt="Erro" src="imagens/warning.svg" height="50" />
-                    <p>
-                            Indispon&iacute;vel no momento!<br/>
-                            Previs&atilde;o de retorno &agrave;s 21h30 de hoje
-                    </p>
-            </div>-->
             <div class="text-small copyright"><span>Copyright © 2000 - <% out.println(cal.get(Calendar.YEAR));%> UMC. Todos os direitos reservados. All rights reserved.</span></div>
         </div>
 

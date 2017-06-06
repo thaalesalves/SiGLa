@@ -55,7 +55,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.setPessoa(s.getPessoa());
             r.setCurso(s.getCurso());
             r.setDiaDaSemana(s.getDiaSemana());
-            r.setModulo(s.getModulo());
+            r.setModulos(s.getModulos());
             r.setObservacao(s.getObservacao());
             r.setQtdAlunos(s.getQtdAlunos());
             r.setTurma(s.getTurma());

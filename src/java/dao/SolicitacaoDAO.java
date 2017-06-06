@@ -30,7 +30,7 @@ import util.DatabaseConnection;
 public class SolicitacaoDAO {
 
     private final String INSERT_AUX = "INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), ?, ?)";
-    private final String INSERT_RETURN = "INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+    private final String INSERT_RETURN = "INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?) RETURNING id";
     private final String DELETE = "DELETE FROM solicitacao WHERE id = ?";
     private final String DELETE_AUX = "DELETE FROM sw_soli WHERE res = ?";
     private final String COUNT = "SELECT COUNT(id) FROM solicitacao";
@@ -46,13 +46,13 @@ public class SolicitacaoDAO {
                 s.setQtdAlunos(rs.getInt("qtd_alunos"));
                 s.setTurma(rs.getString("turma"));
                 s.getPessoa().setUsername(rs.getString("professor"));
-                s.setModulo(rs.getString("modulo"));
                 s.setDiaSemana(rs.getString("dia_semana"));
                 s.setObservacao(rs.getString("obs"));                
                 s.getCurso().setId(rs.getInt("curso"));
                 
                 s.setCurso(new CursoDAO().selectId(s.getCurso()));
                 s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
+                s.setModulos(new ModuloDAO().selectAux(s));
             }
 
             conn.close();
@@ -71,9 +71,8 @@ public class SolicitacaoDAO {
             pstmt.setInt(2, s.getQtdAlunos()); // qtd de alunos
             pstmt.setString(3, s.getTurma()); // turma
             pstmt.setString(4, s.getPessoa().getUsername()); // professor
-            pstmt.setString(5, s.getModulo()); // modulo
-            pstmt.setString(6, s.getDiaSemana()); // dia da semana
-            pstmt.setString(7, s.getObservacao()); // observacao
+            pstmt.setString(5, s.getDiaSemana()); // dia da semana
+            pstmt.setString(6, s.getObservacao()); // observacao
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -86,6 +85,14 @@ public class SolicitacaoDAO {
             for (int i = 0; i < s.getSoftwares().size(); i++) {
                 pstmt.setInt(1, s.getSoftwares().get(i).getId());
                 pstmt.setInt(2, s.getId());
+                pstmt.executeUpdate();
+            }
+            
+            pstmt = connString.prepareStatement("INSERT INTO modulo_soli VALUES(NEXTVAL('seq_modulo_soli'), ?, ?)");
+            
+            for (int i = 0; i < s.getModulos().size(); i++) {
+                pstmt.setInt(1, s.getId());
+                pstmt.setInt(2, s.getModulos().get(i).getId());
                 pstmt.executeUpdate();
             }
 
@@ -130,13 +137,13 @@ public class SolicitacaoDAO {
                 s.setQtdAlunos(rs.getInt("qtd_alunos"));
                 s.setTurma(rs.getString("turma"));
                 s.getPessoa().setUsername(rs.getString("professor"));
-                s.setModulo(rs.getString("modulo"));
                 s.setDiaSemana(rs.getString("dia_semana"));
                 s.setObservacao(rs.getString("obs"));
                 s.getCurso().setId(rs.getInt("curso"));
                 
                 s.setCurso(new CursoDAO().selectId(s.getCurso()));
                 s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
+                s.setModulos(new ModuloDAO().selectAux(s));
                 
                 arrayRes.add(s);
             }
@@ -152,15 +159,15 @@ public class SolicitacaoDAO {
     public void deleteSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement(DELETE_AUX);
-
             pstmt.setInt(1, s.getId());
-
             pstmt.executeUpdate();
 
-            pstmt = connString.prepareStatement(DELETE);
-
+            pstmt = connString.prepareStatement("DELETE FROM modulo_soli WHERE res = ?");            
             pstmt.setInt(1, s.getId());
-
+            pstmt.executeUpdate();
+            
+            pstmt = connString.prepareStatement(DELETE);
+            pstmt.setInt(1, s.getId());
             pstmt.executeUpdate();
 
             connString.close();

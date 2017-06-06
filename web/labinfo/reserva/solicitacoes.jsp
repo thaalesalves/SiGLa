@@ -1,3 +1,4 @@
+<%@page import="model.Modulo"%>
 <%@page import="model.Software"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
@@ -115,16 +116,19 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <tr class="gradeC">
                                         <td class="center"><% out.println(r.getId()); %></td>
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
-                                        <td class="center"><% out.println(r.getModulo()); %></td>
+                                        <td class="center"><%
+                                            for (Modulo m : r.getModulos()) {
+                                                out.println(m.getId() + "º módulo</br>");
+                                            }
+                                            %>
+                                        </td>
                                         <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center">
                                             <%
                                                 for (Software s : r.getSoftwares()) {
+                                                    out.println(s.getFabricante() + " " + s.getNome() + "<br/>");
+                                                } 
                                             %>
-
-                                            <% out.println(s.getFabricante() + " " + s.getNome()); %><br>
-
-                                            <% } %>
                                         </td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
                                         <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(r.getId()); %>)"></button></center></td>
@@ -203,7 +207,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         </div>
                                     </td>
                                     <td>
-                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalModulo" name="modalModulo" id="modalModulo" placeholder="Módulo" />
+                                        <textarea style="width: 80%;" disabled class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo"></textarea>
                                     </td>
                                 </tr>
                                 <tr>

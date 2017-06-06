@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
 import mailsender.SolicitacaoMail;
+import model.Modulo;
 import model.Pessoa;
 import model.Software;
 import model.Solicitacao;
@@ -54,6 +55,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             SoftwareDAO sdao = new SoftwareDAO();
             SolicitacaoDAO dao = new SolicitacaoDAO();
             Solicitacao s = new Solicitacao();
+            String[] modulos = request.getParameterValues("modulo");
             String[] softwares = request.getParameterValues("softwares");
             s.getPessoa().setUsername(request.getParameter("email").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " "));
 
@@ -77,6 +79,12 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setSoftwares(sdao.selectSoftwareAux(s));
             s.setCurso(cdao.selectId(s.getCurso()));
 
+            for (String i : modulos) {
+                Modulo m = new Modulo();
+                m.setId(Integer.parseInt(i.trim()));
+                s.getModulos().add(m);
+            }
+            
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i.trim()));
@@ -98,13 +106,15 @@ public class SolicitacaoInsercaoAction implements ICommand {
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);
             mail.sendMail(mail);
+            
+            System.out.println(s.getModulos());
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao efetivar a solicitação.");
             session.setAttribute("status", "error");
 
             return request.getContextPath() + "/reserva/novo";
-        }
+        }  
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");
         session.setAttribute("status", "success");
 

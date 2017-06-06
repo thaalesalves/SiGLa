@@ -28,17 +28,17 @@ public class Solicitacao {
     private String turma;
     private String observacao;
     private String modulo;
-    private ArrayList<String> modulos = new ArrayList<String>();
+    private ArrayList<Modulo> modulos = new ArrayList<Modulo>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private Pessoa pessoa = new Pessoa();
     private Curso curso = new Curso();
     
     
-    public void setModulos(ArrayList<String> modulos) {
+    public void setModulos(ArrayList<Modulo> modulos) {
         this.modulos = modulos;
     }
     
-    public ArrayList<String> getModulos() {
+    public ArrayList<Modulo> getModulos() {
         return modulos;
     }
     

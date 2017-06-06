@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import model.Counter;
 import model.Curso;
 import model.Laboratorio;
+import model.Modulo;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
@@ -84,7 +85,15 @@ public class JsonController extends HttpServlet {
                 LaboratorioDAO ldao = new LaboratorioDAO();
                 ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
                 
-                r.setModulo(request.getParameter("modulo"));
+                String[] modulos = request.getParameterValues("modulo");
+                
+                for (String i : modulos) {
+                    Modulo mod = new Modulo();
+                    mod.setId(Integer.parseInt(i));
+                    
+                    r.getModulos().add(mod);
+                }
+                
                 r.setDiaDaSemana(request.getParameter("dia"));
                 
                 al = ldao.selectAvailableLabs(r);

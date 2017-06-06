@@ -26,6 +26,7 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import model.Modulo;
 import model.Software;
 import util.Logger;
 
@@ -51,9 +52,14 @@ public class SolicitacaoMail extends Mail {
     @Override
     public String getMessage(Mail mail) {
         String softwares = "";
+        String modulos = "";
         
         for (Software s : mail.getSolicitacao().getSoftwares()) {
             softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
+        }
+        
+        for (Modulo m : mail.getSolicitacao().getModulos()) {
+            modulos = modulos + ", " + m.getId() + "º módulo";
         }
         
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
@@ -63,8 +69,8 @@ public class SolicitacaoMail extends Mail {
                 + "Turma: " + mail.getSolicitacao().getTurma() + " de " + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "\n"
                 + "Dia da semana: " + mail.getSolicitacao().getDiaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getSolicitacao().getQtdAlunos() + "\n"
-                + "Módulo: " + mail.getSolicitacao().getModulo() + "\n"
-                + "Software: " + softwares.substring(1) + "\n"
+                + "Módulos: " + modulos.substring(1) + "\n"
+                + "Softwares: " + softwares.substring(1) + "\n"
                 + "Observação: " + mail.getSolicitacao().getObservacao();
     }
 }

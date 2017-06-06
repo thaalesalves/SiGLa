@@ -44,7 +44,6 @@ CREATE TABLE reserva (
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
-    modulo VARCHAR NOT NULL,
     dia_semana VARCHAR NOT NULL,
     obs VARCHAR
 );
@@ -55,9 +54,12 @@ CREATE TABLE solicitacao (
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
-    modulo VARCHAR NOT NULL,
     dia_semana VARCHAR NOT NULL,
     obs VARCHAR
+);
+
+CREATE TABLE modulo (
+    id INT PRIMARY KEY
 );
 
 CREATE TABLE sw_res (
@@ -72,6 +74,18 @@ CREATE TABLE sw_soli (
     res INT REFERENCES solicitacao(id)
 );
 
+CREATE TABLE modulo_res (
+    id INT PRIMARY KEY,
+    res INT REFERENCES reserva(id),
+    modulo INT REFERENCES modulo(id)
+);
+
+CREATE TABLE modulo_soli (
+    id INT PRIMARY KEY,
+    res INT REFERENCES solicitacao(id),
+    modulo INT REFERENCES modulo(id)
+);
+
 -- Criação das Sequences
 CREATE SEQUENCE seq_sw_res;
 CREATE SEQUENCE seq_sw_soli;
@@ -82,6 +96,8 @@ CREATE SEQUENCE seq_software;
 CREATE SEQUENCE seq_turma;
 CREATE SEQUENCE seq_grupo;
 CREATE SEQUENCE seq_soli;
+CREATE SEQUENCE seq_modulo_res;
+CREATE SEQUENCE seq_modulo_soli;
 	
 -- Definições de propriedade
 ALTER TABLE curso OWNER TO sigla;
@@ -96,6 +112,14 @@ ALTER TABLE seq_turma OWNER TO sigla;
 ALTER TABLE software OWNER TO sigla;
 
 -- Inserção de Valores
+INSERT INTO modulo VALUES(1);
+INSERT INTO modulo VALUES(2);
+INSERT INTO modulo VALUES(3);
+INSERT INTO modulo VALUES(4);
+INSERT INTO modulo VALUES(5);
+INSERT INTO modulo VALUES(6);
+INSERT INTO modulo VALUES(7);
+INSERT INTO modulo VALUES(8);
 INSERT INTO curso VALUES(NEXTVAL('seq_curso'), 'Engenharia Civil', 'Bacharel');
 INSERT INTO curso VALUES(NEXTVAL('seq_curso'), 'Recursos Humanos', 'Bacharel');
 INSERT INTO curso VALUES(NEXTVAL('seq_curso'), 'Jornalismo', 'Bacharel');

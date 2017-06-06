@@ -21,11 +21,11 @@ package model;
 
 public class Pessoa {
 
+    private String shownName;
     private String personalEmail;
     private String username;
     private String nome;
-    private String nomeCompleto;
-    private String shownName;
+    private String nomeCompleto;    
     private String email;
     private String cargo;
     private String role;

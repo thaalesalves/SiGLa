@@ -1,3 +1,4 @@
+<%@page import="model.Modulo"%>
 <%@page import="model.Software"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
@@ -83,11 +84,12 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <tr>
                                         <th>#</th>
                                         <th>Professor</th>
+                                        <th>Módulos</th>
                                         <th>Turma</th>
                                         <th>Laboratório</th>
                                         <th>Softwares</th>
-                                        <th>Dia da Semana</th>                                        
-                                        <th style="width: 3%;">Opções</th>
+                                        <th>Observação</th>
+                                        <th style="width: 5%;">Opções</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +99,12 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <tr class="gradeC">
                                         <td class='center'><% out.println(r.getId()); %></td>
                                         <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
+                                        <td class="center"><%
+                                            for (Modulo m : r.getModulos()) {
+                                                out.println(m.getId() + "º módulo</br>");
+                                            }
+                                            %>
+                                        </td>
                                         <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(r.getLab().getNumero()); %></td>
                                         <td class="center">
@@ -108,7 +116,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
                                             <% } %>
                                         </td>
-                                        <td class="center"><% out.println(r.getDiaDaSemana()); %></td>                                        
+                                        <td class="center"><% out.println(r.getObservacao()); %></td>                                        
                                         <td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
                                     </tr>
                                     <% } %>

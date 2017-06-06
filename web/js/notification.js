@@ -68,19 +68,25 @@ var showSolicitacaoModal = function (item) {
         dataType: 'JSON',
         complete: function (e) {
             var jsonSolicitacao = JSON.parse(e.responseText);
+            
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
             $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
             $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
-            $("#modalModulo").val(jsonSolicitacao.modulo);
+            
+            for (i = 0; i < jsonSolicitacao.modulos.length + 1; i++) {
+                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
+                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
+                $("#modalModulo").val($("#modalModulo").val() + modulo);
+            };
 
             for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
-            }
+            };
         }
     });
 };
@@ -94,6 +100,11 @@ var showLaboratoriosDisponiveis = function () {
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
+            $("#modalLabCombo").empty();
+            $("#modalLabCombo").append($('<option>', {
+                text: 'Selecione um Laboratório'
+            }));
+
             var jsonLaboratorios = JSON.parse(e.responseText);
 
             for (i = 0; i < jsonLaboratorios.length + 1; i++) {
