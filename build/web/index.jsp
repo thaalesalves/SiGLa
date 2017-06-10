@@ -137,7 +137,7 @@ Copyright (C) 2016 Thales Alves Pereira
                     <img alt="Erro" src="./login/warning.svg" height="16"> <span></span>
                 </div>
                 <div class="umc-field">
-                    <input type="text" autocomplete="off"  placeholder="<% out.println(System.getProperty("user.name")); %>" name="username" autofocus>
+                    <input type="text" autocomplete="off"  placeholder="Usuário" name="username" autofocus>
                 </div>
                 <div class="umc-field">
                     <input type="password" placeholder="Senha" name="password">
