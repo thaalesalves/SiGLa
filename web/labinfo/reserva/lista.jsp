@@ -87,6 +87,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <th>Módulos</th>
                                         <th>Turma</th>
                                         <th>Laboratório</th>
+                                        <th>Dia da Semana</th>
                                         <th>Softwares</th>
                                         <th>Observação</th>
                                         <th style="width: 5%;">Opções</th>
@@ -107,6 +108,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         </td>
                                         <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
                                         <td class="center"><% out.println(r.getLab().getNumero()); %></td>
+                                        <td class="center"><% out.println(r.getDiaDaSemana()); %></td>
                                         <td class="center">
                                             <%
                                                 for (Software s : r.getSoftwares()) {

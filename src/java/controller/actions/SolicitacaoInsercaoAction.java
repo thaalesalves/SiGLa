@@ -105,9 +105,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);
-            mail.sendMail(mail);
-            
-            System.out.println(s.getModulos());
+            //mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao efetivar a solicitação.");

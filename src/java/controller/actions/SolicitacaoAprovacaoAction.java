@@ -65,7 +65,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             sdao.deleteSolicitacao(s);
             mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mail.setReserva(r);
-            mail.sendMail(mail);
+            //mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
 
