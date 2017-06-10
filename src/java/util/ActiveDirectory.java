@@ -20,6 +20,7 @@
 package util;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -84,6 +85,13 @@ public class ActiveDirectory {
         return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>    
 
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser().">
+    public NamingEnumeration<SearchResult> searchUser() throws NamingException { // busca de usuário
+        String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br))"; // Query LDAP de busca de pessoas
+        /* COLOCAR NO LDAP FILTRO DE GRUPO DE PROFESSOR */
+        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
+    } // </editor-fold>    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
     public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
         String filter = "";
@@ -142,6 +150,44 @@ public class ActiveDirectory {
         }
 
         return cn.trim(); // retorna o nome completo
+    } // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getData().">
+    public ArrayList<Pessoa> getData() throws NamingException { // returna nome completo
+        ArrayList<Pessoa> ps = new ArrayList<Pessoa>();
+
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser();
+            while (result.hasMoreElements()) {
+                Pessoa p = new Pessoa();
+                String cn = "";
+                String sAMAccountName = "";
+                String givenName = "";
+
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+
+                cn = attrs.get("cn").toString();
+                cn = cn.substring(cn.indexOf(":") + 1);
+                p.setNomeCompleto(cn);
+
+                sAMAccountName = attrs.get("sAMAccountName").toString();
+                sAMAccountName = sAMAccountName.substring(cn.indexOf(":") + 1);
+                sAMAccountName = sAMAccountName.replace("sAMAccountName:", "").trim();
+                p.setUsername(sAMAccountName);
+                p.setEmail(sAMAccountName + "@umc.br");
+
+                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
+
+                ps.add(p);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        System.out.print("Nomes puxados: " + ps.size());
+        
+        return ps;
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getCN(Reserva).">

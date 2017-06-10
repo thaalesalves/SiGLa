@@ -16,13 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ActiveDirectory;
+package JNA;
+
+import com.sun.jna.platform.win32.Advapi32Util;
 
 /**
  *
  * @author thalespereira
  */
-public class Teste {
+public class App {
     public static void main(String[] args) {
+        for (Advapi32Util.Account account : Advapi32Util.getCurrentUserGroups()) {
+                System.out.println(account.fqn);
+            }
     }
 }

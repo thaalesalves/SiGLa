@@ -68,25 +68,27 @@ var showSolicitacaoModal = function (item) {
         dataType: 'JSON',
         complete: function (e) {
             var jsonSolicitacao = JSON.parse(e.responseText);
-            
+
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
             $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
             $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
-            
+
             for (i = 0; i < jsonSolicitacao.modulos.length + 1; i++) {
                 var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
                 modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
                 $("#modalModulo").val($("#modalModulo").val() + modulo);
-            };
+            }
+            ;
 
             for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
-            };
+            }
+            ;
         }
     });
 };
@@ -138,7 +140,7 @@ var accessControl = function (role) {
         $('#item-novo-software').show();
         $('#item-novo-lab').show();
         $('#item-solicitacoes').show();
-        $('#form-soli').show();
+        $('#form-soli-func').show();
         $('#counters').show();
     }
 };
@@ -168,3 +170,52 @@ setInterval(function () {
     });
 }, 10000);
 
+var availableLabs = function (dia, modulo) {
+    console.log("FORA: " + modulo);
+    console.log("FORA: " + dia);
+    $.ajax({
+        url: '/SiGLa/JsonController?acao=laboratorios&modulo=' + modulo + '&dia=' + dia,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            console.log("DENTRO: " + modulo);
+            console.log("DENTRO: " + dia);
+            $("#laboratorio").empty();
+            $("#laboratorio").append($('<option>', {
+                text: 'Selecione um Laboratório'
+            }));
+
+            var jsonLaboratorios = JSON.parse(e.responseText);
+
+            for (i = 0; i < jsonLaboratorios.length + 1; i++) {
+                var labid = jsonLaboratorios[i].id;
+                var labnum = jsonLaboratorios[i].numero;
+
+                console.log("LAB ID: " + labid);
+                console.log("LAB:" + labnum);
+
+                $("#laboratorio").append($('<option>', {
+                    value: labid,
+                    text: labnum
+                }));
+            }
+        }
+    });
+};
+
+$(document).ready(function () {
+    $("#modulo").change(function () {
+        var modulo = $("#modulo").val();
+        var diaSemana = $("#dia-semana").val();
+        console.log("MÓDULO ALTERADO: " + modulo);
+        availableLabs(diaSemana, modulo);
+    });
+
+    $("#dia-semana").change(function () {
+        var modulo = $("#modulo").val();
+        var diaSemana = $("#dia-semana").val();
+        console.log("DIA ALTERADO: " + diaSemana);
+        availableLabs(diaSemana, modulo);
+    });
+});

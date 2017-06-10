@@ -53,6 +53,9 @@ public class LoginAction implements ICommand {
             FileOutputStream pic = new FileOutputStream(new File(path));
 
             if (ad.login(p)) { // faz o login
+                ArrayList<Pessoa> ps = ad.getData();
+                session.setAttribute("todos-usuarios", ps);
+                
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
 
