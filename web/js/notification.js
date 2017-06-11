@@ -93,6 +93,42 @@ var showSolicitacaoModal = function (item) {
     });
 };
 
+var showReservaModal = function (item) {
+    id = item;
+    $.ajax({
+        url: '/SiGLa/JsonController?acao=reserva&id=' + item,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var jsonSolicitacao = JSON.parse(e.responseText);
+
+            $("#reserva-modal-titulo").html("Reserva nº" + jsonSolicitacao.id);
+            $("#modalIdSolicitacao").val(jsonSolicitacao.id);
+            $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
+            $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
+            $("#modalDiaSemana").val(jsonSolicitacao.diaDaSemana);
+            $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
+            $("#modalObservacao").val(jsonSolicitacao.observacao);
+            $("#modalLaboratorio").val(jsonSolicitacao.lab.numero);
+
+            for (i = 0; i < jsonSolicitacao.modulos.length + 1; i++) {
+                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
+                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
+                $("#modalModulo").val($("#modalModulo").val() + modulo);
+            }
+            ;
+
+            for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
+                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
+                software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
+                $("#modalSoftware").val($("#modalSoftware").val() + software);
+            }
+            ;
+        }
+    });
+};
+
 var showLaboratoriosDisponiveis = function () {
     var modulo = $("#modalModulo").val();
     var dia = $("#modalDiaSemana").val();
@@ -126,6 +162,10 @@ var aprovarReserva = function () {
 
 var reprovarReserva = function () {
     window.location.href = "http://localhost:8084/SiGLa/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
+};
+
+var removerReserva = function () {
+    window.location.href = "http://localhost:8084/SiGLa/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
 };
 
 var accessControl = function (role) {

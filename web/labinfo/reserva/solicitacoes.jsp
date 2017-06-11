@@ -127,7 +127,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <%
                                                 for (Software s : r.getSoftwares()) {
                                                     out.println(s.getFabricante() + " " + s.getNome() + "<br/>");
-                                                } 
+                                                }
                                             %>
                                         </td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>
@@ -146,6 +146,7 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="control-sidebar-bg"></div>
         </div>
 
+        <!-- ========== JANELA MODAL ========== -->
         <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -154,14 +155,14 @@ Copyright (C) 2016 Thales Alves Pereira
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h5 class="modal-title" id="exampleModalLabel">Solicitação</h5>                                                        
+                            <h5 class="modal-title" id="solicitacao-modal-titulo">Solicitação</h5>                                                        
                         </div>     
                         <div class="modal-body">
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td>
                                         <div class="form-group">
-                                            <label>Solicitação</label>
+                                            <label>Solicitação nº</label>
                                         </div>
                                     </td>
                                     <td style="width:100%;">

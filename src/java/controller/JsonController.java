@@ -67,7 +67,20 @@ public class JsonController extends HttpServlet {
             HttpSession session = request.getSession();
             String acao = request.getParameter("acao");
 
-            if (acao.equals("solicitacao")) {
+            if (acao.equals("reserva")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+                ReservaDAO sdao = new ReservaDAO();
+                Reserva s = new Reserva();
+
+                s.setId(Integer.parseInt(request.getParameter("id")));
+                s = sdao.selectReservaId(s);
+
+                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+
+                out.println(util.Json.toCuteJson(s));
+            } else if (acao.equals("solicitacao")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
                 SolicitacaoDAO sdao = new SolicitacaoDAO();
                 Solicitacao s = new Solicitacao();

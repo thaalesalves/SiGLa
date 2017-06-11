@@ -119,7 +119,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <% } %>
                                         </td>
                                         <td class="center"><% out.println(r.getObservacao()); %></td>                                        
-                                        <td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                        <%--<td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>--%>
+                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showReservaModal(<% out.println(r.getId()); %>)"></button></center></td>
                                     </tr>
                                     <% } %>
                                 </tbody>
@@ -133,6 +134,123 @@ Copyright (C) 2016 Thales Alves Pereira
             </footer>
             <div class="control-sidebar-bg"></div>
         </div>
+            
+            <!-- ========= JANELA MODAL ========== -->
+            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title" id="reserva-modal-titulo">Reserva</h5>                                                        
+                        </div>     
+                        <div class="modal-body">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label>Reserva nº</label>
+                                        </div>
+                                    </td>
+                                    <td style="width:100%;">
+                                        <div class="form-group">
+                                            <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="modalIdSolicitacao" id="modalIdSolicitacao" placeholder="Número da Solicitação" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Professor</label>                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" /
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Turma</label>                                            
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalCurso" id="modalCurso" placeholder="Nome do Curso" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Software</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <textarea style="width: 80%;" disabled class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Módulo</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <textarea style="width: 80%;" disabled class='form-control pull-right' name="modalModulo" id="modalModulo" placeholder="Módulo"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Dia da Semana</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' id="modalDiaSemana" name="modalDiaSemana" id="modalDiaSemana" placeholder="Dia da Semana" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Qtd. de Alunos</label>
+                                        </div>   
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="modalQtdAlunos" id="modalQtdAlunos" placeholder="Quantidade de Alunos" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label>Laboratório</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="modalLaboratorio" id="modalLaboratorio" placeholder="Laboratório" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class='form-group'>
+                                            <label>Observações</label>
+                                        </div>   
+                                    </td>
+                                    <td>
+                                        <input style="width: 80%;" disabled type='textarea' class='form-control pull-right' nome="modalObservacao" id="modalObservacao" placeholder="Observações" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>                        
+                        <div id="modal-footer" class="modal-footer">
+                            <button id="btnModalSalvar" type="button" class="btn btn-success" onclick="updateReserva()">Salvar</button>
+                            <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="removerReserva()">Excluir</button><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </form>
+                                    
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>

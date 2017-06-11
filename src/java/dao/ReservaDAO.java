@@ -184,6 +184,36 @@ public class ReservaDAO {
         return arrayRes;
     } //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaId(Reserva)">
+    public Reserva selectReservaId(Reserva r) throws SQLException, ClassNotFoundException, NullPointerException {
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM reserva WHERE id = ?");            
+            pstmt.setInt(1, r.getId());            
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                r.setQtdAlunos(rs.getInt("qtd_alunos"));
+                r.setTurma(rs.getString("turma"));
+                r.getPessoa().setUsername(rs.getString("professor"));
+                r.setDiaDaSemana(rs.getString("dia_semana"));
+                r.setObservacao(rs.getString("obs"));                
+                r.getCurso().setId(rs.getInt("curso"));
+                r.getLab().setId(rs.getInt("laboratorio"));
+                
+                r.setCurso(new CursoDAO().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAO().selectAux(r));
+            }
+            
+            conn.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, e.getClass());
+        }
+        
+        return r;
+    }// </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdReservasDia()">
     public int qtdReservasDia() throws SQLException, ClassNotFoundException {
         int qtd = 0;
@@ -277,10 +307,16 @@ public class ReservaDAO {
     // <editor-fold defaultstate="collapsed" desc="Método próprio: delete(Reserva)">
     public void delete(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(DELETE);
-
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM sw_res WHERE res = ?");
             pstmt.setInt(1, r.getId());
-
+            pstmt.executeUpdate();
+            
+            pstmt = connString.prepareStatement("DELETE FROM modulo_res WHERE res = ?");
+            pstmt.setInt(1, r.getId());
+            pstmt.executeUpdate();
+            
+            pstmt = connString.prepareStatement(DELETE);
+            pstmt.setInt(1, r.getId());
             pstmt.executeUpdate();
 
             connString.close();
