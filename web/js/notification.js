@@ -132,7 +132,7 @@ var accessControl = function (role) {
     if (role == "professor") {
         $('#form-soli-fixo').show();
     } else if (role == "coordenador") {
-        $('#form-soli').show();
+        $('#form-soli-coord').show();
     } else {
         $('#soli-menu').show();
         $('#notif-menu').show();
@@ -171,16 +171,12 @@ setInterval(function () {
 }, 10000);
 
 var availableLabs = function (dia, modulo) {
-    console.log("FORA: " + modulo);
-    console.log("FORA: " + dia);
     $.ajax({
         url: '/SiGLa/JsonController?acao=laboratorios&modulo=' + modulo + '&dia=' + dia,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
-            console.log("DENTRO: " + modulo);
-            console.log("DENTRO: " + dia);
             $("#laboratorio").empty();
             $("#laboratorio").append($('<option>', {
                 text: 'Selecione um Laboratório'
@@ -191,9 +187,6 @@ var availableLabs = function (dia, modulo) {
             for (i = 0; i < jsonLaboratorios.length + 1; i++) {
                 var labid = jsonLaboratorios[i].id;
                 var labnum = jsonLaboratorios[i].numero;
-
-                console.log("LAB ID: " + labid);
-                console.log("LAB:" + labnum);
 
                 $("#laboratorio").append($('<option>', {
                     value: labid,
@@ -208,14 +201,24 @@ $(document).ready(function () {
     $("#modulo").change(function () {
         var modulo = $("#modulo").val();
         var diaSemana = $("#dia-semana").val();
-        console.log("MÓDULO ALTERADO: " + modulo);
-        availableLabs(diaSemana, modulo);
+
+        if (modulo !== null && diaSemana !== null) {
+            availableLabs(diaSemana, modulo);
+        } else {
+            $("#laboratorio").attr("placeholder",
+                    "Nenhum resultado");
+        }
     });
 
     $("#dia-semana").change(function () {
         var modulo = $("#modulo").val();
         var diaSemana = $("#dia-semana").val();
-        console.log("DIA ALTERADO: " + diaSemana);
-        availableLabs(diaSemana, modulo);
+
+        if (modulo !== null && diaSemana !== null) {
+            availableLabs(diaSemana, modulo);
+        } else {
+            $("#laboratorio").attr("placeholder",
+                    "Nenhum resultado");
+        }
     });
 });

@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.util.Arrays;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +38,7 @@ import model.Software;
 import model.Solicitacao;
 import util.ActiveDirectory;
 
-public class SolicitacaoInsercaoAction implements ICommand {
+public class SolicitacaoInsercaoProfessorAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -57,20 +56,9 @@ public class SolicitacaoInsercaoAction implements ICommand {
             Solicitacao s = new Solicitacao();
             String[] modulos = request.getParameterValues("modulo");
             String[] softwares = request.getParameterValues("softwares");
-            s.getPessoa().setUsername(request.getParameter("email").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " "));
-
-            if (ad.isUser(s.getPessoa())) {                
-                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
-                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");                
-            } else {
-                session.setAttribute("msg", "Erro ao efetivar a solicitação. O nome de usuário informado não existe.");
-                session.setAttribute("status", "error");
-
-                return request.getContextPath() + "/reserva/novo";
-            }
-
+            
+            Pessoa p = (Pessoa) session.getAttribute("pessoa");
+            s.setPessoa(p);
             s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
@@ -78,13 +66,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
             s.setModulo(request.getParameter("modulo").trim());
             s.setSoftwares(sdao.selectSoftwareAux(s));
             s.setCurso(cdao.selectId(s.getCurso()));
-
+            
             for (String i : modulos) {
                 Modulo m = new Modulo();
                 m.setId(Integer.parseInt(i.trim()));
                 s.getModulos().add(m);
             }
-            
+
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i.trim()));
@@ -112,7 +100,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             session.setAttribute("status", "error");
 
             return request.getContextPath() + "/reserva/novo";
-        }  
+        }
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");
         session.setAttribute("status", "success");
 

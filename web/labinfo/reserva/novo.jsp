@@ -153,7 +153,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input name="qtd" min="0" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
@@ -198,11 +198,11 @@ Copyright (C) 2016 Thales Alves Pereira
                                     </select>
                                 </div>
                                 <div class="box-footer">
-                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="SolicitacaoInsercaoFuncionario" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
-                        <div id="form-soli" class="box-body" style="display: none;">
+                        <div id="form-soli-coord" class="box-body" style="display: none;">
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post" onsubmit="secureInjection()">
                                 <div class='form-group'>
                                     <label>Nome de Usuário</label>
@@ -228,7 +228,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input min="0" name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
@@ -267,7 +267,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <textarea id="obs" name="obs" class="form-control"></textarea>
                                 </div>
                                 <div class="box-footer">
-                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="SolicitacaoInsercaoCoordenador" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -276,10 +276,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <div class='form-group'>
                                     <label>Nome</label>
                                     <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getNomeCompleto()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Email</label>
-                                    <input disabled type='text' class='form-control pull-right' name='email' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getEmail()); %>" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>
@@ -296,19 +292,19 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input min="0" name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
                                     <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
-                                        <option value="1º módulo">1º Módulo (8h às 9h30)</option>
-                                        <option value="2º módulo">2º Módulo (9h40 às 11h10)</option>
-                                        <option value="3º módulo">3º Módulo (11h10 às 12h40)</option>
-                                        <option value="4º módulo">4º Módulo (13h às 14h30)</option>
-                                        <option value="5º módulo">5º Módulo (14h30 às 17h30)</option>
-                                        <option value="6º módulo">6º Módulo (17h30 às 19h)</option>
-                                        <option value="7º módulo">7º Módulo (19h às 20h30)</option>
-                                        <option value="8º módulo">8º Módulo (20h40 às 22h)</option>
+                                        <option value="1">1º Módulo (8h às 9h30)</option>
+                                        <option value="2">2º Módulo (9h40 às 11h10)</option>
+                                        <option value="3">3º Módulo (11h10 às 12h40)</option>
+                                        <option value="4">4º Módulo (13h às 14h30)</option>
+                                        <option value="5">5º Módulo (14h30 às 17h30)</option>
+                                        <option value="6">6º Módulo (17h30 às 19h)</option>
+                                        <option value="7">7º Módulo (19h às 20h30)</option>
+                                        <option value="8">8º Módulo (20h40 às 22h)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -335,7 +331,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <textarea id="obs" name="obs" class="form-control"></textarea>
                                 </div>                                
                                 <div class="box-footer">
-                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="SolicitacaoInsercaoProfessor" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
