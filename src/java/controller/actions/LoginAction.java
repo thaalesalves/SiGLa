@@ -46,16 +46,13 @@ public class LoginAction implements ICommand {
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
 
-            p.setUsername(request.getParameter("username")); // passa o atributo de usuário
+            p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
 
             String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
             FileOutputStream pic = new FileOutputStream(new File(path));
 
             if (ad.login(p)) { // faz o login
-                ArrayList<Pessoa> ps = ad.getData();
-                session.setAttribute("todos-usuarios", ps);
-                
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
 
@@ -82,6 +79,9 @@ public class LoginAction implements ICommand {
                         acesso = true;
                     }
                 }
+
+                ArrayList<Pessoa> ps = ad.getData();
+                session.setAttribute("todos-usuarios", ps);
 
                 if (acesso) {
                     session.setAttribute("ad", ad); // salva dados do AD na sessão
