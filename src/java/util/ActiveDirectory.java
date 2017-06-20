@@ -19,6 +19,7 @@
  */
 package util;
 
+import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -38,7 +39,7 @@ import model.Reserva;
 public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
-    private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
+    private final String[] returnAttributes = {"mail", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
     private Properties properties;
     private DirContext dirContext;
     private SearchControls searchCtls;
@@ -162,7 +163,6 @@ public class ActiveDirectory {
                 Pessoa p = new Pessoa();
                 String cn = "";
                 String sAMAccountName = "";
-                String givenName = "";
 
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -184,7 +184,7 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        
+
         return ps;
     } // </editor-fold>
 
@@ -302,11 +302,11 @@ public class ActiveDirectory {
             if (result.hasMoreElements()) { // caso algo seja retornado
                 SearchResult sr = (SearchResult) result.next(); //entra na tupla
                 Attributes attrs = sr.getAttributes(); // define atributos
-                pic = (byte[]) attrs.get("jpegPhoto ").get();
+                pic = (byte[]) attrs.get("thumbnailPhoto").get();
             }
         } catch (Exception e) {
             Logger.logWarning(e, this.getClass());
         }
         return pic;
-    } // </editor-fold>    
+    } // </editor-fold>  
 }

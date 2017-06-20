@@ -47,20 +47,28 @@ public class LoginAction implements ICommand {
             Pessoa p = new Pessoa();
 
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
-            p.setSenha(request.getParameter("password")); // passa o atributo de senha
-
-            String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
-            FileOutputStream pic = new FileOutputStream(new File(path));
+            p.setSenha(request.getParameter("password")); // passa o atributo de senha           
 
             if (ad.login(p)) { // faz o login
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
+                ArrayList<Pessoa> ps = ad.getData();
+                session.setAttribute("todos-usuarios", ps);
 
                 p.setNome(ad.getGivenName(p)); // passa o atributo de nome
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo                
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
-                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email   
+                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email 
+                /*p.setPicture(ad.getPicture(p));
+                
+                try {
+                    FileOutputStream path = new FileOutputStream(new File("C:/img/users/" + p.getUsername() + "_pic.jpg"));
+                    path.write(p.getPicture());
+                    path.close();
+                } catch (Exception e) {
+                    util.Logger.logSevere(e, e.getClass());
+                }*/
 
                 if (p.getNomeCompleto().equals("Ricardo Morales Miranda")) {
                     p.setShownName("Ricardo Morales");
@@ -79,9 +87,6 @@ public class LoginAction implements ICommand {
                         acesso = true;
                     }
                 }
-
-                ArrayList<Pessoa> ps = ad.getData();
-                session.setAttribute("todos-usuarios", ps);
 
                 if (acesso) {
                     session.setAttribute("ad", ad); // salva dados do AD na sessão
