@@ -158,15 +158,15 @@ var showLaboratoriosDisponiveis = function () {
 
 var aprovarReserva = function () {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
-    window.location.href = "http://localhost:8084/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
+    window.location.href = "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
 };
 
 var reprovarReserva = function () {
-    window.location.href = "http://localhost:8084/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
+    window.location.href = "/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
 };
 
 var removerReserva = function () {
-    window.location.href = "http://localhost:8084/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
+    window.location.href = "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
 };
 
 var accessControl = function (role) {
