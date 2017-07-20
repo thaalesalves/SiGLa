@@ -98,7 +98,7 @@ public class JsonController extends HttpServlet {
                 LaboratorioDAO ldao = new LaboratorioDAO();
                 ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
                 
-                String[] modulos = request.getParameterValues("modulo");
+                String[] modulos = request.getParameter("modulo").split(",");
                 
                 for (String i : modulos) {
                     Modulo mod = new Modulo();

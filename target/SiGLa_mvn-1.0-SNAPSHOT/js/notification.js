@@ -76,19 +76,20 @@ var showSolicitacaoModal = function (item) {
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
 
-            for (i = 0; i < jsonSolicitacao.modulos.length + 1; i++) {
-                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
-                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
-                $("#modalModulo").val($("#modalModulo").val() + modulo);
-            }
-            ;
-
-            for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
+            $("#modalSoftware").val("");
+            $("#modalModulo").val("");
+            
+            for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
             }
-            ;
+            
+            for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
+                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
+                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
+                $("#modalModulo").val($("#modalModulo").val() + modulo);
+            }
         }
     });
 };
@@ -111,20 +112,20 @@ var showReservaModal = function (item) {
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
             $("#modalLaboratorio").val(jsonSolicitacao.lab.numero);
-
-            for (i = 0; i < jsonSolicitacao.modulos.length + 1; i++) {
-                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
-                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
-                $("#modalModulo").val($("#modalModulo").val() + modulo);
-            }
-            ;
-
-            for (i = 0; i < jsonSolicitacao.softwares.length + 1; i++) {
+            $("#modalSoftware").val("");
+            $("#modalModulo").val("");
+            
+            for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
             }
-            ;
+            
+            for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
+                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
+                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
+                $("#modalModulo").val($("#modalModulo").val() + modulo);
+            }
         }
     });
 };
