@@ -49,9 +49,6 @@ public class LoginAction implements ICommand {
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha
 
-            String path = "C:/img/users/" + p.getUsername() + "_pic.jpg";
-            FileOutputStream pic = new FileOutputStream(new File(path));
-
             if (ad.login(p)) { // faz o login
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
