@@ -69,8 +69,8 @@ public abstract class Mail {
     }
     
     public Session getSession(Mail m) {
-        final Mail mail = m;
         final Properties props = new Properties();
+        final Mail mail = m;
         
         props.put("mail.smtp.starttls.enable","true");
         props.put("mail.smtp.host", "smtp.office365.com");

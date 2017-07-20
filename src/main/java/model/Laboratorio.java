@@ -66,4 +66,17 @@ public class Laboratorio {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {      
+            boolean mesmoId = this.getId() == ((Laboratorio) obj).getId();
+            return mesmoId;
+            
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    
 }

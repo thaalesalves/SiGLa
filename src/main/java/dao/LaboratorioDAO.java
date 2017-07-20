@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package dao;
 
@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import model.Laboratorio;
 import model.Reserva;
 import model.Modulo;
@@ -34,13 +36,12 @@ public class LaboratorioDAO {
     private final String INSERT = "INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), ?, ?, ?)";
     private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
     private final String SELECT_ALL = "SELECT * FROM laboratorio";
-    private final String SELECT_AVAILABLE = "SELECT * FROM laboratorio WHERE laboratorio.id NOT IN (SELECT l.id FROM laboratorio l, reserva r, modulo m, modulo_res mr WHERE r.dia_semana = ? AND l.id = r.laboratorio AND mr.res = r.id AND mr.modulo = m.id AND m.id = ?)";
-
-    public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
+    
+    public ArrayList<Laboratorio> selectReservedLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
 
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement(SELECT_AVAILABLE);
+            PreparedStatement pstmt = conn.prepareStatement("SELECT l.* FROM laboratorio l, reserva r, modulo m, modulo_res mr WHERE r.dia_semana = ? AND l.id = r.laboratorio AND mr.res = r.id AND mr.modulo = m.id AND m.id = ?");
 
             for (Modulo i : reserva.getModulos()) {
                 pstmt.setString(1, reserva.getDiaDaSemana());
@@ -146,5 +147,14 @@ public class LaboratorioDAO {
         }
 
         return qtd;
+    }//</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectAvailableLabs(Reserva reserva)">
+    public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
+        ArrayList<Laboratorio> arrayLab = this.selectLaboratorios();
+        ArrayList<Laboratorio> labsReservados = this.selectReservedLabs(reserva);
+        arrayLab.removeAll(labsReservados);
+
+        return arrayLab;
     }//</editor-fold>
 }
