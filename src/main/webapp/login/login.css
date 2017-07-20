@@ -1,0 +1,226 @@
+html, body {height: 99%;font-family: 'Lato', sans-serif;}
+body {
+    background: url("img/bg.png") no-repeat center #000000;
+    background-size: 110%;
+    margin: 0px;
+}
+.wrap {
+    max-width: 440px;
+    position: relative;
+    /*top: calc(50% - 210px);*/
+    top: calc(50% - 225px);
+    margin-left: calc(75% - 220px);
+    margin-right: 10px;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px;
+    color: #333;
+    min-height: 370px;
+    padding-bottom: 60px;
+}
+h2 {
+    font-weight: 300;
+    font-size: 38px;
+    margin: 10px;
+}
+.text-small {
+    font-size: 12px;
+    color: #686868;
+}
+form {
+    background-color: #fff;
+    text-align: center;
+}
+img.logo {
+    margin: 15px 0;
+}
+.umc-field {
+    padding: 8px 0;
+    text-align: center;
+}
+button {
+    border: none;
+    background-color: #333;
+    color: #fff;
+    min-width: 141px;
+    padding: 8px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #555;
+}
+input[type="text"], input[type="password"] {
+    width: 230px;
+    height: 30px;
+    padding-left: 5px;
+}
+.copyright {
+    /*margin-top: 40px;*/
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+}
+.copyright span {
+    padding: 10px;
+    display: block;
+}
+.errormsg {
+    color: #b94a48;
+    font-size: 13px;
+    margin: 20px 0 10px 0;
+    display: none;
+    text-align: center;
+}
+.help-btn {
+    display: inline-block;
+    width: 24px;
+    line-height: 24px;
+    border-radius: 24px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    text-decoration: none;
+}
+.help-btn:hover {
+    background-color: #555;
+}
+.help {
+    display: none;
+    text-align: justify;
+    padding: 0 30px;
+    /*max-height: 300px;
+    overflow: auto;*/
+    font-size: 13px;
+    /*min-height: 239px;*/
+}
+.help ul {
+    margin: 5px 0;
+}
+.help ul li {
+    margin: 5px 0;
+}
+.help h2 {
+    font-size: 21px;
+    text-align: center;
+    font-weight: normal;
+}
+.esqueceu {
+    display: none;
+    text-align: justify;
+    padding: 0 30px;
+    font-size: 13px;
+}
+.esqueceu h2 {
+    font-size: 21px;
+    text-align: center;
+    font-weight: bold;
+}
+.sidemenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 290px;
+    height: 100%;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    overflow: auto;
+}
+.sidemenu-btn {
+    display: none;
+}
+.sidemenu-space {
+    display: none;
+}
+.sidemenu h3 {
+    padding: 8px 38px;
+    font-size: 17px;
+    color: #004282;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.sidemenu .link {
+    display: block;
+    padding: 8px 28px;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+.overlay {
+    display: none;
+}
+
+@media(max-width: 780px) {
+    .wrap {
+        top: 0px;
+        margin: 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    body {
+        background-image: none;
+        background-color: #fff;
+    }
+    h2{
+        font-size: 35px;
+    }
+    input[type="text"], input[type="password"] {
+        width: 225px;
+    }
+    .help {
+        max-height: none;
+    }
+    .sidemenu {
+        left: -290px;
+        z-index: 1000;
+        transition: left 0.5s;
+    }
+    body.show-sidemenu .sidemenu {
+        left: 0;
+        background-color: #fff;
+        border-right: 1px solid #ccc;
+    }
+    body.show-sidemenu .overlay {
+        content: '';
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    body.show-sidemenu {
+        overflow: hidden;
+    }
+    .sidemenu-btn {
+        display: inline-block;
+        font-size: 20px;
+        color: #333;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        text-decoration: none;
+        text-align: center;
+    }
+    .sidemenu .sidemenu-btn {
+        left: initial;
+        right: 15px;
+    }
+    .sidemenu-space {
+        display: block;
+        width: 100%;
+        height: 60px;
+    }
+}
