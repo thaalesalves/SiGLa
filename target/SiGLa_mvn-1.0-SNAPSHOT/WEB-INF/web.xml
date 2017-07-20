@@ -13,10 +13,6 @@
         <servlet-class>controller.JsonController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DataController</servlet-name>
-        <servlet-class>controller.actions.DataController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>InfoController</servlet-name>
         <servlet-class>controller.InfoController</servlet-class>
     </servlet>
@@ -41,10 +37,6 @@
         <servlet-name>CounterController</servlet-name>
         <url-pattern>/CounterController</url-pattern>
         <url-pattern>/JsonController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DataController</servlet-name>
-        <url-pattern>/DataController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InfoController</servlet-name>
