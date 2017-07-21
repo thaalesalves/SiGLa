@@ -57,6 +57,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
         <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
 
+        <!-- NOTIFICAÇÕES -->
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+        
         <script>
             $(document).ready(function () {
                 accessControl("<%=p.getRole()%>");

@@ -26,8 +26,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            ArrayList<Laboratorio> labs;
+        <%            ArrayList<Laboratorio> labs;
             if ((labs = (ArrayList<Laboratorio>) session.getAttribute("laboratorios")) == null) {
                 request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=LaboratorioListagem").forward(request, response);
                 session.removeAttribute("laboratorios");
@@ -49,11 +48,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <!-- NOTIFICAÇÕES -->
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <script>
             $(document).ready(function () {
                 accessControl("<%=p.getRole()%>");
             });
-            </script>
+        </script>
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">        
         <div class="wrapper">

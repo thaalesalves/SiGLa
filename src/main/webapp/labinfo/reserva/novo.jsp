@@ -86,6 +86,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
         <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
 
+        <!-- NOTIFICAÇÕES -->
+        <link href="${pageContext.request.contextPath}/${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <script>
             $(document).ready(function () {
                 accessControl("<%=p.getRole()%>");
@@ -94,10 +99,26 @@ Copyright (C) 2016 Thales Alves Pereira
                 var status = "<%=status%>";
 
                 if (msg != "null") {
-                    MsgPop.closeAll();
-                    MsgPop.open({
-                        Type: status,
-                        Content: msg
+                    var title = "";
+                    switch (status) {
+                        case "error":
+                            title = "Erro!";
+                            break;
+                        case "success":
+                            title = "Sucesso!";
+                            break;
+                    }
+                    
+                    new PNotify({
+                        title: title,
+                        text: msg,
+                        type: status,
+                        addclass: 'stack-bottomright',
+                        animate: {
+                            animate: true,
+                            in_class: 'slideInUp',
+                            out_class: 'slideOutDown'
+                        }
                     });
                 }
             });

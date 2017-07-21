@@ -26,8 +26,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            ArrayList<Curso> arrayCurso;
+        <%            ArrayList<Curso> arrayCurso;
             if ((arrayCurso = (ArrayList<Curso>) session.getAttribute("lista-cursos")) == null) {
                 request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=CursoListagem").forward(request, response);
             }
@@ -48,11 +47,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+        <!-- NOTIFICAÇÕES -->
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script>        
+
         <script>
             $(document).ready(function () {
                 accessControl("<%=p.getRole()%>");
             });
-            </script>
+        </script>
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">        
         <div class="wrapper">
