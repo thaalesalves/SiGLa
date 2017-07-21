@@ -59,7 +59,8 @@ public class LoginAction implements ICommand {
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo                
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
-                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email 
+                p.setEmail(p.getUsername() + "@sigla.thalesalv.es"); // passa o atributo de email 
+                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
                 /*p.setPicture(ad.getPicture(p));
                 
                 try {
@@ -69,15 +70,6 @@ public class LoginAction implements ICommand {
                 } catch (Exception e) {
                     util.Logger.logSevere(e, e.getClass());
                 }*/
-
-                if (p.getNomeCompleto().equals("Ricardo Morales Miranda")) {
-                    p.setShownName("Ricardo Morales");
-                } else if (p.getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
-                    p.setNome("Eduardo");
-                    p.setShownName("Eduardo Lobo");
-                } else {
-                    p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
-                }
 
                 boolean acesso = false;
                 for (Grupo g : arrayg) {
