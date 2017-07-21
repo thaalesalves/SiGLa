@@ -53,9 +53,8 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
-        // Endereço do servidor: 179.111.48.195:389
-        String domain = "179.111.48.195:389";
-        String domain_test = "server:389";
+        String domain = "thaalesalves.ddns.net:389";
+        String domain_test = "192.168.1.200:389";
         
         
         properties = new Properties();
