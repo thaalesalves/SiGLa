@@ -61,7 +61,7 @@ public class SolicitacaoInsercaoFuncionarioAction implements ICommand {
             s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
             s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
             s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-            s.getPessoa().setEmail(s.getPessoa().getUsername() + "@umc.br");
+            s.getPessoa().setEmail(s.getPessoa().getUsername() + "@sigla.thalesalv.es");
             s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));

@@ -59,7 +59,7 @@ public class LoginAction implements ICommand {
                 p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo                
                 p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
-                p.setEmail(p.getUsername() + "@umc.br"); // passa o atributo de email 
+                p.setEmail(p.getUsername() + "@sigla.thalesalv.es"); // passa o atributo de email 
                 /*p.setPicture(ad.getPicture(p));
                 
                 try {

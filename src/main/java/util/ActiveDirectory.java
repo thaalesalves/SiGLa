@@ -55,13 +55,13 @@ public class ActiveDirectory {
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         // Endereço do servidor: 179.111.48.195:389
         String domain = "179.111.48.195:389";
-        String domain_test = "canada:389";
+        String domain_test = "server:389";
         
         
         properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
         properties.put(Context.PROVIDER_URL, "LDAP://" + domain_test); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@umc.br"); // valida credencial de usuário
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@sigla.thalesalv.es"); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
@@ -86,14 +86,14 @@ public class ActiveDirectory {
     public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
         String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
 
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
+        return this.dirContext.search("DC=sigla,DC=thalesalv,DC=es", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser().">
     public NamingEnumeration<SearchResult> searchUser() throws NamingException { // busca de usuário
-        String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=professores-mg,OU=PRPPE,OU=Predio 5 - ADM,OU=Grupos,OU=CAMPUS MOGI,OU=ADMINISTRATIVO,OU=OMEC,DC=umc,DC=br))"; // Query LDAP de busca de pessoas
+        String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=sigla,DC=thalesalv,DC=es))"; // Query LDAP de busca de pessoas
         /* COLOCAR NO LDAP FILTRO DE GRUPO DE PROFESSOR */
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls); // Define a raiz do domínio do AD
+        return this.dirContext.search("DC=sigla,DC=thalesalv,DC=es", filter, this.searchCtls); // Define a raiz do domínio do AD
     } // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
@@ -105,7 +105,7 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
 
-        return this.dirContext.search("DC=umc,DC=br", filter, this.searchCtls);
+        return this.dirContext.search("DC=sigla,DC=thalesalv,DC=es", filter, this.searchCtls);
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isUser(Pessoa).">
@@ -179,7 +179,7 @@ public class ActiveDirectory {
                 sAMAccountName = sAMAccountName.substring(cn.indexOf(":") + 1);
                 sAMAccountName = sAMAccountName.replace("sAMAccountName:", "").trim();
                 p.setUsername(sAMAccountName);
-                p.setEmail(sAMAccountName + "@umc.br");
+                p.setEmail(sAMAccountName + "@sigla.thalesalv.es");
 
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
 
