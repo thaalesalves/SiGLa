@@ -53,15 +53,18 @@ public abstract class Mail {
         final Properties props = new Properties();
         
         props.put("mail.smtp.starttls.enable","true");
-        props.put("mail.smtp.host", "smtp-mail.outlook.com");
+        props.put("mail.smtp.host", "smtp.mailgun.org");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", 587);
+        props.put("mail.smtp.port", "587");
         
         final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("thaalesalves@outlook.com", "Thales33");
+                return new PasswordAuthentication(
+                        "postmaster@mg.thalesalv.es", 
+                        "123qweasdzxc"
+                );
             }
         });
         
@@ -73,15 +76,19 @@ public abstract class Mail {
         final Mail mail = m;
         
         props.put("mail.smtp.starttls.enable","true");
-        props.put("mail.smtp.host", "smtp.office365.com");
+        props.put("mail.smtp.host", "smtp.mailgun.org");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", 587);
+        props.put("mail.smtp.port", "587");
         
         final Session session = Session.getInstance(props, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail.getPessoa().getEmail(), mail.getPessoa().getSenha());
+                //return new PasswordAuthentication(mail.getPessoa().getEmail(), mail.getPessoa().getSenha());
+                return new PasswordAuthentication(
+                        "postmaster@mg.thalesalv.es", 
+                        "123qweasdzxc"
+                );
             }
         });
         

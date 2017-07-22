@@ -38,7 +38,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress("Laboratório de Informática <thaalesalves@gmail.com>"));
+            message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Reserva de Laboratório");
             message.setText(getMessage(mail));
