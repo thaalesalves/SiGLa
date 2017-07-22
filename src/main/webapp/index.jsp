@@ -42,15 +42,16 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/custom.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/css/icheck/flat/green.css" rel="stylesheet"> 
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
-        
+
         <!-- NOTIFICAÇÕES -->
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-        
+
         <script>
             $(document).ready(function () {
                 var msg = "<%=login%>";
+                var permanotice = false;
 
                 if (msg != "nada") {
                     new PNotify({
@@ -62,6 +63,24 @@ Copyright (C) 2016 Thales Alves Pereira
                             animate: true,
                             in_class: 'slideInUp',
                             out_class: 'slideOutDown'
+                        }
+                    });
+                }
+
+                if (permanotice) {
+                    permanotice.open();
+                } else {
+                    permanotice = new PNotify({
+                        title: 'Demo do SiGLa',
+                        text: 'Bem vindo! Para acessar o SiGLa, basta utilizar como usuário e senha o cargo desejado.\n\n(professor, estagiario, funcionario, admin, coordenador)!',
+                        type: 'info',
+                        hide: false,
+                        buttons: {
+                            closer: false,
+                            sticker: false
+                        },
+                        mobile: {
+                            swipe_dismiss: false
                         }
                     });
                 }
