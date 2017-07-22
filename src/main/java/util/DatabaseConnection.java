@@ -44,7 +44,7 @@ public class DatabaseConnection {
         remote.setProperty("db", "dot13qm593ct7");
         remote.setProperty("user", "dajlivufxcxlms");
         remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
-        remote.setProperty("ssl", "true");
+        remote.setProperty("ssl", "false");
         
         while (att++ < 2) {
             try {

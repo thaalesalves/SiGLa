@@ -21,6 +21,7 @@ var jsonObject;
 var id;
 var dados;
 var parameter;
+var contextPath;
 
 var addNotification = function (obj) {
     for (i = 0; i < obj.qtdSolicitacoes; i++) {
@@ -62,7 +63,7 @@ var runNotifications = function (e) {
 var showSolicitacaoModal = function (item) {
     id = item;
     $.ajax({
-        url: '/SiGLa/JsonController?acao=solicitacao&id=' + item,
+        url: contextPath + '/JsonController?acao=solicitacao&id=' + item,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -97,7 +98,7 @@ var showSolicitacaoModal = function (item) {
 var showReservaModal = function (item) {
     id = item;
     $.ajax({
-        url: '/SiGLa/JsonController?acao=reserva&id=' + item,
+        url: contextPath + '/JsonController?acao=reserva&id=' + item,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -134,7 +135,7 @@ var showLaboratoriosDisponiveis = function () {
     var modulo = $("#modalModulo").val();
     var dia = $("#modalDiaSemana").val();
     $.ajax({
-        url: '/SiGLa/JsonController?acao=laboratorios&modulo=' + modulo.replace(/[^0-9\.]/g, '') + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=laboratorios&modulo=' + modulo.replace(/[^0-9\.]/g, '') + '&dia=' + dia,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -158,15 +159,15 @@ var showLaboratoriosDisponiveis = function () {
 
 var aprovarReserva = function () {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
-    window.location.href = "/SiGLa/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
+    window.location.href = contextPath + "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
 };
 
 var reprovarReserva = function () {
-    window.location.href = "/SiGLa/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
+    window.location.href = contextPath + "/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
 };
 
 var removerReserva = function () {
-    window.location.href = "/SiGLa/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
+    window.location.href = contextPath + "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
 };
 
 var accessControl = function (role) {
@@ -188,7 +189,7 @@ var accessControl = function (role) {
 
 $(document).ready(function () {
     $.ajax({
-        url: '/SiGLa/CounterController?acao=padrao',
+        url: contextPath + '/CounterController?acao=padrao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -201,7 +202,7 @@ $(document).ready(function () {
 setInterval(function () {
     $("#res-notif").empty();
     $.ajax({
-        url: '/SiGLa/CounterController?acao=padrao',
+        url: contextPath + '/CounterController?acao=padrao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -213,7 +214,7 @@ setInterval(function () {
 
 var availableLabs = function (dia, modulo) {
     $.ajax({
-        url: '/SiGLa/JsonController?acao=laboratorios&modulo=' + modulo + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=laboratorios&modulo=' + modulo + '&dia=' + dia,
         type: 'POST',
         cache: false,
         dataType: 'JSON',

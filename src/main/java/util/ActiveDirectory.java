@@ -33,7 +33,6 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import model.Grupo;
 import model.Pessoa;
-import model.Reserva;
 
 public class ActiveDirectory {
 
@@ -53,14 +52,10 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
-        String domain = "thaalesalves.ddns.net:389";
-        String domain_test = "192.168.1.200:389";
-        
-        
         properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAP://" + domain_test); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@sigla.thalesalv.es"); // valida credencial de usuário
+        properties.put(Context.PROVIDER_URL, "LDAP://dc.thalesalv.es:389"); // conecta com o AD DC
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@thalesalv.es"); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
