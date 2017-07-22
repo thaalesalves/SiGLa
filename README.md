@@ -37,9 +37,8 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 ### Tecnologias Utilizadas
 - Windows Server 2016 
 - Postfix
-- Active Directory Domain Services
+- Active Directory Domain Services (AD DS)
 - JavaMail
-- Apache Tomcat
 - PostgreSQL
 - Bootstrap
 - HTML5
@@ -47,15 +46,20 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - Java EE
 - Javacript
 - CSS3
+- Google GSON
 - Maven
-- Jetty
+- PNotify
+- LDAP
 
-### Tecnologias de Apoio
-- Microsoft Office 365
-- Microsoft Azure (integração do O365 e do AD com a nuvem)
-- Microsoft IIS SMTP Server - alternativa para o Postfix
-- Microsoft Exchange Server - alternativa para o Postfix
-- hMail - alternativa para o Postfix
+### Tecnologias da Nuvem
+- Heroku (hospedagem live)
+- MailGun (disparo de emails)
+- LogDNA (logging)
+
+### Webservers suportados
+- Jetty
+- Apache Tomcat
+- Glassfish
 
 ### Padrões de Desenvolvimento
 - Orientação a Objetos
