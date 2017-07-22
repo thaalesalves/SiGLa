@@ -33,7 +33,6 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import model.Grupo;
 import model.Pessoa;
-import model.Reserva;
 
 public class ActiveDirectory {
 
