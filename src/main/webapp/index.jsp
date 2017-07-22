@@ -78,10 +78,10 @@ Copyright (C) 2016 Thales Alves Pereira
                         <form action="${pageContext.request.contextPath}/AlmightyController" method="post" name="frm_login" onsubmit="return valida();" style="display: block;">
                             <h1>Login de Usuário</h1>
                             <div>
-                                <input name="username" type="text" class="form-control" placeholder="Usuário" required/>
+                                <input autocomplete="off" name="username" type="text" class="form-control" placeholder="Usuário" required/>
                             </div>
                             <div>
-                                <input name="password" type="password" class="form-control" placeholder="Senha" required/>
+                                <input autocomplete="off" name="password" type="password" class="form-control" placeholder="Senha" required/>
                             </div>
                             <div>
                                 <button class="btn btn-default submit" value="Login" name="acao" type="submit">Acessar</button>

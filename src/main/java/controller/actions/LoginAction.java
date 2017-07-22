@@ -89,17 +89,22 @@ public class LoginAction implements ICommand {
                     return request.getContextPath(); // chama de volta a página de login
                 }
             }
+            
+            System.out.println("Login para " + p.getNomeCompleto() + " autorizado.");
         } catch (CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
+            System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
             return request.getContextPath(); // chama de volta a página de login
         } catch (AuthenticationException e) {
             util.Logger.logSevere(e, this.getClass());
-            session.setAttribute("msg", "Usu&aacute;rio ou senha incorreto");
+            session.setAttribute("msg", "Credenciais de acesso incorretas");
+            System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
             return request.getContextPath(); // chama de volta a página de login
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
+            System.out.println("Erro ao conectar: " + e.getMessage());
             return request.getContextPath() + "/error/error";
         }
 

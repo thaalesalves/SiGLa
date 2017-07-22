@@ -65,10 +65,26 @@ Copyright (C) 2016 Thales Alves Pereira
                 var status = "<%=status%>";
 
                 if (msg != "null") {
-                    MsgPop.closeAll();
-                    MsgPop.open({
-                        Type: status,
-                        Content: msg
+                    var title = "";
+                    switch (status) {
+                        case "error":
+                            title = "Erro!";
+                            break;
+                        case "success":
+                            title = "Sucesso!";
+                            break;
+                    }
+                    
+                    new PNotify({
+                        title: title,
+                        text: msg,
+                        type: status,
+                        addclass: 'stack-bottomright',
+                        animate: {
+                            animate: true,
+                            in_class: 'slideInUp',
+                            out_class: 'slideOutDown'
+                        }
                     });
                 }
             });

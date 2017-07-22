@@ -6,10 +6,10 @@
     <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
         <div class="box-body">                            
             <div class="form-group">
-                <input required type="email" class="form-control" name="emailto" placeholder="Destinatário">
+                <input autocomplete="off" required type="email" class="form-control" name="emailto" placeholder="Destinatário">
             </div>
             <div class="form-group">
-                <input required type="text" class="form-control" name="subject" placeholder="Assunto">
+                <input autocomplete="off" required type="text" class="form-control" name="subject" placeholder="Assunto">
             </div>
             <div>
                 <textarea required name="message" class="textarea" placeholder="Mensagem" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
