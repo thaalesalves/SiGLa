@@ -1,3 +1,6 @@
+<script>
+    contextPath = "${pageContext.request.contextPath}";
+</script>
 <header class="main-header">                
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}" class="logo">
