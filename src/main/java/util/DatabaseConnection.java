@@ -39,7 +39,7 @@ public class DatabaseConnection {
             local.setProperty("user", "sigla");
             local.setProperty("password", "sigladb");
             local.setProperty("ssl", "false");
-            
+
             Properties remote = new Properties();
             remote.setProperty("host", "ec2-50-17-217-166.compute-1.amazonaws.com");
             remote.setProperty("port", "5432");
@@ -47,14 +47,21 @@ public class DatabaseConnection {
             remote.setProperty("user", "dajlivufxcxlms");
             remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
             remote.setProperty("ssl", "false");
-            
-            conn = DriverManager.getConnection("jdbc:postgresql://" + local.getProperty("host") + ":" + local.getProperty("port") + "/" + local.getProperty("db"), local);
-            
-            if (conn.isClosed() || !conn.isValid(10)) {
-                conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
+
+            int i = 0;
+            while (i++ < 2) {
+                if (i == 1) {
+                    try {
+                        conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
+                    } catch (Exception e) {
+                        i = i++;
+                        Logger.logSevere(e, e.getClass());
+                        continue;
+                    }
+                } else {
+                    conn = DriverManager.getConnection("jdbc:postgresql://" + local.getProperty("host") + ":" + local.getProperty("port") + "/" + local.getProperty("db"), local);
+                }
             }
-            
-            
         } catch (ClassNotFoundException e) {
             Logger.logSevere(e, e.getClass());
         } catch (Exception e) {
