@@ -1,1 +1,1 @@
-web: java -Dcom.sun.jndi.ldap.connect.pool.timeout=1800000 -Djavax.net.ssl.keyStore=lib/security/cacerts -Djavax.net.ssl.keyStorePassword=changeit -cp target/dependency/jetty-runner.jar org.eclipse.jetty.runner.Runner --port $PORT target/*.war
+web: java -Dcom.sun.jndi.ldap.connect.pool.timeout=1800000 -Djavax.net.ssl.keyStore=lib/security/cacerts -Djavax.net.ssl.keyStorePassword=changeit -agentlib:TakipiAgent -cp target/dependency/jetty-runner.jar org.eclipse.jetty.runner.Runner --port $PORT target/*.war
