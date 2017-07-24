@@ -26,6 +26,7 @@ import java.util.Properties;
 
 public class DatabaseConnection {
 
+    private static int i = 0;    
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         try {
@@ -48,7 +49,6 @@ public class DatabaseConnection {
             remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
             remote.setProperty("ssl", "false");
 
-            int i = 0;
             while (i++ < 2) {
                 if (i == 1) {
                     try {
