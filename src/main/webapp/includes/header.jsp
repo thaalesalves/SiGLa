@@ -66,13 +66,7 @@
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <%
-                                if (p.getPicture() != null) {
-                                    out.println("<img src='C:/img/users/" + p.getUsername() + "_pic.jpg' class='img-circle' alt='User Image'>");
-                                } else {
-                                    out.println("<img src='" + request.getContextPath() + "/img/users/thumbnail.png' class='img-circle' alt='User Image'>");
-                                }
-                            %>
+                            <img src="<%=picPath%>" class='img-circle' alt='User Image'>
                             <p>
                                 <% out.println(p.getShownName()); %>
                                 <small><% out.println(p.getCargo() + " | " + p.getDepto());%></small>
