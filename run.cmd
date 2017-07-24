@@ -1,5 +1,4 @@
 @echo off
-chcp 65000
 
 title Instancia do SiGLa
 
