@@ -26,20 +26,10 @@ import java.util.Properties;
 
 public class DatabaseConnection {
 
-    private static int i = 0;    
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
-            Integer att = 1;
-
-            Properties local = new Properties();
-            local.setProperty("host", "127.0.0.1");
-            local.setProperty("port", "5432");
-            local.setProperty("db", "sigladb");
-            local.setProperty("user", "sigla");
-            local.setProperty("password", "sigladb");
-            local.setProperty("ssl", "false");
 
             Properties remote = new Properties();
             remote.setProperty("host", "ec2-50-17-217-166.compute-1.amazonaws.com");
@@ -49,19 +39,8 @@ public class DatabaseConnection {
             remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
             remote.setProperty("ssl", "false");
 
-            while (i++ < 2) {
-                if (i == 1) {
-                    try {
-                        conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
-                    } catch (Exception e) {
-                        i = i++;
-                        Logger.logSevere(e, e.getClass());
-                        continue;
-                    }
-                } else {
-                    conn = DriverManager.getConnection("jdbc:postgresql://" + local.getProperty("host") + ":" + local.getProperty("port") + "/" + local.getProperty("db"), local);
-                }
-            }
+            //conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sigladb", "sigla", "sigladb");
+            conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
         } catch (ClassNotFoundException e) {
             Logger.logSevere(e, e.getClass());
         } catch (Exception e) {
