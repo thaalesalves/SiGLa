@@ -1,11 +1,11 @@
-package ActiveDirectory;
+package testpackage;
 
 import util.ActiveDirectory;
 import model.Pessoa;
 import dao.GrupoDAO;
 import model.Grupo;
 
-public class TesteLogin {
+public class TesteLoginAD {
 
     public static void main(String[] args) {
         try {
