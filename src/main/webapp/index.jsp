@@ -22,6 +22,9 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html lang="pt">
     <%
+        System.setProperty("javax.net.ssl.trustStore", request.getContextPath() + "/labinfo/cert/myTrustStore");
+        System.setProperty("javax.net.ssl.keyStorePassword", "Thales33");
+        
         Calendar cal = Calendar.getInstance();
 
         if (session.getAttribute("ad") != null) {

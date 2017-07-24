@@ -1,6 +1,7 @@
 controller\actions\CursoListagemAction.class
 controller\RedirectController.class
 model\Software.class
+util\ShowTrustStore.class
 mailsender\MailMessage.class
 controller\actions\SoftwareInsercaoAction.class
 util\Logger.class
