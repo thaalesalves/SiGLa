@@ -1,3 +1,4 @@
+<%@page import="java.util.Properties"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 

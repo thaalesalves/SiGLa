@@ -28,39 +28,37 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         Connection conn = null;
-        Integer att = 0;
+        try {
+            Class.forName("org.postgresql.Driver");
+            Integer att = 1;
 
-        Properties local = new Properties();
-        local.setProperty("host", "127.0.0.1");
-        local.setProperty("port", "5432");
-        local.setProperty("db", "sigladb");
-        local.setProperty("user", "sigla");
-        local.setProperty("password", "sigladb");
-        local.setProperty("ssl", "false");
-
-        Properties remote = new Properties();
-        remote.setProperty("host", "ec2-50-17-217-166.compute-1.amazonaws.com");
-        remote.setProperty("port", "5432");
-        remote.setProperty("db", "dot13qm593ct7");
-        remote.setProperty("user", "dajlivufxcxlms");
-        remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
-        remote.setProperty("ssl", "false");
-        
-        while (att++ < 2) {
-            try {
-
-                Class.forName("org.postgresql.Driver");
-
-                if (att == 1) {
-                    conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
-                } else {
-                    conn = DriverManager.getConnection("jdbc:postgresql://" + local.getProperty("host") + ":" + local.getProperty("port") + "/" + local.getProperty("db"), local);
-                }
-            } catch (ClassNotFoundException e) {
-                Logger.logSevere(e, e.getClass());
-            } catch (Exception e) {
-                Logger.logSevere(e, e.getClass());
+            Properties local = new Properties();
+            local.setProperty("host", "127.0.0.1");
+            local.setProperty("port", "5432");
+            local.setProperty("db", "sigladb");
+            local.setProperty("user", "sigla");
+            local.setProperty("password", "sigladb");
+            local.setProperty("ssl", "false");
+            
+            Properties remote = new Properties();
+            remote.setProperty("host", "ec2-50-17-217-166.compute-1.amazonaws.com");
+            remote.setProperty("port", "5432");
+            remote.setProperty("db", "dot13qm593ct7");
+            remote.setProperty("user", "dajlivufxcxlms");
+            remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
+            remote.setProperty("ssl", "false");
+            
+            conn = DriverManager.getConnection("jdbc:postgresql://" + local.getProperty("host") + ":" + local.getProperty("port") + "/" + local.getProperty("db"), local);
+            
+            if (conn.isClosed() || !conn.isValid(10)) {
+                conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
             }
+            
+            
+        } catch (ClassNotFoundException e) {
+            Logger.logSevere(e, e.getClass());
+        } catch (Exception e) {
+            Logger.logSevere(e, e.getClass());
         }
 
         return conn;
