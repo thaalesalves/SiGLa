@@ -55,9 +55,15 @@ public class LoginAction implements ICommand {
             String siglaDir = (String) props.get("sigla.home");
             String siglaVersion = (String) props.get("sigla.version");
             siglaDir = siglaDir.replace("\\", "/");
-            
-            System.setProperty("javax.net.ssl.trustStore", siglaDir + "/resource/security/cacerts");
-            System.setProperty("javax.net.ssl.keyStore", siglaDir + "/resource/security/cacerts");
+
+            if (new File(siglaDir + "/resource/security/cacerts").exists()) {
+                System.setProperty("javax.net.ssl.trustStore", siglaDir + "/resource/security/cacerts");
+                System.setProperty("javax.net.ssl.keyStore", siglaDir + "/resource/security/cacerts");
+            } else {
+                System.setProperty("javax.net.ssl.trustStore", "/app/resource/security/cacerts");
+                System.setProperty("javax.net.ssl.keyStore", "/app/resource/security/cacerts");
+            }
+
             System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
             System.setProperty("com.sun.jndi.ldap.connect.pool.timeout", "1800000");
 
