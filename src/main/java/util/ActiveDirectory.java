@@ -259,17 +259,21 @@ public class ActiveDirectory {
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa).">
     public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException { // busca foto
-        byte[] pic = null;
+        byte[] pic;
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
             if (result.hasMoreElements()) { // caso algo seja retornado
                 SearchResult sr = (SearchResult) result.next(); //entra na tupla
                 Attributes attrs = sr.getAttributes(); // define atributos
                 pic = (byte[]) attrs.get("jpegPhoto ").get();
+                
+                return pic;
             }
         } catch (Exception e) {
             Logger.logWarning(e, this.getClass());
+            return null;
         }
-        return pic;
+
+        return null;
     } // </editor-fold>    
 }

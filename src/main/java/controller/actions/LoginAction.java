@@ -24,9 +24,11 @@ import dao.GrupoDAO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
 import javax.naming.NamingException;
@@ -46,6 +48,19 @@ public class LoginAction implements ICommand {
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
 
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Properties props = new Properties();
+            InputStream resourceStream = loader.getResourceAsStream("app.properties");
+            props.load(resourceStream);
+            String siglaDir = (String) props.get("sigla.home");
+            String siglaVersion = (String) props.get("sigla.version");
+            siglaDir = siglaDir.replace("\\", "/");
+            
+            System.setProperty("javax.net.ssl.trustStore", siglaDir + "/resource/security/cacerts");
+            System.setProperty("javax.net.ssl.keyStore", siglaDir + "/resource/security/cacerts");
+            System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
+            System.setProperty("com.sun.jndi.ldap.connect.pool.timeout", "1800000");
+
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha           
 
@@ -61,15 +76,13 @@ public class LoginAction implements ICommand {
                 p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
                 p.setEmail(p.getUsername() + "@sigla.thalesalv.es"); // passa o atributo de email 
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
-                /*p.setPicture(ad.getPicture(p));
-                
-                try {
-                    FileOutputStream path = new FileOutputStream(new File("C:/img/users/" + p.getUsername() + "_pic.jpg"));
+
+                if (ad.getPicture(p) != null) {
+                    p.setPicture(ad.getPicture(p));
+                    FileOutputStream path = new FileOutputStream(new File(siglaDir + "/target/sigla-" + siglaVersion + "/img/user/" + p.getUsername() + "_pic.jpg"));
                     path.write(p.getPicture());
                     path.close();
-                } catch (Exception e) {
-                    util.Logger.logSevere(e, e.getClass());
-                }*/
+                }
 
                 boolean acesso = false;
                 for (Grupo g : arrayg) {
@@ -89,7 +102,7 @@ public class LoginAction implements ICommand {
                     return request.getContextPath(); // chama de volta a página de login
                 }
             }
-            
+
             System.out.println("Login para " + p.getNomeCompleto() + " autorizado.");
         } catch (CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
