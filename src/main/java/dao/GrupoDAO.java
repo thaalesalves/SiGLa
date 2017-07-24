@@ -29,7 +29,7 @@ import util.DatabaseConnection;
 
 public class GrupoDAO {
     
-    private final String SELECT = "SELECT id, grupo, cargo FROM grupo";
+    private final String SELECT = "SELECT id, grupo, cargo FROM grupo ORDER BY id";
     
     public ArrayList<Grupo> select() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Grupo> arrayg = new ArrayList<Grupo>();
