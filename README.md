@@ -24,14 +24,6 @@ O SiGLa possui um módulo de controle de tarefas, que permite delegar tarefas ao
 ### Controle de Estado de Equipamento
 O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos computadores e softwares dos laboratórios, que é integrado com as tarefas. Caso algum equipamento esteja danificado, uma tarefa de retirada do equipamento será criada, e o estado do laboratório será atualizado com o equipamento retirado, alterando o mapa do laboratório. O corpo docente terá acesso a esta informação.
 
-## Requerimentos
---------
-### Sistema Operacional
-- O SiGLa é capaz de rodar em qualquer plataforma compatível com Java SE;
- 
-### Banco de dados
-- O SiGLa necessita do PostgreSQL 9.5 (no mínimo) para funcionar;
-
 ## Especificações Técnicas
 --------
 ### Tecnologias Utilizadas
@@ -55,6 +47,8 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - Heroku (hospedagem live)
 - MailGun (disparo de emails)
 - LogDNA (logging)
+- Takipi (monitoramento)
+- Microsoft Azure (infraestrutura)
 
 ### Webservers suportados
 - Jetty
