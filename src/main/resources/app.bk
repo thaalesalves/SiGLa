@@ -7,3 +7,15 @@ sigla.dir.source=${project.basedir}\\src\\main
 sigla.dir.keystore=${project.build.directory}\\classes\\security\\cacerts
 sigla.dir.resource=${project.basedir}\\src\\main\\resources
 sigla.dir.test=${project.basedir}\\src\\test
+
+sigla.auth.domain=null
+sigla.auth.host=teste
+sigla.auth.netbios=null
+sigla.auth.method=null
+
+sigla.db.name=null
+sigla.db.user=null
+sigla.db.passwd=null
+sigla.db.addr=null
+sigla.db.port=null
+sigla.db.ssl=null
