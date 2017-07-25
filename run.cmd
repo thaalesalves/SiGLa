@@ -10,4 +10,4 @@ IF [%1]==[] (
 
 title Instancia do SiGLa (porta %port%)
 
-mvn package && cls && java -Dcom.sun.jndi.ldap.connect.pool.timeout=1800000 -Djavax.net.ssl.trustStore=lib/security/cacerts -Djavax.net.ssl.keyStore=lib/security/cacerts -Djavax.net.ssl.keyStorePassword=changeit -agentlib:TakipiAgent -cp target/dependency/jetty-runner.jar org.eclipse.jetty.runner.Runner --port %port% target/*.war
+mvn package && cls && java -Dcom.sun.jndi.ldap.connect.pool.timeout=1800000 -Djavax.net.ssl.trustStore=lib/security/cacerts -Djavax.net.ssl.keyStore=lib/security/cacerts -Djavax.net.ssl.keyStorePassword=changeit -cp target/dependency/jetty-runner.jar org.eclipse.jetty.runner.Runner --port %port% target/*.war
