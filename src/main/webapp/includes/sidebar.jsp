@@ -19,6 +19,11 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
+            <li id="item-admin" style="display: none;">
+                <a href="${pageContext.request.contextPath}/admin">
+                    <i class="fa fa-gears"></i> <span>Administração</span>
+                </a>
+            </li>  
             <li class="header">RESERVAS</li>
             <li class="treeview">
                 <a href="${pageContext.request.contextPath}/info/nova-reserva">

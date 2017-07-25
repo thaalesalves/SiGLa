@@ -175,7 +175,26 @@ var accessControl = function (role) {
         $('#form-soli-fixo').show();
     } else if (role == "coordenador") {
         $('#form-soli-coord').show();
-    } else {
+    } else if (role == "funcionario") {
+        $('#soli-menu').show();
+        $('#notif-menu').show();
+        $('#item-novo-curso').show();
+        $('#item-novo-software').show();
+        $('#item-novo-lab').show();
+        $('#item-solicitacoes').show();
+        $('#form-soli-func').show();
+        $('#counters').show();
+    } else if (role == "admin") {
+        $('#item-admin').show();
+        $('#soli-menu').show();
+        $('#notif-menu').show();
+        $('#item-novo-curso').show();
+        $('#item-novo-software').show();
+        $('#item-novo-lab').show();
+        $('#item-solicitacoes').show();
+        $('#form-soli-func').show();
+        $('#counters').show();
+    } else if (role == "estagiario") {
         $('#soli-menu').show();
         $('#notif-menu').show();
         $('#item-novo-curso').show();
