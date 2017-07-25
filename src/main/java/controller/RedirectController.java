@@ -42,7 +42,10 @@ public class RedirectController extends HttpServlet {
 
         try {
             /* Redirecionamentos de /admin/ */
+            mapaUrl.put("/admin", "/admin/dashboard");
             mapaUrl.put("/admin/dashboard", "../labinfo/admin/index.jsp");
+            mapaUrl.put("/admin/database", "../labinfo/admin/database.jsp");
+            mapaUrl.put("/admin/activedirectory", "../labinfo/admin/activedirectory.jsp");
             
             /* Redirecionamentos de /info/ */
             mapaUrl.put("/info/nova-reserva", "../InfoController?acao=nova-reserva");
