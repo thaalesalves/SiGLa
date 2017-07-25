@@ -267,6 +267,10 @@ public class ActiveDirectory {
                 Attributes attrs = sr.getAttributes(); // define atributos
                 pic = (byte[]) attrs.get("jpegPhoto ").get();
                 
+                if (pic == null) {
+                    pic = (byte[]) attrs.get("thumbnailPhoto ").get();
+                }
+                
                 return pic;
             }
         } catch (Exception e) {

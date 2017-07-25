@@ -19,16 +19,15 @@
  */
 package controller.actions;
 
+import util.SiGLa;
 import util.ActiveDirectory;
 import dao.GrupoDAO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Properties;
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
 import javax.naming.NamingException;
@@ -48,24 +47,15 @@ public class LoginAction implements ICommand {
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
 
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            Properties props = new Properties();
-            InputStream resourceStream = loader.getResourceAsStream("app.properties");
-            props.load(resourceStream);
-            String siglaDir = (String) props.get("sigla.home");
-            String siglaVersion = (String) props.get("sigla.version");
-            siglaDir = siglaDir.replace("\\", "/");
-
-            if (new File(siglaDir + "/resource/security/cacerts").exists()) {
-                System.setProperty("javax.net.ssl.trustStore", siglaDir + "/resource/security/cacerts");
-                System.setProperty("javax.net.ssl.keyStore", siglaDir + "/resource/security/cacerts");
-            } else {
-                System.setProperty("javax.net.ssl.trustStore", "/app/resource/security/cacerts");
-                System.setProperty("javax.net.ssl.keyStore", "/app/resource/security/cacerts");
-            }
-
             System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
             System.setProperty("com.sun.jndi.ldap.connect.pool.timeout", "1800000");
+            if (new File(SiGLa.KEYSTORE).exists()) {
+                System.setProperty("javax.net.ssl.trustStore", SiGLa.KEYSTORE);
+                System.setProperty("javax.net.ssl.keyStore", SiGLa.KEYSTORE);
+            } else {
+                System.setProperty("javax.net.ssl.trustStore", "/app/target/classes/security/cacerts");
+                System.setProperty("javax.net.ssl.keyStore", "/app/target/classes/security/cacerts");
+            }            
 
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha           
@@ -83,13 +73,18 @@ public class LoginAction implements ICommand {
                 p.setEmail(p.getUsername() + "@sigla.thalesalv.es"); // passa o atributo de email 
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
 
-                if (ad.getPicture(p) != null) {
-                    p.setPicture(ad.getPicture(p));
-                    FileOutputStream path = new FileOutputStream(new File(siglaDir + "/target/sigla-" + siglaVersion + "/img/user/" + p.getUsername() + "_pic.jpg"));
-                    path.write(p.getPicture());
-                    path.close();
+                boolean args = false;
+                while (args) {
+                    try {
+                        p.setPicture(ad.getPicture(p));
+                        FileOutputStream path = new FileOutputStream(new File(SiGLa.WEBAPP + "/img/user/" + p.getUsername() + "_pic.jpg"));
+                        path.write(p.getPicture());
+                        path.close();
+                    } catch (Exception e) {
+                        continue;
+                    }
                 }
-
+                
                 boolean acesso = false;
                 for (Grupo g : arrayg) {
                     g.setGrupo(arrayg.get(arrayg.indexOf(g)).getGrupo());

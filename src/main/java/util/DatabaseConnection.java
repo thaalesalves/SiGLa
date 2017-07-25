@@ -28,6 +28,7 @@ public class DatabaseConnection {
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         Connection conn = null;
+        
         try {
             Class.forName("org.postgresql.Driver");
 
@@ -39,8 +40,8 @@ public class DatabaseConnection {
             remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
             remote.setProperty("ssl", "false");
 
-            //conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sigladb", "sigla", "sigladb");
-            conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
+            conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sigladb", "sigla", "sigladb");
+            //conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
         } catch (ClassNotFoundException e) {
             Logger.logSevere(e, e.getClass());
         } catch (Exception e) {
