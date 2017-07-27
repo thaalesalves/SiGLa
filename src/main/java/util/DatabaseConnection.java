@@ -19,33 +19,55 @@
  */
 package util;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.jdbc.ScriptRunner;
 
-public class DatabaseConnection {
+public final class DatabaseConnection {
 
-    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+    public static void checkDatabase(Connection conn) throws SQLException {
+        try {
+            DatabaseMetaData dbmd = conn.getMetaData();
+            ResultSet rs = dbmd.getTables(null, null, "%", new String[] {"TABLE"});
+
+            if (!rs.next()) {
+                String sql = SiGLa.HOME + "/resources/db/psql.sql";
+                
+                ScriptRunner sr = new ScriptRunner(conn);
+                InputStream is = new FileInputStream(sql);
+                Reader reader = new InputStreamReader(is);
+                
+                sr.runScript(reader);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, DatabaseConnection.class);
+        }
+    }
+
+    public static Connection getConnection() throws SQLException {
         Connection conn = null;
-        
+
         try {
             Class.forName("org.postgresql.Driver");
-
-            Properties remote = new Properties();
-            remote.setProperty("host", "ec2-50-17-217-166.compute-1.amazonaws.com");
-            remote.setProperty("port", "5432");
-            remote.setProperty("db", "dot13qm593ct7");
-            remote.setProperty("user", "dajlivufxcxlms");
-            remote.setProperty("password", "35ea0b265a9ad6de0dac4d2c725b7cd02d1ac690a52f73d06bfb82fb94bb2ded");
-            remote.setProperty("ssl", "false");
-
-            conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sigladb", "sigla", "sigladb");
-            //conn = DriverManager.getConnection("jdbc:postgresql://" + remote.getProperty("host") + ":" + remote.getProperty("port") + "/" + remote.getProperty("db"), remote);
+            conn = DriverManager.getConnection(
+                    "jdbc:postgresql://"
+                    + SiGLa.getDbAddr() + "/"
+                    + SiGLa.getDbName(),
+                    SiGLa.getDbUser(),
+                    SiGLa.getDbPasswd()
+            );
         } catch (ClassNotFoundException e) {
-            Logger.logSevere(e, e.getClass());
+            Logger.logSevere(e, DatabaseConnection.class);
         } catch (Exception e) {
-            Logger.logSevere(e, e.getClass());
+            Logger.logSevere(e, DatabaseConnection.class);
         }
 
         return conn;
