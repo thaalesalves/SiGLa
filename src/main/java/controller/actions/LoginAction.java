@@ -49,13 +49,8 @@ public class LoginAction implements ICommand {
 
             System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
             System.setProperty("com.sun.jndi.ldap.connect.pool.timeout", "1800000");
-            if (new File(SiGLa.KEYSTORE).exists()) {
-                System.setProperty("javax.net.ssl.trustStore", SiGLa.KEYSTORE);
-                System.setProperty("javax.net.ssl.keyStore", SiGLa.KEYSTORE);
-            } else {
-                System.setProperty("javax.net.ssl.trustStore", "/app/target/classes/security/cacerts");
-                System.setProperty("javax.net.ssl.keyStore", "/app/target/classes/security/cacerts");
-            }            
+            System.setProperty("javax.net.ssl.trustStore", SiGLa.KEYSTORE);
+            System.setProperty("javax.net.ssl.keyStore", SiGLa.KEYSTORE);       
 
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); // passa o atributo de usuário
             p.setSenha(request.getParameter("password")); // passa o atributo de senha           

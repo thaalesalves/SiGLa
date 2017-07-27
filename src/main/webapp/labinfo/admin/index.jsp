@@ -49,7 +49,7 @@ Copyright (C) 2016 Thales Alves Pereira
         if (!p.getRole().equals("admin")) {
             response.sendRedirect(request.getContextPath() + "/error/403");
         }
-    } else if (SiGLa.DOMAIN.equals("null")) {
+    } else if (SiGLa.getDomain().equals("null")) {
         p.setNomeCompleto("Administrador Local");
         p.setNome("Administrador");
         p.setShownName("Administrador Local");
@@ -139,8 +139,8 @@ Copyright (C) 2016 Thales Alves Pereira
         </script>
     </head>
     <body class="hold-transition skin-black-light sidebar-mini">
-        <h1><%=SiGLa.DOMAIN%></h1>
-        <h1><%=SiGLa.DOMAIN_HOST%></h1>
+        <h1><%=SiGLa.getDomain()%></h1>
+        <h1><%=SiGLa.getDomainHost()%></h1>
         <div class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <%@include file="/includes/sidebar_admin.jsp"%>
@@ -162,96 +162,96 @@ Copyright (C) 2016 Thales Alves Pereira
                     <%@include file="/includes/widgets_admin.jsp" %>
                 </section>
             </div>
-    </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-    </footer>
-    <div class="control-sidebar-bg"></div>
+        </div>
+        <footer class="main-footer">
+            <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
+        </footer>
+        <div class="control-sidebar-bg"></div>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
 
-    <script>
-            $(function () {
-                //Initialize Select2 Elements
-                $(".select2").select2();
+        <script>
+                $(function () {
+                    //Initialize Select2 Elements
+                    $(".select2").select2();
 
-                //Datemask dd/mm/yyyy
-                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-                //Datemask2 mm/dd/yyyy
-                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                //Money Euro
-                $("[data-mask]").inputmask();
+                    //Datemask dd/mm/yyyy
+                    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                    //Datemask2 mm/dd/yyyy
+                    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                    //Money Euro
+                    $("[data-mask]").inputmask();
 
-                //Date range picker
-                $('#reservation').daterangepicker();
-                //Date range picker with time picker
-                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-                //Date range as a button
-                $('#daterange-btn').daterangepicker(
-                        {
-                            ranges: {
-                                'Today': [moment(), moment()],
-                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    //Date range picker
+                    $('#reservation').daterangepicker();
+                    //Date range picker with time picker
+                    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+                    //Date range as a button
+                    $('#daterange-btn').daterangepicker(
+                            {
+                                ranges: {
+                                    'Today': [moment(), moment()],
+                                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                },
+                                startDate: moment().subtract(29, 'days'),
+                                endDate: moment()
                             },
-                            startDate: moment().subtract(29, 'days'),
-                            endDate: moment()
-                        },
-                        function (start, end) {
-                            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                        }
-                );
+                            function (start, end) {
+                                $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                            }
+                    );
 
-                //Date picker
-                $('#datepicker').datepicker({
-                    autoclose: true
-                });
+                    //Date picker
+                    $('#datepicker').datepicker({
+                        autoclose: true
+                    });
 
-                //iCheck for checkbox and radio inputs
-                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                    checkboxClass: 'icheckbox_minimal-blue',
-                    radioClass: 'iradio_minimal-blue'
-                });
-                //Red color scheme for iCheck
-                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                    checkboxClass: 'icheckbox_minimal-red',
-                    radioClass: 'iradio_minimal-red'
-                });
-                //Flat red color scheme for iCheck
-                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                    checkboxClass: 'icheckbox_flat-green',
-                    radioClass: 'iradio_flat-green'
-                });
+                    //iCheck for checkbox and radio inputs
+                    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                        checkboxClass: 'icheckbox_minimal-blue',
+                        radioClass: 'iradio_minimal-blue'
+                    });
+                    //Red color scheme for iCheck
+                    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                        checkboxClass: 'icheckbox_minimal-red',
+                        radioClass: 'iradio_minimal-red'
+                    });
+                    //Flat red color scheme for iCheck
+                    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                        checkboxClass: 'icheckbox_flat-green',
+                        radioClass: 'iradio_flat-green'
+                    });
 
-                //Colorpicker
-                $(".my-colorpicker1").colorpicker();
-                //color picker with addon
-                $(".my-colorpicker2").colorpicker();
+                    //Colorpicker
+                    $(".my-colorpicker1").colorpicker();
+                    //color picker with addon
+                    $(".my-colorpicker2").colorpicker();
 
-                //Timepicker
-                $(".timepicker").timepicker({
-                    showInputs: false
+                    //Timepicker
+                    $(".timepicker").timepicker({
+                        showInputs: false
+                    });
                 });
-            });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

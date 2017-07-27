@@ -44,7 +44,7 @@ Copyright (C) 2016 Thales Alves Pereira
         picPath = request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg";
     }
 
-    if (SiGLa.DOMAIN.equals("null")) {
+    if (SiGLa.getDomain().equals("null")) {
         p.setNomeCompleto("Administrador Local");
         p.setNome("Administrador");
         p.setShownName("Administrador Local");
