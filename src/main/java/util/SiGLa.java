@@ -68,6 +68,7 @@ public final class SiGLa {
             
             domain = (String) cfg.get("sigla.auth.domain");
             domainHost = (String) cfg.get("sigla.auth.host");
+            domainHost = domainHost.replaceAll("\\\\", "");
             netbios = (String) cfg.get("sigla.auth.netbios");
             authMethod = (String) cfg.get("sigla.auth.method");
 
@@ -75,6 +76,7 @@ public final class SiGLa {
             dbUser = (String) cfg.get("sigla.db.user");
             dbPasswd = (String) cfg.get("sigla.db.passwd");
             dbAddr = (String) cfg.get("sigla.db.addr");
+            dbAddr = dbAddr.replaceAll("\\\\", "");
             dbPort = (String) cfg.get("sigla.db.port");
             dbSsl = (String) cfg.get("sigla.db.ssl");
         } catch (Exception e) {
