@@ -91,7 +91,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -146,7 +145,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content-header">
                     <h1>
                         Administração
-                        <small>Banco de Dados</small>
+                        <small>banco de dados</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Administração</a></li>
@@ -159,25 +158,29 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Cadastro de laboratório</h3>
+                            <h3 class="box-title">Configurações de Banco de Dados</h3>
                         </div>
                         <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                            <div class="box-body">                                
+                            <div class="box-body">     
                                 <div class='form-group'>
-                                    <label>Número</label>
-                                    <input name="numero" type='text' class='form-control pull-right' placeholder="2T-27" />
+                                    <label>Base de dados</label>
+                                    <input autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Capacidade de Alunos</label>
-                                    <input name="capacidade" type='text' class='form-control pull-right' placeholder="50" />
+                                    <label>Usuário</label>
+                                    <input autocomplete="off" id="db-user" name="db-user" type='text' class='form-control pull-right' placeholder="siglauser" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Quantidade de Computadores</label>
-                                    <input name="computadores" type='text' class='form-control pull-right' placeholder="25" />
+                                    <label>Senha</label>
+                                    <input autocomplete="off" id="db-passwd" name="db-passwd" type='password' class='form-control pull-right' placeholder="siglapasswd" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Servidor</label>
+                                    <input autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button value="LaboratorioInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                <button value="DatabaseAtualizar" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                             </div>
                         </form>
                     </div>

@@ -91,7 +91,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

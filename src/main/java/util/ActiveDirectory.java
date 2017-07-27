@@ -55,8 +55,8 @@ public class ActiveDirectory {
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAPS://191.232.180.82:636"); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@thalesalv.es"); // valida credencial de usuário
+        properties.put(Context.PROVIDER_URL, "LDAPS://" + SiGLa.getDomainHost() + ":636"); // conecta com o AD DC
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.getDomain()); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
