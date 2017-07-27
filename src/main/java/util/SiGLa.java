@@ -8,7 +8,6 @@ import java.util.Properties;
 
 public final class SiGLa {
 // <editor-fold defaultstate="collapsed" desc="Inicializador e constantes">
-
     public static final String HOME;
     public static final String TEST;
     public static final String SOURCE;
@@ -64,7 +63,7 @@ public final class SiGLa {
     private static void loadProperties() {
         try {
             Properties cfg = new Properties();
-            InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties");
+            InputStream stream = new FileInputStream(TARGET + "/classes/config.properties");
             cfg.load(stream);
             
             domain = (String) cfg.get("sigla.auth.domain");
