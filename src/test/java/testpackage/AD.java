@@ -57,8 +57,8 @@ public class AD {
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAPS://" + SiGLa.DB_ADDR + ":636"); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.DOMAIN_HOST); // valida credencial de usuário
+        //properties.put(Context.PROVIDER_URL, "LDAPS://" + SiGLa.DB_ADDR + ":636"); // conecta com o AD DC
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.getDomainHost()); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
@@ -268,11 +268,11 @@ public class AD {
                 SearchResult sr = (SearchResult) result.next(); //entra na tupla
                 Attributes attrs = sr.getAttributes(); // define atributos
                 pic = (byte[]) attrs.get("jpegPhoto ").get();
-                
+
                 if (pic == null) {
                     pic = (byte[]) attrs.get("thumbnailPhoto ").get();
                 }
-                
+
                 return pic;
             }
         } catch (Exception e) {
