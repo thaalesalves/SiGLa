@@ -4,7 +4,7 @@ title Instancia do SiGLa
 
 if exist %cd%\target (
   echo Removendo compilacoes antigas
-  del /f %cd%\target
+  del /F /Q %cd%\target
 )
 
 echo Recompilando projeto
