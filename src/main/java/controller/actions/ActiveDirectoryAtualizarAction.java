@@ -26,20 +26,20 @@ public class ActiveDirectoryAtualizarAction implements ICommand {
 
             SiGLa.writeProperty("sigla.auth.domain", dominio);
             SiGLa.writeProperty("sigla.auth.netbios", netbios);
-            SiGLa.writeProperty("sigla.auth.method", addr);
-            SiGLa.writeProperty("sigla.auth.host", auth);
+            SiGLa.writeProperty("sigla.auth.method", auth);
+            SiGLa.writeProperty("sigla.auth.host", addr);
         } catch (Exception e) {
             Logger.logSevere(e, e.getClass());
 
-            session.setAttribute("msg", "Erro ao atualizar as informações");
+            session.setAttribute("msg", "Erro ao atualizar domínio");
             session.setAttribute("status", "error");
 
-            return request.getContextPath() + "/admin/activedirectory";
+            return request.getContextPath();
         }
 
-        session.setAttribute("msg", "Informações de banco de dados atualizadas");
+        session.setAttribute("msg", "Domínio atualizado");
         session.setAttribute("status", "success");
 
-        return request.getContextPath() + "/admin/activedirectory";
+        return request.getContextPath();
     }
 }

@@ -30,9 +30,12 @@ Copyright (C) 2016 Thales Alves Pereira
         }
 
         String login = "nada";
+        String status = null;
         if ((String) session.getAttribute("msg") != null) {
             login = (String) session.getAttribute("msg");
             session.removeAttribute("msg");
+            status = (String) session.getAttribute("status");
+            session.removeAttribute("status");
         }
     %>
     <head>
@@ -52,13 +55,13 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 var msg = "<%=login%>";
-                var permanotice = false;
-
+                var status = "<%=status%>";
+                
                 if (msg != "nada") {
                     new PNotify({
                         title: 'Erro ao fazer login',
                         text: msg,
-                        type: 'error',
+                        type: status,
                         addclass: 'stack-bottomright',
                         animate: {
                             animate: true,
@@ -68,6 +71,7 @@ Copyright (C) 2016 Thales Alves Pereira
                     });
                 }
 
+                var permanotice = false;
                 if (permanotice) {
                     permanotice.open();
                 } else {

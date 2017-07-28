@@ -95,6 +95,7 @@ public class LoginAction implements ICommand {
                     return request.getContextPath() + "/pagina/home";
                 } else {
                     session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
+                    session.setAttribute("status", "error");
                     return request.getContextPath(); // chama de volta a página de login
                 }
             }
@@ -103,11 +104,13 @@ public class LoginAction implements ICommand {
         } catch (CommunicationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
+            session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
             return request.getContextPath(); // chama de volta a página de login
         } catch (AuthenticationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
+            session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
             return request.getContextPath(); // chama de volta a página de login
         } catch (Exception e) {
