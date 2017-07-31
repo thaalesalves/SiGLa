@@ -91,7 +91,7 @@ Copyright (C) 2016 Thales Alves Pereira
         </script>
 
     </head>
-    <body class="hold-transition skin-black-light sidebar-mini">
+    <body class="fixed hold-transition skin-black-light sidebar-mini">
         <div class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <%@include file="/includes/sidebar.jsp"%>

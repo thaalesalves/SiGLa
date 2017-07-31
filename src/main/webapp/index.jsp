@@ -1,3 +1,4 @@
+<%@page import="util.SiGLa"%>
 <%@page import="java.util.Properties"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
@@ -23,6 +24,10 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html lang="pt">
     <%
+        if (SiGLa.getDomain().equals("null")) {
+            response.sendRedirect(request.getContextPath() + "/admin/install");
+        }
+        
         Calendar cal = Calendar.getInstance();
 
         if (session.getAttribute("ad") != null) {
@@ -56,7 +61,7 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 var msg = "<%=login%>";
                 var status = "<%=status%>";
-                
+
                 if (msg != "nada") {
                     new PNotify({
                         title: 'Erro ao fazer login',
@@ -125,6 +130,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 </div>
             </div>
         </div>
+        <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
     </body>
 </html>
 

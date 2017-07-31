@@ -97,8 +97,9 @@ CREATE SEQUENCE seq_modulo_res;
 CREATE SEQUENCE seq_modulo_soli;
 
 -- Inserção dos grupos de acesso
-INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'admin', 'memberOf=CN=sigla_admin,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
+/*INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'admin', 'memberOf=CN=sigla_admin,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'funcionario', 'memberOf=CN=sigla_func,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'estagiario', 'memberOf=CN=sigla_est,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'coordenador', 'memberOf=CN=sigla_coord,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
 INSERT INTO grupo VALUES (NEXTVAL('seq_grupo'), 'professor','memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es');
+*/
