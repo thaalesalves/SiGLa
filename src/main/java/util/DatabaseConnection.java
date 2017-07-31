@@ -32,8 +32,17 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 
 public final class DatabaseConnection {
 
-    public static void checkDatabase(Connection conn) throws SQLException {
+    public static void checkDatabase() throws SQLException {
         try {
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(
+                    "jdbc:postgresql://"
+                    + SiGLa.getDbAddr() + "/"
+                    + SiGLa.getDbName(),
+                    SiGLa.getDbUser(),
+                    SiGLa.getDbPasswd()
+            );
+            
             DatabaseMetaData dbmd = conn.getMetaData();
             ResultSet rs = dbmd.getTables(null, null, "%", new String[] {"TABLE"});
 

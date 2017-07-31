@@ -34,9 +34,8 @@ public class DatabaseAtualizarAction implements ICommand {
             SiGLa.writeProperty("sigla.db.user", user);
             SiGLa.writeProperty("sigla.db.passwd", passwd);
             SiGLa.writeProperty("sigla.db.addr", addr);
-            
-            Connection conn = DatabaseConnection.getConnection();
-            DatabaseConnection.checkDatabase(conn);
+
+            DatabaseConnection.checkDatabase();
         } catch (Exception e) {
             Logger.logSevere(e, e.getClass());
 

@@ -29,13 +29,11 @@ import util.DatabaseConnection;
 
 public class GrupoDAO {
     
-    private final String SELECT = "SELECT id, grupo, cargo FROM grupo ORDER BY id";
-    
     public ArrayList<Grupo> select() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Grupo> arrayg = new ArrayList<Grupo>();
         
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT id, grupo, cargo FROM grupo ORDER BY id");
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {
@@ -52,5 +50,15 @@ public class GrupoDAO {
         }
         
         return arrayg;
+    }
+    
+    public void insert(Grupo g) throws SQLException, NullPointerException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO grupo VALUES(NEXTVAL('seq_grupo'), ?, ?)");            
+            pstmt.setString(1, g.getRole());
+            pstmt.setString(2, g.getGrupo());            
+            pstmt.executeUpdate();            
+            conn.close();
+        }
     }
 }

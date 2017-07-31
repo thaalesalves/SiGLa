@@ -13,8 +13,8 @@
         <servlet-class>controller.JsonController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InfoController</servlet-name>
-        <servlet-class>controller.InfoController</servlet-class>
+        <servlet-name>TestController</servlet-name>
+        <servlet-class>controller.TestController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RedirectController</servlet-name>
@@ -26,8 +26,8 @@
         <url-pattern>/curso/*</url-pattern>
         <url-pattern>/error/*</url-pattern>
         <url-pattern>/controle/*</url-pattern>
-        <url-pattern>/info/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/install/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
@@ -39,8 +39,8 @@
         <url-pattern>/JsonController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InfoController</servlet-name>
-        <url-pattern>/InfoController</url-pattern>
+        <servlet-name>TestController</servlet-name>
+        <url-pattern>/TestController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
