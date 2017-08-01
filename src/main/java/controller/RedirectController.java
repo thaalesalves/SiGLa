@@ -42,15 +42,11 @@ public class RedirectController extends HttpServlet {
 
         try {
             /* Redirecionamentos de /admin/ */
-            mapaUrl.put("/admin", "/admin/dashboard");
+            mapaUrl.put("/admin", "/admin/install");
             mapaUrl.put("/install", "/admin/install");
             mapaUrl.put("/admin/install", "../labinfo/admin/install.jsp");
-            mapaUrl.put("/admin/dashboard", "../labinfo/admin/index.jsp");
-            mapaUrl.put("/admin/database", "../labinfo/admin/database.jsp");
-            mapaUrl.put("/admin/activedirectory", "../labinfo/admin/activedirectory.jsp");
-            
-            /* Redirecionamentos de /info/ */
-            mapaUrl.put("/info/nova-reserva", "../InfoController?acao=nova-reserva");
+            mapaUrl.put("/admin/database", "../labinfo/admin/db.jsp");
+            mapaUrl.put("/admin/activedirectory", "../labinfo/admin/ad.jsp");
             
             /* Redirecionamentos de /controle/ */
             mapaUrl.put("/controle/listar-labs", "../AlmightyController?acao=LaboratorioListagem");
@@ -60,13 +56,14 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/controle/listar-reservas-hoje", "../AlmightyController?acao=ReservaDiaListagem");
             mapaUrl.put("/controle/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoListagem");
             mapaUrl.put("/controle/listar-curso", "../AlmightyController?acao=CursoListagem");
+            mapaUrl.put("/controle/nova-reserva", "../AlmightyController?acao=ReservaInsercao");
             
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/login", "../index.jsp");
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
-            /* Redirecionamentos de /reserva/ */
+            /* Redirecionamentos de /reserva/ */            
             mapaUrl.put("/reserva/novo", "../labinfo/reserva/novo.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
             mapaUrl.put("/reserva/hoje", "../labinfo/reserva/lista_dia.jsp");

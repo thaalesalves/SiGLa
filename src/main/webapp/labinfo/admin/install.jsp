@@ -29,7 +29,7 @@ Copyright (C) 2016 Thales Alves Pereira
     if (!util.SiGLa.getDomain().equals("null")) {
         response.sendRedirect(request.getContextPath());
     }
-    
+
     Calendar cal = Calendar.getInstance();
 
     Pessoa p = new Pessoa();
@@ -114,7 +114,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/wizard.js" type="text/javascript"></script>
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body class="hold-transition skin-black-light sidebar-mini sidebar-collapse">
+    <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div id="corpo" class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <div class="content-wrapper">
@@ -134,7 +134,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <ul class="nav nav-tabs" role="tablist">
 
                                 <li role="presentation" class="active">
-                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Banco de Dados">
                                         <span class="round-tab">
                                             <i class="fa fa-database"></i>
                                         </span>
@@ -142,14 +142,14 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </li>
 
                                 <li role="presentation" class="disabled">
-                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Active Directory">
                                         <span class="round-tab">
                                             <i class="fa fa-windows"></i>
                                         </span>
                                     </a>
                                 </li>
                                 <li role="presentation" class="disabled">
-                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Grupos de Acesso">
                                         <span class="round-tab">
                                             <i class="fa fa-users"></i>
                                         </span>
@@ -157,7 +157,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </li>
 
                                 <li role="presentation" class="disabled">
-                                    <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                    <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Conclusão">
                                         <span class="round-tab">
                                             <i class="glyphicon glyphicon-ok"></i>
                                         </span>
@@ -303,15 +303,67 @@ Copyright (C) 2016 Thales Alves Pereira
                                     </div>
                                 </div>
                                 <div class="tab-pane" role="tabpanel" id="complete">
-                                    <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
-                                        <h3>Complete</h3>
-                                        <p>You have successfully completed all steps.</p>
-                                    </div>
-                                    <div class="box-footer">
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
-                                        </ul>
-                                    </div>
+                                    <div id="conclusao" class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                                        <h3>Concluído!</h3>
+                                        <p>Todos os dados necessários foram preenchidos. Clique aqui para revisar os dados</p>
+                                        <div id="data" style="display:none;">
+                                            <br/><h4>Banco de Dados</h4>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">SGBD</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-dbms">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Banco</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-dbname">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Usuário</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-dbuser">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Host</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-dbhost">
+                                                </div>
+                                            </div>
+                                            <br/><h4>Active Directory</h4>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Autenticação</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-auth">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Domínio</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-domain">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Controladora</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-controller">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">NetBIOS</label>
+                                                <div class="col-sm-10">
+                                                    <input readonly type="text" class="form-control" id="dt-netbios">
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        <div class="box-footer">
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </form>
@@ -345,8 +397,36 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 contextPath = "<%=request.getContextPath()%>";
-                
+
+                $("#conclusao").click(function () {
+                    $("#data").toggle();
+                });
+
                 $(function () {
+                    $("#db-name").keyup(function () {
+                        $('#dt-dbname').val($('#db-name').val());
+                    });
+
+                    $("#db-user").keyup(function() {
+                        $('#dt-dbuser').val($('#db-user').val());
+                    });
+
+                    $("#db-host").keyup(function() {
+                        $('#dt-dbhost').val($('#db-host').val());
+                    });
+
+                    $("#ad-domain").keyup(function() {
+                        $('#dt-domain').val($('#ad-domain').val());
+                    });
+
+                    $("#ad-controller").keyup(function() {
+                        $('#dt-controller').val($('#ad-controller').val());
+                    });
+                    
+                    $("#ad-netbios").keyup(function() {
+                        $('#dt-netbios').val($('#ad-netbios').val());
+                    });
+
                     $("#ad-domain").keyup(function () {
                         // Configurações de domínio
                         $("#ad-controller").val($(this).val());
@@ -360,13 +440,10 @@ Copyright (C) 2016 Thales Alves Pereira
                         $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
 
                         // Valores finais
-                        $('#span-db').val($('#db-name').val());
-                        $('#span-user').val($('#db-user').val());
-                        $('#span-dbms').val($('#db-dbms :selected').text());
-                        $('#span-domain').val($('#ad-domain').val());
-                        $('#span-netbios').val($('#ad-netbios').val());
-                        $('#span-controller').val($('#ad-controller').val());
-                        $('#span-protocol').val($('#ad-auth :selected').text());
+                        $('#dt-netbios').val($('#ad-netbios').val());
+                        $('#dt-controller').val($('#ad-controller').val());                        
+                        $('#dt-dbms').val($('#db-dbms :selected').text());
+                        $('#dt-auth').val($('#ad-auth :selected').text());
                     });
                 });
             });

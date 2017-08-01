@@ -18,6 +18,42 @@
  */
 package controller.actions;
 
-public class ReservaInsercaoAction {
-    
+import dao.CursoDAO;
+import dao.SoftwareDAO;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.naming.NamingException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Curso;
+import model.Reserva;
+import model.Software;
+
+public class ReservaInsercaoAction implements ICommand {
+
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
+        HttpSession session = request.getSession();
+        try {
+            Reserva reserva = new Reserva();
+            SoftwareDAO sdao = new SoftwareDAO();
+            CursoDAO cdao = new CursoDAO();
+
+            ArrayList<Software> softwares = sdao.selectAll();
+            ArrayList<Curso> cursos = cdao.selectAll();
+
+            reserva.setCursos(cursos);
+            reserva.setSoftwares(softwares);
+
+            session.setAttribute("reserva", reserva);
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+
+        return request.getContextPath() + "/reserva/novo";
+    }
 }
