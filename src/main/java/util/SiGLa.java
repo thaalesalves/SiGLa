@@ -51,6 +51,7 @@ public final class SiGLa {
     private static String dbAddr;
     private static String dbPort;
     private static String dbSsl;
+    private static String dbDbms;
 
     private SiGLa() {
         throw new AssertionError();
@@ -79,6 +80,7 @@ public final class SiGLa {
             dbAddr = dbAddr.replaceAll("\\\\", "");
             dbPort = (String) cfg.get("sigla.db.port");
             dbSsl = (String) cfg.get("sigla.db.ssl");
+            dbDbms = (String) cfg.get("sigla.db.dbms");
         } catch (Exception e) {
             util.Logger.logSevere(e, SiGLa.class);
         }
@@ -103,6 +105,10 @@ public final class SiGLa {
         }
     }
 
+    public static String getDbms() {
+        return dbDbms;
+    }
+    
     public static String getDomain() {
         return domain;
     }
