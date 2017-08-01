@@ -26,6 +26,10 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    if (!util.SiGLa.getDomain().equals("null")) {
+        response.sendRedirect(request.getContextPath());
+    }
+    
     Calendar cal = Calendar.getInstance();
 
     Pessoa p = new Pessoa();
@@ -132,7 +136,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <li role="presentation" class="active">
                                     <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
                                         <span class="round-tab">
-                                            <i class="glyphicon glyphicon-folder-open"></i>
+                                            <i class="fa fa-database"></i>
                                         </span>
                                     </a>
                                 </li>
@@ -140,14 +144,14 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <li role="presentation" class="disabled">
                                     <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                                         <span class="round-tab">
-                                            <i class="glyphicon glyphicon-pencil"></i>
+                                            <i class="fa fa-windows"></i>
                                         </span>
                                     </a>
                                 </li>
                                 <li role="presentation" class="disabled">
                                     <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
                                         <span class="round-tab">
-                                            <i class="glyphicon glyphicon-picture"></i>
+                                            <i class="fa fa-users"></i>
                                         </span>
                                     </a>
                                 </li>
@@ -341,19 +345,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).ready(function () {
                 contextPath = "<%=request.getContextPath()%>";
-                
-                $('#db-passwd').keyup(function() {
-                    var passwd = $('#db-passwd');
-                    var cpasswd = $('#db-confirm');
-                    
-                    if (passwd.val() === cpasswd.val()) {
-                        passwd.addClass('has-success');
-                        cpasswd.addClass('has-success');
-                    } else {
-                        passwd.addClass('has-error');
-                        cpasswd.addClass('has-error');
-                    }
-                });
                 
                 $(function () {
                     $("#ad-domain").keyup(function () {
