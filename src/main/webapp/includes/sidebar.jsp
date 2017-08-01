@@ -15,7 +15,7 @@
         <ul class="sidebar-menu">
             <li class="header">MENU</li>
             <li class="treeview">
-                <a href="${pageContext.request.contextPath}">
+                <a href="${pageContext.request.contextPath}/">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
