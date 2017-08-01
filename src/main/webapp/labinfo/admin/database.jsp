@@ -25,39 +25,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    Calendar cal = Calendar.getInstance();
-
-    Pessoa p = new Pessoa();
-
-    String msg = "null";
-    String status = null;
-    if ((msg = (String) session.getAttribute("msg")) != null) {
-        msg = (String) session.getAttribute("msg");
-        status = (String) session.getAttribute("status");
-        session.removeAttribute("msg");
-        session.removeAttribute("status");
-    }
-
-    String picPath = request.getContextPath() + "/img/user/thumbnail.png";
-    if (new File(request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg").exists()) {
-        picPath = request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg";
-    }
-
-    if (SiGLa.getDomain().equals("null")) {
-        p.setNomeCompleto("Administrador Local");
-        p.setNome("Administrador");
-        p.setShownName("Administrador Local");
-        p.setCargo("Administrador");
-        p.setDepto("Departamento de TI");
-    } else if ((p = (Pessoa) session.getAttribute("pessoa")) != null) {
-        if (!p.getRole().equals("admin")) {
-            response.sendRedirect(request.getContextPath() + "/error/403");
-        }
-    } else {
-        response.sendRedirect(request.getContextPath() + "/error/403");
-    }
-%>
+<%@include file="/includes/session.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -178,9 +146,12 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Servidor</label>
                                     <input autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
                                 </div>
+                                <div style="display:none;" class="form-group">
+                                    <input value="db" name="op" id="op" type='text' class='form-control pull-right' required/>
+                                </div>
                             </div>
                             <div class="box-footer">
-                                <button value="DatabaseAtualizar" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                <button value="Configuration" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                             </div>
                         </form>
                     </div>

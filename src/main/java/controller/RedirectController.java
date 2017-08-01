@@ -42,6 +42,8 @@ public class RedirectController extends HttpServlet {
 
         try {
             /* Redirecionamentos de /admin/ */
+            mapaUrl.put("/admin", "/admin/dashboard");
+            mapaUrl.put("/install", "/admin/install");
             mapaUrl.put("/admin/install", "../labinfo/admin/install.jsp");
             mapaUrl.put("/admin/dashboard", "../labinfo/admin/index.jsp");
             mapaUrl.put("/admin/database", "../labinfo/admin/database.jsp");

@@ -182,28 +182,28 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Host</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="db-host" name="db-host" placeholder="10.10.10.10:5432">
+                                                <input autocomplete="off" type="text" class="form-control" id="db-host" name="db-host" placeholder="10.10.10.10:5432">
                                                 <span class="help-block">Endereço do banco de dados (i.e., 10.10.10.10:5432)</span>
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Banco</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="db-name" name="db-name" placeholder="sigladb">
+                                                <input autocomplete="off" type="text" class="form-control" id="db-name" name="db-name" placeholder="sigladb">
                                                 <span class="help-block">Nome do banco de dados</span>
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Usuário</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="db-user" name="db-user" placeholder="siglauser">
+                                                <input autocomplete="off" type="text" class="form-control" id="db-user" name="db-user" placeholder="siglauser">
                                                 <span class="help-block">Usuário do banco de dados</span>
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Senha</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" id="db-passwd" name="db-passwd" placeholder="siglapasswd">
+                                                <input autocomplete="off" type="password" class="form-control" id="db-passwd" name="db-passwd" placeholder="siglapasswd">
                                                 <span class="help-block">Senha do usuário</span>
                                             </div>
                                         </div>
@@ -232,21 +232,21 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Domínio</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ad-domain" name="ad-domain" placeholder="contoso.com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ad-domain" name="ad-domain" placeholder="contoso.com">
                                                 <span class="help-block">Domínio do Active Directory (i.e., conto.com)</span>
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">NetBIOS</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ad-netbios" name="ad-netbios" placeholder="CONTOSO">
+                                                <input autocomplete="off" type="text" class="form-control" id="ad-netbios" name="ad-netbios" placeholder="CONTOSO">
                                                 <span class="help-block">Nome NetBIOS do domínio</span>
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Controladora</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ad-controller" name="ad-controller" placeholder="dc.contoso.com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ad-controller" name="ad-controller" placeholder="dc.contoso.com">
                                                 <span class="help-block">Controladora de domínio (para wildcard, mantenha do mesmo valor do domínio)</span>
                                             </div>
                                         </div>
@@ -264,31 +264,31 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Administrador</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ldap-admin" name="ldap-admin" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ldap-admin" name="ldap-admin" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Funcionário</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ldap-func" name="ldap-func" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ldap-func" name="ldap-func" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Estagiário</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ldap-est" name="ldap-est" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ldap-est" name="ldap-est" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Coordenador</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ldap-coord" name="ldap-coord" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ldap-coord" name="ldap-coord" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
                                             </div>
                                         </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Professores</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="ldap-prof" name="ldap-prof" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                <input autocomplete="off" type="text" class="form-control" id="ldap-prof" name="ldap-prof" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
                                             </div>
                                         </div>
                                     </div>
