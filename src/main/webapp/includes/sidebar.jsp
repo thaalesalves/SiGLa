@@ -15,13 +15,13 @@
         <ul class="sidebar-menu">
             <li class="header">MENU</li>
             <li class="treeview">
-                <a href="${pageContext.request.contextPath}">
+                <a href="${pageContext.request.contextPath}/">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-gears"></i> <span>Administração</span>
+                    <i class="fa fa-gears"></i> <span>Administrao</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -40,7 +40,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id="item-reserva-novo"><a href="${pageContext.request.contextPath}/controle/nova-reserva"><i class="fa fa-circle-o"></i> <span>Solicitar</span></a></li>
-                    <li style="display: none;" id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
+                    <li style="display: none;" id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitaes</a></li>
                     <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
                     <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                 </ul>
@@ -53,7 +53,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li style="display: none;" id='item-novo-curso'><a href="${pageContext.request.contextPath}/curso/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
+                    <li style="display: none;" id='item-novo-curso'><a href="${pageContext.request.contextPath}/curso/novo"><i class="fa fa-circle-o"></i> <span>Insero</span></a></li>
                     <li id='item-lista-curso'><a href="${pageContext.request.contextPath}/controle/listar-curso"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
@@ -65,19 +65,19 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li style="display: none;" id='item-novo-software'><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
+                    <li style="display: none;" id='item-novo-software'><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i> <span>Insero</span></a></li>
                     <li id='item-lista-software'><a href="${pageContext.request.contextPath}/controle/listar-softwares"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-desktop"></i> <span>Laboratórios</span>
+                    <i class="fa fa-desktop"></i> <span>Laboratrios</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li style="display: none;" id='item-novo-lab'><a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-edit"></i> <span>Inserção</span></a></li>
+                    <li style="display: none;" id='item-novo-lab'><a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-edit"></i> <span>Insero</span></a></li>
                     <li id='item-lista-lab'><a href="${pageContext.request.contextPath}/controle/listar-labs"><i class="fa fa-desktop"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
