@@ -130,6 +130,14 @@ Copyright (C) 2016 Thales Alves Pereira
                         </div>
                         <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                             <div class="box-body">
+                                <div class="form-group">
+                                    <label>Método de Autenticação</label>
+                                    <select id="auth" name="auth" class="select2 form-control" data-placeholder="Protocolo de autenticação" style="width: 100%;" required>
+                                        <option value="ldaps">LDAPS (LDAP seguro)</option>
+                                        <option value="ldap">LDAP (LDAP inseguro)</option>
+                                        <option value="kerberos">Kerberos</option>
+                                    </select>
+                                </div>
                                 <div class='form-group'>
                                     <label>Domínio</label>
                                     <input name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>

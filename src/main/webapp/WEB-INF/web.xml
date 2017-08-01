@@ -12,10 +12,6 @@
         <servlet-name>CounterController</servlet-name>
         <servlet-class>controller.JsonController</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>TestController</servlet-name>
-        <servlet-class>controller.TestController</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>RedirectController</servlet-name>
         <url-pattern>/pagina/*</url-pattern>
@@ -37,10 +33,6 @@
         <servlet-name>CounterController</servlet-name>
         <url-pattern>/CounterController</url-pattern>
         <url-pattern>/JsonController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TestController</servlet-name>
-        <url-pattern>/TestController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
