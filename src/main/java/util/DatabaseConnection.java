@@ -32,7 +32,7 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 
 public final class DatabaseConnection {
 
-    public static void checkDatabase() throws SQLException {
+    public static boolean checkDatabase() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(
@@ -42,21 +42,26 @@ public final class DatabaseConnection {
                     SiGLa.getDbUser(),
                     SiGLa.getDbPasswd()
             );
-            
+
             DatabaseMetaData dbmd = conn.getMetaData();
-            ResultSet rs = dbmd.getTables(null, null, "%", new String[] {"TABLE"});
+            ResultSet rs = dbmd.getTables(null, null, "grupo", new String[]{"TABLE"});
 
             if (!rs.next()) {
                 String sql = SiGLa.HOME + "/resources/db/psql.sql";
-                
+
                 ScriptRunner sr = new ScriptRunner(conn);
                 InputStream is = new FileInputStream(sql);
                 Reader reader = new InputStreamReader(is);
-                
+
                 sr.runScript(reader);
+
+                return false;
+            } else {
+                return true;
             }
         } catch (Exception e) {
             Logger.logSevere(e, DatabaseConnection.class);
+            return false;
         }
     }
 
