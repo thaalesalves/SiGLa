@@ -27,7 +27,7 @@ function enviar() {
     loadPage();
 
     $.ajax({
-        url: contextPath + '/TestController?acao=install&' + formInstalacao,
+        url: contextPath + '/AlmightyController?acao=Configuration&op=install&' + formInstalacao,
         type: 'POST',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
