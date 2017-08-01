@@ -173,17 +173,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <h3>Banco de Dados</h3>
                                         <p>Configuração do Banco de Dados</p><br/>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">SGBD</label>
-                                            <div class="col-sm-10">
-                                                <select id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                    <option disabled selected>Selecione uma opção</option>
-                                                    <option value="psql">PostgreSQL</option>
-                                                    <option value="mysql">MySQL / MariaDB</option>
-                                                </select>
-                                                <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Host</label>
                                             <div class="col-sm-10">
                                                 <input autocomplete="off" type="text" class="form-control" id="db-host" name="db-host" placeholder="10.10.10.10:5432">
@@ -222,17 +211,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
                                         <h3>Active Directory</h3>
                                         <p>Configuração do Diretório</p><br/>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Autenticação</label>
-                                            <div class="col-sm-10">
-                                                <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                    <option disabled selected>Selecione uma opção</option>
-                                                    <option value="ldap">LDAP (LDAP inseguro)</option>
-                                                    <option value="ldaps">LDAPS (LDAP seguro)</option>
-                                                </select>
-                                                <span class="help-block">Protocolo de conexão com o diretório</span>
-                                            </div>
-                                        </div>
                                         <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                             <label class="col-sm-2 control-label">Domínio</label>
                                             <div class="col-sm-10">
@@ -309,12 +287,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <div id="data" style="display:none;">
                                             <br/><h4>Banco de Dados</h4>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">SGBD</label>
-                                                <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-dbms">
-                                                </div>
-                                            </div>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Banco</label>
                                                 <div class="col-sm-10">
                                                     <input readonly type="text" class="form-control" id="dt-dbname">
@@ -333,12 +305,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                                 </div>
                                             </div>
                                             <br/><h4>Active Directory</h4>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Autenticação</label>
-                                                <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-auth">
-                                                </div>
-                                            </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Domínio</label>
                                                 <div class="col-sm-10">
