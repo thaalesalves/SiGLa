@@ -60,7 +60,7 @@ Copyright (C) 2016 Thales Alves Pereira
             });
         </script>
     </head>
-    <body class="hold-transition skin-black-light sidebar-mini">        
+    <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">        
         <div class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <%@include file="/includes/sidebar.jsp"%>
