@@ -1,6 +1,6 @@
 <%@page import="java.io.File"%>
 <script>
-    contextPath = "${pageContext.request.contextPath}";
+    contextPath = "${pageContext.request.contextPath}/";
 </script>
 <header class="main-header">                
     <!-- Logo -->
@@ -24,7 +24,7 @@
                         <span class="label label-warning">10</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">Você tem 10 notificações </li>
+                        <li class="header">Voc tem 10 notificaes </li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
