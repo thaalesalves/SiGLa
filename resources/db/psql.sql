@@ -95,3 +95,13 @@ CREATE SEQUENCE seq_grupo;
 CREATE SEQUENCE seq_soli;
 CREATE SEQUENCE seq_modulo_res;
 CREATE SEQUENCE seq_modulo_soli;
+
+-- Inserção de Valores
+INSERT INTO modulo VALUES(1);
+INSERT INTO modulo VALUES(2);
+INSERT INTO modulo VALUES(3);
+INSERT INTO modulo VALUES(4);
+INSERT INTO modulo VALUES(5);
+INSERT INTO modulo VALUES(6);
+INSERT INTO modulo VALUES(7);
+INSERT INTO modulo VALUES(8);

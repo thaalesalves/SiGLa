@@ -82,3 +82,13 @@ CREATE TABLE modulo_soli (
     res INT REFERENCES solicitacao(id),
     modulo INT REFERENCES modulo(id)
 );
+
+-- Inserção de Valores
+INSERT INTO modulo VALUES(1);
+INSERT INTO modulo VALUES(2);
+INSERT INTO modulo VALUES(3);
+INSERT INTO modulo VALUES(4);
+INSERT INTO modulo VALUES(5);
+INSERT INTO modulo VALUES(6);
+INSERT INTO modulo VALUES(7);
+INSERT INTO modulo VALUES(8);
