@@ -134,7 +134,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Método de Autenticação</label>
                                     <select id="auth" name="auth" class="select2 form-control" data-placeholder="Protocolo de autenticação" style="width: 100%;" required>
                                         <option value="ldaps">LDAPS (LDAP seguro)</option>
-                                        <option value="ldap">LDAP (LDAP inseguro)</option>
+                                        <option select disabled value="ldap">LDAP (LDAP inseguro)</option>
                                         <option value="kerberos">Kerberos</option>
                                     </select>
                                 </div>

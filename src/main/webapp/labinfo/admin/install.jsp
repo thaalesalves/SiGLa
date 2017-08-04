@@ -176,8 +176,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <label class="col-sm-2 control-label">SGBD</label>
                                             <div class="col-sm-10">
                                                 <select id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                    <option disabled selected>Selecione uma opção</option>
-                                                    <option value="psql">PostgreSQL</option>
+                                                    <option>Selecione uma opção</option>
+                                                    <option disabled selected value="psql">PostgreSQL</option>
                                                     <option value="mysql">MySQL / MariaDB</option>
                                                 </select>
                                                 <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>
@@ -228,7 +228,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                                 <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
                                                     <option disabled selected>Selecione uma opção</option>
                                                     <option value="ldap">LDAP (LDAP inseguro)</option>
-                                                    <option value="ldaps">LDAPS (LDAP seguro)</option>
+                                                    <option disabled selected value="ldaps">LDAPS (LDAP seguro)</option>
                                                 </select>
                                                 <span class="help-block">Protocolo de conexão com o diretório</span>
                                             </div>

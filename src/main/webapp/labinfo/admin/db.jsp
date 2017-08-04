@@ -129,7 +129,16 @@ Copyright (C) 2016 Thales Alves Pereira
                             <h3 class="box-title">Configurações de Banco de Dados</h3>
                         </div>
                         <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                            <div class="box-body">     
+                            <div class="box-body">    
+                                <div class="form-group">
+                                    <label>SGBD</label>
+                                    <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
+                                        <option disabled selected>Selecione uma opção</option>
+                                        <option value="ldap">LDAP (LDAP inseguro)</option>
+                                        <option disabled selected value="ldaps">LDAPS (LDAP seguro)</option>
+                                    </select>
+                                    <span class="help-block">Protocolo de conexão com o diretório</span>
+                                </div>
                                 <div class='form-group'>
                                     <label>Base de dados</label>
                                     <input autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
