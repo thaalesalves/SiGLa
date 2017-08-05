@@ -141,19 +141,19 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Base de dados</label>
-                                    <input autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
+                                    <input disabled value="<%=util.SiGLa.getDbName()%>" autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
                                 </div>
                                 <div class="form-group">
                                     <label>Usuário</label>
-                                    <input autocomplete="off" id="db-user" name="db-user" type='text' class='form-control pull-right' placeholder="siglauser" />
+                                    <input disabled value="<%=util.SiGLa.getDbUser()%>" autocomplete="off" id="db-user" name="db-user" type='text' class='form-control pull-right' placeholder="siglauser" />
                                 </div>
                                 <div class="form-group">
                                     <label>Senha</label>
-                                    <input autocomplete="off" id="db-passwd" name="db-passwd" type='password' class='form-control pull-right' placeholder="siglapasswd" />
+                                    <input disabled value="******" autocomplete="off" id="db-passwd" name="db-passwd" type='password' class='form-control pull-right' placeholder="siglapasswd" />
                                 </div>
                                 <div class="form-group">
                                     <label>Servidor</label>
-                                    <input autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
+                                    <input disabled value="<%=util.SiGLa.getDbAddr()%>" autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
                                 </div>
                                 <div style="display:none;" class="form-group">
                                     <input value="db" name="op" id="op" type='text' class='form-control pull-right' required/>

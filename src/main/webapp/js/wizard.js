@@ -15,6 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+var contextPath;
+
+function concluir() {
+    loadPage();
+    $(location).attr("href", contextPath);
+}
 
 $(document).ready(function () {
     //Initialize tooltips

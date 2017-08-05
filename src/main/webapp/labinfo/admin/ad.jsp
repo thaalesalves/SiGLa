@@ -140,15 +140,15 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Domínio</label>
-                                    <input name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>
+                                    <input disabled value="<%=util.SiGLa.getDomain()%>" name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Nome NetBIOS</label>
-                                    <input name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="CONTOSO" required/>
+                                    <input disabled value="<%=util.SiGLa.getNetbios()%>" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="CONTOSO" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Controladora</label>
-                                    <input name="host" id="host" type='text' class='form-control pull-right' placeholder="dc.contoso.com.br" required/>
+                                    <input disabled value="<%=util.SiGLa.getDomainHost()%>" name="host" id="host" type='text' class='form-control pull-right' placeholder="dc.contoso.com.br" required/>
                                 </div>                                
                                 <div style="display:none;" class="form-group">
                                     <input value="ad" name="op" id="op" type='text' class='form-control pull-right' required/>

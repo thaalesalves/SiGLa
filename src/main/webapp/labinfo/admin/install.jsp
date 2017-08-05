@@ -128,246 +128,248 @@ Copyright (C) 2016 Thales Alves Pereira
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="wizard">
-                        <div class="wizard-inner">
-                            <div class="connecting-line"></div>
-                            <ul class="nav nav-tabs" role="tablist">
+                    <div class="box box-primary">
+                        <div id="div-assistente" class="wizard">
+                            <div class="wizard-inner">
+                                <div class="connecting-line"></div>
+                                <ul class="nav nav-tabs" role="tablist">
 
-                                <li role="presentation" class="active">
-                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Banco de Dados">
-                                        <span class="round-tab">
-                                            <i class="fa fa-database"></i>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li role="presentation" class="active">
+                                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Banco de Dados">
+                                            <span class="round-tab">
+                                                <i class="fa fa-database"></i>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li role="presentation" class="disabled">
-                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Active Directory">
-                                        <span class="round-tab">
-                                            <i class="fa fa-windows"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li role="presentation" class="disabled">
-                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Grupos de Acesso">
-                                        <span class="round-tab">
-                                            <i class="fa fa-users"></i>
-                                        </span>
-                                    </a>
-                                </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Active Directory">
+                                            <span class="round-tab">
+                                                <i class="fa fa-windows"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Grupos de Acesso">
+                                            <span class="round-tab">
+                                                <i class="fa fa-users"></i>
+                                            </span>
+                                        </a>
+                                    </li>
 
-                                <li role="presentation" class="disabled">
-                                    <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Conclusão">
-                                        <span class="round-tab">
-                                            <i class="glyphicon glyphicon-ok"></i>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                                    <li role="presentation" class="disabled">
+                                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Conclusão">
+                                            <span class="round-tab">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <form role="form" class="form-horizontal" id="install-form">
-                            <div class="tab-content">
-                                <div class="tab-pane active" role="tabpanel" id="step1">
-                                    <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
-                                        <h3>Banco de Dados</h3>
-                                        <p>Configuração do Banco de Dados</p><br/>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">SGBD</label>
-                                            <div class="col-sm-10">
-                                                <select id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                    <option>Selecione uma opção</option>
-                                                    <option disabled selected value="psql">PostgreSQL</option>
-                                                    <option value="mysql">MySQL / MariaDB</option>
-                                                </select>
-                                                <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Host</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="db-host" name="db-host" placeholder="10.10.10.10:5432">
-                                                <span class="help-block">Endereço do banco de dados (i.e., 10.10.10.10:5432)</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Banco</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="db-name" name="db-name" placeholder="sigladb">
-                                                <span class="help-block">Nome do banco de dados</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Usuário</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="db-user" name="db-user" placeholder="siglauser">
-                                                <span class="help-block">Usuário do banco de dados</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Senha</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="password" class="form-control" id="db-passwd" name="db-passwd" placeholder="siglapasswd">
-                                                <span class="help-block">Senha do usuário</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="step2">
-                                    <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
-                                        <h3>Active Directory</h3>
-                                        <p>Configuração do Diretório</p><br/>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Autenticação</label>
-                                            <div class="col-sm-10">
-                                                <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                    <option disabled selected>Selecione uma opção</option>
-                                                    <option value="ldap">LDAP (LDAP inseguro)</option>
-                                                    <option disabled selected value="ldaps">LDAPS (LDAP seguro)</option>
-                                                </select>
-                                                <span class="help-block">Protocolo de conexão com o diretório</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Domínio</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ad-domain" name="ad-domain" placeholder="contoso.com">
-                                                <span class="help-block">Domínio do Active Directory (i.e., contoso.com)</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">NetBIOS</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ad-netbios" name="ad-netbios" placeholder="CONTOSO">
-                                                <span class="help-block">Nome NetBIOS do domínio</span>
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Controladora</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ad-controller" name="ad-controller" placeholder="dc.contoso.com">
-                                                <span class="help-block">Controladora de domínio (para wildcard, mantenha do mesmo valor do domínio)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="step3">
-                                    <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
-                                        <h3>Controle de Acesso</h3>
-                                        <p>Configuração de Controle de Acesso (os grupos devem estar em formato LDAP)</p><br/>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Administrador</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ldap-admin" name="ldap-admin" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Funcionário</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ldap-func" name="ldap-func" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Estagiário</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ldap-est" name="ldap-est" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Coordenador</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ldap-coord" name="ldap-coord" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
-                                            </div>
-                                        </div>
-                                        <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                            <label class="col-sm-2 control-label">Professores</label>
-                                            <div class="col-sm-10">
-                                                <input autocomplete="off" type="text" class="form-control" id="ldap-prof" name="ldap-prof" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <ul class="list-inline pull-right">
-                                            <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="complete">
-                                    <div id="conclusao" class="box-body" style="margin-left: 2%; margin-right: 2%;">
-                                        <h3>Concluído!</h3>
-                                        <p>Todos os dados necessários foram preenchidos. Clique aqui para revisar os dados</p>
-                                        <div id="data" style="display:none;">
-                                            <br/><h4>Banco de Dados</h4>
+                            <form role="form" class="form-horizontal" id="install-form">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" role="tabpanel" id="step1">
+                                        <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                                            <h3>Banco de Dados</h3>
+                                            <p>Configuração do Banco de Dados</p><br/>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">SGBD</label>
                                                 <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-dbms">
-                                                </div>
-                                            </div>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Banco</label>
-                                                <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-dbname">
-                                                </div>
-                                            </div>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Usuário</label>
-                                                <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-dbuser">
+                                                    <select readonly id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
+                                                        <option>Selecione uma opção</option>
+                                                        <option selected value="psql">PostgreSQL</option>
+                                                        <option value="mysql">MySQL / MariaDB</option>
+                                                    </select>
+                                                    <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>
                                                 </div>
                                             </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Host</label>
                                                 <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-dbhost">
+                                                    <input autocomplete="off" type="text" class="form-control" id="db-host" name="db-host" placeholder="10.10.10.10:5432">
+                                                    <span class="help-block">Endereço do banco de dados (i.e., 10.10.10.10:5432)</span>
                                                 </div>
                                             </div>
-                                            <br/><h4>Active Directory</h4>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Banco</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="db-name" name="db-name" placeholder="sigladb">
+                                                    <span class="help-block">Nome do banco de dados</span>
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Usuário</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="db-user" name="db-user" placeholder="siglauser">
+                                                    <span class="help-block">Usuário do banco de dados</span>
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Senha</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="password" class="form-control" id="db-passwd" name="db-passwd" placeholder="siglapasswd">
+                                                    <span class="help-block">Senha do usuário</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" role="tabpanel" id="step2">
+                                        <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                                            <h3>Active Directory</h3>
+                                            <p>Configuração do Diretório</p><br/>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Autenticação</label>
                                                 <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-auth">
+                                                    <select readonly id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
+                                                        <option>Selecione uma opção</option>
+                                                        <option value="ldap">LDAP (LDAP inseguro)</option>
+                                                        <option selected value="ldaps">LDAPS (LDAP seguro)</option>
+                                                    </select>
+                                                    <span class="help-block">Protocolo de conexão com o diretório</span>
                                                 </div>
                                             </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Domínio</label>
                                                 <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-domain">
-                                                </div>
-                                            </div>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Controladora</label>
-                                                <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-controller">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ad-domain" name="ad-domain" placeholder="contoso.com">
+                                                    <span class="help-block">Domínio do Active Directory (i.e., contoso.com)</span>
                                                 </div>
                                             </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">NetBIOS</label>
                                                 <div class="col-sm-10">
-                                                    <input readonly type="text" class="form-control" id="dt-netbios">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ad-netbios" name="ad-netbios" placeholder="CONTOSO">
+                                                    <span class="help-block">Nome NetBIOS do domínio</span>
                                                 </div>
-                                            </div>    
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Controladora</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ad-controller" name="ad-controller" placeholder="dc.contoso.com">
+                                                    <span class="help-block">Controladora de domínio (para wildcard, mantenha do mesmo valor do domínio)</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="box-footer">
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
                                             </ul>
                                         </div>
-                                    </div>                                    
+                                    </div>
+                                    <div class="tab-pane" role="tabpanel" id="step3">
+                                        <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                                            <h3>Controle de Acesso</h3>
+                                            <p>Configuração de Controle de Acesso (os grupos devem estar em formato LDAP)</p><br/>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Administrador</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ldap-admin" name="ldap-admin" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Funcionário</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ldap-func" name="ldap-func" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Estagiário</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ldap-est" name="ldap-est" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Coordenador</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ldap-coord" name="ldap-coord" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Professores</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="ldap-prof" name="ldap-prof" placeholder="memberOf=CN=grupo,OU=grupo,DC=contoso,DC=com">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Avançar</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" role="tabpanel" id="complete">
+                                        <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                                            <h3>Concluído!</h3>
+                                            <p id="conclusao">Todos os dados necessários foram preenchidos. Clique aqui para revisar os dados</p>
+                                            <div id="data" style="display:none;">
+                                                <br/><h4>Banco de Dados</h4>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">SGBD</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-dbms">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Banco</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-dbname">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Usuário</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-dbuser">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Host</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-dbhost">
+                                                    </div>
+                                                </div>
+                                                <br/><h4>Active Directory</h4>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Autenticação</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-auth">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Domínio</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-domain">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">Controladora</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-controller">
+                                                    </div>
+                                                </div>
+                                                <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                    <label class="col-sm-2 control-label">NetBIOS</label>
+                                                    <div class="col-sm-10">
+                                                        <input readonly type="text" class="form-control" id="dt-netbios">
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                            <div class="box-footer">
+                                                <ul class="list-inline pull-right">
+                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                                </ul>
+                                            </div>
+                                        </div>                                    
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
+                    </div>                    
                 </section>
             </div>
         </div>
@@ -395,58 +397,58 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
 
         <script>
-            $(document).ready(function () {
-                contextPath = "<%=request.getContextPath()%>";
+                                                        $(document).ready(function () {
+                                                            contextPath = "<%=request.getContextPath()%>" + "/";
 
-                $("#conclusao").click(function () {
-                    $("#data").toggle();
-                });
+                                                            $("#conclusao").click(function () {
+                                                                $("#data").toggle();
+                                                            });
 
-                $(function () {
-                    $("#db-name").keyup(function () {
-                        $('#dt-dbname').val($('#db-name').val());
-                    });
+                                                            $(function () {
+                                                                $("#db-name").keyup(function () {
+                                                                    $('#dt-dbname').val($('#db-name').val());
+                                                                });
 
-                    $("#db-user").keyup(function() {
-                        $('#dt-dbuser').val($('#db-user').val());
-                    });
+                                                                $("#db-user").keyup(function () {
+                                                                    $('#dt-dbuser').val($('#db-user').val());
+                                                                });
 
-                    $("#db-host").keyup(function() {
-                        $('#dt-dbhost').val($('#db-host').val());
-                    });
+                                                                $("#db-host").keyup(function () {
+                                                                    $('#dt-dbhost').val($('#db-host').val());
+                                                                });
 
-                    $("#ad-domain").keyup(function() {
-                        $('#dt-domain').val($('#ad-domain').val());
-                    });
+                                                                $("#ad-domain").keyup(function () {
+                                                                    $('#dt-domain').val($('#ad-domain').val());
+                                                                });
 
-                    $("#ad-controller").keyup(function() {
-                        $('#dt-controller').val($('#ad-controller').val());
-                    });
-                    
-                    $("#ad-netbios").keyup(function() {
-                        $('#dt-netbios').val($('#ad-netbios').val());
-                    });
+                                                                $("#ad-controller").keyup(function () {
+                                                                    $('#dt-controller').val($('#ad-controller').val());
+                                                                });
 
-                    $("#ad-domain").keyup(function () {
-                        // Configurações de domínio
-                        $("#ad-controller").val($(this).val());
-                        $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
+                                                                $("#ad-netbios").keyup(function () {
+                                                                    $('#dt-netbios').val($('#ad-netbios').val());
+                                                                });
 
-                        // Grupo de acesso
-                        $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-func").val("memberOf=CN=sigla_func,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-est").val("memberOf=CN=sigla_est,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                $("#ad-domain").keyup(function () {
+                                                                    // Configurações de domínio
+                                                                    $("#ad-controller").val($(this).val());
+                                                                    $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
 
-                        // Valores finais
-                        $('#dt-netbios').val($('#ad-netbios').val());
-                        $('#dt-controller').val($('#ad-controller').val());                        
-                        $('#dt-dbms').val($('#db-dbms :selected').text());
-                        $('#dt-auth').val($('#ad-auth :selected').text());
-                    });
-                });
-            });
+                                                                    // Grupo de acesso
+                                                                    $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-func").val("memberOf=CN=sigla_func,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-est").val("memberOf=CN=sigla_est,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+
+                                                                    // Valores finais
+                                                                    $('#dt-netbios').val($('#ad-netbios').val());
+                                                                    $('#dt-controller').val($('#ad-controller').val());
+                                                                    $('#dt-dbms').val($('#db-dbms :selected').text());
+                                                                    $('#dt-auth').val($('#ad-auth :selected').text());
+                                                                });
+                                                            });
+                                                        });
         </script>
     </body>
 </html>

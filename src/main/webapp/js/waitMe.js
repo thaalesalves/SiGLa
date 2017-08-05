@@ -27,7 +27,7 @@ function enviar() {
     loadPage();
 
     $.ajax({
-        url: contextPath + '/AlmightyController?acao=Configuration&op=install&' + formInstalacao,
+        url: contextPath + 'AlmightyController?acao=Configuration&op=install&' + formInstalacao,
         type: 'POST',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
@@ -37,7 +37,9 @@ function enviar() {
         },
         success: function (e) {
             $('body').waitMe('hide');
-            notify("success", "SiGLa configurado, pronto para usar!", "SiGLa Configurado!");
+            $('#div-sucesso').show();
+            $('#div-assistente').hide();
+            notify("success", "SiGLa configurado, pronto para usar!", "SiGLa Configurado!");            
         }
     });
 }
