@@ -23,21 +23,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Software;
 import model.Solicitacao;
 import util.DatabaseConnection;
 
 public class SolicitacaoDAO {
 
-    private final String INSERT_AUX = "INSERT INTO sw_soli VALUES(NEXTVAL('seq_sw_soli'), ?, ?)";
-    private final String INSERT_RETURN = "INSERT INTO solicitacao VALUES(NEXTVAL('seq_soli'), ?, ?, ?, ?, ?, ?) RETURNING id";
-    private final String DELETE = "DELETE FROM solicitacao WHERE id = ?";
-    private final String DELETE_AUX = "DELETE FROM sw_soli WHERE res = ?";
-    private final String COUNT = "SELECT COUNT(id) FROM solicitacao";
-
     public Solicitacao selectSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM solicitacao WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_solicitacao WHERE id = ?");
             pstmt.setInt(1, s.getId());
 
             ResultSet rs = pstmt.executeQuery();
@@ -47,9 +40,9 @@ public class SolicitacaoDAO {
                 s.setTurma(rs.getString("turma"));
                 s.getPessoa().setUsername(rs.getString("professor"));
                 s.setDiaSemana(rs.getString("dia_semana"));
-                s.setObservacao(rs.getString("obs"));                
+                s.setObservacao(rs.getString("obs"));
                 s.getCurso().setId(rs.getInt("curso"));
-                
+
                 s.setCurso(new CursoDAO().selectId(s.getCurso()));
                 s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
                 s.setModulos(new ModuloDAO().selectAux(s));
@@ -65,7 +58,7 @@ public class SolicitacaoDAO {
 
     public Solicitacao insertSolicitacoes(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(INSERT_RETURN);
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_solicitacao VALUES(DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING id");
 
             pstmt.setInt(1, s.getCurso().getId()); // curso
             pstmt.setInt(2, s.getQtdAlunos()); // qtd de alunos
@@ -80,16 +73,16 @@ public class SolicitacaoDAO {
                 s.setId(rs.getInt(1));
             }
 
-            pstmt = connString.prepareStatement(INSERT_AUX);
+            pstmt = connString.prepareStatement("INSERT INTO aux_sw_soli VALUES(DEFAULT, ?, ?)");
 
             for (int i = 0; i < s.getSoftwares().size(); i++) {
                 pstmt.setInt(1, s.getSoftwares().get(i).getId());
                 pstmt.setInt(2, s.getId());
                 pstmt.executeUpdate();
             }
-            
-            pstmt = connString.prepareStatement("INSERT INTO modulo_soli VALUES(NEXTVAL('seq_modulo_soli'), ?, ?)");
-            
+
+            pstmt = connString.prepareStatement("INSERT INTO aux_modulo_soli VALUES(DEFAULT, ?, ?)");
+
             for (int i = 0; i < s.getModulos().size(); i++) {
                 pstmt.setInt(1, s.getId());
                 pstmt.setInt(2, s.getModulos().get(i).getId());
@@ -108,7 +101,7 @@ public class SolicitacaoDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(COUNT);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) FROM tb_solicitacao");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -127,12 +120,12 @@ public class SolicitacaoDAO {
         ArrayList<Solicitacao> arrayRes = new ArrayList<Solicitacao>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM solicitacao");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_solicitacao");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Solicitacao s = new Solicitacao();
-                
+
                 s.setId(rs.getInt("id"));
                 s.setQtdAlunos(rs.getInt("qtd_alunos"));
                 s.setTurma(rs.getString("turma"));
@@ -140,11 +133,11 @@ public class SolicitacaoDAO {
                 s.setDiaSemana(rs.getString("dia_semana"));
                 s.setObservacao(rs.getString("obs"));
                 s.getCurso().setId(rs.getInt("curso"));
-                
+
                 s.setCurso(new CursoDAO().selectId(s.getCurso()));
                 s.setSoftwares(new SoftwareDAO().selectSoftwareAux(s));
                 s.setModulos(new ModuloDAO().selectAux(s));
-                
+
                 arrayRes.add(s);
             }
 
@@ -158,15 +151,15 @@ public class SolicitacaoDAO {
 
     public void deleteSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(DELETE_AUX);
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM aux_sw_soli WHERE res = ?");
             pstmt.setInt(1, s.getId());
             pstmt.executeUpdate();
 
-            pstmt = connString.prepareStatement("DELETE FROM modulo_soli WHERE res = ?");            
+            pstmt = connString.prepareStatement("DELETE FROM aux_modulo_soli WHERE res = ?");
             pstmt.setInt(1, s.getId());
             pstmt.executeUpdate();
-            
-            pstmt = connString.prepareStatement(DELETE);
+
+            pstmt = connString.prepareStatement("DELETE FROM tb_solicitacao WHERE id = ?");
             pstmt.setInt(1, s.getId());
             pstmt.executeUpdate();
 

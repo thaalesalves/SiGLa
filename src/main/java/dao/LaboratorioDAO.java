@@ -24,8 +24,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import model.Laboratorio;
 import model.Reserva;
 import model.Modulo;
@@ -33,15 +31,17 @@ import util.DatabaseConnection;
 
 public class LaboratorioDAO {
 
-    private final String INSERT = "INSERT INTO laboratorio VALUES(NEXTVAL('seq_lab'), ?, ?, ?)";
-    private final String SELECT_QTD = "SELECT COUNT(*) FROM laboratorio";
-    private final String SELECT_ALL = "SELECT * FROM laboratorio";
-    
     public ArrayList<Laboratorio> selectReservedLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
 
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT l.* FROM laboratorio l, reserva r, modulo m, modulo_res mr WHERE r.dia_semana = ? AND l.id = r.laboratorio AND mr.res = r.id AND mr.modulo = m.id AND m.id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT l.* "
+                    + "FROM tb_laboratorio l, tb_reserva r, tb_modulo m, aux_modulo_res mr "
+                    + "WHERE r.dia_semana = ? "
+                    + "AND l.id = r.laboratorio "
+                    + "AND mr.res = r.id "
+                    + "AND mr.modulo = m.id "
+                    + "AND m.id = ?");
 
             for (Modulo i : reserva.getModulos()) {
                 pstmt.setString(1, reserva.getDiaDaSemana());
@@ -69,7 +69,7 @@ public class LaboratorioDAO {
 
     public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM laboratorio WHERE id = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM tb_laboratorio WHERE id = ?");
 
             pstmt.setInt(1, l.getId());
 
@@ -89,7 +89,7 @@ public class LaboratorioDAO {
 
     public void insertLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(INSERT);
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_laboratorio VALUES(DEFAULT, ?, ?, ?)");
 
             pstmt.setString(1, l.getNumero());
             pstmt.setInt(2, l.getComputadores());
@@ -103,12 +103,11 @@ public class LaboratorioDAO {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectLaboratorios()">
     public ArrayList<Laboratorio> selectLaboratorios() throws SQLException, ClassNotFoundException {
         ArrayList<Laboratorio> laboratorios = new ArrayList<Laboratorio>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_ALL);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_laboratorio");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -127,14 +126,13 @@ public class LaboratorioDAO {
         }
 
         return laboratorios;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdLabs()">
     public int qtdLabs() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_QTD);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_laboratorio");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -147,14 +145,13 @@ public class LaboratorioDAO {
         }
 
         return qtd;
-    }//</editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectAvailableLabs(Reserva reserva)">
+    }
+
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = this.selectLaboratorios();
         ArrayList<Laboratorio> labsReservados = this.selectReservedLabs(reserva);
         arrayLab.removeAll(labsReservados);
 
         return arrayLab;
-    }//</editor-fold>
+    }
 }

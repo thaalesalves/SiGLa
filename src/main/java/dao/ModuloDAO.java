@@ -28,85 +28,86 @@ import model.Reserva;
 import model.Solicitacao;
 
 public class ModuloDAO {
+
     public void insert(Modulo modulo) throws SQLException, ClassNotFoundException, NullPointerException {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO modulo VALUES(?)");
-            
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_modulo VALUES(?)");
+
             pstmt.setInt(1, modulo.getId());
-            
+
             pstmt.executeUpdate();
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
     }
-    
+
     public ArrayList<Modulo> select() throws SQLException, ClassNotFoundException, NullPointerException {
         ArrayList<Modulo> ms = new ArrayList<Modulo>();
-        
+
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM modulo");
-            
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_modulo");
+
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Modulo m = new Modulo();
-                
+
                 ms.add(m);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        
+
         return ms;
     }
-    
+
     public ArrayList<Modulo> selectAux(Solicitacao s) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Modulo> ms = new ArrayList<Modulo>();
-        
+
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM modulo_soli WHERE res = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM aux_modulo_soli WHERE res = ?");
             pstmt.setInt(1, s.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Modulo m = new Modulo();
                 m.setId(rs.getInt("modulo"));
-                
+
                 ms.add(m);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        
+
         return ms;
     }
-    
+
     public ArrayList<Modulo> selectAux(Reserva s) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Modulo> ms = new ArrayList<Modulo>();
-        
+
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM modulo_res WHERE res = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM aux_modulo_res WHERE res = ?");
             pstmt.setInt(1, s.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Modulo m = new Modulo();
                 m.setId(rs.getInt("modulo"));
-                
+
                 ms.add(m);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        
+
         return ms;
     }
 }

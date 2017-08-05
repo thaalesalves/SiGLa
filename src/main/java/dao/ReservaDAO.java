@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package dao;
 
@@ -31,17 +31,12 @@ import model.Software;
 public class ReservaDAO {
 
     private final Reserva reserva = new Reserva();
-    private final String DELETE = "DELETE FROM reserva WHERE id = ?";
-    private final String SELECT_PROF_DIA = "SELECT * FROM reserva WHERE professor = ? AND dia_semana = ?";
-    private final String SELECT_ALL_DIA = "SELECT * FROM reserva WHERE dia_semana = ?";
-    private final String INSERT = "INSERT INTO reserva VALUES(NEXTVAL('seq_reserva'), ?, ?, ?, ?, ?, ?, ?) RETURNING id";
-    
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia()">
+
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> ares = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_ALL_DIA);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva WHERE dia_semana = ?");
             pstmt.setString(1, reserva.getDiaSemana());
             ResultSet rs = pstmt.executeQuery();
 
@@ -53,10 +48,10 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setObservacao(rs.getString("obs"));                
+                r.setObservacao(rs.getString("obs"));
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
-                
+
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
@@ -71,14 +66,13 @@ public class ReservaDAO {
         }
 
         return ares;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaDia(Reserva)">
     public ArrayList<Reserva> selectReservaDia(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(SELECT_PROF_DIA);
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva WHERE professor = ? AND dia_semana = ?");
             pstmt.setString(1, res.getPessoa().getUsername());
             pstmt.setString(2, reserva.getDiaSemana());
             ResultSet rs = pstmt.executeQuery();
@@ -91,10 +85,10 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setObservacao(rs.getString("obs"));                
+                r.setObservacao(rs.getString("obs"));
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
-                
+
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
@@ -109,14 +103,13 @@ public class ReservaDAO {
         }
 
         return arrayRes;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReserva()">
     public ArrayList<Reserva> selectReserva() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM reserva");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -127,10 +120,10 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setObservacao(rs.getString("obs"));                
+                r.setObservacao(rs.getString("obs"));
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
-                
+
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
@@ -145,14 +138,13 @@ public class ReservaDAO {
         }
 
         return arrayRes;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReserva(Reserva)">
     public ArrayList<Reserva> selectReserva(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM reserva WHERE professor = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva WHERE professor = ?");
             pstmt.setString(1, res.getPessoa().getUsername());
             ResultSet rs = pstmt.executeQuery();
 
@@ -164,10 +156,10 @@ public class ReservaDAO {
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setObservacao(rs.getString("obs"));                
+                r.setObservacao(rs.getString("obs"));
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
-                
+
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
@@ -182,44 +174,42 @@ public class ReservaDAO {
         }
 
         return arrayRes;
-    } //</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: selectReservaId(Reserva)">
     public Reserva selectReservaId(Reserva r) throws SQLException, ClassNotFoundException, NullPointerException {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM reserva WHERE id = ?");            
-            pstmt.setInt(1, r.getId());            
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_reserva WHERE id = ?");
+            pstmt.setInt(1, r.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 r.setQtdAlunos(rs.getInt("qtd_alunos"));
                 r.setTurma(rs.getString("turma"));
                 r.getPessoa().setUsername(rs.getString("professor"));
                 r.setDiaDaSemana(rs.getString("dia_semana"));
-                r.setObservacao(rs.getString("obs"));                
+                r.setObservacao(rs.getString("obs"));
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
-                
+
                 r.setCurso(new CursoDAO().selectId(r.getCurso()));
                 r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
                 r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
                 r.setModulos(new ModuloDAO().selectAux(r));
             }
-            
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, e.getClass());
         }
-        
+
         return r;
-    }// </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdReservasDia()">
+    }
+
     public int qtdReservasDia() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM reserva WHERE dia_semana = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_reserva WHERE dia_semana = ?");
 
             pstmt.setString(1, reserva.getDiaSemana());
 
@@ -235,14 +225,13 @@ public class ReservaDAO {
         }
 
         return qtd;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: qtdReservas()">
     public int qtdReservas() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM reserva");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_reserva");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -255,12 +244,11 @@ public class ReservaDAO {
         }
 
         return qtd;
-    }//</editor-fold>
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: insert(Reserva)">
     public Reserva insert(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement(INSERT);
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_reserva VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING id");
 
             pstmt.setInt(1, r.getLab().getId());
             pstmt.setInt(2, r.getCurso().getId());
@@ -271,51 +259,50 @@ public class ReservaDAO {
             pstmt.setString(7, r.getObservacao());
 
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 r.setId(rs.getInt(1));
             }
 
-            LaboratorioDAO ldao = new LaboratorioDAO();            
+            LaboratorioDAO ldao = new LaboratorioDAO();
             r.setLab(ldao.selectLaboratorio(r.getLab()));
-            
-            pstmt = connString.prepareStatement("INSERT INTO sw_res VALUES(NEXTVAL('seq_sw_res'), ?, ?)                              ");
-            
+
+            pstmt = connString.prepareStatement("INSERT INTO aux_sw_res VALUES(DEFAULT, ?, ?)");
+
             for (Software s : r.getSoftwares()) {
                 pstmt.setInt(1, s.getId());
                 pstmt.setInt(2, r.getId());
-                
+
                 pstmt.executeUpdate();
             }
-            
-            pstmt = connString.prepareStatement("INSERT INTO modulo_res VALUES(NEXTVAL('seq_modulo_res'), ?, ?)");
-            
+
+            pstmt = connString.prepareStatement("INSERT INTO aux_modulo_res VALUES(DEFAULT, ?, ?)");
+
             for (int i = 0; i < r.getModulos().size(); i++) {
                 pstmt.setInt(1, r.getId());
                 pstmt.setInt(2, r.getModulos().get(i).getId());
                 pstmt.executeUpdate();
             }
-            
+
             connString.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        
-        return r;
-    }//</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Método próprio: delete(Reserva)">
+        return r;
+    }
+
     public void delete(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM sw_res WHERE res = ?");
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM aux_sw_res WHERE res = ?");
             pstmt.setInt(1, r.getId());
             pstmt.executeUpdate();
-            
-            pstmt = connString.prepareStatement("DELETE FROM modulo_res WHERE res = ?");
+
+            pstmt = connString.prepareStatement("DELETE FROM aux_modulo_res WHERE res = ?");
             pstmt.setInt(1, r.getId());
             pstmt.executeUpdate();
-            
-            pstmt = connString.prepareStatement(DELETE);
+
+            pstmt = connString.prepareStatement("DELETE FROM tb_reserva WHERE id = ?");
             pstmt.setInt(1, r.getId());
             pstmt.executeUpdate();
 
@@ -323,5 +310,5 @@ public class ReservaDAO {
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-    }//</editor-fold>
+    }
 }
