@@ -69,7 +69,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "Número da solicitação: " + mail.getReserva().getId() + "\n"
                 + "Nome completo: " + mail.getPessoa().getNomeCompleto() + "\n"
                 + "Turma: " + mail.getReserva().getTurma() + " de " + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "\n"
-                + "Dia da semana: " + mail.getReserva().getDiaSemana() + "\n"
+                + "Dia da semana: " + mail.getReserva().getDiaDaSemana() + "\n"
                 + "Quantidade de alunos: " + mail.getReserva().getQtdAlunos() + "\n"
                 + "Módulos: " + modulos.substring(1) + "\n"
                 + "Softwares: " + softwares.substring(1) + "\n"
