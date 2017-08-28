@@ -41,6 +41,10 @@ public class RedirectController extends HttpServlet {
         RequestDispatcher rd;
 
         try {
+            /* Redirecionamentos de /equip/ */
+            mapaUrl.put("/equip/novo", "../labinfo/equip/novo.jsp");
+            mapaUrl.put("/equip/lista", "../labinfo/equip/lista.jsp");
+            
             /* Redirecionamentos de /admin/ */
             mapaUrl.put("/admin", "/admin/install");
             mapaUrl.put("/install", "/admin/install");
