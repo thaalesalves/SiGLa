@@ -45,6 +45,7 @@ public final class SiGLa {
     private static String domainHost;
     private static String netbios;
     private static String authMethod;
+    private static String authPort;
     private static String dbUser;
     private static String dbName;
     private static String dbPasswd;
@@ -72,6 +73,7 @@ public final class SiGLa {
             domainHost = domainHost.replaceAll("\\\\", "");
             netbios = (String) cfg.get("sigla.auth.netbios");
             authMethod = (String) cfg.get("sigla.auth.method");
+            authPort = (String) cfg.get("sigla.auth.port");
 
             dbName = (String) cfg.get("sigla.db.name");
             dbUser = (String) cfg.get("sigla.db.user");
@@ -124,6 +126,10 @@ public final class SiGLa {
     public static String getAuthMethod() {
         return authMethod;
     }
+    
+    public static String getAuthPort() {
+        return authPort;
+    }
 
     public static String getDbUser() {
         return dbUser;
@@ -147,5 +153,5 @@ public final class SiGLa {
 
     public static String getDbSsl() {
         return dbSsl;
-    }
+    } 
 }

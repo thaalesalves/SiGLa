@@ -34,37 +34,53 @@ import javax.naming.directory.SearchResult;
 import model.Grupo;
 import model.Pessoa;
 
+/**
+ * Classe que integra o Java com o Active Directory via <code>LDAP</code>
+ * ou <code>LDAPS</code>, com métodos que buscam todos os dados úteis do
+ * usuário
+ * @author Thales Alves Pereira
+ * @version 1.0
+ * @since 2016-06-20
+ * @throws NamingException quando há algum erro de resolução de nomes
+ * @throws AuthenticationException quando há algum erro de autenticação
+ */
 public class ActiveDirectory {
 
-    // <editor-fold defaultstate="collapsed" desc="Atributos da classe.">
     private final String[] returnAttributes = {"jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
     private Properties properties;
     private DirContext dirContext;
     private SearchControls searchCtls;
     private String ldap_base = "DC=thalesalv,DC=es";
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Construtor.">
     public ActiveDirectory() {
         searchCtls = new SearchControls();
         searchCtls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         searchCtls.setReturningAttributes(returnAttributes);
-    } // </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos próprios: login(Pessoa).">
+    }
+    
+    /**
+     * Efetua o login no diretório via <code>LDAP</code>, e define propriedades de
+     * domínio, endereço, porta, usuário e senha.
+     *
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     * @throws javax.naming.AuthenticationException se uma operação de autenticação falhar
+     */
     public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
         properties = new Properties();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, "LDAPS://" + SiGLa.getDomainHost() + ":636"); // conecta com o AD DC
+        properties.put(Context.PROVIDER_URL, SiGLa.getAuthMethod() + "://" + SiGLa.getDomainHost() + ":" + SiGLa.getAuthPort()); // conecta com o AD DC
         properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.getDomain()); // valida credencial de usuário
         properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
         properties.put(Context.REFERRAL, "follow");
         dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
 
         return true; // login efetuado
-    }// </editor-fold>
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos da API: closeLdapConnection().">
+    }
+    
+    /**
+     * Fecha a conexão entre aplicação e diretório via <code>LDAP</code>
+     */
     public void closeLdapConnection() {
         try {
             if (dirContext != null) {
@@ -75,9 +91,16 @@ public class ActiveDirectory {
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-    } //</editor-fold>
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa).">
+    /**
+     * Busca um usuário específico no diretório
+     *
+     * @param p classe de modelo Pessoa
+     * @return 
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
         String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
 
@@ -85,6 +108,12 @@ public class ActiveDirectory {
     } // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser().">
+    /**
+     * Busca usuários de professor no contexto do diretório
+     * methods.
+     * @return
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public NamingEnumeration<SearchResult> searchUser() throws NamingException { // busca de usuário
         String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=sigla_prof,OU=AADDC Users,DC=thalesalv,DC=es))"; // Query LDAP de busca de pessoas
         /* COLOCAR NO LDAP FILTRO DE GRUPO DE PROFESSOR */
@@ -92,6 +121,13 @@ public class ActiveDirectory {
     } // </editor-fold>    
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: searchUser(Pessoa, Grupo).">
+    /**
+     * Busca uma pessoa dentro de um grupo específico
+     * @return
+     * @param p classe de modelo Pessoa
+     * @param g classe de modelo Grupo
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
         String filter = "";
         try {
@@ -104,6 +140,12 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isUser(Pessoa).">
+    /**
+     * Teste se um usuário realmente existe no contexto do diretório
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca o método de busca de usuário
@@ -119,6 +161,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: isMember(Pessoa, Grupo).">
+    /**
+     * Checa se um usuário específico é membro de um grupo específico do diretório
+     * @return
+     * @param p classe de modelo Pessoa
+     * @param g classe de modelo Grupo
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public boolean isMember(Pessoa p, Grupo g) throws NamingException { // o usuário é membro do grupo
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p, g); // invoca o método de busca
@@ -134,6 +183,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getCN(Pessoa).">
+    /**
+     * Busca o parâmetro <code>cn</code> do <code>Active Directory</code>,
+     * que representa o nome completo de um usuário
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public String getCN(Pessoa p) throws NamingException { // returna nome completo
         String cn = "";
         try {
@@ -152,11 +208,18 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getData().">
-    public ArrayList<Pessoa> getData() throws NamingException { // returna nome completo
+    /**
+     * Busca todos os dados dos usuários do grupo de professor
+     * @return
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
+    public ArrayList<Pessoa> getProfessores() throws NamingException { // returna nome completo
         ArrayList<Pessoa> ps = new ArrayList<Pessoa>();
 
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser();
+            String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es))";            
+            
+            NamingEnumeration<SearchResult> result = this.dirContext.search(ldap_base, filter, this.searchCtls);
             while (result.hasMoreElements()) {
                 Pessoa p = new Pessoa();
                 String cn = "";
@@ -188,6 +251,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getTitle(Pessoa).">
+    /**
+     * Busca o parâmetro <code>title</code> do <code>Active Directory</code>,
+     * que representa o cargo do usuário na empresa
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public String getTitle(Pessoa p) throws NamingException { // busca cargo
         String title = "";
         try {
@@ -205,6 +275,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getDepartment(Pessoa).">
+    /**
+     * Busca o parâmetro <code>department</code> do <code>Active Directory</code>,
+     * que representa o departamento do usuário na empresa
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public String getDepartment(Pessoa p) throws NamingException { // busca departamento
         String depto = "";
         try {
@@ -222,6 +299,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getGivenName(Pessoa).">
+    /**
+     * Busca o parâmetro <code>givenName</code> do <code>Active Directory</code>,
+     * que representa o primeiro nome de um usuário
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public String getGivenName(Pessoa p) throws NamingException { // busca primeiro nome
         String givenName = "";
         try {
@@ -240,6 +324,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getOffice(Pessoa).">
+    /**
+     * Busca o parâmetro <code>office</code> do <code>Active Directory</code>,
+     * que representa o escritório do usuário
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public String getOffice(Pessoa p) throws NamingException { // busca office
         String physicalDeliveryOfficeName = "";
         try {
@@ -258,6 +349,13 @@ public class ActiveDirectory {
     } // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos próprios: getPicture(Pessoa).">
+    /**
+     * Busca o parâmetro <code>jpegPhoto</code> ou o <code>thumbnailPhoto</code> do <code>Active Directory</code>,
+     * que representa a foto do usuário
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de nomes falhar 
+     */
     public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException { // busca foto
         byte[] pic;
         try {
