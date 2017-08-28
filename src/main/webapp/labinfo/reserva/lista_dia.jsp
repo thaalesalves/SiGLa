@@ -28,8 +28,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            Reserva reserva = new Reserva();
+        <%            Reserva reserva = new Reserva();
 
             ArrayList<Reserva> arrayRes;
             if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
@@ -46,23 +45,25 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
-        <!-- NOTIFICAÇÕES -->
-        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-        
+
         <script>
             $(document).ready(function () {
-                accessControl("<%=p.getRole()%>");
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
-        </script>    
+        </script>  
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">        
         <div class="wrapper">

@@ -41,16 +41,12 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notification.css" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
-        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
-        <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
-
-        <!-- NOTIFICAÇÕES -->
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>  
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -59,37 +55,11 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(document).ready(function () {
-                accessControl("<%=p.getRole()%>");
-
-                var msg = "<%=msg%>";
-                var status = "<%=status%>";
-
-                if (msg != "null") {
-                    var title = "";
-                    switch (status) {
-                        case "error":
-                            title = "Erro!";
-                            break;
-                        case "success":
-                            title = "Sucesso!";
-                            break;
-                    }
-                    
-                    new PNotify({
-                        title: title,
-                        text: msg,
-                        type: status,
-                        addclass: 'stack-bottomright',
-                        animate: {
-                            animate: true,
-                            in_class: 'slideInUp',
-                            out_class: 'slideOutDown'
-                        }
-                    });
-                }
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
-        </script>
-
+        </script>  
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">

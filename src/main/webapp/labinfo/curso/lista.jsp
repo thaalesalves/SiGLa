@@ -55,9 +55,11 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(document).ready(function () {
-                accessControl("<%=p.getRole()%>");
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
         </script>
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">        
         <div class="wrapper">

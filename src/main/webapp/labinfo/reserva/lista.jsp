@@ -28,8 +28,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            ArrayList<Reserva> arrayRes;
+        <%            ArrayList<Reserva> arrayRes;
             if ((arrayRes = (ArrayList<Reserva>) session.getAttribute("reserva")) == null) {
                 request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=ReservaListagem").forward(request, response);
             }
@@ -44,23 +43,25 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        
-        <!-- NOTIFICAÇÕES -->
-        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-        
+
         <script>
             $(document).ready(function () {
-                accessControl("<%=p.getRole()%>");
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
-            </script>
+        </script>  
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">        
         <div class="wrapper">
@@ -127,8 +128,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <td class="center"><% out.println(r.getObservacao()); %></td>                                        
                                         <%--<td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>--%>
                                         <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showReservaModal(<% out.println(r.getId()); %>)"></button></center></td>
-                                    </tr>
-                                    <% } %>
+                                </tr>
+                                <% } %>
                                 </tbody>
                             </table>
                         </div>
@@ -140,9 +141,9 @@ Copyright (C) 2016 Thales Alves Pereira
             </footer>
             <div class="control-sidebar-bg"></div>
         </div>
-            
-            <!-- ========= JANELA MODAL ========== -->
-            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+
+        <!-- ========= JANELA MODAL ========== -->
+        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -256,7 +257,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 </div>
             </div>            
         </form>
-                                    
+
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
@@ -266,17 +267,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
         <script>
-            $(function () {
-                $("#example1").DataTable();
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
+                                $(function () {
+                                    $("#example1").DataTable();
+                                    $('#example2').DataTable({
+                                        "paging": true,
+                                        "lengthChange": false,
+                                        "searching": false,
+                                        "ordering": true,
+                                        "info": true,
+                                        "autoWidth": false
+                                    });
+                                });
         </script>
     </body>
 </html>
