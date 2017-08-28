@@ -77,15 +77,15 @@ public class LoginAction implements ICommand {
                 ArrayList<Pessoa> ps = ad.getProfessores();
                 session.setAttribute("todos-usuarios", ps);
 
-                p.setNome(ad.getGivenName(p)); // passa o atributo de nome
-                p.setNomeCompleto(ad.getCN(p)); // passa o atributo de nome completo                
-                p.setCargo(ad.getTitle(p)); // passa o atributo de cargo
-                p.setDepto(ad.getDepartment(p)); // passa o atributo de cargo 
-                p.setEmail(p.getUsername() + "@" + SiGLa.getDomain()); // passa o atributo de email 
+                p.setNome(ad.getGivenName(p));
+                p.setNomeCompleto(ad.getCN(p));              
+                p.setCargo(ad.getTitle(p)); 
+                p.setDepto(ad.getDepartment(p));
+                p.setEmail(p.getUsername() + "@" + SiGLa.getDomain());
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
 
-                session.setAttribute("ad", ad); // salva dados do AD na sessão
-                session.setAttribute("pessoa", p); // salva dados do login na sessão
+                session.setAttribute("ad", ad); 
+                session.setAttribute("pessoa", p); 
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {
@@ -93,13 +93,13 @@ public class LoginAction implements ICommand {
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
-            return request.getContextPath(); // chama de volta a página de login
+            return request.getContextPath(); 
         } catch (AuthenticationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
-            return request.getContextPath(); // chama de volta a página de login
+            return request.getContextPath(); 
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
