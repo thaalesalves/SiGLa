@@ -24,15 +24,13 @@ import java.util.Calendar;
 
 public class Reserva {
 
-    private int id;
-    private int qtd;
-    private int qtdDia;
-    private int qtdAlunos;
+    private Integer id;
+    private Integer qtd;
+    private Integer qtdDia;
+    private Integer qtdAlunos;
     private String tipo;
     private String diaDaSemana;
     private String turma;
-    private String dataDeInicio;
-    private String dataDeTermino;
     private String observacao;
     private Pessoa pessoa = new Pessoa();
     private Laboratorio lab = new Laboratorio();
@@ -51,25 +49,25 @@ public class Reserva {
         this.modulos = modulos;
     }
     
-    public int getQtdAlunos() {
+    public Integer getQtdAlunos() {
         return qtdAlunos;
     }
     
-    public void setQtdAlunos(int qtdAlunos) {
+    public void setQtdAlunos(Integer qtdAlunos) {
         this.qtdAlunos = qtdAlunos;
     }
     
-    public void setQtdDia(int qtdDia) {
+    public void setQtdDia(Integer qtdDia) {
         this.qtdDia = qtdDia;
     }
 
-    public int getQtdDia() {
+    public Integer getQtdDia() {
         return qtdDia;
     }
 
-    public String getDiaSemana() {
+    public static String calendarioDia() {
         Calendar calendar = Calendar.getInstance();
-        int dia = calendar.get(Calendar.DAY_OF_WEEK);
+        Integer dia = calendar.get(Calendar.DAY_OF_WEEK);
         String diaSemana = "";
 
         switch (dia) {
@@ -86,7 +84,7 @@ public class Reserva {
                 diaSemana = "Quarta-feira";
                 break;
             case Calendar.THURSDAY:
-                diaSemana = "Quinta-feira";
+                diaSemana = "QuIntegera-feira";
                 break;
             case Calendar.FRIDAY:
                 diaSemana = "Sexta-feira";
@@ -105,22 +103,6 @@ public class Reserva {
 
     public String getObservacao() {
         return observacao;
-    }
-
-    public void setDataDeInicio(String dataDeInicio) {
-        this.dataDeInicio = dataDeInicio;
-    }
-
-    public void setDataDeTermino(String dataDeTermino) {
-        this.dataDeTermino = dataDeTermino;
-    }
-
-    public String getDataDeInicio() {
-        return dataDeInicio;
-    }
-
-    public String getDataDeTermino() {
-        return dataDeTermino;
     }
 
     public void setDiaDaSemana(String diaDaSemana) {
@@ -155,11 +137,11 @@ public class Reserva {
         this.cursos = cursos;
     }
 
-    public void setQtd(int qtd) {
+    public void setQtd(Integer qtd) {
         this.qtd = qtd;
     }
 
-    public int getQtd() {
+    public Integer getQtd() {
         return qtd;
     }
 
@@ -171,11 +153,11 @@ public class Reserva {
         return curso;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

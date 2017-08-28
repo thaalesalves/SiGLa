@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class Solicitacao {
 
-    private int id;    
-    private int qtdAlunos;
+    private Integer id;    
+    private Integer qtdAlunos;
     private String diaSemana;
     private String turma;
     private String observacao;
@@ -50,11 +50,11 @@ public class Solicitacao {
         return softwares;
     }
     
-    public void setQtdAlunos(int qtdAlunos) {
+    public void setQtdAlunos(Integer qtdAlunos) {
         this.qtdAlunos = qtdAlunos;
     }
     
-    public int getQtdAlunos() {
+    public Integer getQtdAlunos() {
         return qtdAlunos;
     }
     
@@ -66,7 +66,7 @@ public class Solicitacao {
         return modulo;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,7 +90,7 @@ public class Solicitacao {
         this.curso = curso;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

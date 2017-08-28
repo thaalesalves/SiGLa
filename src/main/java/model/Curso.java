@@ -23,7 +23,7 @@ public class Curso {
 
     private String nome;
     private String modalidade;
-    private int id;
+    private Integer id;
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -33,7 +33,7 @@ public class Curso {
         this.modalidade = modalidade;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class Curso {
         return modalidade;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 }

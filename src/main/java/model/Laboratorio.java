@@ -21,33 +21,33 @@ package model;
 
 public class Laboratorio {
 
-    private int id;
-    private int qtd;
-    private int capacidade;
-    private int computadores;
+    private Integer id;
+    private Integer qtd;
+    private Integer capacidade;
+    private Integer computadores;
     private String numero;    
 
-    public void setCapacidade(int capacidade) {
+    public void setCapacidade(Integer capacidade) {
         this.capacidade = capacidade;
     }
     
-    public int getCapacidade() {
+    public Integer getCapacidade() {
         return capacidade;
     }
     
-    public void setComputadores(int computadores) {
+    public void setComputadores(Integer computadores) {
         this.computadores = computadores;
     }
     
-    public int getComputadores() {
+    public Integer getComputadores() {
         return computadores;
     }
     
-    public void setQtd(int qtd) {
+    public void setQtd(Integer qtd) {
         this.qtd = qtd;
     }
 
-    public int getQtd() {
+    public Integer getQtd() {
         return qtd;
     }
 
@@ -59,11 +59,11 @@ public class Laboratorio {
         this.numero = numero;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

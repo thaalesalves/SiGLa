@@ -22,7 +22,6 @@ package model;
 public class Pessoa {
 
     private String shownName;
-    private String personalEmail;
     private String username;
     private String nome;
     private String nomeCompleto;    
@@ -48,14 +47,6 @@ public class Pessoa {
     
     public String getShownName() {
         return shownName;
-    }
-    
-    public void setPersonalEmail(String personalEmail) {
-        this.personalEmail = personalEmail;
-    }
-
-    public String getPersonalEmail() {
-        return personalEmail;
     }
 
     public void setPicture(byte[] picture) {

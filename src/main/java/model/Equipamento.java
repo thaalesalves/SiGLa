@@ -24,7 +24,7 @@ public class Equipamento {
     private String nome;
     private String ip;
     private String mac;
-    private int qtd;
+    private Integer qtd;
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -38,7 +38,7 @@ public class Equipamento {
         this.mac = mac;
     }
 
-    public void setQtd(int qtd) {
+    public void setQtd(Integer qtd) {
         this.qtd = qtd;
     }
 
@@ -54,7 +54,7 @@ public class Equipamento {
         return mac;
     }
 
-    public int getQtd() {
+    public Integer getQtd() {
         return qtd;
     }
 }

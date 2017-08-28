@@ -23,7 +23,7 @@ public class Software {
 
     private String fabricante;
     private String nome;
-    private int id;
+    private Integer id;
 
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
@@ -33,7 +33,7 @@ public class Software {
         this.nome = nome;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class Software {
         return nome;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 }

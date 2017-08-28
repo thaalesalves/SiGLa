@@ -21,7 +21,7 @@ package model;
 
 public class Grupo {
 
-    private int id;
+    private Integer id;
     private String grupo;
     private String role;
     
@@ -33,7 +33,7 @@ public class Grupo {
         return role;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Grupo {
         this.grupo = grupo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
