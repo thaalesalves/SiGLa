@@ -17,7 +17,7 @@
         <url-pattern>/pagina/*</url-pattern>
         <url-pattern>/reserva/*</url-pattern>
         <url-pattern>/laboratorio/*</url-pattern>
-        <url-pattern>/computador/*</url-pattern>
+        <url-pattern>/equip/*</url-pattern>
         <url-pattern>/software/*</url-pattern>
         <url-pattern>/curso/*</url-pattern>
         <url-pattern>/error/*</url-pattern>
