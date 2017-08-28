@@ -30,14 +30,14 @@ import model.Software;
 
 public class ReservaDAO {
 
-    private final Reserva reserva = new Reserva();
+    private final String DIA_SEMANA = Reserva.calendarioDia();
 
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> ares = new ArrayList<Reserva>();
 
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva WHERE dia_semana = ?");
-            pstmt.setString(1, reserva.getDiaSemana());
+            pstmt.setString(1, DIA_SEMANA);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -74,7 +74,7 @@ public class ReservaDAO {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_reserva WHERE professor = ? AND dia_semana = ?");
             pstmt.setString(1, res.getPessoa().getUsername());
-            pstmt.setString(2, reserva.getDiaSemana());
+            pstmt.setString(2, DIA_SEMANA);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -211,7 +211,7 @@ public class ReservaDAO {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_reserva WHERE dia_semana = ?");
 
-            pstmt.setString(1, reserva.getDiaSemana());
+            pstmt.setString(1, DIA_SEMANA);
 
             ResultSet rs = pstmt.executeQuery();
 

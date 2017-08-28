@@ -59,7 +59,7 @@ public class SoftwareDAO {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * from tb_software s JOIN aux_sw_res ss ON s.id = ss.sw where ss.res = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_software s JOIN aux_sw_res ss ON s.id = ss.sw where ss.res = ?");
             pstmt.setInt(1, r.getId());
             ResultSet rs = pstmt.executeQuery();
 
