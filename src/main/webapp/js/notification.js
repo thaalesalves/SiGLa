@@ -79,13 +79,13 @@ var showSolicitacaoModal = function (item) {
 
             $("#modalSoftware").val("");
             $("#modalModulo").val("");
-            
+
             for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
             }
-            
+
             for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
                 var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
                 modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
@@ -115,13 +115,13 @@ var showReservaModal = function (item) {
             $("#modalLaboratorio").val(jsonSolicitacao.lab.numero);
             $("#modalSoftware").val("");
             $("#modalModulo").val("");
-            
+
             for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
                 $("#modalSoftware").val($("#modalSoftware").val() + software);
             }
-            
+
             for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
                 var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
                 modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
@@ -168,42 +168,6 @@ var reprovarReserva = function () {
 
 var removerReserva = function () {
     window.location.href = contextPath + "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
-};
-
-var accessControl = function (role) {
-    if (role == "professor") {
-        $('#form-soli-fixo').show();
-    } else if (role == "coordenador") {
-        $('#form-soli-coord').show();
-    } else if (role == "funcionario") {
-        $('#soli-menu').show();
-        $('#notif-menu').show();
-        $('#item-novo-curso').show();
-        $('#item-novo-software').show();
-        $('#item-novo-lab').show();
-        $('#item-solicitacoes').show();
-        $('#form-soli-func').show();
-        $('#counters').show();
-    } else if (role == "admin") {
-        $('#item-admin').show();
-        $('#soli-menu').show();
-        $('#notif-menu').show();
-        $('#item-novo-curso').show();
-        $('#item-novo-software').show();
-        $('#item-novo-lab').show();
-        $('#item-solicitacoes').show();
-        $('#form-soli-func').show();
-        $('#counters').show();
-    } else if (role == "estagiario") {
-        $('#soli-menu').show();
-        $('#notif-menu').show();
-        $('#item-novo-curso').show();
-        $('#item-novo-software').show();
-        $('#item-novo-lab').show();
-        $('#item-solicitacoes').show();
-        $('#form-soli-func').show();
-        $('#counters').show();
-    }
 };
 
 $(document).ready(function () {
@@ -257,6 +221,32 @@ var availableLabs = function (dia, modulo) {
         }
     });
 };
+
+function notify(msg, status) {
+    if (msg != "null") {
+        var title = "";
+        switch (status) {
+            case "error":
+                title = "Erro!";
+                break;
+            case "success":
+                title = "Sucesso!";
+                break;
+        }
+
+        new PNotify({
+            title: title,
+            text: msg,
+            type: status,
+            addclass: 'stack-bottomright',
+            animate: {
+                animate: true,
+                in_class: 'slideInUp',
+                out_class: 'slideOutDown'
+            }
+        });
+    }
+}
 
 $(document).ready(function () {
     $("#modulo").change(function () {
