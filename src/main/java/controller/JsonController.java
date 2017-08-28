@@ -80,6 +80,18 @@ public class JsonController extends HttpServlet {
                 s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
 
                 out.println(util.Json.toCuteJson(s));
+            } else if (acao.equals("solicitacoes")) {
+                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+                SolicitacaoDAO dao = new SolicitacaoDAO();
+                ArrayList<Solicitacao> solicitacao = dao.selectSolicitacao();
+
+                for (Solicitacao s : solicitacao) {
+                    s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+                    s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+                    s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+                }
+
+                session.setAttribute("dados-solicitacoes", solicitacao);
             } else if (acao.equals("solicitacao")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
                 SolicitacaoDAO sdao = new SolicitacaoDAO();
@@ -97,20 +109,20 @@ public class JsonController extends HttpServlet {
                 Reserva r = new Reserva();
                 LaboratorioDAO ldao = new LaboratorioDAO();
                 ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
-                
+
                 String[] modulos = request.getParameter("modulo").split(",");
-                
+
                 for (String i : modulos) {
                     Modulo mod = new Modulo();
                     mod.setId(Integer.parseInt(i));
-                    
+
                     r.getModulos().add(mod);
                 }
-                
+
                 r.setDiaDaSemana(request.getParameter("dia"));
-                
+
                 al = ldao.selectAvailableLabs(r);
-                
+
                 out.println(util.Json.toCuteJson(al));
             } else if (acao.equals("padrao")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
