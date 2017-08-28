@@ -21,7 +21,6 @@ package controller.actions;
 import dao.CursoDAO;
 import dao.ReservaDAO;
 import dao.SoftwareDAO;
-import dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -36,7 +35,6 @@ import mailsender.SolicitacaoMail;
 import model.Modulo;
 import model.Reserva;
 import model.Software;
-import model.Solicitacao;
 import util.ActiveDirectory;
 
 public class SolicitacaoInsercaoFuncionarioAction implements ICommand {
@@ -54,48 +52,43 @@ public class SolicitacaoInsercaoFuncionarioAction implements ICommand {
             CursoDAO cdao = new CursoDAO();
             SoftwareDAO sdao = new SoftwareDAO();
             ReservaDAO dao = new ReservaDAO();
-            Reserva s = new Reserva();
+            Reserva r = new Reserva();
             String[] modulos = request.getParameterValues("modulo");
             String[] softwares = request.getParameterValues("softwares");
-            s.getPessoa().setUsername(request.getParameter("email").replaceAll("\n", "").replaceAll("\r", ""));
-            s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
-            s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-            s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-            s.getPessoa().setEmail(s.getPessoa().getUsername() + "@sigla.thalesalv.es");
-            s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
-            s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
-            s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
-            s.setDiaDaSemana(request.getParameter("dia-semana").trim());
-            s.setSoftwares(sdao.selectSoftwareAux(s));
-            s.setCurso(cdao.selectId(s.getCurso()));
-            s.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
+            r.getPessoa().setUsername(request.getParameter("email").replaceAll("\n", "").replaceAll("\r", ""));
+            r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
+            r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
+            r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+            r.getPessoa().setEmail(r.getPessoa().getUsername() + "@sigla.thalesalv.es");
+            r.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
+            r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
+            r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
+            r.setDiaDaSemana(request.getParameter("dia-semana").trim());
+            r.setCurso(cdao.selectId(r.getCurso()));
+            r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
 
             for (String i : modulos) {
                 Modulo m = new Modulo();
                 m.setId(Integer.parseInt(i.trim()));
-                s.getModulos().add(m);
+                r.getModulos().add(m);
             }
 
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i.trim()));
-                s.getSoftwares().add(sw);
+                r.getSoftwares().add(sw);
             }
 
             if (isEmpty) {
-                s.setObservacao("Nada informado.");
+                r.setObservacao("Nada informado.");
             } else {
-                s.setObservacao(request.getParameter("obs").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
+                r.setObservacao(request.getParameter("obs").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             }
 
-            s = dao.insert(s);
+            r = dao.insert(r);
 
-            for (Software i : s.getSoftwares()) {
-                i = sdao.selectId(i);
-            }
-
-            mail.setPessoa(s.getPessoa());
-            //mail.setSolicitacao(s);
+            mail.setPessoa(r.getPessoa());
+            mail.setReserva(r);
             //mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

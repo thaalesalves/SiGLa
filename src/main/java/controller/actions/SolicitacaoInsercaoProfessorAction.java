@@ -57,14 +57,12 @@ public class SolicitacaoInsercaoProfessorAction implements ICommand {
             String[] modulos = request.getParameterValues("modulo");
             String[] softwares = request.getParameterValues("softwares");
             
-            Pessoa p = (Pessoa) session.getAttribute("pessoa");
-            s.setPessoa(p);
+            s.setPessoa((Pessoa) session.getAttribute("pessoa"));
             s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
             s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
             s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
             s.setDiaSemana(request.getParameter("dia-semana").trim());
             s.setModulo(request.getParameter("modulo").trim());
-            s.setSoftwares(sdao.selectSoftwareAux(s));
             s.setCurso(cdao.selectId(s.getCurso()));
             
             for (String i : modulos) {
@@ -86,10 +84,6 @@ public class SolicitacaoInsercaoProfessorAction implements ICommand {
             }
 
             s = dao.insertSolicitacoes(s);
-
-            for (Software i : s.getSoftwares()) {
-                i = sdao.selectId(i);
-            }
 
             mail.setPessoa(s.getPessoa());
             mail.setSolicitacao(s);
