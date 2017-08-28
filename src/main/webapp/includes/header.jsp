@@ -17,31 +17,9 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <!-- Notifications: style can be found in dropdown.less -->
-                <li style="display: none;" id='notif-menu' class="dropdown notifications-menu">
+                <li id='soli-menu' class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Você tem 10 notificações </li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Ver tudo</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks: style can be found in dropdown.less -->
-                <li style="display: none;" id='soli-menu' class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
+                        <i class="fa fa-bell"></i>
                         <span id="qtd-res" class="label label-danger"></span>
                     </a>
                     <ul class="dropdown-menu">
