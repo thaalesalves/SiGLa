@@ -41,7 +41,7 @@ public class ConfigurationAction implements ICommand {
 
         try {
             if (op.equals("install")) {
-                try {
+                try {                    
                     Grupo g;
                     GrupoDAO gdao = new GrupoDAO();
                     ArrayList<Grupo> ag = new ArrayList<Grupo>();
@@ -54,10 +54,17 @@ public class ConfigurationAction implements ICommand {
                     String dbPasswd = request.getParameter("db-passwd");
 
                     /* Dados do Domínio */
+                    String port = "";
                     String adAuth = request.getParameter("ad-auth");
                     String adDomain = request.getParameter("ad-domain");
                     String adNetbios = request.getParameter("ad-netbios");
                     String adController = request.getParameter("ad-controller");
+                    
+                    if (adAuth.equals("ldaps")) {
+                        port = "636";
+                    } else if (adAuth.equals("ldap")) {
+                        port = "389";
+                    }
 
                     /* Processando Propriedades */
                     SiGLa.writeProperty("sigla.db.name", dbName);
@@ -66,6 +73,7 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.db.addr", dbHost);
                     SiGLa.writeProperty("sigla.db.dbms", dbDbms);
 
+                    SiGLa.writeProperty("sigla.auth.port", port);
                     SiGLa.writeProperty("sigla.auth.domain", adDomain);
                     SiGLa.writeProperty("sigla.auth.netbios", adNetbios);
                     SiGLa.writeProperty("sigla.auth.method", adAuth);
@@ -109,12 +117,20 @@ public class ConfigurationAction implements ICommand {
                     util.Logger.logSevere(e, ConfigurationAction.class);
                 }
             } else if (op.equals("ad")) {
-                try {
+                try {                    
+                    String port = "";
                     String dominio = request.getParameter("dominio");
                     String netbios = request.getParameter("netbios");
                     String addr = request.getParameter("host");
                     String auth = request.getParameter("auth");
 
+                    if (auth.equals("ldaps")) {
+                        port = "636";
+                    } else if (auth.equals("ldap")) {
+                        port = "389";
+                    }
+                    
+                    SiGLa.writeProperty("sigla.auth.port", port);
                     SiGLa.writeProperty("sigla.auth.domain", dominio);
                     SiGLa.writeProperty("sigla.auth.netbios", netbios);
                     SiGLa.writeProperty("sigla.auth.method", auth);
