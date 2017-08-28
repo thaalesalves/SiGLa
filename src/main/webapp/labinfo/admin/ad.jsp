@@ -58,51 +58,25 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
-        <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
-
-        <!-- NOTIFICAÇÕES -->
-        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
         <script>
             $(document).ready(function () {
-                var msg = "<%=msg%>";
-                var status = "<%=status%>";
-
-                if (msg != "null") {
-                    var title = "";
-                    switch (status) {
-                        case "error":
-                            title = "Erro!";
-                            break;
-                        case "success":
-                            title = "Sucesso!";
-                            break;
-                    }
-
-                    new PNotify({
-                        title: title,
-                        text: msg,
-                        type: status,
-                        addclass: 'stack-bottomright',
-                        animate: {
-                            animate: true,
-                            in_class: 'slideInUp',
-                            out_class: 'slideOutDown'
-                        }
-                    });
-                }
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
-        </script>
+        </script>  
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">
@@ -134,21 +108,21 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Método de Autenticação</label>
                                     <select id="auth" name="auth" class="select2 form-control" data-placeholder="Protocolo de autenticação" style="width: 100%;" required>
                                         <option value="ldaps">LDAPS (LDAP seguro)</option>
-                                        <option select disabled value="ldap">LDAP (LDAP inseguro)</option>
+                                        <option value="ldap">LDAP (LDAP inseguro)</option>
                                         <option value="kerberos">Kerberos</option>
                                     </select>
                                 </div>
                                 <div class='form-group'>
                                     <label>Domínio</label>
-                                    <input disabled value="<%=util.SiGLa.getDomain()%>" name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>
+                                    <input value="<%=util.SiGLa.getDomain()%>" name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Nome NetBIOS</label>
-                                    <input disabled value="<%=util.SiGLa.getNetbios()%>" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="CONTOSO" required/>
+                                    <input value="<%=util.SiGLa.getNetbios()%>" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="CONTOSO" required/>
                                 </div>
                                 <div class="form-group">
                                     <label>Controladora</label>
-                                    <input disabled value="<%=util.SiGLa.getDomainHost()%>" name="host" id="host" type='text' class='form-control pull-right' placeholder="dc.contoso.com.br" required/>
+                                    <input value="<%=util.SiGLa.getDomainHost()%>" name="host" id="host" type='text' class='form-control pull-right' placeholder="dc.contoso.com.br" required/>
                                 </div>                                
                                 <div style="display:none;" class="form-group">
                                     <input value="ad" name="op" id="op" type='text' class='form-control pull-right' required/>

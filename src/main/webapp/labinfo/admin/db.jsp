@@ -58,51 +58,25 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/msgPop.css" rel="stylesheet" type="text/css"/>        
-        <script src="${pageContext.request.contextPath}/js/msgPop.js" type="text/javascript"></script>
-
-        <!-- NOTIFICAÇÕES -->
-        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
-        <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
         <script>
             $(document).ready(function () {
-                var msg = "<%=msg%>";
-                var status = "<%=status%>";
-
-                if (msg != "null") {
-                    var title = "";
-                    switch (status) {
-                        case "error":
-                            title = "Erro!";
-                            break;
-                        case "success":
-                            title = "Sucesso!";
-                            break;
-                    }
-
-                    new PNotify({
-                        title: title,
-                        text: msg,
-                        type: status,
-                        addclass: 'stack-bottomright',
-                        animate: {
-                            animate: true,
-                            in_class: 'slideInUp',
-                            out_class: 'slideOutDown'
-                        }
-                    });
-                }
+                acesso = "<%=p.getRole()%>";
+                notify("<%=msg%>", "<%=status%>");
             });
-        </script>
+        </script>  
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">
@@ -134,26 +108,26 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>SGBD</label>
                                     <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
                                         <option disabled selected>Selecione uma opção</option>
-                                        <option value="ldap">LDAP (LDAP inseguro)</option>
-                                        <option disabled selected value="ldaps">LDAPS (LDAP seguro)</option>
+                                        <option value="mysql">MySQL / MariaDB</option>
+                                        <option value="psql">PostgreSQL</option>
                                     </select>
                                     <span class="help-block">Protocolo de conexão com o diretório</span>
                                 </div>
                                 <div class='form-group'>
                                     <label>Base de dados</label>
-                                    <input disabled value="<%=util.SiGLa.getDbName()%>" autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
+                                    <input value="<%=util.SiGLa.getDbName()%>" autocomplete="off" id="db-name" name="db-name" type='text' class='form-control pull-right' placeholder="sigladb" />
                                 </div>
                                 <div class="form-group">
                                     <label>Usuário</label>
-                                    <input disabled value="<%=util.SiGLa.getDbUser()%>" autocomplete="off" id="db-user" name="db-user" type='text' class='form-control pull-right' placeholder="siglauser" />
+                                    <input value="<%=util.SiGLa.getDbUser()%>" autocomplete="off" id="db-user" name="db-user" type='text' class='form-control pull-right' placeholder="siglauser" />
                                 </div>
                                 <div class="form-group">
                                     <label>Senha</label>
-                                    <input disabled value="******" autocomplete="off" id="db-passwd" name="db-passwd" type='password' class='form-control pull-right' placeholder="siglapasswd" />
+                                    <input value="******" autocomplete="off" id="db-passwd" name="db-passwd" type='password' class='form-control pull-right' placeholder="siglapasswd" />
                                 </div>
                                 <div class="form-group">
                                     <label>Servidor</label>
-                                    <input disabled value="<%=util.SiGLa.getDbAddr()%>" autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
+                                    <input value="<%=util.SiGLa.getDbAddr()%>" autocomplete="off" id="db-host" name="db-host" type='text' class='form-control pull-right' placeholder="contoso.com:5432" />
                                 </div>
                                 <div style="display:none;" class="form-group">
                                     <input value="db" name="op" id="op" type='text' class='form-control pull-right' required/>
