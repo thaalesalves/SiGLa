@@ -30,7 +30,7 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Cadastro de Curso | SiGLa</title>
+        <title>Cadastro de Equipamento | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -85,13 +85,13 @@ Copyright (C) 2016 Thales Alves Pereira
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Cursos
-                        <small>cadastro de curso</small>
+                        Equipamento
+                        <small>cadastro de equipamento</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li>Cursos</li>
-                        <li class="active">Cadastro de curso</li>
+                        <li class="active">Cadastro de equipamento</li>
                     </ol>
                 </section>
 
@@ -99,27 +99,24 @@ Copyright (C) 2016 Thales Alves Pereira
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Cadastro de curso</h3>
+                            <h3 class="box-title">Cadastro de equipamento</h3>
                         </div>
                         <div class="box-body">
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
-                                    <label>Curso</label>
-                                    <input name="curso" type='text' class='form-control pull-right' name='nome' placeholder="Nome do curso" />
+                                    <label>NetBIOS</label>
+                                    <input name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="1214LAB001" />
+                                    <span class="help-block">Nome do computador na rede</span>
                                 </div>
-                                <div class="form-group">
-                                    <label>Modalidade</label>
-                                    <select name="modalidade" class="select2 form-control" data-placeholder="Modalidade" style="width: 100%;" required>
-                                        <option disabled selected>Modalidade</option>
-                                        <option>Bacharel</option>
-                                        <option>MBA</option>
-                                        <option>Mestrado</option>
-                                        <option>Doutorado</option>
-                                        <option>Técnico</option>
-                                        <option>Pronatec</option>
-                                        <option>Tecnólogo</option>
-                                        <option>Licenciatura</option>
-                                    </select>
+                                <div class='form-group'>
+                                    <label>IP</label>
+                                    <input name="ip" id="ip" type='text' class='form-control pull-right' placeholder="10.8.114.1" />
+                                    <span class="help-block">Endereço IP do computador na rede</span>
+                                </div>
+                                <div class='form-group'>
+                                    <label>MAC</label>
+                                    <input name="ip" id="ip" type='text' class='form-control pull-right' placeholder="AA:BB:CC:DD:EE:FF" />
+                                    <span class="help-block">Endereço MAC do computador na rede</span>
                                 </div>
                                 <div class="box-footer">
                                     <button value="CursoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
