@@ -33,8 +33,32 @@ $(document).ready(function () {
             acessoProfessor();
             break;
     }
+
+    $.ajax({
+        url: contextPath + '/CounterController?acao=padrao',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            runNotifications(e);
+        }
+    });
+
+    setInterval(function () {
+        $("#res-notif").empty();
+        $.ajax({
+            url: contextPath + '/CounterController?acao=padrao',
+            type: 'POST',
+            cache: false,
+            dataType: 'JSON',
+            complete: function (e) {
+                runNotifications(e);
+            }
+        });
+    }, 10000);
 });
 
+var contextPath;
 var acesso;
 
 function acessoFuncionario() {
@@ -53,17 +77,47 @@ function acessoEstagiario() {
 function acessoCoordenador() {
     /* Esconde opções indevidas */
     $('#menu-conf').hide();
-    $('#item-reserva-novo').hide();
+    $('#item-solicitacoes').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
 }
 
-function acessoProfessor() { 
+function acessoProfessor() {
     /* Esconde opções indevidas */
     $('#menu-conf').hide();
-    $('#item-reserva-novo').hide();
+    $('#item-solicitacoes').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
 }
+
+var runNotifications = function (e) {
+    var obj = e.responseText;
+    obj = JSON.parse(obj);
+
+    if (obj.qtdSolicitacoes !== null) {
+        $("#qtd-res").text(obj.qtdSolicitacoes);
+        switch (true) {
+            case (obj.qtdSolicitacoes === 1):
+                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitação pendente");
+                break;
+            case (obj.qtdSolicitacoes > 1):
+                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitações pendentes");
+                break;
+            default:
+                $("#msg-res").text("Você não tem solicitações pendentes");
+                break;
+        }
+    }
+
+    addNotification(obj);
+    jsonObject = obj;
+    updateWidgets(obj);
+};
+
+var addNotification = function (obj) {
+    for (i = 0; i < obj.qtdSolicitacoes; i++) {
+        $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
+    }
+};

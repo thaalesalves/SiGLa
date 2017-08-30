@@ -23,11 +23,7 @@ var dados;
 var parameter;
 var contextPath;
 
-var addNotification = function (obj) {
-    for (i = 0; i < obj.qtdSolicitacoes; i++) {
-        $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
-    }
-};
+
 
 var updateWidgets = function (obj) {
     $("#qtd-reservas").text(obj.qtdReservas);
@@ -36,29 +32,7 @@ var updateWidgets = function (obj) {
     $("#qtd-computadores").text(obj.qtdComputadores);
 };
 
-var runNotifications = function (e) {
-    var obj = e.responseText;
-    obj = JSON.parse(obj);
 
-    if (obj.qtdSolicitacoes !== null) {
-        $("#qtd-res").text(obj.qtdSolicitacoes);
-        switch (true) {
-            case (obj.qtdSolicitacoes === 1):
-                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitação pendente");
-                break;
-            case (obj.qtdSolicitacoes > 1):
-                $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitações pendentes");
-                break;
-            default:
-                $("#msg-res").text("Você não tem solicitações pendentes");
-                break;
-        }
-    }
-
-    addNotification(obj);
-    jsonObject = obj;
-    updateWidgets(obj);
-};
 
 var showSolicitacaoModal = function (item) {
     id = item;
@@ -171,29 +145,10 @@ var removerReserva = function () {
 };
 
 $(document).ready(function () {
-    $.ajax({
-        url: contextPath + '/CounterController?acao=padrao',
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            runNotifications(e);
-        }
-    });
+    
 });
 
-setInterval(function () {
-    $("#res-notif").empty();
-    $.ajax({
-        url: contextPath + '/CounterController?acao=padrao',
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            runNotifications(e);
-        }
-    });
-}, 10000);
+
 
 var availableLabs = function (dia, modulo) {
     $.ajax({

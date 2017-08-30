@@ -7,43 +7,6 @@
 var contextPath;
 var formInstalacao;
 
-function notify(status, msg, title) {
-    new PNotify({
-        title: title,
-        text: msg,
-        type: status,
-        addclass: 'stack-bottomright',
-        animate: {
-            animate: true,
-            in_class: 'slideInUp',
-            out_class: 'slideOutDown'
-        }
-    });
-}
-
-function enviar() {
-    formInstalacao = $('#install-form').serialize();
-
-    loadPage();
-
-    $.ajax({
-        url: contextPath + 'AlmightyController?acao=Configuration&op=install&' + formInstalacao,
-        type: 'POST',
-        cache: false,
-        error: function (xhr, ajaxOptions, thrownError) {
-            throw xhr.status + ': ' + thrownError;
-            $('body').waitMe('hide');
-            notify("error", "Erro ao configurar o SiGLa", "Erro!");
-        },
-        success: function (e) {
-            $('body').waitMe('hide');
-            $('#div-sucesso').show();
-            $('#div-assistente').hide();
-            notify("success", "SiGLa configurado, pronto para usar!", "SiGLa Configurado!");            
-        }
-    });
-}
-
 function loadPage() {
     $('body').waitMe({
         effect: 'win8',
