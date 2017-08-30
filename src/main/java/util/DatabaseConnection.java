@@ -44,7 +44,7 @@ public final class DatabaseConnection {
             );
 
             DatabaseMetaData dbmd = conn.getMetaData();
-            ResultSet rs = dbmd.getTables(null, null, "grupo", new String[]{"TABLE"});
+            ResultSet rs = dbmd.getTables(null, null, "tb_grupo", new String[]{"TABLE"});
 
             if (!rs.next()) {
                 String sql = SiGLa.HOME + "/resources/db/psql.sql";

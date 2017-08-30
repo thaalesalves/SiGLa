@@ -61,7 +61,7 @@ CREATE TABLE tb_modulo (
 
 CREATE TABLE aux_sw_res (
     id SERIAL PRIMARY KEY,
-    sw INT REFERENCES tb_software(id), 
+    sw INT REFERENCES tb_software(id),
     res INT REFERENCES tb_reserva(id)
 );
 
