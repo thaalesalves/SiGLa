@@ -51,41 +51,41 @@ public class LoginAction implements ICommand {
 
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
-            p.setUsername(request.getParameter("username").replaceAll("[0-9]", "")); 
-            p.setSenha(request.getParameter("password"));          
+            p.setUsername(request.getParameter("username").replaceAll("[0-9]", ""));
+            p.setSenha(request.getParameter("password"));
 
-            if (ad.login(p)) { 
+            if (ad.login(p)) {
+                session.setAttribute("ad", ad);
                 GrupoDAO gdao = new GrupoDAO();
                 ArrayList<Grupo> arrayg = gdao.select();
-                boolean acesso = false;
+                int c = 0;
 
                 for (Grupo g : arrayg) {
-                    g.setGrupo(arrayg.get(arrayg.indexOf(g)).getGrupo());
-                    if (ad.isMember(p, arrayg.get(arrayg.indexOf(g))) && acesso == false) {
+                    c++;
+                    if (ad.isMember(p, g)) {
                         p.setRole(g.getRole());
-                        acesso = true;
                         break;
                     }
-                }
 
-                if (!acesso) {
-                    session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
-                    session.setAttribute("status", "error");
-                    return request.getContextPath();
+                    if (c == arrayg.size()) {
+                        session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
+                        session.setAttribute("status", "error");
+                        ad.closeLdapConnection();
+                        return request.getContextPath();
+                    }
                 }
 
                 ArrayList<Pessoa> ps = ad.getProfessores();
                 session.setAttribute("todos-usuarios", ps);
 
                 p.setNome(ad.getGivenName(p));
-                p.setNomeCompleto(ad.getCN(p));              
-                p.setCargo(ad.getTitle(p)); 
+                p.setNomeCompleto(ad.getCN(p));
+                p.setCargo(ad.getTitle(p));
                 p.setDepto(ad.getDepartment(p));
-                p.setEmail(p.getUsername() + "@" + SiGLa.getDomain());
+                p.setEmail(ad.getMail(p));
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
 
-                session.setAttribute("ad", ad); 
-                session.setAttribute("pessoa", p); 
+                session.setAttribute("pessoa", p);
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {
@@ -93,13 +93,13 @@ public class LoginAction implements ICommand {
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
-            return request.getContextPath(); 
+            return request.getContextPath();
         } catch (AuthenticationException e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
-            return request.getContextPath(); 
+            return request.getContextPath();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
@@ -107,6 +107,8 @@ public class LoginAction implements ICommand {
             return request.getContextPath() + "/error/error";
         }
 
-        return null;
+        session.setAttribute("msg", "Erro ao fazer login");
+        session.setAttribute("status", "error");
+        return request.getContextPath();
     }
 }
