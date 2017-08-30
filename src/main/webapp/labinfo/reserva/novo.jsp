@@ -79,6 +79,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+        <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -89,6 +90,31 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
+
+                $(document).ready(function () {
+                    $('#usuario').change(function () {
+                        var opt = $('#usuario :selected').val();
+                        $('#professor').val(opt);
+                    });
+
+                    switch (acesso) {
+                        case "admin":
+                            formFuncionario();
+                            break;
+
+                        case "funcionario":
+                            formFuncionario();
+                            break;
+
+                        case "coordenador":
+                            formCoordenador();
+                            break;
+
+                        case "professor":
+                            formProfessor();
+                            break;
+                    }
+                });
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -117,11 +143,19 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Reserva</h3>
                         </div>
-                        <div id="form-soli-func" class="box-body" style="display: none;">
+                        <div id="form-soli-func" class="box-body">                                                                
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post" onsubmit="secureInjection()">
-                                <div class='form-group'>
-                                    <label>Nome de Usuário</label>
-                                    <select id="usuario" name="email" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
+                                <div class='form-group' style="display:none;">
+                                    <input readonly value="<% out.println(p.getUsername()); %>" type="text" id="professor" name="professor"/>
+                                    <input readonly value="<% out.println(p.getRole()); %>" type="text" id="role" name="role"/>
+                                </div>
+                                <div id="user-fixo" class='form-group' style="display:none;">
+                                    <label>Usuário</label>
+                                    <input type='text' class='form-control pull-right' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" readonly/>
+                                </div>
+                                <div id="user-select" class='form-group' style="display:none;">
+                                    <label>Usuário</label>
+                                    <select id="usuario" class="select2 form-control" data-placeholder="Selecione um professor" style="width: 100%;">
                                         <option selected disabled>Usuário</option>
                                         <% for (Pessoa pessoa : ps) { %>
                                         <option value="<% out.println(pessoa.getUsername()); %>"><% out.println(pessoa.getNomeCompleto() + " (" + pessoa.getEmail() + ")"); %></option>
@@ -181,14 +215,14 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Observação</label>
                                     <textarea id="obs" name="obs" class="form-control"></textarea>
                                 </div>
-                                <div class='form-group'>
+                                <div id="lab-field" class='form-group' style="display:none;">
                                     <label>Laboratório</label>
                                     <select id="laboratorio" name="laboratorio" id="modalLabCombo" class="select2 form-control" style="width: 100%;" required>
                                         <option selected></option>
                                     </select>
                                 </div>
                                 <div class="box-footer">
-                                    <button value="SolicitacaoInsercaoFuncionario" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="SolicitacaoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -265,7 +299,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>Nome</label>
-                                    <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getNomeCompleto()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
+                                    <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>
@@ -273,12 +307,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Curso</label>
-                                    <select name="curso" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
-                                        <option selected disabled>Curso</option>
-                                        <% for (Curso c : ac) { %>
-                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " em " + ac.get(ac.indexOf(c)).getNome()); %></option>
-                                        <% } %>
-                                    </select>
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>

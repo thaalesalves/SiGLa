@@ -10716,7 +10716,7 @@
                      *      } );
                      *    } );
                      */
-                    "sFirst": "First",
+                    "sFirst": "Primeiro",
                     /**
                      * Text to use when using the 'full_numbers' type of pagination for the
                      * button to take the user to the last page.
@@ -10737,7 +10737,7 @@
                      *      } );
                      *    } );
                      */
-                    "sLast": "Last",
+                    "sLast": "Último",
                     /**
                      * Text to use for the 'next' pagination button (to take the user to the
                      * next page).

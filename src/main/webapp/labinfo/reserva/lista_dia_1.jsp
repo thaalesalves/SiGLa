@@ -28,7 +28,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%            
+        <%           
             Reserva reserva = new Reserva();
 
             ArrayList<Reserva> arrayRes;
@@ -52,8 +52,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-        <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
-        
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -63,12 +62,6 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
-                
-                if (acesso == "professor") {
-                    carregaReservasDiaProfessor();
-                } else {
-                    carregaReservasDia();
-                }
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -80,13 +73,13 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Reservas de <% out.println(reserva.calendarioDia()); %>
+                        Reservas de <% out.println(reserva.getDiaSemana()); %>
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Reservas</a></li>
-                        <li class="active">Reservas de <% out.println(reserva.calendarioDia()); %></li>
+                        <li class="active">Reservas de <% out.println(reserva.getDiaSemana()); %></li>
                     </ol>
                 </section>
 
@@ -99,16 +92,45 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th style='width: 1%;'>#</th>
-                                        <th style='width: 10%;'>Professor</th>
-                                        <th style='width: 1%;'>Módulos</th>
+                                        <th>#</th>
+                                        <th>Professor</th>
+                                        <th>Módulos</th>
                                         <th>Turma</th>
-                                        <th style='width: 1%;'>Laboratório</th>
-                                        <th style='width: 15%;'>Softwares</th>
+                                        <th>Laboratório</th>
+                                        <th>Softwares</th>
+                                        <th>Observação</th>
                                         <th style="width: 5%;">Opções</th>
                                     </tr>
                                 </thead>
-                                <tbody style='display: none;'></tbody>
+                                <tbody>
+                                    <%
+                                        for (Reserva r : arrayRes) {
+                                    %>
+                                    <tr class="gradeC">
+                                        <td class='center'><% out.println(r.getId()); %></td>
+                                        <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
+                                        <td class="center"><%
+                                            for (Modulo m : r.getModulos()) {
+                                                out.println(m.getId() + "º módulo</br>");
+                                            }
+                                            %>
+                                        </td>
+                                        <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
+                                        <td class="center"><% out.println(r.getLab().getNumero()); %></td>
+                                        <td class="center">
+                                            <%
+                                                for (Software s : r.getSoftwares()) {
+                                            %>
+
+                                            <% out.println(s.getFabricante() + " " + s.getNome()); %><br>
+
+                                            <% } %>
+                                        </td>
+                                        <td class="center"><% out.println(r.getObservacao()); %></td>                                        
+                                        <td class="center"><a href="javascript:showOptions()" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=ReservaRemocao&reserva_id=<% out.println(arrayRes.get(arrayRes.indexOf(r)).getId()); %>" class="fa fa-close"></a></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
                             </table>
                         </div>
                     </div>
