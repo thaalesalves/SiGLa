@@ -26,12 +26,16 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.ActiveDirectory;
 
 public class LogoutAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
+            ActiveDirectory ad = (ActiveDirectory) request.getSession().getAttribute("ad");
+            
+            ad.closeLdapConnection();
             request.getSession().invalidate(); // invalida a sessão
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
