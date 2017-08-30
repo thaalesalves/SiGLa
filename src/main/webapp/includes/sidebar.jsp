@@ -41,7 +41,7 @@
                 <ul class="treeview-menu">
                     <li id="item-reserva-novo"><a href="${pageContext.request.contextPath}/controle/nova-reserva"><i class="fa fa-circle-o"></i> <span>Solicitar</span></a></li>
                     <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
-                    <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Todas as Reservas</a></li>
+                    <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Reservas</a></li>
                     <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                 </ul>
             </li>
@@ -77,8 +77,38 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id='item-novo-lab'><a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-edit"></i> <span>Inserção</span></a></li>
-                    <li id='item-lista-lab'><a href="${pageContext.request.contextPath}/controle/listar-labs"><i class="fa fa-desktop"></i> <span>Listagem</span></a></li>
+                    <li id='item-novo-lab'>
+                        <a href="#">
+                            <i class="fa fa-edit"></i> <span>Laboratório</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="treeview menu-open">
+                                <a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-circle-o"></i>Cadastro</a>
+                            </li>
+                            <li class="treeview menu-open">
+                                <a href="${pageContext.request.contextPath}/controle/listar-labs"><i class="fa fa-circle-o"></i>Listagem</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li id='item-lista-lab'>
+                        <a href="#">
+                            <i class="fa fa-desktop"></i> <span>Equipamento</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="treeview menu-open">
+                                <a href="${pageContext.request.contextPath}/equip/novo"><i class="fa fa-circle-o"></i>Cadastro</a>
+                            </li>
+                            <li class="treeview menu-open">
+                                <a href="${pageContext.request.contextPath}/equip/lista"><i class="fa fa-circle-o"></i>Listagem</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
         </ul>
