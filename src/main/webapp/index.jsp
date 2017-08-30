@@ -33,7 +33,7 @@ Copyright (C) 2016 Thales Alves Pereira
             response.sendRedirect(request.getContextPath() + "/pagina/home");
         }
 
-        String login = "nada";
+        String login = "null";
         String status = null;
         if ((String) session.getAttribute("msg") != null) {
             login = (String) session.getAttribute("msg");
@@ -57,47 +57,13 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         
         <script>
             $(document).ready(function () {
-                var msg = "<%=login%>";
-                var status = "<%=status%>";
-
-                if (msg != "nada") {
-                    new PNotify({
-                        title: 'Erro ao fazer login',
-                        text: msg,
-                        type: status,
-                        addclass: 'stack-bottomright',
-                        animate: {
-                            animate: true,
-                            in_class: 'slideInUp',
-                            out_class: 'slideOutDown'
-                        }
-                    });
-                }
-
-                var permanotice = false;
-                if (permanotice) {
-                    permanotice.open();
-                } else {
-                    permanotice = new PNotify({
-                        title: 'Demo do SiGLa',
-                        text: 'Bem vindo! Para acessar o SiGLa, basta utilizar como usuário e senha o cargo desejado.\n\n(professor, estagiario, funcionario, admin, coordenador)!',
-                        type: 'notice',
-                        hide: false,
-                        addclass: "stack-topleft",
-                        buttons: {
-                            closer: false,
-                            sticker: false
-                        },
-                        mobile: {
-                            swipe_dismiss: false
-                        }
-                    });
-                }
+                notify("<%=login%>", "<%=status%>");
             });
-        </script>
+        </script>       
     </head>
     <body>
         <div class="pen-title">
@@ -117,7 +83,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/index.js"></script>
         <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>  
         <script>
-            $('#login').click(function() {
+            $('#login').click(function () {
                 loadPage();
             });
         </script>
