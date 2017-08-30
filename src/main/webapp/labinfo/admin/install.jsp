@@ -43,11 +43,6 @@ Copyright (C) 2016 Thales Alves Pereira
         session.removeAttribute("status");
     }
 
-    String picPath = request.getContextPath() + "/img/user/thumbnail.png";
-    if (new File(request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg").exists()) {
-        picPath = request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg";
-    }
-
     if (session.getAttribute("pessoa") != null) {
         p = (Pessoa) session.getAttribute("pessoa");
         if (!p.getRole().equals("admin")) {
@@ -103,23 +98,26 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/wizard.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/wizard.js" type="text/javascript"></script>
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
-        
+        <script src="${pageContext.request.contextPath}/js/install.js" type="text/javascript"></script>
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->       
-        
+
         <script>
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
-                notify("<%=msg%>", "<%=status%>");
+
+                if ("<%=msg%>" != "null") {
+                    notify("<%=msg%>", "<%=status%>");
+                }
             });
         </script>
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
-        <div id="corpo" class="wrapper">
-            <%@include file="/includes/header.jsp" %>
+        <div id="corpo" class="wrapper">           
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
@@ -131,8 +129,8 @@ Copyright (C) 2016 Thales Alves Pereira
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="box box-primary">
-                        <div id="div-assistente" class="wizard">
+                    <div id="div-assistente" class="box box-primary">
+                        <div class="wizard">
                             <div class="wizard-inner">
                                 <div class="connecting-line"></div>
                                 <ul class="nav nav-tabs" role="tablist">
@@ -230,9 +228,9 @@ Copyright (C) 2016 Thales Alves Pereira
                                                 <label class="col-sm-2 control-label">Autenticação</label>
                                                 <div class="col-sm-10">
                                                     <select readonly id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                        <option>Selecione uma opção</option>
+                                                        <option selected disabled>Selecione uma opção</option>
                                                         <option value="ldap">LDAP (LDAP inseguro)</option>
-                                                        <option selected value="ldaps">LDAPS (LDAP seguro)</option>
+                                                        <option value="ldaps">LDAPS (LDAP seguro)</option>
                                                     </select>
                                                     <span class="help-block">Protocolo de conexão com o diretório</span>
                                                 </div>
@@ -372,11 +370,16 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                             </form>
                         </div>
-                    </div>                    
+                    </div>  
+                    <div style="display:none;" class="box box-primary" id="div-sucesso">
+                        <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
+                            <h3>Concluído!</h3>
+                            <p>O SiGLa foi configurado! Clique <a href="${pageContext.request.contextPath}/">aqui</a> para prosseguir.</p><br/>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
-        <%@include file="/includes/footer.jsp"%>
         <div class="control-sidebar-bg"></div>
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
@@ -400,58 +403,58 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
 
         <script>
-                                                        $(document).ready(function () {
-                                                            contextPath = "<%=request.getContextPath()%>" + "/";
+            $(document).ready(function () {
+                contextPath = "<%=request.getContextPath()%>" + "/";
 
-                                                            $("#conclusao").click(function () {
-                                                                $("#data").toggle();
-                                                            });
+                $("#conclusao").click(function () {
+                    $("#data").toggle();
+                });
 
-                                                            $(function () {
-                                                                $("#db-name").keyup(function () {
-                                                                    $('#dt-dbname').val($('#db-name').val());
-                                                                });
+                $(function () {
+                    $("#db-name").keyup(function () {
+                        $('#dt-dbname').val($('#db-name').val());
+                    });
 
-                                                                $("#db-user").keyup(function () {
-                                                                    $('#dt-dbuser').val($('#db-user').val());
-                                                                });
+                    $("#db-user").keyup(function () {
+                        $('#dt-dbuser').val($('#db-user').val());
+                    });
 
-                                                                $("#db-host").keyup(function () {
-                                                                    $('#dt-dbhost').val($('#db-host').val());
-                                                                });
+                    $("#db-host").keyup(function () {
+                        $('#dt-dbhost').val($('#db-host').val());
+                    });
 
-                                                                $("#ad-domain").keyup(function () {
-                                                                    $('#dt-domain').val($('#ad-domain').val());
-                                                                });
+                    $("#ad-domain").keyup(function () {
+                        $('#dt-domain').val($('#ad-domain').val());
+                    });
 
-                                                                $("#ad-controller").keyup(function () {
-                                                                    $('#dt-controller').val($('#ad-controller').val());
-                                                                });
+                    $("#ad-controller").keyup(function () {
+                        $('#dt-controller').val($('#ad-controller').val());
+                    });
 
-                                                                $("#ad-netbios").keyup(function () {
-                                                                    $('#dt-netbios').val($('#ad-netbios').val());
-                                                                });
+                    $("#ad-netbios").keyup(function () {
+                        $('#dt-netbios').val($('#ad-netbios').val());
+                    });
 
-                                                                $("#ad-domain").keyup(function () {
-                                                                    // Configurações de domínio
-                                                                    $("#ad-controller").val($(this).val());
-                                                                    $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
+                    $("#ad-domain").keyup(function () {
+                        // Configurações de domínio
+                        $("#ad-controller").val($(this).val());
+                        $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
 
-                                                                    // Grupo de acesso
-                                                                    $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                                                                    $("#ldap-func").val("memberOf=CN=sigla_func,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                                                                    $("#ldap-est").val("memberOf=CN=sigla_est,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                                                                    $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                                                                    $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                        // Grupo de acesso
+                        $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                        $("#ldap-func").val("memberOf=CN=sigla_func,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                        $("#ldap-est").val("memberOf=CN=sigla_est,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                        $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                        $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
 
-                                                                    // Valores finais
-                                                                    $('#dt-netbios').val($('#ad-netbios').val());
-                                                                    $('#dt-controller').val($('#ad-controller').val());
-                                                                    $('#dt-dbms').val($('#db-dbms :selected').text());
-                                                                    $('#dt-auth').val($('#ad-auth :selected').text());
-                                                                });
-                                                            });
-                                                        });
+                        // Valores finais
+                        $('#dt-netbios').val($('#ad-netbios').val());
+                        $('#dt-controller').val($('#ad-controller').val());
+                        $('#dt-dbms').val($('#db-dbms :selected').text());
+                        $('#dt-auth').val($('#ad-auth :selected').text());
+                    });
+                });
+            });
         </script>
     </body>
 </html>
