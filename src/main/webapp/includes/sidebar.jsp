@@ -40,9 +40,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id="item-reserva-novo"><a href="${pageContext.request.contextPath}/controle/nova-reserva"><i class="fa fa-circle-o"></i> <span>Solicitar</span></a></li>
-                    <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/controle/listar-solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
-                    <li id='item-reservas'><a href="${pageContext.request.contextPath}/controle/listar-reservas"><i class="fa fa-circle-o"></i> Reservas</a></li>
-                    <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/controle/listar-reservas-hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                    <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/reserva/solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
+                    <li id='item-reservas'><a href="${pageContext.request.contextPath}/reserva/lista"><i class="fa fa-circle-o"></i> Reservas</a></li>
+                    <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/reserva/hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
                 </ul>
             </li>
             <li id="menu-curso" class="treeview">
