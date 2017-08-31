@@ -66,65 +66,8 @@ public class JsonController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             String acao = request.getParameter("acao");
-
-            if (acao.equals("reserva")) {
-                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-                ReservaDAO sdao = new ReservaDAO();
-                Reserva s = new Reserva();
-
-                s.setId(Integer.parseInt(request.getParameter("id")));
-                s = sdao.selectReservaId(s);
-
-                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
-                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-
-                out.println(util.Json.toCuteJson(s));
-            } else if (acao.equals("solicitacoes")) {
-                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-                SolicitacaoDAO dao = new SolicitacaoDAO();
-                ArrayList<Solicitacao> solicitacao = dao.selectSolicitacao();
-
-                for (Solicitacao s : solicitacao) {
-                    s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-                    s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
-                    s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                }
-
-                session.setAttribute("dados-solicitacoes", solicitacao);
-            } else if (acao.equals("solicitacao")) {
-                ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-                SolicitacaoDAO sdao = new SolicitacaoDAO();
-                Solicitacao s = new Solicitacao();
-
-                s.setId(Integer.parseInt(request.getParameter("id")));
-                s = sdao.selectSolicitacao(s);
-
-                s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
-                s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
-                s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-
-                out.println(util.Json.toCuteJson(s));
-            } else if (acao.equals("laboratorios")) {
-                Reserva r = new Reserva();
-                LaboratorioDAO ldao = new LaboratorioDAO();
-                ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
-
-                String[] modulos = request.getParameter("modulo").split(",");
-
-                for (String i : modulos) {
-                    Modulo mod = new Modulo();
-                    mod.setId(Integer.parseInt(i));
-
-                    r.getModulos().add(mod);
-                }
-
-                r.setDiaDaSemana(request.getParameter("dia"));
-
-                al = ldao.selectAvailableLabs(r);
-
-                out.println(util.Json.toCuteJson(al));
-            } else if (acao.equals("padrao")) {
+            
+            if (acao.equals("padrao")) {
                 ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
                 Counter counter = new Counter();
@@ -143,15 +86,7 @@ public class JsonController extends HttpServlet {
                 for (Solicitacao i : r) {
                     i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
                     i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
-                    //i.getPessoa().setShownName(i.getPessoa().getNomeCompleto().substring(0, i.getPessoa().getNomeCompleto().indexOf(" ")) + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ")));
-                    if (i.getPessoa().getNomeCompleto().equals("Ricardo Morales Miranda")) {
-                        i.getPessoa().setShownName("Ricardo Morales");
-                    } else if (i.getPessoa().getNomeCompleto().equals("Jose Eduardo Morello Lobo")) {
-                        i.getPessoa().setNome("Eduardo");
-                        i.getPessoa().setShownName("Eduardo Lobo");
-                    } else {
-                        i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                    }
+                    i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
                 }
 
                 counter.setQtdComputadores(edao.qtdEquip());
