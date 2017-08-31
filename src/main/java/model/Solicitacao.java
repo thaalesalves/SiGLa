@@ -20,6 +20,8 @@ package model;
 
 import java.util.ArrayList;
 
+@lombok.Getter
+@lombok.Setter
 public class Solicitacao {
 
     private Integer id;    
@@ -32,86 +34,4 @@ public class Solicitacao {
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private Pessoa pessoa = new Pessoa();
     private Curso curso = new Curso();
-    
-    
-    public void setModulos(ArrayList<Modulo> modulos) {
-        this.modulos = modulos;
-    }
-    
-    public ArrayList<Modulo> getModulos() {
-        return modulos;
-    }
-    
-    public void setSoftwares(ArrayList<Software> softwares) {
-        this.softwares = softwares;
-    }
-    
-    public ArrayList<Software> getSoftwares() {
-        return softwares;
-    }
-    
-    public void setQtdAlunos(Integer qtdAlunos) {
-        this.qtdAlunos = qtdAlunos;
-    }
-    
-    public Integer getQtdAlunos() {
-        return qtdAlunos;
-    }
-    
-    public void setModulo(String modulo) {
-        this.modulo = modulo;
-    }
-    
-    public String getModulo() {
-        return modulo;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setDiaSemana(String diaSemana) {
-        this.diaSemana = diaSemana;
-    }
-
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getDiaSemana() {
-        return diaSemana;
-    }
-
-    public String getTurma() {
-        return turma;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
 }

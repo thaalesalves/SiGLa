@@ -19,33 +19,11 @@
 
 package model;
 
+@lombok.Getter
+@lombok.Setter
 public class Curso {
 
     private String nome;
     private String modalidade;
     private Integer id;
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public Integer getId() {
-        return id;
-    }
 }

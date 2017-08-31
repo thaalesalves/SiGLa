@@ -22,6 +22,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+@lombok.Getter
+@lombok.Setter
 public class Reserva {
 
     private Integer id;
@@ -40,30 +42,6 @@ public class Reserva {
     private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
-
-    public ArrayList<Modulo> getModulos() {
-        return modulos;
-    }
-    
-    public void setModulos(ArrayList<Modulo> modulos) {
-        this.modulos = modulos;
-    }
-    
-    public Integer getQtdAlunos() {
-        return qtdAlunos;
-    }
-    
-    public void setQtdAlunos(Integer qtdAlunos) {
-        this.qtdAlunos = qtdAlunos;
-    }
-    
-    public void setQtdDia(Integer qtdDia) {
-        this.qtdDia = qtdDia;
-    }
-
-    public Integer getQtdDia() {
-        return qtdDia;
-    }
 
     public static String calendarioDia() {
         Calendar calendar = Calendar.getInstance();
@@ -96,109 +74,4 @@ public class Reserva {
 
         return diaSemana;
     }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setDiaDaSemana(String diaDaSemana) {
-        this.diaDaSemana = diaDaSemana;
-    }
-
-    public String getDiaDaSemana() {
-        return diaDaSemana;
-    }
-
-    public ArrayList<Software> getSoftwares() {
-        return softwares;
-    }
-
-    public ArrayList<Curso> getCursos() {
-        return cursos;
-    }
-
-    public void setPessoas(ArrayList<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
-    
-    public ArrayList<Pessoa> getPessoas() {
-        return pessoas;
-    }
-    
-    public void setSoftwares(ArrayList<Software> softwares) {
-        this.softwares = softwares;
-    }
-
-    public void setCursos(ArrayList<Curso> cursos) {
-        this.cursos = cursos;
-    }
-
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
-    }
-
-    public Integer getQtd() {
-        return qtd;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    public void setLab(Laboratorio lab) {
-        this.lab = lab;
-    }
-
-    public void setSoftware(Software software) {
-        this.software = software;
-    }
-
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public Laboratorio getLab() {
-        return lab;
-    }
-
-    public Software getSoftware() {
-        return software;
-    }
-
-    public String getTurma() {
-        return turma;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
 }

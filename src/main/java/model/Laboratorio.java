@@ -19,6 +19,8 @@
 
 package model;
 
+@lombok.Getter
+@lombok.Setter
 public class Laboratorio {
 
     private Integer id;
@@ -26,46 +28,6 @@ public class Laboratorio {
     private Integer capacidade;
     private Integer computadores;
     private String numero;    
-
-    public void setCapacidade(Integer capacidade) {
-        this.capacidade = capacidade;
-    }
-    
-    public Integer getCapacidade() {
-        return capacidade;
-    }
-    
-    public void setComputadores(Integer computadores) {
-        this.computadores = computadores;
-    }
-    
-    public Integer getComputadores() {
-        return computadores;
-    }
-    
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
-    }
-
-    public Integer getQtd() {
-        return qtd;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     @Override
     public boolean equals(Object obj) {

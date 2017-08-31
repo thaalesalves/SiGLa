@@ -16,6 +16,10 @@
         <servlet-name>ReservaController</servlet-name>
         <servlet-class>controller.ReservaController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JsonControllerTest</servlet-name>
+        <servlet-class>controller.JsonControllerTest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RedirectController</servlet-name>
         <url-pattern>/pagina/*</url-pattern>
@@ -41,6 +45,10 @@
     <servlet-mapping>
         <servlet-name>ReservaController</servlet-name>
         <url-pattern>/ReservaController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JsonControllerTest</servlet-name>
+        <url-pattern>/JsonControllerTest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

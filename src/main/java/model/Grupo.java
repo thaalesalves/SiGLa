@@ -19,33 +19,11 @@
  */
 package model;
 
+@lombok.Getter
+@lombok.Setter
 public class Grupo {
 
     private Integer id;
     private String grupo;
     private String role;
-    
-    public void setRole(String role) {
-        this.role = role;
-    }
-    
-    public String getRole() {
-        return role;
-    }
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setGrupo(String grupo) {
-        this.grupo = grupo;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getGrupo() {
-        return grupo;
-    }
 }

@@ -18,14 +18,9 @@
  */
 package model;
 
+@lombok.Getter
+@lombok.Setter
 public class Modulo {
+
     private Integer id;
-    
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public Integer getId() {
-        return id;
-    }
 }
