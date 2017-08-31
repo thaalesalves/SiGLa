@@ -27,12 +27,6 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
 <!DOCTYPE html>
-<%    ArrayList<Solicitacao> ares;
-    if ((ares = (ArrayList<Solicitacao>) session.getAttribute("dados-solicitacoes")) == null) {
-        response.sendRedirect(request.getContextPath() + "/AlmightyController?acao=SolicitacaoListagem");
-        session.removeAttribute("dados-solicitacoes");
-    }
-%>
 <html>
     <head>
         <meta charset="utf-8">
@@ -51,7 +45,9 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
+        <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
+        
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -61,6 +57,7 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
+                carregaSolicitacoes();
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -91,41 +88,16 @@ Copyright (C) 2016 Thales Alves Pereira
                             <table id="example1" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Professor</th>
-                                        <th>Módulos</th>
+                                        <th style='width: 1%;'>#</th>
+                                        <th style='width: 10%;'>Professor</th>
+                                        <th style='width: 1%;'>Módulos</th>
                                         <th>Turma</th>
-                                        <th>Softwares</th>
-                                        <th>Observação</th>
+                                        <th style='width: 11%;'>Dia da Semana</th>
+                                        <th style='width: 15%;'>Softwares</th>
                                         <th style="width: 5%;">Opções</th>
                                     </tr>
                                 </thead>
-                                <%
-                                    for (Solicitacao r : ares) {
-                                %>
-                                <tbody>
-                                    <tr class="gradeC">
-                                        <td class="center"><% out.println(r.getId()); %></td>
-                                        <td class="center"><% out.println(r.getPessoa().getShownName()); %></td>
-                                        <td class="center"><%
-                                            for (Modulo m : r.getModulos()) {
-                                                out.println(m.getId() + "º módulo</br>");
-                                            }
-                                            %>
-                                        </td>
-                                        <td class="center"><% out.println(r.getTurma() + " de " + r.getCurso().getModalidade() + " em " + r.getCurso().getNome()); %></td>
-                                        <td class="center">
-                                            <%
-                                                for (Software s : r.getSoftwares()) {
-                                                    out.println(s.getFabricante() + " " + s.getNome() + "<br/>");
-                                                }
-                                            %>
-                                        </td>
-                                        <td class="center"><% out.println(r.getObservacao()); %></td>
-                                        <td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="showSolicitacaoModal(<% out.println(r.getId()); %>)"></button></center></td>
-                                </tr>                                
-                                </tbody>
-                                <% } %>
+                                <tbody style='display: none;'></tbody>
                             </table>
                         </div>
                     </div>
@@ -235,7 +207,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             </table>
                         </div>                        
                         <div id="modal-footer" class="modal-footer">
-                            <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="showLaboratoriosDisponiveis()">Aprovar</button>
+                            <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="modalLabs()">Aprovar</button>
                             <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button><br/>
                         </div>
                     </div>

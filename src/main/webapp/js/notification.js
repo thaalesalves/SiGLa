@@ -23,112 +23,11 @@ var dados;
 var parameter;
 var contextPath;
 
-
-
 var updateWidgets = function (obj) {
     $("#qtd-reservas").text(obj.qtdReservas);
     $("#qtd-reservas-hoje").text(obj.qtdReservasHoje);
     $("#qtd-labs").text(obj.qtdLaboratorios);
     $("#qtd-computadores").text(obj.qtdComputadores);
-};
-
-
-
-var showSolicitacaoModal = function (item) {
-    id = item;
-    $.ajax({
-        url: contextPath + '/JsonController?acao=solicitacao&id=' + item,
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            var jsonSolicitacao = JSON.parse(e.responseText);
-
-            $("#modalIdSolicitacao").val(jsonSolicitacao.id);
-            $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
-            $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
-            $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
-            $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
-            $("#modalObservacao").val(jsonSolicitacao.observacao);
-
-            $("#modalSoftware").val("");
-            $("#modalModulo").val("");
-
-            for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
-                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
-                software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
-                $("#modalSoftware").val($("#modalSoftware").val() + software);
-            }
-
-            for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
-                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
-                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
-                $("#modalModulo").val($("#modalModulo").val() + modulo);
-            }
-        }
-    });
-};
-
-var showReservaModal = function (item) {
-    id = item;
-    $.ajax({
-        url: contextPath + '/JsonController?acao=reserva&id=' + item,
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            var jsonSolicitacao = JSON.parse(e.responseText);
-
-            $("#reserva-modal-titulo").html("Reserva nº" + jsonSolicitacao.id);
-            $("#modalIdSolicitacao").val(jsonSolicitacao.id);
-            $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
-            $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
-            $("#modalDiaSemana").val(jsonSolicitacao.diaDaSemana);
-            $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
-            $("#modalObservacao").val(jsonSolicitacao.observacao);
-            $("#modalLaboratorio").val(jsonSolicitacao.lab.numero);
-            $("#modalSoftware").val("");
-            $("#modalModulo").val("");
-
-            for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
-                var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
-                software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
-                $("#modalSoftware").val($("#modalSoftware").val() + software);
-            }
-
-            for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
-                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
-                modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
-                $("#modalModulo").val($("#modalModulo").val() + modulo);
-            }
-        }
-    });
-};
-
-var showLaboratoriosDisponiveis = function () {
-    var modulo = $("#modalModulo").val();
-    var dia = $("#modalDiaSemana").val();
-    $.ajax({
-        url: contextPath + '/JsonController?acao=laboratorios&modulo=' + modulo.replace(/[^0-9\.]/g, '') + '&dia=' + dia,
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            $("#modalLabCombo").empty();
-            $("#modalLabCombo").append($('<option>', {
-                text: 'Selecione um Laboratório'
-            }));
-
-            var jsonLaboratorios = JSON.parse(e.responseText);
-
-            for (i = 0; i < jsonLaboratorios.length + 1; i++) {
-                $("#modalLabCombo").append($('<option>', {
-                    value: jsonLaboratorios[i].id,
-                    text: jsonLaboratorios[i].numero
-                }));
-            }
-        }
-    });
 };
 
 var aprovarReserva = function () {
@@ -150,32 +49,7 @@ $(document).ready(function () {
 
 
 
-var availableLabs = function (dia, modulo) {
-    $.ajax({
-        url: contextPath + '/JsonController?acao=laboratorios&modulo=' + modulo + '&dia=' + dia,
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            $("#laboratorio").empty();
-            $("#laboratorio").append($('<option>', {
-                text: 'Selecione um Laboratório'
-            }));
 
-            var jsonLaboratorios = JSON.parse(e.responseText);
-
-            for (i = 0; i < jsonLaboratorios.length + 1; i++) {
-                var labid = jsonLaboratorios[i].id;
-                var labnum = jsonLaboratorios[i].numero;
-
-                $("#laboratorio").append($('<option>', {
-                    value: labid,
-                    text: labnum
-                }));
-            }
-        }
-    });
-};
 
 function notify(msg, status) {
     if (msg != "null") {

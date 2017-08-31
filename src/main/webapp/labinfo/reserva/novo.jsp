@@ -80,6 +80,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -88,9 +89,22 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(document).ready(function () {
+                var mods;
+                var dia;
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
+                
+                $('#modulo').change(function () {
+                    mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                    solicitacaoLabs(modulo, dia);
+                });
+                
+                $('#dia-semana').change(function () {
+                    dia = $('#dia-semana').val();
+                    solicitacaoLabs(modulo, dia);
+                });
 
+                
                 $(document).ready(function () {
                     $('#usuario').change(function () {
                         var opt = $('#usuario :selected').val();
