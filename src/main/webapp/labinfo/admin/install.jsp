@@ -29,34 +29,6 @@ Copyright (C) 2016 Thales Alves Pereira
     if (!util.SiGLa.getDomain().equals("null")) {
         response.sendRedirect(request.getContextPath());
     }
-
-    Calendar cal = Calendar.getInstance();
-
-    Pessoa p = new Pessoa();
-
-    String msg = "null";
-    String status = null;
-    if ((msg = (String) session.getAttribute("msg")) != null) {
-        msg = (String) session.getAttribute("msg");
-        status = (String) session.getAttribute("status");
-        session.removeAttribute("msg");
-        session.removeAttribute("status");
-    }
-
-    if (session.getAttribute("pessoa") != null) {
-        p = (Pessoa) session.getAttribute("pessoa");
-        if (!p.getRole().equals("admin")) {
-            response.sendRedirect(request.getContextPath() + "/error/403");
-        }
-    } else if (SiGLa.getDomain().equals("null")) {
-        p.setNomeCompleto("Administrador Local");
-        p.setNome("Administrador");
-        p.setShownName("Administrador Local");
-        p.setCargo("Administrador");
-        p.setDepto("Departamento de TI");
-    } else {
-        response.sendRedirect(request.getContextPath() + "/error/403");
-    }
 %>
 <!DOCTYPE html>
 <html>
@@ -104,17 +76,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->       
-
-        <script>
-            $(document).ready(function () {
-                acesso = "<%=p.getRole()%>";
-
-                if ("<%=msg%>" != "null") {
-                    notify("<%=msg%>", "<%=status%>", "Aviso!");
-                }
-            });
-        </script>
+        <![endif]-->
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
@@ -179,8 +141,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                                 <label class="col-sm-2 control-label">SGBD</label>
                                                 <div class="col-sm-10">
                                                     <select readonly id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
-                                                        <option>Selecione uma opção</option>
-                                                        <option selected value="psql">PostgreSQL</option>
+                                                        <option selected>Selecione uma opção</option>
+                                                        <option value="psql">PostgreSQL</option>
                                                         <option value="mysql">MySQL / MariaDB</option>
                                                     </select>
                                                     <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>

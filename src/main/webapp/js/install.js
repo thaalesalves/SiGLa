@@ -54,7 +54,6 @@ function enviar() {
             $('#div-sucesso').show();
             notify("Você será redirecionado em 5 segundos", "success", "SiGLa pronto para usar!");
             
-            
             setTimeout(function(){ 
                 window.location.reload(); 
             }, 5000);
