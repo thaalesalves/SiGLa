@@ -62,7 +62,7 @@ public final class SiGLa {
         return uri.replace("\\", "/");
     }
 
-    private static void loadProperties() {
+    public static void loadProperties() {
         try {
             Properties cfg = new Properties();
             InputStream stream = new FileInputStream(TARGET + "/classes/config.properties");
