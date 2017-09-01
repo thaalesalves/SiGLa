@@ -47,23 +47,15 @@ public class RedirectController extends HttpServlet {
             
             /* Redirecionamentos de /admin/ */
             mapaUrl.put("/admin", "/admin/install");
-            mapaUrl.put("/install", "/admin/install");
-            mapaUrl.put("/admin/install", "../labinfo/admin/install.jsp");
+            mapaUrl.put("/install", "../labinfo/admin/install.jsp");
             mapaUrl.put("/admin/database", "../labinfo/admin/db.jsp");
             mapaUrl.put("/admin/activedirectory", "../labinfo/admin/ad.jsp");
             
             /* Redirecionamentos de /controle/ */
-            mapaUrl.put("/controle/listar-labs", "../AlmightyController?acao=LaboratorioListagem");
-            mapaUrl.put("/controle/listar-softwares", "../AlmightyController?acao=SoftwareListagem");
             mapaUrl.put("/controle/contar-solicitacoes", "../CounterController");
-            mapaUrl.put("/controle/listar-reservas", "../AlmightyController?acao=ReservaListagem");
-            mapaUrl.put("/controle/listar-reservas-hoje", "../AlmightyController?acao=ReservaDiaListagem");
-            mapaUrl.put("/controle/listar-solicitacoes", "../AlmightyController?acao=SolicitacaoListagem");
-            mapaUrl.put("/controle/listar-curso", "../AlmightyController?acao=CursoListagem");
             mapaUrl.put("/controle/nova-reserva", "../AlmightyController?acao=ReservaInsercao");
             
             /* Redirecionamentos de /pagina/ */
-            mapaUrl.put("/pagina/login", "../index.jsp");
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
@@ -88,7 +80,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/software/novo", "../labinfo/software/novo.jsp");
             mapaUrl.put("/software/lista", "../labinfo/software/lista.jsp");
             
-            /* Redirecionamentos de /lab/ */
+            /* Redirecionamentos de /laboratorio/ */
             mapaUrl.put("/laboratorio/novo", "../labinfo/lab/novo.jsp");
             mapaUrl.put("/laboratorio/lista", "../labinfo/lab/lista.jsp");
             
