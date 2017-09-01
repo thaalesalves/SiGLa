@@ -42,18 +42,11 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - Maven
 - PNotify
 - LDAP
+- Project Lombok
 
 ### Tecnologias da Nuvem
-- Heroku (hospedagem live)
-- MailGun (disparo de emails)
-- LogDNA (logging)
-- Takipi (monitoramento)
+- MailGun / MailJet (disparo de emails)
 - Microsoft Azure (infraestrutura)
-
-### Webservers suportados
-- Jetty
-- Apache Tomcat
-- Glassfish
 
 ### Padrões de Desenvolvimento
 - Orientação a Objetos
