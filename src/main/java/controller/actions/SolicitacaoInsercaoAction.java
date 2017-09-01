@@ -59,7 +59,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
                 r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                r.getPessoa().setEmail(r.getPessoa().getUsername() + "@sigla.thalesalv.es");
+                r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
                 r.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
                 r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
@@ -89,7 +89,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 mail.setPessoa(r.getPessoa());
                 mail.setReserva(r);
-                //mail.sendMail(mail);
+                mail.sendMail(mail);
 
                 session.setAttribute("msg", "Reserva efetuada com sucesso.");
                 session.setAttribute("status", "success");
@@ -104,7 +104,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
                 s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
                 s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                s.getPessoa().setEmail(s.getPessoa().getEmail());
+                s.getPessoa().setEmail(ad.getMail(s.getPessoa()));
                 s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
                 s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));

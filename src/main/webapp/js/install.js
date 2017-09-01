@@ -18,18 +18,8 @@
 var contextPath;
 var formInstalacao;
 
-function notify(msg, status) {
+function notify(msg, status, title) {
     if (msg != "null") {
-        var title = "";
-        switch (status) {
-            case "error":
-                title = "Erro!";
-                break;
-            case "success":
-                title = "Sucesso!";
-                break;
-        }
-
         new PNotify({
             title: title,
             text: msg,
@@ -62,8 +52,12 @@ function enviar() {
             $('body').waitMe('hide');
             $('#div-assistente').hide();
             $('#div-sucesso').show();
-            notify("success", "SiGLa configurado, pronto para usar!", "SiGLa Configurado!");
-            window.location.reload();
+            notify("Você será redirecionado em 5 segundos", "success", "SiGLa pronto para usar!");
+            
+            
+            setTimeout(function(){ 
+                window.location.reload(); 
+            }, 5000);
         }
     });
 }

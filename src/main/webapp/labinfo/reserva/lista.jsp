@@ -30,8 +30,9 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Listagem de Reservas | SiGLa</title>
+        <title>Reservas | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -86,29 +87,11 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Lista geral</h3>
                         </div>
-                        <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th style='width: 1%;'>#</th>
-                                        <th style='width: 10%;'>Professor</th>
-                                        <th style='width: 1%;'>Módulos</th>
-                                        <th>Turma</th>
-                                        <th style='width: 1%;'>Laboratório</th>
-                                        <th style='width: 11%;'>Dia da Semana</th>
-                                        <th style='width: 15%;'>Softwares</th>
-                                        <th style="width: 5%;">Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody style='display: none;'></tbody>
-                            </table>
-                        </div>
+                        <div id="tb-div" class="box-body"></div>
                     </div>
                 </section>
             </div>
-            <footer class="main-footer">
-                <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-            </footer>
+            <%@include file="/includes/footer.jsp" %>
             <div class="control-sidebar-bg"></div>
         </div>
 

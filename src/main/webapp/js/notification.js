@@ -76,29 +76,3 @@ function notify(msg, status) {
         });
     }
 }
-
-$(document).ready(function () {
-    $("#modulo").change(function () {
-        var modulo = $("#modulo").val();
-        var diaSemana = $("#dia-semana").val();
-
-        if (modulo !== null && diaSemana !== null) {
-            availableLabs(diaSemana, modulo);
-        } else {
-            $("#laboratorio").attr("placeholder",
-                    "Nenhum resultado");
-        }
-    });
-
-    $("#dia-semana").change(function () {
-        var modulo = $("#modulo").val();
-        var diaSemana = $("#dia-semana").val();
-
-        if (modulo !== null && diaSemana !== null) {
-            availableLabs(diaSemana, modulo);
-        } else {
-            $("#laboratorio").attr("placeholder",
-                    "Nenhum resultado");
-        }
-    });
-});

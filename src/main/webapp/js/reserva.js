@@ -43,7 +43,11 @@ function carregaReservas() {
         },
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-            var cont = '<tbody>';
+            var cont = '<table id="tb-res" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 1%;">Laboratório</th>';
+            cont += '<th style="width: 11%;">Dia da Semana</th><th style="width: 15%;">Softwares</th>';
+            cont += '<th style="width: 3%;">Opções</th></tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
                 cont += '<tr>';
@@ -68,8 +72,9 @@ function carregaReservas() {
                 cont += '</tr>';
             });
 
-            cont += '</tbody>';
-            $('#example1').append(cont);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-res").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }
@@ -86,7 +91,11 @@ function carregaReservasProfessor() {
         },
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-            var cont = '<tbody>';
+            var cont = '<table id="tb-res" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 1%;">Laboratório</th>';
+            cont += '<th style="width: 11%;">Dia da Semana</th><th style="width: 15%;">Softwares</th>';
+            cont += '<th style="width: 3%;">Opções</th></tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
                 cont += '<tr>';
@@ -111,15 +120,16 @@ function carregaReservasProfessor() {
                 cont += '</tr>';
             });
 
-            cont += '</tbody>';
-            $('#example1').append(cont);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-res").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }
 
 function carregaReservasDia() {
     $.ajax({
-        url: contextPath + '/ReservaController?acao=lista-hoje',
+        url: contextPath + '/JsonControllerTest?acao=ReservaDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -129,7 +139,11 @@ function carregaReservasDia() {
         },
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-            var cont = '<tbody>';
+            var cont = '<table id="tb-res-dia" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 15%;">Softwares</th>';
+            cont += '<th style="width: 15%;">Softwares</th><th style="width: 3%;">Opções</th>';
+            cont += '</tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
                 cont += '<tr>';
@@ -153,15 +167,16 @@ function carregaReservasDia() {
                 cont += '</tr>';
             });
 
-            cont += '</tbody>';
-            $('#example1').append(cont);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-res-dia").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }
 
 function carregaReservasDiaProfessor() {
     $.ajax({
-        url: contextPath + '/ReservaController?acao=prof-hoje',
+        url: contextPath + '/JsonControllerTest?acao=ReservaProfessorDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -171,7 +186,11 @@ function carregaReservasDiaProfessor() {
         },
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-            var cont = '<tbody>';
+            var cont = '<table id="tb-res-dia" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 15%;">Softwares</th>';
+            cont += '<th style="width: 15%;">Softwares</th><th style="width: 3%;">Opções</th>';
+            cont += '</tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
                 cont += '<tr>';
@@ -195,8 +214,9 @@ function carregaReservasDiaProfessor() {
                 cont += '</tr>';
             });
 
-            cont += '</tbody>';
-            $('#example1').append(cont);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-res-dia").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }
@@ -213,7 +233,11 @@ function carregaSolicitacoes() {
         },
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-            var cont = '<tbody>';
+            var cont = '<table id="tb-solicitacao" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 11%;">Dia da Semana</th>';
+            cont += '<th style="width: 15%;">Softwares</th><th style="width: 3%;">Opções</th>';
+            cont += '</tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
                 cont += '<tr>';
@@ -237,9 +261,9 @@ function carregaSolicitacoes() {
                 cont += '</tr>';
             });
 
-            cont += '</tbody>';
-
-            $('#example1').append(cont);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-solicitacao").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }
