@@ -5,8 +5,8 @@
 <header class="main-header">                
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}/" class="logo">
-        <span class="logo-mini"><b>S</b>GL</span>
-        <span class="logo-lg"><b>S</b>iGLa</span>
+        <img src="${pageContext.request.contextPath}/img/icon.png" class="logo-mini"/>
+        <img src="${pageContext.request.contextPath}/img/logo_horizontal.png" style="width:90%; padding-top:4%;" class="logo-lg"/>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
