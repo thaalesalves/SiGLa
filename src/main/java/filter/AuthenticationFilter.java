@@ -25,11 +25,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import util.SiGLa;
 
 public class AuthenticationFilter implements Filter {
 
@@ -44,17 +42,25 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
         String uri = req.getRequestURI();
-        this.context.log("Requested Resource::" + uri);
-
+        String contextPath = req.getContextPath() + "/";
         HttpSession session = req.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("pessoa") != null;
         
-        if (!loggedIn || req.getRequestURI().equals(req.getContextPath())) {
-            res.sendRedirect(req.getContextPath() + "/error/401");
-        } else {
+        System.out.println(uri);
+        
+        if (loggedIn) {
+            if (uri.equals(contextPath + "admin/install")) {
+                res.sendRedirect(req.getContextPath() + "/error/404");
+            }
+            
             chain.doFilter(request, response);
+        } else {
+            if (uri.equals(contextPath + "admin/install")) {
+                res.sendRedirect(req.getContextPath() + "/error/404");
+            }
+            
+            res.sendRedirect(req.getContextPath() + "/error/401");
         }
     }
 
