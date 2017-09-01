@@ -54,7 +54,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id='item-novo-curso'><a href="${pageContext.request.contextPath}/curso/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
-                    <li id='item-lista-curso'><a href="${pageContext.request.contextPath}/controle/listar-curso"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
+                    <li id='item-lista-curso'><a href="${pageContext.request.contextPath}/curso/lista"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
             <li id="menu-software" class="treeview">
@@ -66,7 +66,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id='item-novo-software'><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
-                    <li id='item-lista-software'><a href="${pageContext.request.contextPath}/controle/listar-softwares"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
+                    <li id='item-lista-software'><a href="${pageContext.request.contextPath}/software/lista"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
             <li id="menu-lab" class="treeview">
@@ -89,7 +89,7 @@
                                 <a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-circle-o"></i>Cadastro</a>
                             </li>
                             <li class="treeview menu-open">
-                                <a href="${pageContext.request.contextPath}/controle/listar-labs"><i class="fa fa-circle-o"></i>Listagem</a>
+                                <a href="${pageContext.request.contextPath}/laboratorio/lista"><i class="fa fa-circle-o"></i>Listagem</a>
                             </li>
                         </ul>
                     </li>
