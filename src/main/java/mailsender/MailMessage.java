@@ -36,7 +36,7 @@ public class MailMessage extends Mail {
         message.setFrom(new InternetAddress(mail.getPessoa().getNomeCompleto() + "<" + mail.getPessoa().getEmail() + ">"));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getRecipient()));
         message.setSubject(mail.getSubject());
-        message.setText(mail.getMessage());
+        message.setContent(getMessage(mail), "text/html");
         message.setSentDate(new Date());
         Transport.send(message);
     }

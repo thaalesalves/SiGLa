@@ -39,8 +39,8 @@ public class SolicitacaoMail extends Mail {
             message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Solicitação de Reserva");
-            message.setText(getMessage(mail));
-            message.setSentDate(new Date());
+            message.setContent(getMessage(mail), "text/html");
+            message.setSentDate(new Date());            
             Transport.send(message);
         } catch (MessagingException e) {
             Logger.logWarning(e, this.getClass());

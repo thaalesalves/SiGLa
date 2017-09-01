@@ -41,7 +41,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
             message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Reserva de Laboratório");
-            message.setText(getMessage(mail));
+            message.setContent(getMessage(mail), "text/html");
             message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {
