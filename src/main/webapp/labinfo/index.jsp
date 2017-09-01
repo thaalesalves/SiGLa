@@ -29,6 +29,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Dashboard | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -83,9 +84,9 @@ Copyright (C) 2016 Thales Alves Pereira
                     <%@include file="/includes/email-form.jsp" %>
                 </section>
             </div>
+            <%@include file="/includes/footer.jsp" %>
+            <div class="control-sidebar-bg"></div>
         </div>
-        <%@include file="/includes/footer.jsp" %>
-
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script>

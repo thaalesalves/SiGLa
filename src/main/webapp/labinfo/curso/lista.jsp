@@ -26,15 +26,11 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <head>
-        <%            ArrayList<Curso> arrayCurso;
-            if ((arrayCurso = (ArrayList<Curso>) session.getAttribute("lista-cursos")) == null) {
-                request.getRequestDispatcher(request.getContextPath() + "/AlmightyController?acao=CursoListagem").forward(request, response);
-            }
-        %>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Listagem de Reservas | SiGLa</title>
+        <title>Cursos | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -43,6 +39,8 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/curso.js" type="text/javascript"></script>
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -57,6 +55,7 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
+                carregaCurso();
             });
         </script>
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -68,13 +67,13 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Reservas
+                        Cursos
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Reservas</a></li>
-                        <li class="active">Reservas Gerais</li>
+                        <li><a href="#">Cusros</a></li>
+                        <li class="active">Lista de Cursos</li>
                     </ol>
                 </section>
 
@@ -83,34 +82,11 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Lista geral</h3>
                         </div>
-                        <div class="box-body">
-                            <table id="example1" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Modalidade</th>
-                                        <th>Curso</th>
-                                        <th style="width: 3%;">Opções</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        for (Curso c : arrayCurso) {
-                                    %>
-                                    <tr class="gradeC">
-                                        <td class="center"><% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getModalidade()); %></td>
-                                        <td class="center"><% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getNome()); %></td>
-                                        <td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="${pageContext.request.contextPath}/AlmightyController?acao=CursoRemocao&curso_id=<% out.println(arrayCurso.get(arrayCurso.indexOf(c)).getId()); %>" class="fa fa-close"></a></td>
-                                    </tr>
-                                    <% } %>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div id="tb-div" class="box-body"></div>
                     </div>
                 </section>
             </div>
-            <footer class="main-footer">
-                <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-            </footer>
+            <%@include file="/includes/footer.jsp" %>
             <div class="control-sidebar-bg"></div>
         </div>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>

@@ -23,10 +23,6 @@ Copyright (C) 2016 Thales Alves Pereira
 <!DOCTYPE html>
 <html>
     <%
-        if (SiGLa.getDomain().equals("null")) {
-            response.sendRedirect(request.getContextPath() + "/admin/install");
-        }
-
         Calendar cal = Calendar.getInstance();
 
         if (session.getAttribute("ad") != null) {
@@ -45,6 +41,7 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="UTF-8">
         <title>Login | SiGLa</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
         <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
         <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
@@ -57,7 +54,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         
         <script>
             $(document).ready(function () {

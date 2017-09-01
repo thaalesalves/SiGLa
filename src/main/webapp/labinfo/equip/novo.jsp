@@ -32,6 +32,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Cadastro de Equipamento | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -124,33 +125,31 @@ Copyright (C) 2016 Thales Alves Pereira
                             </form>
                         </div>
                     </div>
+                </section>
             </div>
-        </section>
-    </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> <a href="http://www.umc.br">Universidade de Mogi das Cruzes</a>.</strong>
-    </footer>
-    <div class="control-sidebar-bg"></div>
+            <%@include file="/includes/footer.jsp" %>
+            <div class="control-sidebar-bg"></div>
+        </div>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
 
-    <script>
+        <script>
             $(function () {
                 //Initialize Select2 Elements
                 $(".select2").select2();
@@ -216,6 +215,6 @@ Copyright (C) 2016 Thales Alves Pereira
                     showInputs: false
                 });
             });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

@@ -65,6 +65,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Instalação | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">        
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -110,7 +111,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 acesso = "<%=p.getRole()%>";
 
                 if ("<%=msg%>" != "null") {
-                    notify("<%=msg%>", "<%=status%>");
+                    notify("<%=msg%>", "<%=status%>", "Aviso!");
                 }
             });
         </script>
@@ -379,8 +380,7 @@ Copyright (C) 2016 Thales Alves Pereira
                     </div>
                 </section>
             </div>
-        </div>
-        <div class="control-sidebar-bg"></div>
+        </div>        
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
         <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
