@@ -110,7 +110,7 @@ public class ConfigurationAction implements ICommand {
                             gdao.insert(i);
                         }
                     }
-
+                    
                     /* Resposta do Servidor */
                     response.getWriter().write("Chamada AJAX completada");
                 } catch (Exception e) {
