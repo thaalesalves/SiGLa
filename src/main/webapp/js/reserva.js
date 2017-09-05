@@ -33,7 +33,7 @@ function formCoordenador() {
 
 function carregaReservas() {
     $.ajax({
-        url: contextPath + '/ReservaController?acao=lista-tudo',
+        url: contextPath + '/JsonControllerTest?acao=Reserva',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -81,7 +81,7 @@ function carregaReservas() {
 
 function carregaReservasProfessor() {
     $.ajax({
-        url: contextPath + '/ReservaController?acao=prof-tudo',
+        url: contextPath + '/JsonControllerTest?acao=ReservaProfessor',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
