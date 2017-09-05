@@ -18,21 +18,62 @@
 var reservas;
 var contextPath;
 
-function carrega() {
+function carregaLabs() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=padrao',
+        url: contextPath + '/JsonControllerTest?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
-            reservas = JSON.parse(e.responseText);
-            var trHTML = '';
-            $.each(reservas.softwares, function (i, item) {
-                trHTML += '<tr><td>' + reservas.softwares[i].fabricante + '</td><td>' + reservas.softwares[i].nome + '</td>';
-                trHTML += "<td>TESTE</tr></td>";
+            var obj = JSON.parse(e.responseText);
+
+            $.each(obj, function (i, item) {
+                $("#laboratorio").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].numero
+                }));
+            });
+        }
+    });
+}
+
+function carregaEquip() {
+    $.ajax({
+        url: contextPath + '/JsonControllerTest?acao=EquipamentoListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            var cont = '<table id="tb-res" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th>NetBIOS</th>';
+            cont += '<th style="width: 1%;">Laboratório</th><th style="width: 1%;">IP</th>';
+            cont += '<th style="width: 1%;">MAC</th><th>Configuração</th>';
+            cont += '<th style="width: 1%;">Status</th><th style="width: 1%;">Opções</th></tr></thead><tbody>';
+
+            $.each(obj, function (i, item) {
+                var status;
+                if (obj[i].status == 1) {
+                    status = "Em ordem";
+                } else {
+                    status = "Retirado";
+                }
+
+                cont += '<tr>';
+                cont += '<td>' + obj[i].id + '</td>';
+                cont += '<td>' + obj[i].nome + '</td>';
+                cont += '<td>' + obj[i].lab.numero + '</td>';
+                cont += '<td>' + obj[i].ip + '</td>';
+                cont += '<td>' + obj[i].mac + '</td>';
+                cont += '<td>' + obj[i].config + '</td>';
+                cont += '<td>' + status + '</td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
+                cont += '</tr>';
             });
 
-            $('#teste').append(trHTML);
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-res").DataTable();</script>';
+            $('#tb-div').append(cont);
         }
     });
 }

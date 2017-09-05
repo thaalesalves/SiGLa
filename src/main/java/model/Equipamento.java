@@ -26,5 +26,9 @@ public class Equipamento {
     private String nome;
     private String ip;
     private String mac;
+    private String config;
+    private Integer status;
+    private Integer id;
     private Integer qtd;
+    private Laboratorio lab;
 }

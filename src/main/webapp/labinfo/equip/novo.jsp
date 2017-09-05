@@ -62,9 +62,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/sweetalert.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
+        <script src="${pageContext.request.contextPath}/js/equipamento.js" type="text/javascript"></script>
+        
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -74,9 +76,10 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
+                carregaLabs();
             });
         </script>  
-        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>        
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">
@@ -106,21 +109,33 @@ Copyright (C) 2016 Thales Alves Pereira
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>NetBIOS</label>
-                                    <input name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="1214LAB001" />
+                                    <input autocomplete="off" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="1214LAB001" />
                                     <span class="help-block">Nome do computador na rede</span>
                                 </div>
                                 <div class='form-group'>
                                     <label>IP</label>
-                                    <input name="ip" id="ip" type='text' class='form-control pull-right' placeholder="10.8.114.1" />
+                                    <input autocomplete="off" name="ip" id="ip" type='text' class='form-control pull-right' placeholder="10.8.114.1" />
                                     <span class="help-block">Endereço IP do computador na rede</span>
                                 </div>
                                 <div class='form-group'>
                                     <label>MAC</label>
-                                    <input name="ip" id="ip" type='text' class='form-control pull-right' placeholder="AA:BB:CC:DD:EE:FF" />
+                                    <input autocomplete="off" name="mac" id="mac" type='text' class='form-control pull-right' placeholder="AA:BB:CC:DD:EE:FF" />
                                     <span class="help-block">Endereço MAC do computador na rede</span>
                                 </div>
+                                <div class='form-group'>
+                                    <label>Configuração</label>
+                                    <input autocomplete="off" name="config" id="config" type='text' class='form-control pull-right' placeholder="i5 4GB" />
+                                    <span class="help-block">CPU e RAM do computador</span>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Laboratório</label>
+                                    <select name="laboratorio" id="laboratorio" class='select2 form-control'>
+                                        <option selected disabled>Selecione um laboratório</option>
+                                    </select>
+                                    <span class="help-block">Laboratório do qual o computador é parte</span>
+                                </div>
                                 <div class="box-footer">
-                                    <button value="CursoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                    <button value="EquipamentoInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                                 </div>
                             </form>
                         </div>
