@@ -45,22 +45,16 @@ public class InstallationFilter implements Filter {
         String contextPath = req.getContextPath() + "/";
         boolean dominioNulo = util.SiGLa.getDomain().equals("null");
         
-        System.out.println("Requisição atual: " + uri);
-        
         if (dominioNulo && uri.equals(contextPath + "admin/install")) {
-            System.out.println("Domínio está nulo e acessando admin > deixando passar");
-            chain.doFilter(req, res);
+            chain.doFilter(request, response);
         } else if (dominioNulo && (uri.equals(contextPath))) {
-            System.out.println("Domínio está nulo e acessando raiz > redirecionando para admin");
             res.sendRedirect(contextPath + "admin/install");
         } else if (!dominioNulo && uri.equals(contextPath + "admin/install")) {
-            System.out.println("Domínio está preenchido e acessando admin > error 404");
             res.sendRedirect(contextPath + "error/404");
         } else if (!dominioNulo && (uri.equals(contextPath))) {
-            System.out.println("Domínio está preenchido e acessando raiz > deixando passar");
-            chain.doFilter(req, res);
+            chain.doFilter(request, response);
         } else {
-            chain.doFilter(req, res);
+            chain.doFilter(request, response);
         }
     }
 
