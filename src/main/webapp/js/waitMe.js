@@ -20,6 +20,10 @@ function loadPage() {
     });
 }
 
+function unloadPage() {
+    $('body').waitMe('hide');
+}
+
 (function ($) {
     $.fn.waitMe = function (method) {
         return this.each(function () {

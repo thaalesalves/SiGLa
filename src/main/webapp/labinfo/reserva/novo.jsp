@@ -25,8 +25,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
-<%    
-    Reserva r;
+<%    Reserva r;
     ArrayList<Software> asw;
     ArrayList<Curso> ac;
     ArrayList<Pessoa> ps;
@@ -90,47 +89,45 @@ Copyright (C) 2016 Thales Alves Pereira
         <![endif]-->
 
         <script>
-            $(document).ready(function () {
-                var mods;
-                var dia;
+            var mods = "vazio";
+            var dia = "vazio";
+
+            $(document).on('change', '#modulo', function () {
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                solicitacaoLabs(mods, dia);
+            });
+
+            $(document).on('change', '#dia-semana', function () {
+                dia = $('#dia-semana').val();
+                solicitacaoLabs(mods, dia);
+            });
+
+            $(document).on('change', '#usuario', function () {
+                var opt = $('#usuario :selected').val();
+                $('#professor').val(opt);
+            });
+
+            $(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
 
-                $('#modulo').change(function () {
-                    mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
-                    solicitacaoLabs(mods, dia);
-                });
+                switch (acesso) {
+                    case "admin":
+                        formFuncionario();
+                        break;
 
-                $('#dia-semana').change(function () {
-                    dia = $('#dia-semana').val();
-                    solicitacaoLabs(mods, dia);
-                });
+                    case "funcionario":
+                        formFuncionario();
+                        break;
 
+                    case "coordenador":
+                        formCoordenador();
+                        break;
 
-                $(document).ready(function () {
-                    $('#usuario').change(function () {
-                        var opt = $('#usuario :selected').val();
-                        $('#professor').val(opt);
-                    });
-
-                    switch (acesso) {
-                        case "admin":
-                            formFuncionario();
-                            break;
-
-                        case "funcionario":
-                            formFuncionario();
-                            break;
-
-                        case "coordenador":
-                            formCoordenador();
-                            break;
-
-                        case "professor":
-                            formProfessor();
-                            break;
-                    }
-                });
+                    case "professor":
+                        formProfessor();
+                        break;
+                }
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -249,71 +246,23 @@ Copyright (C) 2016 Thales Alves Pereira
         </div>
         <%@include file="/includes/footer.jsp" %>
         <div class="control-sidebar-bg"></div>
-    </div>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-
-    <script>
-                $(function () {
-                    //Datemask dd/mm/yyyy
-                    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-                    //Datemask2 mm/dd/yyyy
-                    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                    //Money Euro
-                    $("[data-mask]").inputmask();
-
-                    //Date range picker
-                    $('#reservation').daterangepicker();
-                    //Date range picker with time picker
-                    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-
-                    //Date picker
-                    $('#datepicker').datepicker({
-                        autoclose: true
-                    });
-
-                    //iCheck for checkbox and radio inputs
-                    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                        checkboxClass: 'icheckbox_minimal-blue',
-                        radioClass: 'iradio_minimal-blue'
-                    });
-                    //Red color scheme for iCheck
-                    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                        checkboxClass: 'icheckbox_minimal-red',
-                        radioClass: 'iradio_minimal-red'
-                    });
-                    //Flat red color scheme for iCheck
-                    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                        checkboxClass: 'icheckbox_flat-green',
-                        radioClass: 'iradio_flat-green'
-                    });
-
-                    //Colorpicker
-                    $(".my-colorpicker1").colorpicker();
-                    //color picker with addon
-                    $(".my-colorpicker2").colorpicker();
-
-                    //Timepicker
-                    $(".timepicker").timepicker({
-                        showInputs: false
-                    });
-                });
-    </script>
-</body>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+    </body>
 </html>
