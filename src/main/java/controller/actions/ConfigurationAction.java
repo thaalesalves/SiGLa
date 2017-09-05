@@ -78,7 +78,7 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.auth.netbios", adNetbios);
                     SiGLa.writeProperty("sigla.auth.method", adAuth);
                     SiGLa.writeProperty("sigla.auth.host", adController);
-
+                    
                     /* Dados de Acesso */
                     g = new Grupo();
                     g.setRole("admin");
@@ -116,6 +116,7 @@ public class ConfigurationAction implements ICommand {
 
                     return request.getContextPath();
                 } catch (Exception e) {
+                    SiGLa.writeProperty("sigla.auth.domain", "null");
                     util.Logger.logSevere(e, ConfigurationAction.class);
                     
                     session.setAttribute("msg", "Curso não cadastrado");
