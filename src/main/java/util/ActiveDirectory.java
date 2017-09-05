@@ -230,22 +230,27 @@ public class ActiveDirectory {
             NamingEnumeration<SearchResult> result = this.dirContext.search(ldap_base, filter, this.searchCtls);
             while (result.hasMoreElements()) {
                 Pessoa p = new Pessoa();
-                String cn = "";
-                String sAMAccountName = "";
-                String givenName = "";
+                String attr;
 
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
 
-                cn = attrs.get("cn").toString();
-                cn = cn.substring(cn.indexOf(":") + 1);
-                p.setNomeCompleto(cn);
+                attr = attrs.get("givenName").toString();
+                attr = attr.substring(attr.indexOf(":") + 1);
+                p.setNome(attr.trim());
+                
+                attr = attrs.get("cn").toString();
+                attr = attr.substring(attr.indexOf(":") + 1);
+                p.setNomeCompleto(attr.trim());
 
-                sAMAccountName = attrs.get("sAMAccountName").toString();
-                sAMAccountName = sAMAccountName.substring(cn.indexOf(":") + 1);
-                sAMAccountName = sAMAccountName.replace("sAMAccountName:", "").trim();
-                p.setUsername(sAMAccountName);
-                p.setEmail(sAMAccountName + "@thalesalv.es");
+                attr = attrs.get("sAMAccountName").toString();
+                attr = attr.substring(attr.indexOf(":") + 1);
+                attr = attr.replace("sAMAccountName:", "").trim();
+                p.setUsername(attr.trim());
+                
+                attr = attrs.get("mail").toString();
+                attr = attr.substring(attr.indexOf(":") + 1);
+                p.setEmail(attr.trim());
 
                 p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
 
