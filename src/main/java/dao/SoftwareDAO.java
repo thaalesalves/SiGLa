@@ -31,6 +31,25 @@ import util.DatabaseConnection;
 
 public class SoftwareDAO {
 
+    public int countSoftwares() throws SQLException, ClassNotFoundException, NullPointerException {
+        int qtd = 0;
+
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) FROM tb_software");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                qtd = rs.getInt("count");
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+
+        return qtd;
+    }
+
     public ArrayList<Software> selectSoftwareAux(Solicitacao solicitacao) throws SQLException, ClassNotFoundException, NullPointerException {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
