@@ -52,7 +52,7 @@ function enviar() {
             $('body').waitMe('hide');
             $('#div-assistente').hide();
             $('#div-sucesso').show();
-            notify("Você será redirecionado em 5 segundos", "success", "SiGLa pronto para usar!");
+            swal("SiGLa pronto para usar!", "Você será redirecionado em 5 segundos", "success");
             
             setTimeout(function(){ 
                 window.location.reload(); 

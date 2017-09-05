@@ -25,10 +25,6 @@ Copyright (C) 2016 Thales Alves Pereira
     <%
         Calendar cal = Calendar.getInstance();
 
-        if (util.SiGLa.getDomain().equals("null")) {
-            response.sendRedirect(request.getContextPath() + "/admin/install");
-        }
-
         if (session.getAttribute("ad") != null) {
             response.sendRedirect(request.getContextPath() + "/pagina/home");
         }
@@ -58,16 +54,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
-
+        <script src="${pageContext.request.contextPath}/js/install.js" type="text/javascript"></script>
+        
         <script>
             $(document).ready(function () {
-                notify("<%=login%>", "<%=status%>");
+                notify("<%=login%>", "<%=status%>", "Aviso!");
             });
         </script>       
     </head>
     <body>
         <div class="pen-title">
-            <h1>SiGLa</h1>
+            <img src="${pageContext.request.contextPath}/img/logo_horizontal.png" style="width: 30%;"/>
         </div>
         <div class="module form-module">
             <div class="form">

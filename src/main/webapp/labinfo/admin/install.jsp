@@ -25,11 +25,6 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    if (!util.SiGLa.getDomain().equals("null")) {
-        response.sendRedirect(request.getContextPath());
-    }
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,7 +55,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
@@ -71,13 +65,14 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/wizard.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/wizard.js" type="text/javascript"></script>
         <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/js/install.js" type="text/javascript"></script>
+        <link href="${pageContext.request.contextPath}/css/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <script src="${pageContext.request.contextPath}/js/sweetalert.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/install.js" type="text/javascript"></script>        
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div id="corpo" class="wrapper">           
@@ -131,7 +126,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </ul>
                             </div>
 
-                            <form role="form" class="form-horizontal" id="install-form">
+                            <form action="${pageContext.request.contextPath}/AlmightyController" role="form" class="form-horizontal" id="install-form">
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="step1">
                                         <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
@@ -146,6 +141,12 @@ Copyright (C) 2016 Thales Alves Pereira
                                                         <option value="mysql">MySQL / MariaDB</option>
                                                     </select>
                                                     <span class="help-block">Sistema de gerenciamento do banco de dados (SGBD)</span>
+                                                </div>
+                                            </div>
+                                            <div style="display:none;" class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Host</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="op" name="op" value="install">
                                                 </div>
                                             </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
@@ -325,7 +326,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                             </div>
                                             <div class="box-footer">
                                                 <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                                    <!--li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li-->
+                                                    <li><button type="submit" name="acao" value="Configuration" class="btn btn-primary btn-info-full next-step" onclick="loadPage()">Completar</button></li>
                                                 </ul>
                                             </div>
                                         </div>                                    
@@ -337,12 +339,12 @@ Copyright (C) 2016 Thales Alves Pereira
                     <div style="display:none;" class="box box-primary" id="div-sucesso">
                         <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
                             <h3>Concluído!</h3>
-                            <p>O SiGLa foi configurado! Clique <a href="${pageContext.request.contextPath}/">aqui</a> para prosseguir.</p><br/>
+                            <p>Você será redirecionado para a página de login em 5 segundos.</p><br/>
                         </div>
                     </div>
                 </section>
             </div>
-        </div>        
+        </div>
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
         <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
@@ -361,62 +363,63 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-
         <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
 
         <script>
-            $(document).ready(function () {
-                contextPath = "<%=request.getContextPath()%>" + "/";
+                                                        $(document).ready(function () {
+                                                            $(".select2").select2();
 
-                $("#conclusao").click(function () {
-                    $("#data").toggle();
-                });
+                                                            contextPath = "<%=request.getContextPath()%>" + "/";
 
-                $(function () {
-                    $("#db-name").keyup(function () {
-                        $('#dt-dbname').val($('#db-name').val());
-                    });
+                                                            $("#conclusao").click(function () {
+                                                                $("#data").toggle();
+                                                            });
 
-                    $("#db-user").keyup(function () {
-                        $('#dt-dbuser').val($('#db-user').val());
-                    });
+                                                            $(function () {
+                                                                $("#db-name").keyup(function () {
+                                                                    $('#dt-dbname').val($('#db-name').val());
+                                                                });
 
-                    $("#db-host").keyup(function () {
-                        $('#dt-dbhost').val($('#db-host').val());
-                    });
+                                                                $("#db-user").keyup(function () {
+                                                                    $('#dt-dbuser').val($('#db-user').val());
+                                                                });
 
-                    $("#ad-domain").keyup(function () {
-                        $('#dt-domain').val($('#ad-domain').val());
-                    });
+                                                                $("#db-host").keyup(function () {
+                                                                    $('#dt-dbhost').val($('#db-host').val());
+                                                                });
 
-                    $("#ad-controller").keyup(function () {
-                        $('#dt-controller').val($('#ad-controller').val());
-                    });
+                                                                $("#ad-domain").keyup(function () {
+                                                                    $('#dt-domain').val($('#ad-domain').val());
+                                                                });
 
-                    $("#ad-netbios").keyup(function () {
-                        $('#dt-netbios').val($('#ad-netbios').val());
-                    });
+                                                                $("#ad-controller").keyup(function () {
+                                                                    $('#dt-controller').val($('#ad-controller').val());
+                                                                });
 
-                    $("#ad-domain").keyup(function () {
-                        // Configurações de domínio
-                        $("#ad-controller").val($(this).val());
-                        $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
+                                                                $("#ad-netbios").keyup(function () {
+                                                                    $('#dt-netbios').val($('#ad-netbios').val());
+                                                                });
 
-                        // Grupo de acesso
-                        $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-func").val("memberOf=CN=sigla_func,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-est").val("memberOf=CN=sigla_est,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                $("#ad-domain").keyup(function () {
+                                                                    // Configurações de domínio
+                                                                    $("#ad-controller").val($(this).val());
+                                                                    $("#ad-netbios").val($(this).val().toUpperCase().split(".")[0]);
 
-                        // Valores finais
-                        $('#dt-netbios').val($('#ad-netbios').val());
-                        $('#dt-controller').val($('#ad-controller').val());
-                        $('#dt-dbms').val($('#db-dbms :selected').text());
-                        $('#dt-auth').val($('#ad-auth :selected').text());
-                    });
-                });
-            });
+                                                                    // Grupo de acesso
+                                                                    $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-func").val("memberOf=CN=sigla_func,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-est").val("memberOf=CN=sigla_est,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                                    $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+
+                                                                    // Valores finais
+                                                                    $('#dt-netbios').val($('#ad-netbios').val());
+                                                                    $('#dt-controller').val($('#ad-controller').val());
+                                                                    $('#dt-dbms').val($('#db-dbms :selected').text());
+                                                                    $('#dt-auth').val($('#ad-auth :selected').text());
+                                                                });
+                                                            });
+                                                        });
         </script>
     </body>
 </html>

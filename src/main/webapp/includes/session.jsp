@@ -1,3 +1,5 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="model.Pessoa"%>
 <%@page import="util.SiGLa"%>
 <%@page import="java.io.File"%>
 <%@page import="java.io.InputStream"%>

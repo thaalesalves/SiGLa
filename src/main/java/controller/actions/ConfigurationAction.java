@@ -41,7 +41,7 @@ public class ConfigurationAction implements ICommand {
 
         try {
             if (op.equals("install")) {
-                try {                    
+                try {
                     Grupo g;
                     GrupoDAO gdao = new GrupoDAO();
                     ArrayList<Grupo> ag = new ArrayList<Grupo>();
@@ -59,7 +59,7 @@ public class ConfigurationAction implements ICommand {
                     String adDomain = request.getParameter("ad-domain");
                     String adNetbios = request.getParameter("ad-netbios");
                     String adController = request.getParameter("ad-controller");
-                    
+
                     if (adAuth.equals("ldaps")) {
                         port = "636";
                     } else if (adAuth.equals("ldap")) {
@@ -110,14 +110,21 @@ public class ConfigurationAction implements ICommand {
                             gdao.insert(i);
                         }
                     }
-                    
-                    /* Resposta do Servidor */
-                    response.getWriter().write("Chamada AJAX completada");
+
+                    session.setAttribute("msg", "SiGLa configurado");
+                    session.setAttribute("status", "success");
+
+                    return request.getContextPath();
                 } catch (Exception e) {
                     util.Logger.logSevere(e, ConfigurationAction.class);
+                    
+                    session.setAttribute("msg", "Curso não cadastrado");
+                    session.setAttribute("status", "error");
+
+                    return request.getContextPath();
                 }
             } else if (op.equals("ad")) {
-                try {                    
+                try {
                     String port = "";
                     String dominio = request.getParameter("dominio");
                     String netbios = request.getParameter("netbios");
@@ -129,7 +136,7 @@ public class ConfigurationAction implements ICommand {
                     } else if (auth.equals("ldap")) {
                         port = "389";
                     }
-                    
+
                     SiGLa.writeProperty("sigla.auth.port", port);
                     SiGLa.writeProperty("sigla.auth.domain", dominio);
                     SiGLa.writeProperty("sigla.auth.netbios", netbios);
