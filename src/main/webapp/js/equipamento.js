@@ -20,7 +20,7 @@ var contextPath;
 
 function carregaLabs() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=LaboratorioListagem',
+        url: contextPath + '/JsonController?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -39,7 +39,7 @@ function carregaLabs() {
 
 function carregaEquip() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=EquipamentoListagem',
+        url: contextPath + '/JsonController?acao=EquipamentoListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

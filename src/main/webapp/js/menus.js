@@ -33,21 +33,9 @@ $(document).ready(function () {
             acessoProfessor();
             break;
     }
-
-    $.ajax({
-        url: contextPath + '/CounterController?acao=padrao',
-        type: 'POST',
-        cache: false,
-        dataType: 'JSON',
-        complete: function (e) {
-            notification(e);
-        }
-    });
-
-    setInterval(function () {
-        $("#res-notif").empty();
+    if (acesso == "admin" || acesso == "funcionario" || acesso == "estagiario") {
         $.ajax({
-            url: contextPath + '/CounterController?acao=padrao',
+            url: contextPath + '/JsonController?acao=Contador',
             type: 'POST',
             cache: false,
             dataType: 'JSON',
@@ -55,6 +43,21 @@ $(document).ready(function () {
                 notification(e);
             }
         });
+    }
+
+    setInterval(function () {
+        if (acesso == "admin" || acesso == "funcionario" || acesso == "estagiario") {
+            $("#res-notif").empty();
+            $.ajax({
+                url: contextPath + '/JsonController?acao=Contador',
+                type: 'POST',
+                cache: false,
+                dataType: 'JSON',
+                complete: function (e) {
+                    notification(e);
+                }
+            });
+        }
     }, 10000);
 });
 
@@ -72,6 +75,7 @@ function acessoEstagiario() {
     $('#item-reserva-novo').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
+    $('#item-novo-equip').hide(); 
 }
 
 function acessoCoordenador() {
@@ -81,6 +85,7 @@ function acessoCoordenador() {
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
+    $('#item-lista-equip').hide();    
 }
 
 function acessoProfessor() {
@@ -90,6 +95,7 @@ function acessoProfessor() {
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
+    $('#item-lista-equip').hide(); 
 }
 
 function notification(e) {

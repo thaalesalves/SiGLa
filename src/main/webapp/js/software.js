@@ -19,7 +19,7 @@ var contextPath;
 
 function carregaSoftware() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=SoftwareListagem',
+        url: contextPath + '/JsonController?acao=SoftwareListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

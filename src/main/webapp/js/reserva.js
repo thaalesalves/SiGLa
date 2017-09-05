@@ -46,7 +46,7 @@ function removerReserva() {
 
 function carregaReservas() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=Reserva',
+        url: contextPath + '/JsonController?acao=Reserva',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -94,7 +94,7 @@ function carregaReservas() {
 
 function carregaReservasProfessor() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=ReservaProfessor',
+        url: contextPath + '/JsonController?acao=ReservaProfessor',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -142,7 +142,7 @@ function carregaReservasProfessor() {
 
 function carregaReservasDia() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=ReservaDia',
+        url: contextPath + '/JsonController?acao=ReservaDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -189,7 +189,7 @@ function carregaReservasDia() {
 
 function carregaReservasDiaProfessor() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=ReservaProfessorDia',
+        url: contextPath + '/JsonController?acao=ReservaProfessorDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -236,7 +236,7 @@ function carregaReservasDiaProfessor() {
 
 function carregaSolicitacoes() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=Solicitacao',
+        url: contextPath + '/JsonController?acao=Solicitacao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -283,7 +283,7 @@ function carregaSolicitacoes() {
 
 function modalSolicitacao(id) {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=SolicitacaoId&id=' + id,
+        url: contextPath + '/JsonController?acao=SolicitacaoId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -314,7 +314,7 @@ function modalSolicitacao(id) {
 
 function modalReserva(id) {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=ReservaId&id=' + id,
+        url: contextPath + '/JsonController?acao=ReservaId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',

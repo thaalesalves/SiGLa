@@ -18,7 +18,7 @@
 var contextPath;
 function carregaLabs() {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=LaboratorioListagem',
+        url: contextPath + '/JsonController?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -48,7 +48,7 @@ function carregaLabs() {
 
 function solicitacaoLabs(modulo, dia) {
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -79,7 +79,7 @@ function modalLabs() {
     var dia = $("#modalDiaSemana").val();
 
     $.ajax({
-        url: contextPath + '/JsonControllerTest?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
