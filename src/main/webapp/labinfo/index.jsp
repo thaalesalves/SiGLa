@@ -47,6 +47,10 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
+                
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>
@@ -92,7 +96,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $.widget.bridge('uibutton', $.ui.button);
         </script>
-        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/morris/morris.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/sparkline/jquery.sparkline.min.js"></script>

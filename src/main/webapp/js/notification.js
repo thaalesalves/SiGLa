@@ -23,33 +23,12 @@ var dados;
 var parameter;
 var contextPath;
 
-var updateWidgets = function (obj) {
+function updateWidgets(obj) {
     $("#qtd-reservas").text(obj.qtdReservas);
     $("#qtd-reservas-hoje").text(obj.qtdReservasHoje);
     $("#qtd-labs").text(obj.qtdLaboratorios);
     $("#qtd-computadores").text(obj.qtdComputadores);
-};
-
-var aprovarReserva = function () {
-    parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
-    window.location.href = contextPath + "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
-};
-
-var reprovarReserva = function () {
-    window.location.href = contextPath + "/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
-};
-
-var removerReserva = function () {
-    window.location.href = contextPath + "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
-};
-
-$(document).ready(function () {
-    
-});
-
-
-
-
+}
 
 function notify(msg, status) {
     if (msg != "null") {

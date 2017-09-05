@@ -40,7 +40,7 @@ $(document).ready(function () {
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
-            runNotifications(e);
+            notification(e);
         }
     });
 
@@ -52,7 +52,7 @@ $(document).ready(function () {
             cache: false,
             dataType: 'JSON',
             complete: function (e) {
-                runNotifications(e);
+                notification(e);
             }
         });
     }, 10000);
@@ -92,18 +92,23 @@ function acessoProfessor() {
     $('#soli-menu').hide();
 }
 
-var runNotifications = function (e) {
-    var obj = e.responseText;
-    obj = JSON.parse(obj);
+function notification(e) {
+    obj = JSON.parse(e.responseText);
 
     if (obj.qtdSolicitacoes !== null) {
         $("#qtd-res").text(obj.qtdSolicitacoes);
         switch (true) {
             case (obj.qtdSolicitacoes === 1):
                 $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitação pendente");
+                for (i = 0; i < obj.qtdSolicitacoes; i++) {
+                    $("#res-notif").append("<li><a data-toggle='modal' data-target='#myModal' onclick='modalSolicitacao(" + obj.solicitacoes[i].id + ");'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
+                }
                 break;
             case (obj.qtdSolicitacoes > 1):
                 $("#msg-res").text("Você tem " + obj.qtdSolicitacoes + " solicitações pendentes");
+                for (i = 0; i < obj.qtdSolicitacoes; i++) {
+                    $("#res-notif").append("<li><a data-toggle='modal' data-target='#myModal' onclick='modalSolicitacao(" + obj.solicitacoes[i].id + ");'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
+                }
                 break;
             default:
                 $("#msg-res").text("Você não tem solicitações pendentes");
@@ -111,13 +116,5 @@ var runNotifications = function (e) {
         }
     }
 
-    addNotification(obj);
-    jsonObject = obj;
     updateWidgets(obj);
-};
-
-var addNotification = function (obj) {
-    for (i = 0; i < obj.qtdSolicitacoes; i++) {
-        $("#res-notif").append("<li><a href='#'><i class='fa fa-users text-aqua'></i>  Solicitação de " + obj.solicitacoes[i].pessoa.shownName + " pendente.</a></li>");
-    }
-};
+}

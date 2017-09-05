@@ -31,6 +31,19 @@ function formCoordenador() {
     $('#user-select').show();
 }
 
+function aprovarReserva() {
+    parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
+    window.location.href = contextPath + "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
+}
+
+function reprovarReserva() {
+    window.location.href = contextPath + "/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
+}
+
+function removerReserva() {
+    window.location.href = contextPath + "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao";
+}
+
 function carregaReservas() {
     $.ajax({
         url: contextPath + '/JsonControllerTest?acao=Reserva',
