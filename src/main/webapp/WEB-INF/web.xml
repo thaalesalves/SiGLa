@@ -56,11 +56,6 @@
         <url-pattern>/AlmightyController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CounterController</servlet-name>
-        <url-pattern>/CounterController</url-pattern>
-        <url-pattern>/JsonController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ReservaController</servlet-name>
         <url-pattern>/ReservaController</url-pattern>
     </servlet-mapping>
