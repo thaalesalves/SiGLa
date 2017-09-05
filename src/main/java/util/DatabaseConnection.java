@@ -33,54 +33,105 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 public final class DatabaseConnection {
 
     public static boolean checkDatabase() throws SQLException {
-        try {
-            Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection(
-                    "jdbc:postgresql://"
-                    + SiGLa.getDbAddr() + "/"
-                    + SiGLa.getDbName(),
-                    SiGLa.getDbUser(),
-                    SiGLa.getDbPasswd()
-            );
+        if (SiGLa.getDbms().equals("psql")) {
+            try {
+                Class.forName("org.postgresql.Driver");
+                Connection conn = DriverManager.getConnection(
+                        "jdbc:postgresql://"
+                        + SiGLa.getDbAddr() + "/"
+                        + SiGLa.getDbName(),
+                        SiGLa.getDbUser(),
+                        SiGLa.getDbPasswd()
+                );
 
-            DatabaseMetaData dbmd = conn.getMetaData();
-            ResultSet rs = dbmd.getTables(null, null, "tb_grupo", new String[]{"TABLE"});
+                DatabaseMetaData dbmd = conn.getMetaData();
+                ResultSet rs = dbmd.getTables(null, null, "tb_grupo", new String[]{"TABLE"});
 
-            if (!rs.next()) {
-                String sql = SiGLa.HOME + "/resources/db/psql.sql";
+                if (!rs.next()) {
+                    String sql = SiGLa.HOME + "/resources/db/psql.sql";
 
-                ScriptRunner sr = new ScriptRunner(conn);
-                InputStream is = new FileInputStream(sql);
-                Reader reader = new InputStreamReader(is);
+                    ScriptRunner sr = new ScriptRunner(conn);
+                    InputStream is = new FileInputStream(sql);
+                    Reader reader = new InputStreamReader(is);
 
-                sr.runScript(reader);
+                    sr.runScript(reader);
 
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
+                Logger.logSevere(e, DatabaseConnection.class);
                 return false;
-            } else {
-                return true;
             }
-        } catch (Exception e) {
-            Logger.logSevere(e, DatabaseConnection.class);
-            return false;
+        } else if (SiGLa.getDbms().equals("mysql")) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection(
+                        "jdbc:mysql://"
+                        + SiGLa.getDbAddr() + "/"
+                        + SiGLa.getDbName() + "?serverTimezone=America/Sao_Paulo&useSSL=false",
+                        SiGLa.getDbUser(),
+                        SiGLa.getDbPasswd()
+                );
+
+                DatabaseMetaData dbmd = conn.getMetaData();
+                ResultSet rs = dbmd.getTables(null, null, "tb_grupo", new String[]{"TABLE"});
+
+                if (!rs.next()) {
+                    String sql = SiGLa.HOME + "/resources/db/mysql.sql";
+
+                    ScriptRunner sr = new ScriptRunner(conn);
+                    InputStream is = new FileInputStream(sql);
+                    Reader reader = new InputStreamReader(is);
+
+                    sr.runScript(reader);
+
+                    return false;
+                } else {
+                    return true;
+                }
+            } catch (Exception e) {
+                Logger.logSevere(e, DatabaseConnection.class);
+                return false;
+            }
         }
+
+        return false;
     }
 
     public static Connection getConnection() throws SQLException {
         Connection conn = null;
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection(
-                    "jdbc:postgresql://"
-                    + SiGLa.getDbAddr() + "/"
-                    + SiGLa.getDbName(),
-                    SiGLa.getDbUser(),
-                    SiGLa.getDbPasswd()
-            );
-        } catch (ClassNotFoundException e) {
-            Logger.logSevere(e, DatabaseConnection.class);
-        } catch (Exception e) {
-            Logger.logSevere(e, DatabaseConnection.class);
+        if (SiGLa.getDbms().equals("psql")) {
+            try {
+                Class.forName("org.postgresql.Driver");
+                conn = DriverManager.getConnection(
+                        "jdbc:postgresql://"
+                        + SiGLa.getDbAddr() + "/"
+                        + SiGLa.getDbName(),
+                        SiGLa.getDbUser(),
+                        SiGLa.getDbPasswd()
+                );
+            } catch (ClassNotFoundException e) {
+                Logger.logSevere(e, DatabaseConnection.class);
+            } catch (Exception e) {
+                Logger.logSevere(e, DatabaseConnection.class);
+            }
+        } else if (SiGLa.getDbms().equals("mysql")) {
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection(
+                        "jdbc:mysql://"
+                        + SiGLa.getDbAddr() + "/"
+                        + SiGLa.getDbName() + "?serverTimezone=America/Sao_Paulo&useSSL=false",
+                        SiGLa.getDbUser(),
+                        SiGLa.getDbPasswd()
+                );
+            } catch (ClassNotFoundException e) {
+                Logger.logSevere(e, DatabaseConnection.class);
+            } catch (Exception e) {
+                Logger.logSevere(e, DatabaseConnection.class);
+            }
         }
 
         return conn;
