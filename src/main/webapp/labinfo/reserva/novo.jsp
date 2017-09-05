@@ -25,7 +25,8 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page import="java.util.Calendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
-<%    Reserva r;
+<%    
+    Reserva r;
     ArrayList<Software> asw;
     ArrayList<Curso> ac;
     ArrayList<Pessoa> ps;
@@ -88,7 +89,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script>            
+        <script>
             $(document).ready(function () {
                 var mods;
                 var dia;
@@ -223,7 +224,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
                                         <% for (Software sw : asw) { %>
                                         <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
-                                        <% } %>
+                                        <% }
+                                        %>
                                     </select>
                                 </div>
                                 <div class='form-group'>
@@ -241,207 +243,77 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                             </form>
                         </div>
-                        <div id="form-soli-coord" class="box-body" style="display: none;">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post" onsubmit="secureInjection()">
-                                <div class='form-group'>
-                                    <label>Nome de Usuário</label>
-                                    <select id="usuario" name="email" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
-                                        <option selected disabled>Usuário</option>
-                                        <% for (Pessoa pessoa : ps) { %>
-                                        <option value="<% out.println(pessoa.getUsername()); %>"><% out.println(pessoa.getNomeCompleto() + " (" + pessoa.getEmail() + ")"); %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Turma</label>
-                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Curso</label>
-                                    <select name="curso" class="select2 form-control" data-placeholder="Selecione um curso" style="width: 100%;" required>
-                                        <option selected disabled>Curso</option>
-                                        <% for (Curso c : ac) { %>
-                                        <option value="<% out.println(ac.get(ac.indexOf(c)).getId()); %>"><% out.println(ac.get(ac.indexOf(c)).getModalidade() + " em " + ac.get(ac.indexOf(c)).getNome()); %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Qtd. de Alunos</label>
-                                    <input min="0" name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Módulo</label>
-                                    <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
-                                        <option value="1">1º Módulo (8h às 9h30)</option>
-                                        <option value="2">2º Módulo (9h40 às 11h10)</option>
-                                        <option value="3">3º Módulo (11h10 às 12h40)</option>
-                                        <option value="4">4º Módulo (13h às 14h30)</option>
-                                        <option value="5">5º Módulo (14h30 às 17h30)</option>
-                                        <option value="6">6º Módulo (17h30 às 19h)</option>
-                                        <option value="7">7º Módulo (19h às 20h30)</option>
-                                        <option value="8">8º Módulo (20h40 às 22h)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Dia da Semana</label>
-                                    <select name="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
-                                        <option>Segunda-feira</option>
-                                        <option>Terça-feira</option>
-                                        <option>Quarta-feira</option>
-                                        <option>Quinta-feira</option>
-                                        <option>Sexta-feira</option>
-                                        <option>Sábado</option>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Softwares</label>
-                                    <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
-                                        <% for (Software sw : asw) { %>
-                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Observação</label>
-                                    <textarea id="obs" name="obs" class="form-control"></textarea>
-                                </div>
-                                <div class="box-footer">
-                                    <button value="SolicitacaoInsercaoCoordenador" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div id="form-soli-fixo" class="box-body" style="display: none;">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                                <div class='form-group'>
-                                    <label>Nome</label>
-                                    <input disabled type='text' class='form-control pull-right' name='nome' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Turma</label>
-                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
-                                </div>
-                                <div class='form-group'>
-                                    <label>Curso</label>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Qtd. de Alunos</label>
-                                    <input min="0" name="qtd" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Módulo</label>
-                                    <select name="modulo" class="select2 form-control" data-placeholder="Módulo" style="width: 100%;" required multiple>
-                                        <option value="1">1º Módulo (8h às 9h30)</option>
-                                        <option value="2">2º Módulo (9h40 às 11h10)</option>
-                                        <option value="3">3º Módulo (11h10 às 12h40)</option>
-                                        <option value="4">4º Módulo (13h às 14h30)</option>
-                                        <option value="5">5º Módulo (14h30 às 17h30)</option>
-                                        <option value="6">6º Módulo (17h30 às 19h)</option>
-                                        <option value="7">7º Módulo (19h às 20h30)</option>
-                                        <option value="8">8º Módulo (20h40 às 22h)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Dia da Semana</label>
-                                    <select name="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
-                                        <option>Segunda-feira</option>
-                                        <option>Terça-feira</option>
-                                        <option>Quarta-feira</option>
-                                        <option>Quinta-feira</option>
-                                        <option>Sexta-feira</option>
-                                        <option>Sábado</option>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Softwares</label>
-                                    <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
-                                        <% for (Software sw : asw) { %>
-                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
-                                        <% }
-                                           %>
-                                    </select>
-                                </div>
-                                <div class='form-group'>
-                                    <label>Observação</label>
-                                    <textarea id="obs" name="obs" class="form-control"></textarea>
-                                </div>                                
-                                <div class="box-footer">
-                                    <button value="SolicitacaoInsercaoProfessor" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </section>
             </div>
-            <%@include file="/includes/footer.jsp" %>
-            <div class="control-sidebar-bg"></div>
         </div>
+        <%@include file="/includes/footer.jsp" %>
+        <div class="control-sidebar-bg"></div>
+    </div>
 
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
 
-        <script>
-                                $(function () {
-                                    //Initialize Select2 Elements
-                                    $(".select2").select2();
+    <script>
+                $(function () {
+                    //Datemask dd/mm/yyyy
+                    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                    //Datemask2 mm/dd/yyyy
+                    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                    //Money Euro
+                    $("[data-mask]").inputmask();
 
-                                    //Datemask dd/mm/yyyy
-                                    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-                                    //Datemask2 mm/dd/yyyy
-                                    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                                    //Money Euro
-                                    $("[data-mask]").inputmask();
+                    //Date range picker
+                    $('#reservation').daterangepicker();
+                    //Date range picker with time picker
+                    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
 
-                                    //Date range picker
-                                    $('#reservation').daterangepicker();
-                                    //Date range picker with time picker
-                                    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+                    //Date picker
+                    $('#datepicker').datepicker({
+                        autoclose: true
+                    });
 
-                                    //Date picker
-                                    $('#datepicker').datepicker({
-                                        autoclose: true
-                                    });
+                    //iCheck for checkbox and radio inputs
+                    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                        checkboxClass: 'icheckbox_minimal-blue',
+                        radioClass: 'iradio_minimal-blue'
+                    });
+                    //Red color scheme for iCheck
+                    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                        checkboxClass: 'icheckbox_minimal-red',
+                        radioClass: 'iradio_minimal-red'
+                    });
+                    //Flat red color scheme for iCheck
+                    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                        checkboxClass: 'icheckbox_flat-green',
+                        radioClass: 'iradio_flat-green'
+                    });
 
-                                    //iCheck for checkbox and radio inputs
-                                    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-                                        checkboxClass: 'icheckbox_minimal-blue',
-                                        radioClass: 'iradio_minimal-blue'
-                                    });
-                                    //Red color scheme for iCheck
-                                    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-                                        checkboxClass: 'icheckbox_minimal-red',
-                                        radioClass: 'iradio_minimal-red'
-                                    });
-                                    //Flat red color scheme for iCheck
-                                    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-                                        checkboxClass: 'icheckbox_flat-green',
-                                        radioClass: 'iradio_flat-green'
-                                    });
+                    //Colorpicker
+                    $(".my-colorpicker1").colorpicker();
+                    //color picker with addon
+                    $(".my-colorpicker2").colorpicker();
 
-                                    //Colorpicker
-                                    $(".my-colorpicker1").colorpicker();
-                                    //color picker with addon
-                                    $(".my-colorpicker2").colorpicker();
-
-                                    //Timepicker
-                                    $(".timepicker").timepicker({
-                                        showInputs: false
-                                    });
-                                });
-        </script>
-    </body>
+                    //Timepicker
+                    $(".timepicker").timepicker({
+                        showInputs: false
+                    });
+                });
+    </script>
+</body>
 </html>

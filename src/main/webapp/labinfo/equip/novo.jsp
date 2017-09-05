@@ -129,7 +129,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Laboratório</label>
-                                    <select name="laboratorio" id="laboratorio" class='select2 form-control'>
+                                    <select name="laboratorio" id="laboratorio" class='select2 form-control pull-right'>
                                         <option selected disabled>Selecione um laboratório</option>
                                     </select>
                                     <span class="help-block">Laboratório do qual o computador é parte</span>
@@ -166,9 +166,6 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(function () {
-                //Initialize Select2 Elements
-                $(".select2").select2();
-
                 //Datemask dd/mm/yyyy
                 $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Datemask2 mm/dd/yyyy

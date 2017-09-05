@@ -106,7 +106,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>Curso</label>
-                                    <input name="curso" type='text' class='form-control pull-right' name='nome' placeholder="Nome do curso" />
+                                    <input autocomplete="off" name="curso" type='text' class='form-control pull-right' name='nome' placeholder="Nome do curso" />
                                 </div>
                                 <div class="form-group">
                                     <label>Modalidade</label>
@@ -154,9 +154,6 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(function () {
-                //Initialize Select2 Elements
-                $(".select2").select2();
-
                 //Datemask dd/mm/yyyy
                 $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Datemask2 mm/dd/yyyy

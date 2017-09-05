@@ -106,15 +106,15 @@ Copyright (C) 2016 Thales Alves Pereira
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>Número</label>
-                                    <input name="numero" type='text' class='form-control pull-right' placeholder="2T-27" />
+                                    <input autocomplete="off" name="numero" type='text' class='form-control pull-right' placeholder="2T-27" />
                                 </div>
                                 <div class="form-group">
                                     <label>Capacidade de Alunos</label>
-                                    <input name="capacidade" type='text' class='form-control pull-right' placeholder="50" />
+                                    <input autocomplete="off" name="capacidade" type='text' class='form-control pull-right' placeholder="50" />
                                 </div>
                                 <div class="form-group">
                                     <label>Quantidade de Computadores</label>
-                                    <input name="computadores" type='text' class='form-control pull-right' placeholder="25" />
+                                    <input autocomplete="off" name="computadores" type='text' class='form-control pull-right' placeholder="25" />
                                 </div>
                         </div>
                         <div class="box-footer">
@@ -148,9 +148,6 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(function () {
-                //Initialize Select2 Elements
-                $(".select2").select2();
-
                 //Datemask dd/mm/yyyy
                 $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
                 //Datemask2 mm/dd/yyyy
