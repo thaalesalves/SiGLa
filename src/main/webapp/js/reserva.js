@@ -282,6 +282,9 @@ function carregaSolicitacoes() {
 }
 
 function modalSolicitacao(id) {
+    var modulo;
+    var dia;
+
     $.ajax({
         url: contextPath + '/JsonController?acao=SolicitacaoId&id=' + id,
         type: 'POST',
@@ -289,10 +292,12 @@ function modalSolicitacao(id) {
         dataType: 'JSON',
         complete: function (e) {
             var jsonSolicitacao = JSON.parse(e.responseText);
+            dia = jsonSolicitacao.diaSemana;
+
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
             $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
-            $("#modalDiaSemana").val(jsonSolicitacao.diaSemana);
+            $("#modalDiaSemana").val(dia);
             $("#modalQtdAlunos").val(jsonSolicitacao.qtdAlunos);
             $("#modalObservacao").val(jsonSolicitacao.observacao);
             $("#modalSoftware").val("");
@@ -304,10 +309,34 @@ function modalSolicitacao(id) {
             }
 
             for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
-                var modulo = jsonSolicitacao.modulos[i].id + "º módulo";
+                modulo = jsonSolicitacao.modulos[i].id + "º módulo";
                 modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
                 $("#modalModulo").val($("#modalModulo").val() + modulo);
             }
+
+            $.ajax({
+                url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo.toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + dia,
+                type: 'POST',
+                cache: false,
+                dataType: 'JSON',
+                complete: function (e) {
+                    var obj = JSON.parse(e.responseText);
+
+                    $("#modalLabCombo").empty();
+
+                    $("#modalLabCombo").append($('<option>', {
+                        text: 'Selecione um Laboratório'
+                    }));
+
+                    for (i = 0; i < obj.length; i++) {
+
+                        $("#modalLabCombo").append($('<option>', {
+                            value: obj[i].id,
+                            text: obj[i].numero
+                        }));
+                    }
+                }
+            });
         }
     });
 }

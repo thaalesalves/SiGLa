@@ -62,19 +62,16 @@ function solicitacaoLabs(modulo, dia) {
             }));
 
             for (i = 0; i < obj.length; i++) {
-                var labid = obj[i].id;
-                var labnum = obj[i].numero;
-
                 $("#laboratorio").append($('<option>', {
-                    value: labid,
-                    text: labnum
+                    value: obj[i].id,
+                    text: obj[i].numero
                 }));
             }
         }
     });
 }
 
-function modalLabs() {
+/*function modalLabs() {
     var modulo = $("#modalModulo").val().replace(/[^0-9\.]/g, '').split('');
     var dia = $("#modalDiaSemana").val();
 
@@ -88,22 +85,17 @@ function modalLabs() {
 
             $("#modalLabCombo").empty();
 
-            if (obj[0].length == 0) {
-                $("#modalLabCombo").append($('<option>', {
-                    text: 'Não há laboratórios disponíveis'
-                }));
-            } else {
-                $("#modalLabCombo").append($('<option>', {
-                    text: 'Selecione um Laboratório'
-                }));
+            $("#modalLabCombo").append($('<option>', {
+                text: 'Selecione um Laboratório'
+            }));
 
-                for (i = 0; i < obj.length; i++) {
-                    $("#modalLabCombo").append($('<option>', {
-                        value: obj[i].id,
-                        text: obj[i].numero
-                    }));
-                }
+            for (i = 0; i < obj.length; i++) {
+                
+                $("#modalLabCombo").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].numero
+                }));
             }
         }
     });
-}
+}*/
