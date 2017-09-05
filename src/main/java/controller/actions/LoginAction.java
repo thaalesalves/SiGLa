@@ -22,8 +22,6 @@ package controller.actions;
 import util.SiGLa;
 import util.ActiveDirectory;
 import dao.GrupoDAO;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
