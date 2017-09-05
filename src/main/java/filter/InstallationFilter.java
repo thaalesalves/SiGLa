@@ -17,25 +17,24 @@
 package filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class AuthenticationFilter implements Filter {
+/**
+ *
+ * @author thaal
+ */
+public class InstallationFilter implements Filter {
 
-    private ServletContext context;
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
 
-    public void init(FilterConfig fConfig) throws ServletException {
-        this.context = fConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
     }
 
     @Override
@@ -44,25 +43,30 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getRequestURI();
         String contextPath = req.getContextPath() + "/";
-        HttpSession session = req.getSession(false);
-        boolean loggedIn = session != null && session.getAttribute("pessoa") != null;
+        boolean dominioNulo = util.SiGLa.getDomain().equals("null");
         
-        if (loggedIn) {
-            if (uri.equals(contextPath + "admin/install")) {
-                res.sendRedirect(req.getContextPath() + "/error/404");
-            }
-            
-            chain.doFilter(request, response);
+        System.out.println("Requisição atual: " + uri);
+        
+        if (dominioNulo && uri.equals(contextPath + "admin/install")) {
+            System.out.println("Domínio está nulo e acessando admin > deixando passar");
+            chain.doFilter(req, res);
+        } else if (dominioNulo && (uri.equals(contextPath))) {
+            System.out.println("Domínio está nulo e acessando raiz > redirecionando para admin");
+            res.sendRedirect(contextPath + "admin/install");
+        } else if (!dominioNulo && uri.equals(contextPath + "admin/install")) {
+            System.out.println("Domínio está preenchido e acessando admin > error 404");
+            res.sendRedirect(contextPath + "error/404");
+        } else if (!dominioNulo && (uri.equals(contextPath))) {
+            System.out.println("Domínio está preenchido e acessando raiz > deixando passar");
+            chain.doFilter(req, res);
         } else {
-            if (uri.equals(contextPath + "admin/install")) {
-                res.sendRedirect(req.getContextPath() + "/error/404");
-            }
-            
-            res.sendRedirect(req.getContextPath() + "/error/401");
+            chain.doFilter(req, res);
         }
     }
 
+    @Override
     public void destroy() {
-        //close any resources here
+
     }
+
 }
