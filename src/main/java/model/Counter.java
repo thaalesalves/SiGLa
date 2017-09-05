@@ -20,6 +20,8 @@ package model;
 
 import java.util.ArrayList;
 
+@lombok.Getter
+@lombok.Setter
 public class Counter {
     private int qtdSolicitacoes;
     private int qtdReservas;
@@ -31,84 +33,4 @@ public class Counter {
     private ArrayList<Solicitacao> solicitacoes;
     private ArrayList<Curso> cursos;
     private ArrayList<Software> softwares;
-
-    public void setCursos(ArrayList<Curso> cursos) {
-        this.cursos = cursos;
-    }
-
-    public void setSoftwares(ArrayList<Software> softwares) {
-        this.softwares = softwares;
-    }
-
-    public ArrayList<Curso> getCursos() {
-        return cursos;
-    }
-
-    public ArrayList<Software> getSoftwares() {
-        return softwares;
-    }
-
-    public void setLaboratorios(ArrayList<Laboratorio> laboratorios) {
-        this.laboratorios = laboratorios;
-    }
-    
-    public ArrayList<Laboratorio> getLaboratorios() {
-        return laboratorios;
-    }
-    
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-
-    public void setSolicitacoes(ArrayList<Solicitacao> solicitacoes) {
-        this.solicitacoes = solicitacoes;
-    }
-
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
-    }
-
-    public ArrayList<Solicitacao> getSolicitacoes() {
-        return solicitacoes;
-    }
-    
-    public void setQtdSolicitacoes(int qtdSolicitacoes) {
-        this.qtdSolicitacoes = qtdSolicitacoes;
-    }
-
-    public void setQtdReservas(int qtdReservas) {
-        this.qtdReservas = qtdReservas;
-    }
-
-    public void setQtdReservasHoje(int qtdReservasHoje) {
-        this.qtdReservasHoje = qtdReservasHoje;
-    }
-
-    public void setQtdLaboratorios(int qtdLaboratorios) {
-        this.qtdLaboratorios = qtdLaboratorios;
-    }
-
-    public void setQtdComputadores(int qtdComputadores) {
-        this.qtdComputadores = qtdComputadores;
-    }
-
-    public int getQtdSolicitacoes() {
-        return qtdSolicitacoes;
-    }
-
-    public int getQtdReservas() {
-        return qtdReservas;
-    }
-
-    public int getQtdReservasHoje() {
-        return qtdReservasHoje;
-    }
-
-    public int getQtdLaboratorios() {
-        return qtdLaboratorios;
-    }
-
-    public int getQtdComputadores() {
-        return qtdComputadores;
-    }
 }
