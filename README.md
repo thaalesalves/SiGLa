@@ -27,26 +27,32 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 ## Especificações Técnicas
 --------
 ### Tecnologias Utilizadas
-- Windows Server 2016 
-- Postfix
-- Active Directory Domain Services (AD DS)
-- JavaMail
+##### Banco de Dados
 - PostgreSQL
-- Bootstrap
-- HTML5
-- jQuery
-- Java EE
-- Javacript
-- CSS3
-- Google GSON
-- Maven
-- PNotify
-- LDAP
-- Project Lombok
+- MySQL
 
-### Tecnologias da Nuvem
-- MailGun / MailJet (disparo de emails)
-- Microsoft Azure (infraestrutura)
+##### Programação
+- Java EE
+- JavaScript
+- CSS3
+- HTML5
+
+##### Infraestrutura
+- Microsoft Windows Server 2016
+- Microsoft Azure
+- Microsoft Active Directory Domain Services (AD DS)
+- JavaMail
+- Postfix
+- Maven
+- LDAP
+- MailGun / MailJet
+
+##### Bibliotecas & Frameworks
+- jQuery
+- Google Gson
+- PNotify
+- Project Lombok
+- Bootstrap
 
 ### Padrões de Desenvolvimento
 - Orientação a Objetos
