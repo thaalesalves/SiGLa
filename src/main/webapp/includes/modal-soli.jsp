@@ -18,7 +18,7 @@
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <label>Solicitação nº</label>
+                                    <label>Solicitação #</label>
                                 </div>
                             </td>
                             <td style="width:100%;">
@@ -48,7 +48,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td style="padding-top: 5%;">
                                 <div class='form-group'>
                                     <label>Software</label>
                                 </div>
@@ -97,35 +97,24 @@
                                 <input style="width: 80%;" disabled type='textarea' class='form-control pull-right' nome="modalObservacao" id="modalObservacao" placeholder="Observações" />
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <div class='form-group'>
+                                    <label>Laboratório</label>
+                                </div> 
+                            </td>
+                            <td>
+                                <select style="width: 80%;" class='form-control pull-right' name="modalLabCombo" id="modalLabCombo">
+                                    <option default>Selecionar</option>
+                                </select>
+                            </td>
+                        </tr>
                     </table>
                 </div>                        
                 <div id="modal-footer" class="modal-footer">
-                    <button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="modalLabs()">Aprovar</button>
+                    <!--button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="modalLabs()">Aprovar</button-->
+                    <button id="btnModalAprovar" type="button" class="btn btn-success" onclick="aprovarReserva()">Aprovar</button>
                     <button id="btnModalReprovar" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button><br/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Selecionar Laboratório</h5>                                                        
-                </div>                    
-                <div class="modal-body">
-                    <div class='form-group'>
-                        <label>Laboratório</label>
-                        <select style="width: 80%;" class='form-control pull-right' name="modalLabCombo" id="modalLabCombo">
-                            <option default>Selecionar</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="modal-footer" class="modal-footer">
-                    <!--<button id='btnModalAprovar' value="SolicitacaoAprovacao" type="submit" name="acao" class="btn btn-success">Aprovar</button>-->
-                    <button id="btnModalAprovar" type="button" class="btn btn-success" onclick="aprovarReserva()">Aprovar</button><br/>
                 </div>
             </div>
         </div>
