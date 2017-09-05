@@ -58,7 +58,7 @@ public class SolicitacaoDAO {
 
     public Solicitacao insertSolicitacoes(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_solicitacao VALUES(DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING id");
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_solicitacao VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setInt(1, s.getCurso().getId()); // curso
             pstmt.setInt(2, s.getQtdAlunos()); // qtd de alunos
@@ -67,8 +67,11 @@ public class SolicitacaoDAO {
             pstmt.setString(5, s.getDiaSemana()); // dia da semana
             pstmt.setString(6, s.getObservacao()); // observacao
 
-            ResultSet rs = pstmt.executeQuery();
+            pstmt.executeUpdate();
 
+            pstmt = connString.prepareStatement("SELECT id FROM tb_solicitacao");
+            ResultSet rs = pstmt.executeQuery();
+            
             while (rs.next()) {
                 s.setId(rs.getInt(1));
             }
@@ -101,7 +104,7 @@ public class SolicitacaoDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) FROM tb_solicitacao");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) AS count FROM tb_solicitacao");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

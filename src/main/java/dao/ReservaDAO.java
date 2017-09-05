@@ -209,7 +209,7 @@ public class ReservaDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_reserva WHERE dia_semana = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) AS count FROM tb_reserva WHERE dia_semana = ?");
 
             pstmt.setString(1, DIA_SEMANA);
 
@@ -231,7 +231,7 @@ public class ReservaDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_reserva");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) AS count FROM tb_reserva");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

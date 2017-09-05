@@ -132,7 +132,7 @@ public class LaboratorioDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_laboratorio");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) AS count FROM tb_laboratorio");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

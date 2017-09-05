@@ -84,7 +84,7 @@ public class EquipamentoDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) FROM tb_equipamento");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(*) AS count FROM tb_equipamento");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

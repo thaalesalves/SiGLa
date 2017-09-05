@@ -35,7 +35,7 @@ public class SoftwareDAO {
         int qtd = 0;
 
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) FROM tb_software");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT COUNT(id) AS count FROM tb_software");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
