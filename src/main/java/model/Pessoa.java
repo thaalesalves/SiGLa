@@ -19,11 +19,9 @@
  */
 package model;
 
-import java.io.Serializable;
-
 @lombok.Getter
 @lombok.Setter
-public class Pessoa implements Serializable {
+public class Pessoa {
 
     private String shownName;
     private String username;
