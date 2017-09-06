@@ -55,6 +55,6 @@ public class SolicitacaoRemocaoAction implements ICommand {
         session.setAttribute("msg", "Reserva reprovada");
         session.setAttribute("status", "success");        
         
-        return request.getContextPath() + "/controle/listar-solicitacoes";
+        return request.getContextPath() + "/reserva/solicitacoes";
     }
 }

@@ -77,6 +77,6 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
 
-        return request.getContextPath() + "/controle/listar-solicitacoes";
+        return request.getContextPath() + "/reserva/solicitacoes";
     }
 }

@@ -50,6 +50,6 @@ public class ReservaRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return request.getContextPath() + "/controle/listar-reservas";
+        return request.getContextPath() + "/reserva/lista";
     }
 }

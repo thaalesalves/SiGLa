@@ -46,6 +46,6 @@ public class ReservaDiaRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
-        return request.getContextPath() + "/controle/listar-reservas-hoje";
+        return request.getContextPath() + "/reserva/hoje";
     }
 }

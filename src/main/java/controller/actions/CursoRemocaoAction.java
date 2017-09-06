@@ -47,7 +47,7 @@ public class CursoRemocaoAction implements ICommand {
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-        return request.getContextPath() + "/curso/listar";
+        return request.getContextPath() + "/curso/lista";
     }
 
 }
