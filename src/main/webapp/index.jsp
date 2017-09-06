@@ -64,7 +64,7 @@ Copyright (C) 2016 Thales Alves Pereira
     </head>
     <body>
         <div class="pen-title">
-            <img src="${pageContext.request.contextPath}/img/logo_horizontal-b.png" style="width: 30%;"/>
+            <img src="${pageContext.request.contextPath}/img/logo.png" style="width: 30%;"/>
         </div>
         <div class="module form-module">
             <div class="form">
