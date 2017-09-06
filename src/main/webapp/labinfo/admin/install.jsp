@@ -79,6 +79,7 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
+                    <center><img src="${pageContext.request.contextPath}/img/logo.png" style="width:30%;" alt=""/></center>
                     <h1>
                         Administração
                         <small>instalação do sigla</small>
@@ -273,7 +274,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <h3>Concluído!</h3>
                                             <p id="conclusao">Todos os dados necessários foram preenchidos. Clique aqui para revisar os dados</p>
                                             <div id="data" style="display:none;">
-                                                <br/><h4>Banco de Dados</h4>
+                                                <br/><h4>1. Banco de Dados</h4>
                                                 <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                     <label class="col-sm-2 control-label">SGBD</label>
                                                     <div class="col-sm-10">
@@ -298,7 +299,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                                         <input readonly type="text" class="form-control" id="dt-dbhost">
                                                     </div>
                                                 </div>
-                                                <br/><h4>Active Directory</h4>
+                                                <br/><h4>2. Active Directory</h4>
                                                 <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                     <label class="col-sm-2 control-label">Autenticação</label>
                                                     <div class="col-sm-10">
