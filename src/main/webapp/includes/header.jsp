@@ -29,7 +29,7 @@
                             <ul id="res-notif" class="menu"></ul>
                         </li>
                         <li class="footer">
-                            <a href="${pageContext.request.contextPath}/controle/listar-solicitacoes">Ver tudo</a>
+                            <a href="${pageContext.request.contextPath}/reserva/solicitacoes">Ver tudo</a>
                         </li>
                     </ul>
                 </li>
