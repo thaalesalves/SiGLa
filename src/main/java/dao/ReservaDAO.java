@@ -248,7 +248,7 @@ public class ReservaDAO {
 
     public Reserva insert(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_reserva VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING id");
+            PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_reserva VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setInt(1, r.getLab().getId());
             pstmt.setInt(2, r.getCurso().getId());
@@ -258,6 +258,9 @@ public class ReservaDAO {
             pstmt.setString(6, r.getDiaDaSemana());
             pstmt.setString(7, r.getObservacao());
 
+            pstmt.executeUpdate();
+            
+            pstmt = connString.prepareStatement("SELECT id FROM tb_reserva");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
