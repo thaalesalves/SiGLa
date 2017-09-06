@@ -72,17 +72,12 @@ Copyright (C) 2016 Thales Alves Pereira
                 <form action="${pageContext.request.contextPath}/AlmightyController" method="post" name="frm_login">
                     <input autofocus autocomplete="off" name="username" id="username" required type="text" placeholder="Usuário"/>
                     <input autocomplete="off" name="password" id="password" required type="password" placeholder="Senha"/>
-                    <button id="login" class="btn btn-default submit" value="Login" name="acao" type="submit">Entrar</button>
+                    <button id="login" onclick="loadPage();" class="btn btn-default submit" value="Login" name="acao" type="submit">Entrar</button>
                 </form>
             </div>
         </div>
         <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src="${pageContext.request.contextPath}/js/index.js"></script>
-        <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>  
-        <script>
-            $('#login').click(function () {
-                loadPage();
-            });
-        </script>
+        <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
     </body>
 </html>
