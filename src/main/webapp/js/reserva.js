@@ -68,7 +68,7 @@ function carregaReservas() {
                 cont += '<td>' + obj[i].pessoa.shownName + '</td>';
                 cont += '<td>';
                 for (var j = 0; j < obj[i].modulos.length; j++) {
-                    cont += obj[i].modulos[j].id + 'º módulo';
+                    cont += obj[i].modulos[j].id + 'º módulo<br>';
                     cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
                 }
                 cont += '</td>';
@@ -77,7 +77,7 @@ function carregaReservas() {
                 cont += '<td>' + obj[i].diaDaSemana + '</td>';
                 cont += '<td>';
                 for (var j = 0; j < obj[i].softwares.length; j++) {
-                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome + '<br>';
                     cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
                 }
                 cont += '</td>';
