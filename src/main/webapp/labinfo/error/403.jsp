@@ -24,7 +24,7 @@ Copyright (C) 2016 Thales Alves Pereira
 <html lang="pt-BR">
     <head>
         <title>403 | SiGLa</title>
-        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/icon.png">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
