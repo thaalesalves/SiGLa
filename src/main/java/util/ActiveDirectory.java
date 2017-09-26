@@ -110,15 +110,16 @@ public class ActiveDirectory {
     }
 
     /**
-     * Busca usuários de professor no contexto do diretório methods.
+     * Busca todos os usuários dentro de um grupo específico
      *
+     * @param g classe de modelo Grupo
      * @return
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public NamingEnumeration<SearchResult> searchUser() throws NamingException { // busca de usuário
-        String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=sigla_prof,OU=AADDC Users,DC=thalesalv,DC=es))"; // Query LDAP de busca de pessoas
-        /* COLOCAR NO LDAP FILTRO DE GRUPO DE PROFESSOR */
+    public NamingEnumeration<SearchResult> searchUser(Grupo g) throws NamingException { // busca de usuário
+        String filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + "))"; // Query LDAP de busca de pessoas
+
         return this.dirContext.search(ldap_base, filter, this.searchCtls); // Define a raiz do domínio do AD
     }
 
@@ -134,7 +135,7 @@ public class ActiveDirectory {
     public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
         String filter = "";
         try {
-            filter = "(&(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
+            filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
@@ -238,7 +239,7 @@ public class ActiveDirectory {
                 attr = attrs.get("givenName").toString();
                 attr = attr.substring(attr.indexOf(":") + 1);
                 p.setNome(attr.trim());
-                
+
                 attr = attrs.get("cn").toString();
                 attr = attr.substring(attr.indexOf(":") + 1);
                 p.setNomeCompleto(attr.trim());
@@ -247,7 +248,7 @@ public class ActiveDirectory {
                 attr = attr.substring(attr.indexOf(":") + 1);
                 attr = attr.replace("sAMAccountName:", "").trim();
                 p.setUsername(attr.trim());
-                
+
                 attr = attrs.get("mail").toString();
                 attr = attr.substring(attr.indexOf(":") + 1);
                 p.setEmail(attr.trim());
