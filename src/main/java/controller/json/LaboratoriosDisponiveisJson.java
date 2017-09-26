@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.LaboratorioDAO;
+import dao.DAOFactory;
+import dao.dao.LaboratorioDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
         Reserva r = new Reserva();
-        LaboratorioDAO ldao = new LaboratorioDAO();
+        DAOFactory fac = DAOFactory.getFactory();
         ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
 
         try {
@@ -46,7 +47,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
 
             r.setDiaDaSemana(request.getParameter("dia"));
 
-            al = ldao.selectAvailableLabs(r);
+            al = fac.getLaboratorioDAO().selectAvailableLabs(r);
 
             System.out.println("OBJETO: " + al);
         } catch (Exception e) {

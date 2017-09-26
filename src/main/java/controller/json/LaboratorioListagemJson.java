@@ -14,23 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.json;
 
-import dao.LaboratorioDAO;
+import dao.DAOFactory;
+import dao.dao.LaboratorioDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class LaboratorioListagemJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
-        LaboratorioDAO dao = new LaboratorioDAO();
+        DAOFactory fac = DAOFactory.getFactory();
 
-        return util.Json.toCuteJson(dao.selectLaboratorios());
+        return util.Json.toCuteJson(fac.getLaboratorioDAO().selectLaboratorios());
     }
 }

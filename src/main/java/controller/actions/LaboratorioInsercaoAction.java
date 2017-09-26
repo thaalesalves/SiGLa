@@ -18,7 +18,8 @@
  */
 package controller.actions;
 
-import dao.LaboratorioDAO;
+import dao.DAOFactory;
+import dao.dao.LaboratorioDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -38,13 +39,13 @@ public class LaboratorioInsercaoAction implements ICommand {
 
         try {
             Laboratorio l = new Laboratorio();
-            LaboratorioDAO dao = new LaboratorioDAO();
+            DAOFactory fac = DAOFactory.getFactory();
 
             l.setCapacidade(Integer.parseInt(request.getParameter("capacidade")));
             l.setComputadores(Integer.parseInt(request.getParameter("computadores")));
             l.setNumero(request.getParameter("numero"));
 
-            dao.insertLaboratorio(l);
+            fac.getLaboratorioDAO().insertLaboratorio(l);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             

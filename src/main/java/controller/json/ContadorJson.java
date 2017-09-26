@@ -16,12 +16,13 @@
  */
 package controller.json;
 
-import dao.CursoDAO;
-import dao.EquipamentoDAO;
-import dao.LaboratorioDAO;
-import dao.ReservaDAO;
-import dao.SoftwareDAO;
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
+import dao.dao.EquipamentoDAO;
+import dao.dao.LaboratorioDAO;
+import dao.dao.ReservaDAO;
+import dao.dao.SoftwareDAO;
+import dao.dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,17 +46,12 @@ public class ContadorJson implements IJson {
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
             Counter counter = new Counter();
-            SolicitacaoDAO sdao = new SolicitacaoDAO();
-            ReservaDAO rdao = new ReservaDAO();
-            LaboratorioDAO ldao = new LaboratorioDAO();
-            EquipamentoDAO edao = new EquipamentoDAO();
-            CursoDAO cdao = new CursoDAO();
-            SoftwareDAO swdao = new SoftwareDAO();
+            DAOFactory fac = DAOFactory.getFactory();
 
-            ArrayList<Software> sw = swdao.selectAll();
-            ArrayList<Curso> c = cdao.selectAll();
-            ArrayList<Solicitacao> r = sdao.selectSolicitacao();
-            ArrayList<Laboratorio> l = ldao.selectLaboratorios();
+            ArrayList<Software> sw = fac.getSoftwareDAO().selectAll();
+            ArrayList<Curso> c = fac.getCursoDAO().selectAll();
+            ArrayList<Solicitacao> r = fac.getSolicitacaoDAO().selectSolicitacao();
+            ArrayList<Laboratorio> l = fac.getLaboratorioDAO().selectLaboratorios();
 
             for (Solicitacao i : r) {
                 i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
@@ -63,11 +59,11 @@ public class ContadorJson implements IJson {
                 i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
             }
 
-            counter.setQtdComputadores(edao.qtdEquip());
-            counter.setQtdLaboratorios(ldao.qtdLabs());
-            counter.setQtdReservas(rdao.qtdReservas());
-            counter.setQtdReservasHoje(rdao.qtdReservasDia());
-            counter.setQtdSolicitacoes(sdao.countSolicitacoes());
+            counter.setQtdComputadores(fac.getEquipamentoDAO().qtdEquip());
+            counter.setQtdLaboratorios(fac.getLaboratorioDAO().qtdLabs());
+            counter.setQtdReservas(fac.getReservaDAO().qtdReservas());
+            counter.setQtdReservasHoje(fac.getReservaDAO().qtdReservasDia());
+            counter.setQtdSolicitacoes(fac.getSolicitacaoDAO().countSolicitacoes());
             counter.setSolicitacoes(r);
             counter.setLaboratorios(l);
             counter.setCursos(c);

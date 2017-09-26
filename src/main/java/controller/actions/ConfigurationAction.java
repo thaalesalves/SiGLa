@@ -16,7 +16,8 @@
  */
 package controller.actions;
 
-import dao.GrupoDAO;
+import dao.DAOFactory;
+import dao.dao.GrupoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -43,7 +44,7 @@ public class ConfigurationAction implements ICommand {
             if (op.equals("install")) {
                 try {
                     Grupo g;
-                    GrupoDAO gdao = new GrupoDAO();
+                    DAOFactory fac = DAOFactory.getFactory();
                     ArrayList<Grupo> ag = new ArrayList<Grupo>();
 
                     /* Dados do Banco */
@@ -107,7 +108,7 @@ public class ConfigurationAction implements ICommand {
 
                     if (!util.DatabaseConnection.checkDatabase()) {
                         for (Grupo i : ag) {
-                            gdao.insert(i);
+                            fac.getGrupoDAO().insert(i);
                         }
                     }
 

@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.CursoDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class CursoListagemJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         ArrayList<Curso> ac = new ArrayList<Curso>();
-        CursoDAO cdao = new CursoDAO();
-        ac = cdao.selectAll();
+        DAOFactory fac = DAOFactory.getFactory();
+        ac = fac.getCursoDAO().selectAll();
 
         return util.Json.toCuteJson(ac);
     }

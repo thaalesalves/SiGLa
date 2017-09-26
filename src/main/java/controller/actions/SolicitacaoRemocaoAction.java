@@ -18,7 +18,8 @@
  */
 package controller.actions;
 
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -37,12 +38,12 @@ public class SolicitacaoRemocaoAction implements ICommand {
         HttpSession session = request.getSession();
         try {
             Solicitacao s = new Solicitacao();
-            SolicitacaoDAO dao = new SolicitacaoDAO();
+            DAOFactory fac = DAOFactory.getFactory();
             
             String id = request.getParameter("solicitacao_id").trim();
             s.setId(Integer.parseInt(id));
 
-            dao.deleteSolicitacao(s);
+            fac.getSolicitacaoDAO().deleteSolicitacao(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             

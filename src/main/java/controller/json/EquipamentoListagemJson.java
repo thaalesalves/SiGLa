@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.EquipamentoDAO;
+import dao.DAOFactory;
+import dao.dao.EquipamentoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -27,7 +28,8 @@ public class EquipamentoListagemJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
-        EquipamentoDAO dao = new EquipamentoDAO();
-        return util.Json.toCuteJson(dao.select());
+        DAOFactory fac = DAOFactory.getFactory();
+        
+        return util.Json.toCuteJson(fac.getEquipamentoDAO().select());
     }
 }

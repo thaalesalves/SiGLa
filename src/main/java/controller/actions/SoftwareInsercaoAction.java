@@ -19,7 +19,8 @@
  */
 package controller.actions;
 
-import dao.SoftwareDAO;
+import dao.DAOFactory;
+import dao.dao.SoftwareDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -40,13 +41,13 @@ public class SoftwareInsercaoAction implements ICommand {
         
         try {   
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-            SoftwareDAO dao = new SoftwareDAO();
             Software s = new Software();
+            DAOFactory fac = DAOFactory.getFactory();
             
             s.setFabricante(request.getParameter("fabricante"));
             s.setNome(request.getParameter("nome"));
             
-            dao.insertSoftware(s);
+            fac.getSoftwareDAO().insertSoftware(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             

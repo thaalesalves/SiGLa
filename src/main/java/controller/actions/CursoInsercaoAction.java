@@ -18,7 +18,8 @@
  */
 package controller.actions;
 
-import dao.CursoDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -37,13 +38,13 @@ public class CursoInsercaoAction implements ICommand {
         HttpSession session = request.getSession();
 
         try {
-            CursoDAO dao = new CursoDAO();
+            DAOFactory fac = DAOFactory.getFactory();
             Curso c = new Curso();
 
             c.setNome(request.getParameter("curso"));
             c.setModalidade(request.getParameter("modalidade"));
 
-            dao.insert(c);
+            fac.getCursoDAO().insert(c);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
 

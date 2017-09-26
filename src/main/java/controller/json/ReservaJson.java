@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.ReservaDAO;
+import dao.DAOFactory;
+import dao.dao.ReservaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ReservaJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         Reserva r = new Reserva();
-        ReservaDAO dao = new ReservaDAO();
+        DAOFactory fac = DAOFactory.getFactory();
 
         HttpSession session = request.getSession();
 
@@ -41,7 +42,7 @@ public class ReservaJson implements IJson {
         ArrayList<Reserva> reserva = new ArrayList<Reserva>();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         ad.login(r.getPessoa());
-        reserva = dao.selectReserva();
+        reserva = fac.getReservaDAO().selectReserva();
 
         for (Reserva res : reserva) {
             res.getPessoa().setNome(ad.getGivenName(res.getPessoa()));

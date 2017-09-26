@@ -18,8 +18,9 @@
  */
 package controller.actions;
 
-import dao.CursoDAO;
-import dao.SoftwareDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
+import dao.dao.SoftwareDAO;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
@@ -40,11 +41,10 @@ public class ReservaInsercaoAction implements ICommand {
         HttpSession session = request.getSession();
         try {
             Reserva reserva = new Reserva();
-            SoftwareDAO sdao = new SoftwareDAO();
-            CursoDAO cdao = new CursoDAO();
+            DAOFactory fac = DAOFactory.getFactory();
 
-            ArrayList<Software> softwares = sdao.selectAll();
-            ArrayList<Curso> cursos = cdao.selectAll();
+            ArrayList<Software> softwares = fac.getSoftwareDAO().selectAll();
+            ArrayList<Curso> cursos = fac.getCursoDAO().selectAll();
 
             reserva.setCursos(cursos);
             reserva.setSoftwares(softwares);

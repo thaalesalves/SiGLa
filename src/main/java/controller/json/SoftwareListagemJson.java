@@ -14,23 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.json;
 
-import dao.SoftwareDAO;
+import dao.DAOFactory;
+import dao.dao.SoftwareDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class SoftwareListagemJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
-        SoftwareDAO dao = new SoftwareDAO();
+        DAOFactory fac = DAOFactory.getFactory();
 
-        return util.Json.toCuteJson(dao.selectAll());
+        return util.Json.toCuteJson(fac.getSoftwareDAO().selectAll());
     }
 }

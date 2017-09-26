@@ -16,9 +16,10 @@
  */
 package controller.actions;
 
-import dao.CursoDAO;
-import dao.ReservaDAO;
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
+import dao.dao.ReservaDAO;
+import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -44,14 +45,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
         try {
             Mail mail = new SolicitacaoMail();
-            CursoDAO cdao = new CursoDAO();
+            DAOFactory fac = DAOFactory.getFactory();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             String role = request.getParameter("role");
             boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
 
             if (role.equals("admin") || role.equals("funcionario")) {
                 Reserva r = new Reserva();
-                ReservaDAO dao = new ReservaDAO();
 
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
@@ -64,7 +64,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
                 r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
                 r.setDiaDaSemana(request.getParameter("dia-semana").trim());
-                r.setCurso(cdao.selectId(r.getCurso()));
+                r.setCurso(fac.getCursoDAO().selectId(r.getCurso()));
                 r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
 
                 for (String i : modulos) {
@@ -85,7 +85,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                     r.setObservacao(request.getParameter("obs").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 }
 
-                r = dao.insert(r);
+                r = fac.getReservaDAO().insert(r);
 
                 mail.setPessoa(r.getPessoa());
                 mail.setReserva(r);
@@ -96,8 +96,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 return request.getContextPath() + "/reserva/novo";
             } else if (role.equals("coordenador") || role.equals("professor")) {
-                Solicitacao s = new Solicitacao();
-                SolicitacaoDAO dao = new SolicitacaoDAO();
+                Solicitacao s = new Solicitacao();                
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
                 s.getPessoa().setUsername(request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", ""));
@@ -110,7 +109,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
                 s.setDiaSemana(request.getParameter("dia-semana").trim());
                 s.setModulo(request.getParameter("modulo").trim());
-                s.setCurso(cdao.selectId(s.getCurso()));
+                s.setCurso(fac.getCursoDAO().selectId(s.getCurso()));
 
                 for (String i : modulos) {
                     Modulo m = new Modulo();
@@ -130,7 +129,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                     s.setObservacao(request.getParameter("obs").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 }
 
-                s = dao.insertSolicitacoes(s);
+                s = fac.getSolicitacaoDAO().insertSolicitacoes(s);
 
                 mail.setPessoa(s.getPessoa());
                 mail.setSolicitacao(s);

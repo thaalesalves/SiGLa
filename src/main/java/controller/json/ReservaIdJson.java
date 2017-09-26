@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.ReservaDAO;
+import dao.DAOFactory;
+import dao.dao.ReservaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -33,11 +34,11 @@ public class ReservaIdJson implements IJson {
         HttpSession session = request.getSession();
 
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-        ReservaDAO sdao = new ReservaDAO();
+        DAOFactory fac = DAOFactory.getFactory();
         Reserva s = new Reserva();
 
         s.setId(Integer.parseInt(request.getParameter("id")));
-        s = sdao.selectReservaId(s);
+        s = fac.getReservaDAO().selectReservaId(s);
 
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));

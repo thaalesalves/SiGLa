@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -32,11 +33,11 @@ public class SolicitacaoIdJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, IOException, NamingException {
         HttpSession session = request.getSession();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-        SolicitacaoDAO sdao = new SolicitacaoDAO();
+        DAOFactory fac = DAOFactory.getFactory();
         Solicitacao s = new Solicitacao();
 
         s.setId(Integer.parseInt(request.getParameter("id")));
-        s = sdao.selectSolicitacao(s);
+        s = fac.getSolicitacaoDAO().selectSolicitacao(s);
 
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));

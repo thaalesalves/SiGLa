@@ -16,7 +16,8 @@
  */
 package controller.json;
 
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public class SolicitacaoJson implements IJson {
         HttpSession session = request.getSession();
 
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-        SolicitacaoDAO dao = new SolicitacaoDAO();
-        ArrayList<Solicitacao> solicitacao = dao.selectSolicitacao();
+        DAOFactory fac = DAOFactory.getFactory();
+        ArrayList<Solicitacao> solicitacao = fac.getSolicitacaoDAO().selectSolicitacao();
 
         for (Solicitacao s : solicitacao) {
             s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));

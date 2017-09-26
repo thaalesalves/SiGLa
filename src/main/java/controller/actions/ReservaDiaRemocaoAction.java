@@ -18,7 +18,8 @@
  */
 package controller.actions;
 
-import dao.ReservaDAO;
+import dao.DAOFactory;
+import dao.dao.ReservaDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -37,11 +38,11 @@ public class ReservaDiaRemocaoAction implements ICommand {
         HttpSession session = request.getSession();
         try {
             Reserva r = new Reserva();
-            ReservaDAO dao = new ReservaDAO();
+            DAOFactory fac = DAOFactory.getFactory();
 
             r.setId(Integer.parseInt(request.getParameter("reserva_id")));
 
-            dao.delete(r);
+            fac.getReservaDAO().delete(r);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

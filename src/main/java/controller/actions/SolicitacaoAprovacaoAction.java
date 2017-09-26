@@ -18,8 +18,9 @@
  */
 package controller.actions;
 
-import dao.ReservaDAO;
-import dao.SolicitacaoDAO;
+import dao.DAOFactory;
+import dao.dao.ReservaDAO;
+import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -43,13 +44,12 @@ public class SolicitacaoAprovacaoAction implements ICommand {
 
         try {
             Solicitacao s = new Solicitacao();
-            SolicitacaoDAO sdao = new SolicitacaoDAO();
             Reserva r = new Reserva();
-            ReservaDAO rdao = new ReservaDAO();
+            DAOFactory fac = DAOFactory.getFactory();
             Mail mail = new SolicitacaoAprovacaoMail();
 
             s.setId(Integer.parseInt(request.getParameter("solicitacao")));
-            s = sdao.selectSolicitacao(s);
+            s = fac.getSolicitacaoDAO().selectSolicitacao(s);
 
             r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
             r.setPessoa(s.getPessoa());
@@ -60,9 +60,9 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.setQtdAlunos(s.getQtdAlunos());
             r.setTurma(s.getTurma());
             r.setSoftwares(s.getSoftwares());
-            r = rdao.insert(r);
+            r = fac.getReservaDAO().insert(r);
             
-            sdao.deleteSolicitacao(s);
+            fac.getSolicitacaoDAO().deleteSolicitacao(s);
             mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mail.setReserva(r);
             //mail.sendMail(mail);

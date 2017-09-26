@@ -18,7 +18,8 @@
  */
 package controller.actions;
 
-import dao.CursoDAO;
+import dao.DAOFactory;
+import dao.dao.CursoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -39,11 +40,11 @@ public class CursoRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             Curso c = new Curso();
-            CursoDAO cdao = new CursoDAO();
+            DAOFactory fac = DAOFactory.getFactory();
 
             c.setId(Integer.parseInt(request.getParameter("curso_id")));
 
-            cdao.delete(c);
+            fac.getCursoDAO().delete(c);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

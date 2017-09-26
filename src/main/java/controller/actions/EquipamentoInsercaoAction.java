@@ -16,7 +16,8 @@
  */
 package controller.actions;
 
-import dao.EquipamentoDAO;
+import dao.DAOFactory;
+import dao.dao.EquipamentoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -37,7 +38,7 @@ public class EquipamentoInsercaoAction implements ICommand {
 
         try {
             Equipamento e = new Equipamento();
-            EquipamentoDAO dao = new EquipamentoDAO();
+            DAOFactory fac = DAOFactory.getFactory();;
             e.setLab(new Laboratorio());
             
             e.setNome(request.getParameter("netbios"));
@@ -46,7 +47,7 @@ public class EquipamentoInsercaoAction implements ICommand {
             e.setConfig(request.getParameter("config"));            
             e.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
             
-            dao.insert(e);
+            fac.getEquipamentoDAO().insert(e);
         } catch (Exception e) {
             System.out.println("ERRO: " + e.getMessage());
             util.Logger.logSevere(e, EquipamentoInsercaoAction.class);
