@@ -42,7 +42,7 @@ public class Reserva {
     private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
-
+    
     public static String calendarioDia() {
         Calendar calendar = Calendar.getInstance();
         Integer dia = calendar.get(Calendar.DAY_OF_WEEK);
