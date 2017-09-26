@@ -55,6 +55,7 @@ O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos
 - Bootstrap
 
 ### Padrões de Desenvolvimento
+- Abstract Factory
 - Orientação a Objetos
 - DAO
 - Factory
