@@ -17,7 +17,7 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package dao;
+package dao.dao.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,8 +28,9 @@ import model.Equipamento;
 import model.Laboratorio;
 import util.DatabaseConnection;
 
-public class EquipamentoDAO {
+public class EquipamentoDAOPsql implements dao.dao.EquipamentoDAO {
 
+    @Override
     public void insert(Equipamento eq) throws SQLException, ClassNotFoundException {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_equipamento VALUES(DEFAULT, ?, ?, ?, ?, ?, 1)");
@@ -44,10 +45,11 @@ public class EquipamentoDAO {
             
             conn.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, EquipamentoDAO.class);
+            util.Logger.logSevere(e, EquipamentoDAOPsql.class);
         }
     }
     
+    @Override
     public ArrayList<Equipamento> select() throws SQLException, ClassNotFoundException {
         ArrayList<Equipamento> eqs = new ArrayList<Equipamento>();
 
@@ -74,12 +76,13 @@ public class EquipamentoDAO {
 
             conn.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, EquipamentoDAO.class);
+            util.Logger.logSevere(e, EquipamentoDAOPsql.class);
         }
 
         return eqs;
     }
 
+    @Override
     public int qtdEquip() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 

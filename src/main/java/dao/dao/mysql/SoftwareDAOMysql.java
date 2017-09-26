@@ -17,7 +17,7 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package dao;
+package dao.dao.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +29,9 @@ import model.Software;
 import model.Solicitacao;
 import util.DatabaseConnection;
 
-public class SoftwareDAO {
+public class SoftwareDAOMysql implements dao.dao.SoftwareDAO {
 
+    @Override
     public int countSoftwares() throws SQLException, ClassNotFoundException, NullPointerException {
         int qtd = 0;
 
@@ -50,6 +51,7 @@ public class SoftwareDAO {
         return qtd;
     }
 
+    @Override
     public ArrayList<Software> selectSoftwareAux(Solicitacao solicitacao) throws SQLException, ClassNotFoundException, NullPointerException {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
@@ -74,6 +76,7 @@ public class SoftwareDAO {
         return arrayRes;
     }
 
+    @Override
     public ArrayList<Software> selectSoftwareAux(Reserva r) throws SQLException, ClassNotFoundException, NullPointerException {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
@@ -98,6 +101,7 @@ public class SoftwareDAO {
         return arrayRes;
     }
 
+    @Override
     public void insertSoftware(Software s) throws SQLException, ClassNotFoundException, NullPointerException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_software VALUES(DEFAULT, ?, ?)");
@@ -113,6 +117,7 @@ public class SoftwareDAO {
         }
     }
 
+    @Override
     public ArrayList<Software> selectAll() throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Software> sws = new ArrayList<Software>();
 
@@ -138,6 +143,7 @@ public class SoftwareDAO {
         return sws;
     }
 
+    @Override
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException {
 
         try (Connection connString = DatabaseConnection.getConnection()) {

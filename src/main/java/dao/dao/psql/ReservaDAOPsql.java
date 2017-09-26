@@ -17,7 +17,7 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package dao;
+package dao.dao.psql;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,10 +28,11 @@ import util.DatabaseConnection;
 import model.Reserva;
 import model.Software;
 
-public class ReservaDAO {
+public class ReservaDAOPsql implements dao.dao.ReservaDAO {
 
     private final String DIA_SEMANA = Reserva.calendarioDia();
 
+    @Override
     public ArrayList<Reserva> selectReservaDia() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> ares = new ArrayList<Reserva>();
 
@@ -52,10 +53,10 @@ public class ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAO().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAO().selectAux(r));
+                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOPsql().selectAux(r));
 
                 ares.add(r);
             }
@@ -68,6 +69,7 @@ public class ReservaDAO {
         return ares;
     }
 
+    @Override
     public ArrayList<Reserva> selectReservaDia(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
@@ -89,10 +91,10 @@ public class ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAO().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAO().selectAux(r));
+                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOPsql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -105,6 +107,7 @@ public class ReservaDAO {
         return arrayRes;
     }
 
+    @Override
     public ArrayList<Reserva> selectReserva() throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
@@ -124,10 +127,10 @@ public class ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAO().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAO().selectAux(r));
+                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOPsql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -140,6 +143,7 @@ public class ReservaDAO {
         return arrayRes;
     }
 
+    @Override
     public ArrayList<Reserva> selectReserva(Reserva res) throws ClassNotFoundException, SQLException {
         ArrayList<Reserva> arrayRes = new ArrayList<Reserva>();
 
@@ -160,10 +164,10 @@ public class ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAO().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAO().selectAux(r));
+                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOPsql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -176,6 +180,7 @@ public class ReservaDAO {
         return arrayRes;
     }
 
+    @Override
     public Reserva selectReservaId(Reserva r) throws SQLException, ClassNotFoundException, NullPointerException {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_reserva WHERE id = ?");
@@ -191,10 +196,10 @@ public class ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAO().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAO().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAO().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAO().selectAux(r));
+                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOPsql().selectAux(r));
             }
 
             conn.close();
@@ -205,6 +210,7 @@ public class ReservaDAO {
         return r;
     }
 
+    @Override
     public int qtdReservasDia() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
@@ -246,6 +252,7 @@ public class ReservaDAO {
         return qtd;
     }
 
+    @Override
     public Reserva insert(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_reserva VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?)");
@@ -259,7 +266,7 @@ public class ReservaDAO {
             pstmt.setString(7, r.getObservacao());
 
             pstmt.executeUpdate();
-            
+
             pstmt = connString.prepareStatement("SELECT id FROM tb_reserva");
             ResultSet rs = pstmt.executeQuery();
 
@@ -267,7 +274,7 @@ public class ReservaDAO {
                 r.setId(rs.getInt(1));
             }
 
-            LaboratorioDAO ldao = new LaboratorioDAO();
+            LaboratorioDAOPsql ldao = new LaboratorioDAOPsql();
             r.setLab(ldao.selectLaboratorio(r.getLab()));
 
             pstmt = connString.prepareStatement("INSERT INTO aux_sw_res VALUES(DEFAULT, ?, ?)");
@@ -295,6 +302,7 @@ public class ReservaDAO {
         return r;
     }
 
+    @Override
     public void delete(Reserva r) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("DELETE FROM aux_sw_res WHERE res = ?");

@@ -17,7 +17,7 @@
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package dao;
+package dao.dao.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +29,9 @@ import model.Reserva;
 import model.Modulo;
 import util.DatabaseConnection;
 
-public class LaboratorioDAO {
+public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
 
+    @Override
     public ArrayList<Laboratorio> selectReservedLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
 
@@ -67,6 +68,7 @@ public class LaboratorioDAO {
         return arrayLab;
     }
 
+    @Override
     public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM tb_laboratorio WHERE id = ?");
@@ -87,6 +89,7 @@ public class LaboratorioDAO {
         return l;
     }
 
+    @Override
     public void insertLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_laboratorio VALUES(DEFAULT, ?, ?, ?)");
@@ -103,6 +106,7 @@ public class LaboratorioDAO {
         }
     }
 
+    @Override
     public ArrayList<Laboratorio> selectLaboratorios() throws SQLException, ClassNotFoundException {
         ArrayList<Laboratorio> laboratorios = new ArrayList<Laboratorio>();
 
@@ -128,6 +132,7 @@ public class LaboratorioDAO {
         return laboratorios;
     }
 
+    @Override
     public int qtdLabs() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
@@ -147,6 +152,7 @@ public class LaboratorioDAO {
         return qtd;
     }
 
+    @Override
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = this.selectLaboratorios();
         ArrayList<Laboratorio> labsReservados = this.selectReservedLabs(reserva);
