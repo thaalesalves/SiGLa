@@ -62,10 +62,9 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>        
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
+        <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script>        
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -104,29 +103,28 @@ Copyright (C) 2016 Thales Alves Pereira
                             <h3 class="box-title">Configurações de Domínio</h3>
                         </div>
                         <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-                            <div class="box-body">
-                                <div class="form-group">
+                            <div class="box-body">   
+                                <div class="form-group" style="width:48%; display:inline-block">
                                     <label>Método de Autenticação</label>
-                                    <select id="auth" name="auth" class="select2 form-control" data-placeholder="Protocolo de autenticação" style="width: 100%;" required>
+                                    <select onchange="toggleFieldAd(this.id)" readonly id="auth" name="auth" class="select2 form-control" data-placeholder="Protocolo de autenticação" style="width: 100%;" required>
                                         <option value="ldaps">LDAPS (LDAP seguro)</option>
                                         <option value="ldap">LDAP (LDAP inseguro)</option>
-                                        <option value="kerberos">Kerberos</option>
                                     </select>
                                 </div>
-                                <div class='form-group'>
+                                <div class='form-group' style="width:48%; display:inline-block; float:right;">
                                     <label>Domínio</label>
-                                    <input value="<%=util.SiGLa.getDomain()%>" name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="contoso.com.br" required/>
+                                    <input onclick="toggleFieldAd(this.id)" readonly value="<%=util.SiGLa.getDomain()%>" name="dominio" id="dominio" type='text' class='form-control pull-right' placeholder="<%=util.SiGLa.getDomain()%>"/>
                                 </div>
-                                <div class="form-group">
-                                    <label>Nome NetBIOS</label>
-                                    <input value="<%=util.SiGLa.getNetbios()%>" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="CONTOSO" required/>
-                                </div>
-                                <div class="form-group">
+                                <div class="form-group" style="width:48%; display:inline-block">
                                     <label>Controladora</label>
-                                    <input value="<%=util.SiGLa.getDomainHost()%>" name="host" id="host" type='text' class='form-control pull-right' placeholder="dc.contoso.com.br" required/>
-                                </div>                                
+                                    <input onclick="toggleFieldAd(this.id)" readonly value="<%=util.SiGLa.getDomainHost()%>" name="host" id="host" type='text' class='form-control pull-right' placeholder="<%=util.SiGLa.getDomainHost()%>"/>
+                                </div>    
+                                <div class="form-group" style="width:48%; display:inline-block; float:right;">
+                                    <label>Nome NetBIOS</label>
+                                    <input onclick="toggleFieldAd(this.id)" readonly value="<%=util.SiGLa.getNetbios()%>" name="netbios" id="netbios" type='text' class='form-control pull-right' placeholder="<%=util.SiGLa.getNetbios()%>"/>
+                                </div>           
                                 <div style="display:none;" class="form-group">
-                                    <input value="ad" name="op" id="op" type='text' class='form-control pull-right' required/>
+                                    <input onclick="toggleFieldAd(this.id)" readonly value="ad" name="op" id="op" type='text' class='form-control pull-right' required/>
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -157,24 +155,26 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/admin.js" type="text/javascript"></script>
 
         <script>
-            $(document).ready(function () {
-                $(function () {
-                    $("#dominio").keyup(function () {
-                        // Configurações de domínio
-                        $("#host").val($(this).val());
-                        $("#netbios").val($(this).val().toUpperCase().split(".")[0]);
+                                        $(document).ready(function () {
+                                            $(function () {
+                                                $("#dominio").keyup(function () {
+                                                    // Configurações de domínio
+                                                    //$("#host").val($(this).val());
+                                                    $("#netbios").val($(this).val().toUpperCase().split(".")[0]);
 
-                        // Grupo de acesso
-                        $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-func").val("memberOf=CN=sigla_func,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-est").val("memberOf=CN=sigla_est,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                        $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
-                    });
-                });
-            });
+                                                    // Grupo de acesso
+                                                    $("#ldap-admin").val("memberOf=CN=sigla_admin,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                    $("#ldap-func").val("memberOf=CN=sigla_func,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                    $("#ldap-est").val("memberOf=CN=sigla_est,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                    $("#ldap-coord").val("memberOf=CN=sigla_coord,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                    $("#ldap-prof").val("memberOf=CN=sigla_prof,OU=sigla,DC=" + $(this).val().split(".")[0] + ",DC=" + $(this).val().split(".")[1]);
+                                                });
+                                            });
+                                        });
         </script>
     </body>
 </html>
