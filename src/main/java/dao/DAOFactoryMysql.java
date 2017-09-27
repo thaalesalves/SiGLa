@@ -29,41 +29,41 @@ public class DAOFactoryMysql extends DAOFactory {
 
     @Override
     public CursoDAO getCursoDAO() {
-        return new dao.dao.psql.CursoDAOPsql();
+        return new dao.dao.mysql.CursoDAOMysql();
     }
     
     @Override
     public EquipamentoDAO getEquipamentoDAO() {
-        return new dao.dao.psql.EquipamentoDAOPsql();
+        return new dao.dao.mysql.EquipamentoDAOMysql();
     }
 
     @Override
     public GrupoDAO getGrupoDAO() {
-        return new dao.dao.psql.GrupoDAOPsql();
+        return new dao.dao.mysql.GrupoDAOMysql();
     }
 
     @Override
     public LaboratorioDAO getLaboratorioDAO() {
-        return new dao.dao.psql.LaboratorioDAOPsql();
+        return new dao.dao.mysql.LaboratorioDAOMysql();
     }
 
     @Override
     public ModuloDAO getModuloDAO() {
-        return new dao.dao.psql.ModuloDAOPsql();
+        return new dao.dao.mysql.ModuloDAOMysql();
     }
 
     @Override
     public ReservaDAO getReservaDAO() {
-        return new dao.dao.psql.ReservaDAOPsql();
+        return new dao.dao.mysql.ReservaDAOMysql();
     }
 
     @Override
     public SoftwareDAO getSoftwareDAO() {
-        return new dao.dao.psql.SoftwareDAOPsql();
+        return new dao.dao.mysql.SoftwareDAOMysql();
     }
 
     @Override
     public SolicitacaoDAO getSolicitacaoDAO() {
-        return new dao.dao.psql.SolicitacaoDAOPsql();
+        return new dao.dao.mysql.SolicitacaoDAOMysql();
     }
 }
