@@ -56,12 +56,14 @@ public class LoginAction implements ICommand {
             if (ad.login(p)) {
                 session.setAttribute("ad", ad);
                 ArrayList<Grupo> arrayg = fac.getGrupoDAO().select();
+                System.out.println("Array: " + arrayg);
                 int c = 0;
 
                 for (Grupo g : arrayg) {
                     c++;
                     if (ad.isMember(p, g)) {
                         p.setRole(g.getRole());
+                        System.out.println("Role: " +  p.getRole());
                         break;
                     }
 
@@ -87,7 +89,9 @@ public class LoginAction implements ICommand {
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {
-            session.invalidate();
+            session.removeAttribute("pessoa");
+            session.removeAttribute("ad");
+            session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
