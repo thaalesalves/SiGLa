@@ -32,6 +32,16 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 
 public final class DatabaseConnection {
 
+    /**
+     * Método que busca a conexão com PostgreSQL. Usado nos demais métodos (e nas
+     * camadas DAO) para buscar a conexão com este SGDB
+     *
+     * @author Thales Alves Pereira
+     * @version 1.0
+     * @return
+     * @throws SQLException Exceção lançada caso haja erros na conexão com o
+     * banco
+     */
     private static Connection getPsqlConnection() {
         Connection conn = null;
 
@@ -53,6 +63,16 @@ public final class DatabaseConnection {
         return conn;
     }
 
+    /**
+     * Método que busca a conexão com MySQL. Usado nos demais métodos (e nas
+     * camadas DAO) para buscar a conexão com este SGDB
+     *
+     * @author Thales Alves Pereira
+     * @version 1.0
+     * @return
+     * @throws SQLException Exceção lançada caso haja erros na conexão com o
+     * banco
+     */
     private static Connection getMysqlConnection() {
         Connection conn = null;
 
@@ -74,6 +94,16 @@ public final class DatabaseConnection {
         return conn;
     }
 
+    /**
+     * Método de checagem do banco de dados. Pega o SGBD usado e verifica se o
+     * banco de dados do SiGLa existe. Caso negativo, ele é criado.
+     *
+     * @author Thales Alves Pereira
+     * @version 1.0
+     * @return
+     * @throws SQLException Exceção lançada caso haja erros na conexão com o
+     * banco
+     */
     public static boolean checkDatabase() throws SQLException {
         Connection conn = null;
         String sql = "";
@@ -107,6 +137,16 @@ public final class DatabaseConnection {
         }
     }
 
+    /**
+     * Método de conexão com o bando de dados. Detecta qual SGBD está sendo
+     * usado e pega a os dados de conexão.
+     *
+     * @author Thales Alves Pereira
+     * @version 1.0
+     * @return
+     * @throws SQLException Exceção lançada caso haja erros na conexão com o
+     * banco
+     */
     public static Connection getConnection() throws SQLException {
         if (SiGLa.getDbms().equals("psql")) {
             return getPsqlConnection();
