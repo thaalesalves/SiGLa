@@ -108,7 +108,7 @@ Copyright (C) 2016 Thales Alves Pereira
             });
 
             $(function () {
-                acesso = "<%=p.getRole()%>";
+                var acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
 
                 switch (acesso) {
