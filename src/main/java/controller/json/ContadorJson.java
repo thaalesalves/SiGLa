@@ -17,12 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.CursoDAO;
-import dao.dao.EquipamentoDAO;
-import dao.dao.LaboratorioDAO;
-import dao.dao.ReservaDAO;
-import dao.dao.SoftwareDAO;
-import dao.dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -69,7 +63,7 @@ public class ContadorJson implements IJson {
             counter.setCursos(c);
             counter.setSoftwares(sw);
 
-            return util.Json.toCuteJson(counter);
+            return util.Json.toJson(counter);
         } catch (Exception e) {
             util.Logger.logSevere(e, ContadorJson.class);
         }

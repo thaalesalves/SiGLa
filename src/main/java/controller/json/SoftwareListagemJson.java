@@ -17,7 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.SoftwareDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -30,6 +29,6 @@ public class SoftwareListagemJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
         DAOFactory fac = DAOFactory.getFactory();
 
-        return util.Json.toCuteJson(fac.getSoftwareDAO().selectAll());
+        return util.Json.toJson(fac.getSoftwareDAO().selectAll());
     }
 }

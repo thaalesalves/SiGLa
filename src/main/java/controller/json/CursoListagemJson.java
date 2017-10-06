@@ -17,7 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.CursoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +33,6 @@ public class CursoListagemJson implements IJson {
         DAOFactory fac = DAOFactory.getFactory();
         ac = fac.getCursoDAO().selectAll();
 
-        return util.Json.toCuteJson(ac);
+        return util.Json.toJson(ac);
     }
 }

@@ -17,7 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.ReservaDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class ReservaJson implements IJson {
             res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
 
-        return util.Json.toCuteJson(reserva);
+        return util.Json.toJson(reserva);
     }
 
 }

@@ -17,7 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.SolicitacaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,6 +43,6 @@ public class SolicitacaoJson implements IJson {
             s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
         
-        return util.Json.toCuteJson(solicitacao);
+        return util.Json.toJson(solicitacao);
     }
 }

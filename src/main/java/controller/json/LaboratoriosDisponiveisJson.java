@@ -17,7 +17,6 @@
 package controller.json;
 
 import dao.DAOFactory;
-import dao.dao.LaboratorioDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -54,6 +53,6 @@ public class LaboratoriosDisponiveisJson implements IJson {
             util.Logger.logSevere(e, LaboratoriosDisponiveisJson.class);
         }
 
-        return util.Json.toCuteJson(al);
+        return util.Json.toJson(al);
     }
 }
