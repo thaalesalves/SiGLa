@@ -27,18 +27,38 @@ import java.net.URL;
 
 public class Json {
 
+    /**
+     * Método que transforma um <code>Object</code> (uma classe inteira) em uma
+     * <code>String</code> em formato JSON.
+     *
+     * @param obj Classe que será transformada em JSON
+     * @return
+     */
     public static String toJson(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
         return gson.toJson(obj);
     }
 
+    /**
+     * Método para "embelezar" um <code>String</code> JSON.
+     *
+     * @param json
+     * @return
+     */
     public static String beautify(String json) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
         return gson.toJson(json);
     }
 
+    /**
+     * Método que formata um <code>String</code> e o transforma em um
+     * <code>String</code> em formato JSON.
+     *
+     * @param json <code>String</code> que será formatada para JSON
+     * @return
+     */
     public static String toJson(String json) throws IOException {
         BufferedReader reader = null;
         try {
