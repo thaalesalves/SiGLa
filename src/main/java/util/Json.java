@@ -20,21 +20,46 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class Json {
 
-    public static String toCuteJson(Object obj) {
+    public static String toJson(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-        
+
         return gson.toJson(obj);
     }
-    
-    public static JsonElement toUglyJson(Object obj) {
-        Gson gson = new Gson();
-        
-        return gson.toJsonTree(obj);
+
+    public static String beautify(String json) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+
+        return gson.toJson(json);
+    }
+
+    public static String toJson(String json) throws IOException {
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(json);
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            StringBuilder buffer = new StringBuilder();
+            int read;
+            char[] chars = new char[1024];
+            while ((read = reader.read(chars)) != -1) {
+                buffer.append(chars, 0, read);
+            }
+
+            return buffer.toString();
+        } catch (Exception e) {
+            Logger.logSevere(e, Json.class);
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+
+        return null;
     }
 }
