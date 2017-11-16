@@ -31,6 +31,25 @@ function formCoordenador() {
     $('#user-select').show();
 }
 
+function atualizarReserva() {
+    loadPage();
+
+    $.ajax({
+        url: contextPath + '/AlmightyController?acao=ReservaAtualizacao&professor=' + $("#modalProfessoresCombo").val() + '&dia=' + $("#modalDiaCombo").val() + '&modulo=' + $("#modalModuloCombo").val() + '&lab=' + $("#modalLabCombo").val(),
+        type: 'POST',
+        cache: false,
+        error: function (xhr, ajaxOptions, thrownError) {
+            throw xhr.status + ': ' + thrownError;
+            $('body').waitMe('hide');
+            notify("Erro ao salvar as configurações!", "success");
+        },
+        success: function (e) {
+            $('body').waitMe('hide');
+            notify("Os dados da reserva foram atualizados!", "success");
+        }
+    });
+}
+
 function aprovarReserva() {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
     window.location.href = contextPath + "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
@@ -82,6 +101,7 @@ function carregaReservas() {
                 }
                 cont += '</td>';
                 cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
+                //cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target=".modalReserva" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
                 cont += '</tr>';
             });
 
@@ -281,6 +301,32 @@ function carregaSolicitacoes() {
     });
 }
 
+function modalLaboratorio(dia, modulo) {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo.toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + dia,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+
+            $("#modalLabCombo").empty();
+
+            $("#modalLabCombo").append($('<option>', {
+                text: 'Selecione um Laboratório'
+            }));
+
+            for (i = 0; i < obj.length; i++) {
+
+                $(".modalLabCombo").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].numero
+                }));
+            }
+        }
+    });
+}
+
 function modalSolicitacao(id) {
     var modulo;
     var dia;
@@ -293,6 +339,20 @@ function modalSolicitacao(id) {
         complete: function (e) {
             var jsonSolicitacao = JSON.parse(e.responseText);
             dia = jsonSolicitacao.diaSemana;
+            $("#td_soli_mod").show();
+            $("#td_res_mod").hide();
+            $("#btnModalAprovar").show();
+            $("#btnModalAtualizar").hide();
+            $("#btnModalReprovar").show();
+            $("#btnModalExcluir").hide();
+            $(".soli-tit").show();
+            $(".res-tit").hide();
+            $("#modalLabCombo").show();
+            $("#modalLaboratorio").hide();
+            $('#td_res_dia').hide();
+            $('#td_soli_dia').show();
+            $("#modalProfessoresCombo").hide();
+            $("#modalProfessor").show();
 
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
@@ -329,7 +389,6 @@ function modalSolicitacao(id) {
                     }));
 
                     for (i = 0; i < obj.length; i++) {
-
                         $("#modalLabCombo").append($('<option>', {
                             value: obj[i].id,
                             text: obj[i].numero
@@ -349,8 +408,26 @@ function modalReserva(id) {
         dataType: 'JSON',
         complete: function (e) {
             var jsonSolicitacao = JSON.parse(e.responseText);
+
+            $("#modalLabCombo").empty();
+            $("#modalDiaCombo").empty();
+
+            $("#td_res_mod").show();
+            $("#td_soli_mod").hide();
+            $("#btnModalAtualizar").show();
+            $("#btnModalAprovar").hide();
+            $("#btnModalReprovar").hide();
+            $("#btnModalExcluir").show();
+            $(".soli-tit").hide();
+            $(".res-tit").show();
+            $('#td_res_dia').show();
+            $('#td_soli_dia').hide();
+            $("#modalProfessoresCombo").show();
+            $("#modalProfessor").hide();
+
             $("#reserva-modal-titulo").html("Reserva nº" + jsonSolicitacao.id);
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
+            $("#reserva-id").val($("#modalIdSolicitacao").val());
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
             $("#modalCurso").val(jsonSolicitacao.turma + " de " + jsonSolicitacao.curso.modalidade + " em " + jsonSolicitacao.curso.nome);
             $("#modalDiaSemana").val(jsonSolicitacao.diaDaSemana);
@@ -359,6 +436,7 @@ function modalReserva(id) {
             $("#modalLaboratorio").val(jsonSolicitacao.lab.numero);
             $("#modalSoftware").val("");
             $("#modalModulo").val("");
+
             for (i = 0; i < jsonSolicitacao.softwares.length; i++) {
                 var software = jsonSolicitacao.softwares[i].fabricante + " " + jsonSolicitacao.softwares[i].nome;
                 software += (i == jsonSolicitacao.softwares.length - 1) ? "" : "\r\n";
@@ -370,6 +448,89 @@ function modalReserva(id) {
                 modulo += (i == jsonSolicitacao.modulos.length - 1) ? "" : "\r\n";
                 $("#modalModulo").val($("#modalModulo").val() + modulo);
             }
+
+            for (i = 0; i < jsonSolicitacao.modulos.length; i++) {
+                $("#modalModuloCombo option").each(function () {
+                    if ($(this).val() == jsonSolicitacao.modulos[i].id) {
+                        $(this).attr("selected", "selected");
+                    }
+                });
+            }
+
+            var items = {
+                option1: {value: 'Segunda-feira', text: 'Segunda-feira'},
+                option2: {value: 'Terça-feira', text: 'Terça-feira'},
+                option3: {value: 'Quarta-feira', text: 'Quarta-feira'},
+                option4: {value: 'Quinta-feira', text: 'Quinta-feira'},
+                option5: {value: 'Sexta-feira', text: 'Sexta-feira'},
+                option6: {value: 'Sábado', text: 'Sábado'}
+            };
+
+            $.each(items, function (i, item) {
+                $('#modalDiaCombo').append($('<option>', {
+                    value: item.value,
+                    text: item.text
+                }));
+            });
+
+            $("#modalDiaCombo option").each(function () {
+                if ($(this).val().trim() === jsonSolicitacao.diaDaSemana.trim()) {
+                    $(this).remove();
+                    $(this).val().replace(' (atual)', '');
+                }
+            });
+
+            $("#modalDiaCombo").prepend($('<option>', {
+                value: jsonSolicitacao.diaDaSemana,
+                text: jsonSolicitacao.diaDaSemana + ' (atual)'
+            }));
+
+            $("#modalDiaCombo option").each(function () {
+                if ($(this).val() == jsonSolicitacao.diaDaSemana) {
+                    $(this).attr("selected", "selected");
+                }
+            });
+
+            $("#modalProfessoresCombo option").each(function () {
+                if ($(this).val().trim() === jsonSolicitacao.pessoa.username.trim()) {
+                    $(this).remove();
+                }
+            });
+
+            $("#modalProfessoresCombo").prepend($('<option>', {
+                value: jsonSolicitacao.pessoa.username,
+                text: jsonSolicitacao.pessoa.shownName + ' (' + jsonSolicitacao.pessoa.email + ')'
+            }));
+
+            $("#modalProfessoresCombo option").each(function () {
+                if ($(this).val().trim() === jsonSolicitacao.pessoa.username.trim()) {
+                    $(this).attr("selected", "selected");
+                }
+            });
+
+            $.ajax({
+                url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + $("#modalModulo").val().toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + jsonSolicitacao.diaDaSemana.replace('%C3%A7', 'ç'),
+                type: 'POST',
+                cache: false,
+                dataType: 'JSON',
+                complete: function (e) {
+                    var obj = JSON.parse(e.responseText);
+
+                    $("#modalLabCombo").empty();
+
+                    $("#modalLabCombo").append($('<option>', {
+                        value: jsonSolicitacao.lab.id,
+                        text: jsonSolicitacao.lab.numero + ' (atual)',
+                    }));
+
+                    for (i = 0; i < obj.length; i++) {
+                        $("#modalLabCombo").append($('<option>', {
+                            value: obj[i].id,
+                            text: obj[i].numero + ' (disponível)'
+                        }));
+                    }
+                }
+            });
         }
     });
 }
