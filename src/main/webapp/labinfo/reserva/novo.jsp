@@ -107,8 +107,8 @@ Copyright (C) 2016 Thales Alves Pereira
                 $('#professor').val(opt);
             });
 
-            $(function () {
-                var acesso = "<%=p.getRole()%>";
+            $(document).ready(function () {
+                acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
 
                 switch (acesso) {
@@ -208,12 +208,13 @@ Copyright (C) 2016 Thales Alves Pereira
                                 <div class="form-group">
                                     <label>Dia da Semana</label>
                                     <select name="dia-semana" id="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
-                                        <option>Segunda-feira</option>
-                                        <option>Terça-feira</option>
-                                        <option>Quarta-feira</option>
-                                        <option>Quinta-feira</option>
-                                        <option>Sexta-feira</option>
-                                        <option>Sábado</option>
+                                        <option selected disabled>Selecione um dia</option>
+                                        <option value="Segunda-feira">Segunda-feira</option>
+                                        <option value="Terça-feira">Terça-feira</option>
+                                        <option value="Quarta-feira">Quarta-feira</option>
+                                        <option value="Quinta-feira">Quinta-feira</option>
+                                        <option value="Sexta-feira">Sexta-feira</option>
+                                        <option value="Sábado">Sábado</option>
                                     </select>
                                 </div>
                                 <div class='form-group'>
