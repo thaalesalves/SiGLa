@@ -75,27 +75,29 @@ function acessoEstagiario() {
     $('#item-reserva-novo').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
-    $('#item-novo-equip').hide(); 
+    $('#item-novo-equip').hide();
 }
 
 function acessoCoordenador() {
     /* Esconde opções indevidas */
     $('#menu-conf').hide();
     $('#item-solicitacoes').hide();
+    $('#item-novo-curso').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
-    $('#item-lista-equip').hide();    
+    $('#item-lista-equip').hide();
 }
 
 function acessoProfessor() {
     /* Esconde opções indevidas */
     $('#menu-conf').hide();
+    $('#item-novo-curso').hide();
     $('#item-solicitacoes').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
     $('#soli-menu').hide();
-    $('#item-lista-equip').hide(); 
+    $('#item-lista-equip').hide();
 }
 
 function notification(e) {
