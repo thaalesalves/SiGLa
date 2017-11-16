@@ -44,7 +44,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
                 r.getModulos().add(mod);
             }
 
-            r.setDiaDaSemana(request.getParameter("dia"));
+            r.setDiaDaSemana(request.getParameter("dia").replace(" %C3%A7", "ç").replace("%C3%A1", "á"));
 
             al = fac.getLaboratorioDAO().selectAvailableLabs(r);
 

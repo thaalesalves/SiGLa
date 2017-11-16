@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Reserva;
 import util.ActiveDirectory;
+import util.IO;
 
 public class ReservaIdJson implements IJson {
 
@@ -39,6 +40,7 @@ public class ReservaIdJson implements IJson {
         s.setId(Integer.parseInt(request.getParameter("id")));
         s = fac.getReservaDAO().selectReservaId(s);
 
+        s.getPessoa().setEmail(ad.getMail(s.getPessoa()).trim());
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
         s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));

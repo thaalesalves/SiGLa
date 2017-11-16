@@ -233,6 +233,7 @@ public class ReservaDAOPsql implements dao.dao.ReservaDAO {
         return qtd;
     }
 
+    @Override
     public int qtdReservas() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
@@ -318,6 +319,34 @@ public class ReservaDAOPsql implements dao.dao.ReservaDAO {
             pstmt.executeUpdate();
 
             connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
+
+    @Override
+    public void update(Reserva r) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_reserva SET laboratorio = ?, professor = ?, dia_semana = ? WHERE id = ?");
+            pstmt.setInt(1, r.getLab().getId());
+            pstmt.setString(2, r.getPessoa().getUsername());
+            pstmt.setString(3, r.getDiaDaSemana());
+            pstmt.setInt(4, r.getId());
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement("DELETE FROM aux_modulo_res WHERE res = ?");
+            pstmt.setInt(1, r.getId());
+            pstmt.executeUpdate();
+            
+            pstmt = conn.prepareStatement("INSERT INTO aux_modulo_res VALUES(DEFAULT, ?, ?)");
+
+            for (int i = 0; i < r.getModulos().size(); i++) {
+                pstmt.setInt(1, r.getId());
+                pstmt.setInt(2, r.getModulos().get(i).getId());
+                pstmt.executeUpdate();
+            }
+
+            conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

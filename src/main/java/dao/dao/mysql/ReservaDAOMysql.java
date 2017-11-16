@@ -326,4 +326,19 @@ public class ReservaDAOMysql implements dao.dao.ReservaDAO {
             util.Logger.logSevere(e, this.getClass());
         }
     }
+
+    @Override
+    public void update(Reserva r) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_reserva SET laboratorio = ?, professor = ?, dia_semana = ? WHERE id = ?");
+            pstmt.setInt(1, r.getLab().getId());
+            pstmt.setString(2, r.getPessoa().getUsername());
+            pstmt.setString(3, r.getDiaDaSemana());
+            pstmt.setInt(4, r.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+    }
 }

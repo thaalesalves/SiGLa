@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import model.Reserva;
 import util.ActiveDirectory;
+import util.IO;
 
 public class ReservaJson implements IJson {
 
@@ -44,6 +45,8 @@ public class ReservaJson implements IJson {
         reserva = fac.getReservaDAO().selectReserva();
 
         for (Reserva res : reserva) {
+            IO.writeln("Email: " + res.getPessoa().getEmail());
+            res.getPessoa().setEmail(ad.getMail(res.getPessoa()));
             res.getPessoa().setNome(ad.getGivenName(res.getPessoa()));
             res.getPessoa().setNomeCompleto(ad.getCN(res.getPessoa()));
             res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));

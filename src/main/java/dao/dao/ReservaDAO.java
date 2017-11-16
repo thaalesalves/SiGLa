@@ -42,4 +42,6 @@ public interface ReservaDAO {
     public Reserva insert(Reserva r) throws SQLException, ClassNotFoundException;
 
     public void delete(Reserva r) throws SQLException, ClassNotFoundException;
+    
+    public void update(Reserva r) throws SQLException, ClassNotFoundException;
 }
