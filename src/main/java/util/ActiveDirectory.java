@@ -67,17 +67,18 @@ public class ActiveDirectory {
      * nomes falhar
      * @throws javax.naming.AuthenticationException se uma operação de
      * autenticação falhar
+     * @return
      */
-    public boolean login(Pessoa p) throws NamingException, AuthenticationException { // método de login
+    public boolean login(Pessoa p) throws NamingException, AuthenticationException {
         properties = new Properties();
-        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // pacote do LDAP
-        properties.put(Context.PROVIDER_URL, SiGLa.getAuthMethod() + "://" + SiGLa.getDomainHost() + ":" + SiGLa.getAuthPort()); // conecta com o AD DC
-        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.getDomain()); // valida credencial de usuário
-        properties.put(Context.SECURITY_CREDENTIALS, p.getSenha()); // valida credencial de senha
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        properties.put(Context.PROVIDER_URL, SiGLa.getAuthMethod() + "://" + SiGLa.getDomainHost() + ":" + SiGLa.getAuthPort());
+        properties.put(Context.SECURITY_PRINCIPAL, p.getUsername() + "@" + SiGLa.getDomain());
+        properties.put(Context.SECURITY_CREDENTIALS, p.getSenha());
         properties.put(Context.REFERRAL, "follow");
-        dirContext = new InitialDirContext(properties); // cria o contexto do AD passando as credenciais
+        dirContext = new InitialDirContext(properties);
 
-        return true; // login efetuado
+        return true;
     }
 
     /**
@@ -103,10 +104,10 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException { // busca de usuário
-        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))"; // Query LDAP de busca de pessoas
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p) throws NamingException {
+        String filter = "(&(objectCategory=person)(objectClass=user)(sAMAccountName=" + p.getUsername() + "))";
 
-        return this.dirContext.search(ldap_base, filter, this.searchCtls); // Define a raiz do domínio do AD
+        return this.dirContext.search(ldap_base, filter, this.searchCtls);
     }
 
     /**
@@ -117,10 +118,10 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public NamingEnumeration<SearchResult> searchUser(Grupo g) throws NamingException { // busca de usuário
-        String filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + "))"; // Query LDAP de busca de pessoas
+    public NamingEnumeration<SearchResult> searchUser(Grupo g) throws NamingException {
+        String filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + "))";
 
-        return this.dirContext.search(ldap_base, filter, this.searchCtls); // Define a raiz do domínio do AD
+        return this.dirContext.search(ldap_base, filter, this.searchCtls);
     }
 
     /**
@@ -132,10 +133,10 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException { //busca de usuário dentro de grupo
+    public NamingEnumeration<SearchResult> searchUser(Pessoa p, Grupo g) throws NamingException {
         String filter = "";
         try {
-            filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))"; // Query do LDAP de busca de usuários dentro do grupo
+            filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + ")(sAMAccountName=" + p.getUsername() + "))";
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
@@ -151,18 +152,18 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public boolean isUser(Pessoa p) throws NamingException { // Verifica se o usuário existe
+    public boolean isUser(Pessoa p) throws NamingException {
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca o método de busca de usuário
-            if (result.hasMore()) { // caso algo seja retornado
-                return true; // o usuário existe
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMore()) {
+                return true;
             } else {
-                return false; // o usuário não existe
+                return false;
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        return false; // o usuário não existe
+        return false;
     }
 
     /**
@@ -175,18 +176,18 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public boolean isMember(Pessoa p, Grupo g) throws NamingException { // o usuário é membro do grupo
+    public boolean isMember(Pessoa p, Grupo g) throws NamingException {
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p, g); // invoca o método de busca
-            if (result.hasMoreElements()) { // se algo for retornado
-                return true; // o usuário é membro do grupo
+            NamingEnumeration<SearchResult> result = this.searchUser(p, g);
+            if (result.hasMoreElements()) {
+                return true;
             } else {
-                return false; // o usuário não é membro do grupo
+                return false;
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        return false; // o usuário não é membro do grupo
+        return false;
     }
 
     /**
@@ -198,21 +199,21 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getCN(Pessoa p) throws NamingException { // returna nome completo
+    public String getCN(Pessoa p) throws NamingException {
         String cn = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca pesquisa de usuário
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); // vai para próxima linha da tupla
-                Attributes attrs = sr.getAttributes(); // busca atributos
-                cn = attrs.get("cn").toString(); // conversão do atributo em string
-                cn = cn.substring(cn.indexOf(":") + 1); // atribuição da string plena na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                cn = attrs.get("cn").toString();
+                cn = cn.substring(cn.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
 
-        return cn.trim(); // retorna o nome completo
+        return cn.trim();
     }
 
     /**
@@ -222,7 +223,7 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public ArrayList<Pessoa> getProfessores() throws NamingException { // returna nome completo
+    public ArrayList<Pessoa> getProfessores() throws NamingException {
         ArrayList<Pessoa> ps = new ArrayList<Pessoa>();
 
         try {
@@ -273,20 +274,20 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getTitle(Pessoa p) throws NamingException { // busca cargo
+    public String getTitle(Pessoa p) throws NamingException {
         String title = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
-                title = attrs.get("title").toString(); // conversão do atributo
-                title = title.substring(title.indexOf(":") + 1); // definição na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                title = attrs.get("title").toString();
+                title = title.substring(title.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        return title.replaceAll("^\\s+|\\s+$", "").trim(); // retorno do cargo
+        return title.replaceAll("^\\s+|\\s+$", "").trim();
     }
 
     /**
@@ -299,20 +300,20 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getDepartment(Pessoa p) throws NamingException { // busca departamento
+    public String getDepartment(Pessoa p) throws NamingException {
         String depto = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
-                depto = attrs.get("department").toString(); // conversão do atributo
-                depto = depto.substring(depto.indexOf(":") + 1); // definição na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                depto = attrs.get("department").toString();
+                depto = depto.substring(depto.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
-        return depto.trim(); // retorno do cargo
+        return depto.trim();
     }
 
     /**
@@ -325,21 +326,21 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getGivenName(Pessoa p) throws NamingException { // busca primeiro nome
+    public String getGivenName(Pessoa p) throws NamingException {
         String givenName = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
-                givenName = attrs.get("givenName").toString(); // conversão do atributo
-                givenName = givenName.substring(givenName.indexOf(":") + 1); // definição na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                givenName = attrs.get("givenName").toString();
+                givenName = givenName.substring(givenName.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
 
-        return givenName; // retorno do nome
+        return givenName;
     }
 
     /**
@@ -351,21 +352,48 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getMail(Pessoa p) throws NamingException { // busca primeiro nome
+    public String getMail(Pessoa p) throws NamingException {
         String mail = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
-                mail = attrs.get("mail").toString(); // conversão do atributo
-                mail = mail.substring(mail.indexOf(":") + 1); // definição na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                mail = attrs.get("mail").toString();
+                mail = mail.substring(mail.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
         }
 
-        return mail; // retorno do nome
+        return mail;
+    }
+
+    /**
+     * Busca o parâmetro <code>sAMAccountName</code> do
+     * <code>Active Directory</code>, que representa o nome de usuário
+     * (pré-Windows 2000).
+     *
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de
+     * nomes falhar
+     */
+    public String getsAMAccountName(Pessoa p) throws NamingException {
+        String sAMAccountName = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                sAMAccountName = attrs.get("sAMAccountName").toString();
+                sAMAccountName = sAMAccountName.substring(sAMAccountName.indexOf(":") + 1);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        return sAMAccountName;
     }
 
     /**
@@ -377,15 +405,15 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public String getOffice(Pessoa p) throws NamingException { // busca office
+    public String getOffice(Pessoa p) throws NamingException {
         String physicalDeliveryOfficeName = "";
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
-                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString(); // conversão do atributo
-                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1); // definição na variável
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                physicalDeliveryOfficeName = attrs.get("physicalDeliveryOfficeName").toString();
+                physicalDeliveryOfficeName = physicalDeliveryOfficeName.substring(physicalDeliveryOfficeName.indexOf(":") + 1);
             }
         } catch (Exception e) {
             Logger.logSevere(e, this.getClass());
@@ -403,13 +431,13 @@ public class ActiveDirectory {
      * @throws javax.naming.NamingException se uma operação de resolução de
      * nomes falhar
      */
-    public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException { // busca foto
+    public byte[] getPicture(Pessoa p) throws NamingException, FileNotFoundException {
         byte[] pic;
         try {
-            NamingEnumeration<SearchResult> result = this.searchUser(p); // invoca método de busca
-            if (result.hasMoreElements()) { // caso algo seja retornado
-                SearchResult sr = (SearchResult) result.next(); //entra na tupla
-                Attributes attrs = sr.getAttributes(); // define atributos
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
                 pic = (byte[]) attrs.get("jpegPhoto").get();
 
                 if (pic == null) {
