@@ -71,7 +71,7 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
     @Override
     public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM tb_laboratorio WHERE id = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_laboratorio WHERE id = ?");
 
             pstmt.setInt(1, l.getId());
 
@@ -159,5 +159,28 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
         arrayLab.removeAll(labsReservados);
 
         return arrayLab;
+    }
+
+    @Override
+    public Laboratorio selectLaboratorioNumero(Laboratorio lab) throws SQLException, NullPointerException, ClassNotFoundException {
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_laboratorio WHERE numero = ?");
+
+            pstmt.setString(1, lab.getNumero());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                lab.setId(rs.getInt("id"));
+                lab.setComputadores(rs.getInt("qtd_comps"));
+                lab.setCapacidade(rs.getInt("qtd_alunos"));
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
+
+        return lab;
     }
 }

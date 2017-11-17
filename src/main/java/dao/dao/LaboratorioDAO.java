@@ -37,4 +37,6 @@ public interface LaboratorioDAO {
     public int qtdLabs() throws SQLException, ClassNotFoundException;
 
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException;
+    
+    public Laboratorio selectLaboratorioNumero(Laboratorio lab) throws SQLException, NullPointerException, ClassNotFoundException;
 }
