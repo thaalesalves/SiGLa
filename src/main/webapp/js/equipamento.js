@@ -46,9 +46,9 @@ function carregaEquip() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-res" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th><th>NetBIOS</th>';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 1%;">NetBIOS</th>';
             cont += '<th style="width: 1%;">Laboratório</th><th style="width: 1%;">IP</th>';
-            cont += '<th style="width: 1%;">MAC</th><th>Configuração</th>';
+            cont += '<th style="width: 2%;">MAC</th><th style="width: 2%;">Configuração</th>';
             cont += '<th style="width: 1%;">Status</th><th style="width: 1%;">Opções</th></tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
@@ -74,6 +74,25 @@ function carregaEquip() {
             cont += '</tbody></table>';
             cont += '<script>$("#tb-res").DataTable();</script>';
             $('#tb-div').append(cont);
+        }
+    });
+}
+
+function equipLabs() {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=LaboratorioListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            console.log('Laboratório: ' + obj[0].numero);
+            $.each(obj, function (i, item) {
+                $("#laboratorio").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].numero
+                }));
+            });
         }
     });
 }
