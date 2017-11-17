@@ -116,6 +116,23 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Quantidade de Computadores</label>
                                     <input autocomplete="off" name="computadores" type='text' class='form-control pull-right' placeholder="25" />
                                 </div>
+                                <div class='form-group'>
+                                    <label>Processador</label>
+                                    <input autocomplete="off" name="processador" id="processador" type='text' class='form-control pull-right' placeholder="Intel Core i5" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Memória RAM</label>
+                                    <input autocomplete="off" name="memoria" id="memoria" type='text' class='form-control pull-right' placeholder="4GB DDR3" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Modelo</label>
+                                    <input autocomplete="off" name="modelo" id="modelo" type='text' class='form-control pull-right' placeholder="Lenovo 63" />
+                                </div>
+                                <div class='form-group'>
+                                    <label>Prefixo de IP</label>
+                                    <input autocomplete="off" name="ip" id="ip" type='text' class='form-control pull-right' placeholder="10.8.101" />
+                                    <span class="help-block">Para a 12-14, por exemplo, o prefixo seria <strong>10.8.114</strong></span>
+                                </div>
                         </div>
                         <div class="box-footer">
                             <button value="LaboratorioInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
