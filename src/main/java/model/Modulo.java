@@ -18,9 +18,11 @@
  */
 package model;
 
+import java.io.Serializable;
+
 @lombok.Getter
 @lombok.Setter
-public class Modulo {
+public class Modulo implements Serializable {
 
     private Integer id;
 }

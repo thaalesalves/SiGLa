@@ -19,15 +19,23 @@
 
 package model;
 
+import java.io.Serializable;
+import java.util.List;
+
 @lombok.Getter
 @lombok.Setter
-public class Laboratorio {
+public class Laboratorio implements Serializable {
 
     private Integer id;
     private Integer qtd;
     private Integer capacidade;
     private Integer computadores;
-    private String numero;    
+    private String numero;
+    private String processador;
+    private String memoria;
+    private String modelo;
+    private String prefixoIp;
+    private List<Equipamento> equipamentos;
 
     @Override
     public boolean equals(Object obj) {

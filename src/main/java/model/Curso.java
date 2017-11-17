@@ -19,9 +19,11 @@
 
 package model;
 
+import java.io.Serializable;
+
 @lombok.Getter
 @lombok.Setter
-public class Curso {
+public class Curso implements Serializable {
 
     private String nome;
     private String modalidade;

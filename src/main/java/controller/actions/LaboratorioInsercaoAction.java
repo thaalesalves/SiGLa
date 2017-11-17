@@ -29,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Equipamento;
 import model.Laboratorio;
 
 public class LaboratorioInsercaoAction implements ICommand {
@@ -44,15 +45,31 @@ public class LaboratorioInsercaoAction implements ICommand {
             l.setCapacidade(Integer.parseInt(request.getParameter("capacidade")));
             l.setComputadores(Integer.parseInt(request.getParameter("computadores")));
             l.setNumero(request.getParameter("numero"));
+            l.setMemoria(request.getParameter("memoria"));
+            l.setModelo(request.getParameter("modelo"));
+            l.setProcessador(request.getParameter("processador"));
 
             fac.getLaboratorioDAO().insertLaboratorio(l);
+            l = fac.getLaboratorioDAO().selectLaboratorioNumero(l);
+            
+            for (int i = 1; i < l.getComputadores() + 1; i++) {
+                String formatted = String.format("%03d", i);
+                Equipamento e = new Equipamento();
+                e.setConfig(l.getModelo() + "; " + l.getProcessador() + "; " + l.getMemoria());
+                e.setIp(request.getParameter("ip") + "." + i);
+                e.setNome(l.getNumero().replace("-", "") + "LAB" + formatted);
+                e.setStatus(1);
+                e.setMac("Não informado.");
+                e.setLab(l);
+                fac.getEquipamentoDAO().insert(e);
+            }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             
             session.setAttribute("msg", "Erro ao cadastrar o laboratório");
             session.setAttribute("status", "error");
             
-            return request.getContextPath() + "/reserva/novo";
+            return request.getContextPath() + "/laboratorio/novo";
         }
         session.setAttribute("msg", "Laboratório cadastrado com sucesso");
         session.setAttribute("status", "success");

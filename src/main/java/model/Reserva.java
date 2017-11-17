@@ -19,12 +19,13 @@
 
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 @lombok.Getter
 @lombok.Setter
-public class Reserva {
+public class Reserva implements Serializable {
 
     private Integer id;
     private Integer qtd;

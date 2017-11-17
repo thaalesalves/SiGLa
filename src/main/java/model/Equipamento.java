@@ -19,9 +19,11 @@
 
 package model;
 
+import java.io.Serializable;
+
 @lombok.Getter
 @lombok.Setter
-public class Equipamento {
+public class Equipamento implements Serializable {
 
     private String nome;
     private String ip;

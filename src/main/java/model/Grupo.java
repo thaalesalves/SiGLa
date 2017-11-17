@@ -19,9 +19,11 @@
  */
 package model;
 
+import java.io.Serializable;
+
 @lombok.Getter
 @lombok.Setter
-public class Grupo {
+public class Grupo implements Serializable {
 
     private Integer id;
     private String grupo;

@@ -23,9 +23,11 @@ import util.SiGLa;
 import util.ActiveDirectory;
 import dao.DAOFactory;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
 import javax.naming.NamingException;
@@ -36,7 +38,7 @@ import javax.servlet.http.HttpSession;
 import model.Grupo;
 import model.Pessoa;
 
-public class LoginAction implements ICommand {
+public class LoginAction implements ICommand, Serializable {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -56,14 +58,12 @@ public class LoginAction implements ICommand {
             if (ad.login(p)) {
                 session.setAttribute("ad", ad);
                 ArrayList<Grupo> arrayg = fac.getGrupoDAO().select();
-                System.out.println("Array: " + arrayg);
                 int c = 0;
 
                 for (Grupo g : arrayg) {
                     c++;
                     if (ad.isMember(p, g)) {
                         p.setRole(g.getRole());
-                        System.out.println("Role: " +  p.getRole());
                         break;
                     }
 
@@ -75,7 +75,7 @@ public class LoginAction implements ICommand {
                     }
                 }
 
-                ArrayList<Pessoa> ps = ad.getProfessores();
+                List<Pessoa> ps = ad.getProfessores();
                 session.setAttribute("todos-usuarios", ps);
 
                 p.setNome(ad.getGivenName(p));

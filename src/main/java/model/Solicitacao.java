@@ -18,11 +18,12 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @lombok.Getter
 @lombok.Setter
-public class Solicitacao {
+public class Solicitacao implements Serializable {
 
     private Integer id;    
     private Integer qtdAlunos;
