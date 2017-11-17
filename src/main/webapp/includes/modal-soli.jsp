@@ -3,9 +3,7 @@
 <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
-<%
-    ArrayList<Pessoa> listaProfs = (ArrayList<Pessoa>) session.getAttribute("todos-usuarios");
-%>
+
 <!-- ========== JANELA MODAL ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,13 +38,15 @@
                                     <label>Professor</label>                                            
                                 </div>
                             </td>
-                            <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;display:none;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
-                                <select class="select2 form-control" data-placeholder="Selecione um professor" style="width: 100%;display:none;" id="modalProfessoresCombo" name="modalProfessoresCombo">                                   
-                                    <% for (Pessoa pessoa : listaProfs) {%>
+                            <td id="td-prof-combo" style="padding-left: 17.2%;display:none;">
+                                <select class="select2 form-control" data-placeholder="Selecione um professor" style="width: 100%;" id="modalProfessoresCombo" name="modalProfessoresCombo">                                   
+                                    <% for (Pessoa pessoa : (ArrayList<Pessoa>) session.getAttribute("todos-usuarios")) {%>
                                     <option value="<%=pessoa.getUsername().trim()%>"><% out.println(pessoa.getNomeCompleto() + " (" + pessoa.getEmail() + ")"); %></option>
                                     <% }%>
                                 </select>
+                            </td>
+                            <td id="td-prof-txt" style="padding-left: 17.2%;display:none;">
+                                <input style="width: 100%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
                             </td>
                         </tr>
                         <tr>

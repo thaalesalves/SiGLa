@@ -347,12 +347,12 @@ function modalSolicitacao(id) {
             $("#btnModalExcluir").hide();
             $(".soli-tit").show();
             $(".res-tit").hide();
-            $("#modalLabCombo").show();
+            $("#modalLabCombo").hide();
             $("#modalLaboratorio").hide();
             $('#td_res_dia').hide();
             $('#td_soli_dia').show();
-            $("#modalProfessoresCombo").hide();
-            $("#modalProfessor").show();
+            $("#td-prof-combo").hide();
+            $("#td-prof-txt").show();
 
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
             $("#modalProfessor").val(jsonSolicitacao.pessoa.shownName);
@@ -422,8 +422,8 @@ function modalReserva(id) {
             $(".res-tit").show();
             $('#td_res_dia').show();
             $('#td_soli_dia').hide();
-            $("#modalProfessoresCombo").show();
-            $("#modalProfessor").hide();
+            $("#td-prof-combo").show();
+            $("#td-prof-txt").hide();
 
             $("#reserva-modal-titulo").html("Reserva nº" + jsonSolicitacao.id);
             $("#modalIdSolicitacao").val(jsonSolicitacao.id);
