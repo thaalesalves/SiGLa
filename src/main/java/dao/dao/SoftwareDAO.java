@@ -21,6 +21,7 @@ package dao.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Laboratorio;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
@@ -38,4 +39,6 @@ public interface SoftwareDAO {
     public ArrayList<Software> selectAll() throws SQLException, NullPointerException, ClassNotFoundException;
 
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException;
+    
+    public ArrayList<Software> selectSoftwareAux(Laboratorio lab) throws SQLException, ClassNotFoundException;
 }

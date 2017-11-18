@@ -36,6 +36,7 @@ public class Laboratorio implements Serializable {
     private String modelo;
     private String prefixoIp;
     private List<Equipamento> equipamentos;
+    private List<Software> softwares;
 
     @Override
     public boolean equals(Object obj) {

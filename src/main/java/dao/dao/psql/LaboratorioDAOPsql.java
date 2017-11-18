@@ -28,6 +28,7 @@ import model.Laboratorio;
 import model.Reserva;
 import model.Modulo;
 import util.DatabaseConnection;
+import util.Logger;
 
 public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
 
@@ -57,7 +58,7 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
                     l.setNumero(rs.getString("numero"));
                     l.setComputadores(rs.getInt("qtd_comps"));
                     l.setCapacidade(rs.getInt("qtd_alunos"));
-
+                    l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
                     arrayLab.add(l);
                 }
             }
@@ -79,6 +80,9 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
 
             while (rs.next()) {
                 l.setNumero(rs.getString("numero"));
+                l.setCapacidade(rs.getInt("qtd_alunos"));
+                l.setComputadores(rs.getInt("qtd_comps"));
+                l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
             }
 
             connString.close();
@@ -120,7 +124,7 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
                 l.setNumero(rs.getString("numero"));
                 l.setCapacidade(rs.getInt("qtd_alunos"));
                 l.setComputadores(rs.getInt("qtd_comps"));
-
+                l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
                 laboratorios.add(l);
             }
 
@@ -182,5 +186,57 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
         }
 
         return lab;
+    }
+
+    @Override
+    public Integer delete(Laboratorio lab) throws SQLException, ClassNotFoundException {
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * from tb_reserva WHERE laboratorio = ?");
+            pstmt.setInt(1, lab.getId());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (!rs.next()) {
+                pstmt = conn.prepareStatement("DELETE FROM tb_equipamento WHERE laboratorio = ?");
+                pstmt.setInt(1, lab.getId());
+                pstmt.executeUpdate();
+
+                pstmt = conn.prepareStatement("DELETE FROM tb_laboratorio WHERE id = ?");
+                pstmt.setInt(1, lab.getId());
+                pstmt.executeUpdate();
+                conn.close();
+                return 1;
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LaboratorioDAOPsql.class);
+        }
+        return 0;
+    }
+
+    @Override
+    public void atualizar(Laboratorio l) throws SQLException, ClassNotFoundException {
+        try (Connection connString = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM aux_sw_lab WHERE lab = ?");
+            pstmt.setInt(1, l.getId());
+            pstmt.executeUpdate();
+
+            pstmt = connString.prepareStatement("UPDATE tb_laboratorio SET qtd_comps = ?, qtd_alunos = ? WHERE id = ?");
+            pstmt.setInt(1, l.getComputadores());
+            pstmt.setInt(2, l.getCapacidade());
+            pstmt.setInt(3, l.getId());
+            pstmt.executeUpdate();
+
+            pstmt = connString.prepareStatement("INSERT INTO aux_sw_lab VALUES(DEFAULT, ?, ?)");
+            for (int i = 0; i < l.getSoftwares().size(); i++) {
+                pstmt.setInt(1, l.getSoftwares().get(i).getId());
+                pstmt.setInt(2, l.getId());
+                pstmt.executeUpdate();
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, this.getClass());
+        }
     }
 }

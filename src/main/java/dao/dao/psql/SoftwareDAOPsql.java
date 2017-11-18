@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Laboratorio;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
@@ -162,5 +163,30 @@ public class SoftwareDAOPsql implements dao.dao.SoftwareDAO {
         }
 
         return s;
+    }
+
+    @Override
+    public ArrayList<Software> selectSoftwareAux(Laboratorio lab) throws SQLException, ClassNotFoundException {
+        ArrayList<Software> arrayRes = new ArrayList<Software>();
+
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * from tb_software s JOIN aux_sw_lab ss ON s.id = ss.sw where ss.lab = ?");
+            pstmt.setInt(1, lab.getId());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Software s = new Software();
+
+                s.setId(rs.getInt("id"));
+                s.setFabricante(rs.getString("fabricante"));
+                s.setNome(rs.getString("nome"));
+
+                arrayRes.add(s);
+            }
+
+            conn.close();
+        }
+
+        return arrayRes;
     }
 }

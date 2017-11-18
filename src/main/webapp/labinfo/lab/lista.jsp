@@ -70,6 +70,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <div class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <%@include file="/includes/sidebar.jsp"%>
+            <%@include file="/includes/modal-lab.jsp"%>
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>

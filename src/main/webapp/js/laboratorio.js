@@ -16,6 +16,11 @@
  */
 
 var contextPath;
+
+function removeLab(id) {
+    window.location.href = contextPath + '/AlmightyController?acao=LaboratorioRemocao&id=' + id;
+}
+
 function carregaLabs() {
     $.ajax({
         url: contextPath + '/JsonController?acao=LaboratorioListagem',
@@ -26,7 +31,7 @@ function carregaLabs() {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-lab" class="table table-bordered table-hover">';
             cont += '<thead><tr><th style="width: 1%;">#</th>';
-            cont += '<th>Número</th><th>Qtd. de Computadores</th><th>Capacidade de Alunos</th><th style="width: 3%;">Opções';
+            cont += '<th>Número</th><th>Qtd. de Computadores</th><th>Capacidade de Alunos</th><th>Softwares</th><th style="width: 7%;">Opções';
             cont += '</th></tr></thead><tbody>';
 
             $.each(obj, function (i, item) {
@@ -35,7 +40,14 @@ function carregaLabs() {
                 cont += '<td class="center">' + obj[i].numero + '</td>';
                 cont += '<td class="center">' + obj[i].computadores + '</td>';
                 cont += '<td class="center">' + obj[i].capacidade + '</td>';
-                cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=LaboratorioRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
+                cont += '<td class="center">';
+                for (var j = 0; j < obj[i].softwares.length; j++) {
+                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                    cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                }
+                cont += '</td>';
+                cont += '<td class="center"><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modalLab" onclick="modalLab(' + obj[i].id + ')"></button><span>&#32; &#32; &#32;' +
+                        '</span><button type="submit" class="btn btn-default fa fa-close" onclick="removeLab(' + obj[i].id + ')"></button></td>';
                 cont += '</tr>';
             });
 
@@ -71,31 +83,42 @@ function solicitacaoLabs(modulo, dia) {
     });
 }
 
-/*function modalLabs() {
-    var modulo = $("#modalModulo").val().replace(/[^0-9\.]/g, '').split('');
-    var dia = $("#modalDiaSemana").val();
+function modalLab(id) {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=SoftwareListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            $("#modal_sw_lab").empty();
+            var obj = JSON.parse(e.responseText);
+            for (i = 0; i < obj.length; i++) {
+                $("#modal_sw_lab").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].fabricante + " " + obj[i].nome
+                }));
+            }
+        }
+    });
 
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=LaboratorioId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
-
-            $("#modalLabCombo").empty();
-
-            $("#modalLabCombo").append($('<option>', {
-                text: 'Selecione um Laboratório'
-            }));
-
-            for (i = 0; i < obj.length; i++) {
-                
-                $("#modalLabCombo").append($('<option>', {
-                    value: obj[i].id,
-                    text: obj[i].numero
-                }));
+            $("#modal_id_lab").val(obj.id);
+            $("#modal_num_lab").val(obj.numero);
+            $("#modal_cap_lab").val(obj.capacidade);
+            $("#modal_comps_lab").val(obj.computadores);
+            for (i = 0; i < obj.softwares.length + 1; i++) {
+                $("#modal_sw_lab > option").each(function () {
+                    if (this.value.trim() == obj.softwares[i].id) {
+                        $(this).attr("selected", "selected");
+                    }
+                });
             }
         }
     });
-}*/
+}

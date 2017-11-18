@@ -39,4 +39,8 @@ public interface LaboratorioDAO {
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException;
     
     public Laboratorio selectLaboratorioNumero(Laboratorio lab) throws SQLException, NullPointerException, ClassNotFoundException;
+    
+    public Integer delete(Laboratorio lab) throws SQLException, ClassNotFoundException;
+    
+    public void atualizar(Laboratorio lab) throws SQLException, ClassNotFoundException;
 }

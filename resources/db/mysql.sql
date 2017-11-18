@@ -85,6 +85,12 @@ CREATE TABLE aux_modulo_soli (
     modulo INT REFERENCES tb_modulo(id)
 );
 
+CREATE TABLE aux_sw_lab (
+    id SERIAL PRIMARY KEY,
+    sw INTEGER REFERENCES tb_software(id) NOT NULL,
+    lab INTEGER REFERENCES tb_laboratorio(id) NOT NULL
+);
+
 -- Inserção de Valores
 INSERT INTO tb_modulo VALUES(1);
 INSERT INTO tb_modulo VALUES(2);
