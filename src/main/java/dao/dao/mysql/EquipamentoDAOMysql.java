@@ -153,4 +153,17 @@ public class EquipamentoDAOMysql implements dao.dao.EquipamentoDAO {
             Logger.logSevere(e, EquipamentoDAOMysql.class);
         }
     }
+
+    @Override
+    public void atualizar(Equipamento eq) throws SQLException, ClassNotFoundException {
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_equipamento SET mac = ? WHERE id = ?");
+            pstmt.setString(1, eq.getMac());
+            pstmt.setInt(2, eq.getLab().getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, EquipamentoDAOPsql.class);
+        }
+    }
 }

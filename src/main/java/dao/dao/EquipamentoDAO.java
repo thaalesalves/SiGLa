@@ -36,4 +36,6 @@ public interface EquipamentoDAO {
     public void retirar(Equipamento e) throws SQLException, ClassNotFoundException;
     
     public void devolver(Equipamento e) throws SQLException, ClassNotFoundException;
+    
+    public void atualizar(Equipamento e) throws SQLException, ClassNotFoundException;
 }

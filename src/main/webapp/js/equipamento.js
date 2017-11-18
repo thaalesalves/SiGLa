@@ -106,14 +106,16 @@ function modalEquipamento(id) {
             if (obj.status == 1) {
                 status = "Em ordem.";
                 $("#modal-footer").empty();
-                $("#modal-footer").append('<button id="btnModalRetirar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalRetirar">Retirar</button>');
+                $("#modal-footer").append('<button id="btnModalRetirar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalRetirar">Retirar</button>' +
+                        '<button name="acao" value="EquipamentoAtualizacao" id="btnModalDevolver" type="submit" class="btn btn-success">Atualizar</button>');
                 $("#motivo-retirar").show();
                 $("#motivo-retirado").hide();
                 $("#data-retirado-div").hide();
             } else {
                 status = "Retirado";
                 $("#modal-footer").empty();
-                $("#modal-footer").append('<button name="acao" value="EquipamentoDevolucao" id="btnModalDevolver" type="submit" class="btn btn-success">Devolver</button>');
+                $("#modal-footer").append('<button name="acao" value="EquipamentoDevolucao" id="btnModalDevolver" type="submit" class="btn btn-primary">Devolver</button>' +
+                        '<button name="acao" value="EquipamentoAtualizacao" id="btnModalDevolver" type="submit" class="btn btn-success">Atualizar</button>');
                 $("#motivo-retirado").show();
                 $("#motivo-retirar").hide();
                 $("data-retirado-div").show();

@@ -40,7 +40,7 @@
                             </td>
                             <td style="width:100%;">
                                 <div class="form-group">
-                                    <input style="width: 80%;" disabled type="text" class="form-control pull-right" name="equip-netbios" id="equip-netbios" placeholder="Nome NetBIOS" />
+                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-netbios" id="equip-netbios" placeholder="Nome NetBIOS" />
                                 </div>
                             </td>
                         </tr>
@@ -51,7 +51,7 @@
                                 </div>
                             </td>
                             <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;" disabled type='text' class='form-control pull-right' name="equip-mac" id="equip-mac" placeholder="Endereço físico" />
+                                <input style="width: 100%;" type='text' class='form-control pull-right equip-mac' name="equip-mac" id="equip-mac" placeholder="Endereço físico" data-mask="AA:AA:AA:AA:AA:AA" data-mask-selectonfocus="true"/>
                             </td>
                         </tr>
                         <tr>
@@ -61,7 +61,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input style="width: 80%;" disabled type='text' class='form-control pull-right' name="equip-ip" id="equip-ip" placeholder="Endereço lógico" />
+                                <input style="width: 80%;" readonly type='text' class='form-control pull-right' name="equip-ip" id="equip-ip" placeholder="Endereço lógico" />
                             </td>
                         </tr>
                         <tr>
@@ -127,7 +127,7 @@
                             </td>
                             <td style="width:100%;">
                                 <div class="form-group">
-                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-id-retirar" id="equip-id-retirar" placeholder="Nome NetBIOS" />
+                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-id-retirar" id="equip-id-retirar" placeholder="ID" />
                                 </div>
                             </td>
                         </tr>
@@ -150,7 +150,7 @@
                                 </div>
                             </td>
                             <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;" readonly type='text' class='form-control pull-right' name="equip-data-retirada" id="equip-data-retirada" placeholder="Endereço físico" value="<%=timeStamp%>"/>
+                                <input style="width: 100%;" autocomplete="off" readonly type='text' class='form-control pull-right' name="equip-data-retirada" id="equip-data-retirada" placeholder="Endereço físico" value="<%=timeStamp%>"/>
                             </td>
                         </tr>
                         <tr>
@@ -172,6 +172,14 @@
         </div>
     </div>
 </form>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-<script>$(".select2").select2();</script>
+<script>
+    $(function () {
+        $("#equip-mac").keyup(function () {
+            $("#equip-mac").val($(this).val().toUpperCase().split(".")[0]);
+        });
+    });
+    $(".select2").select2();
+</script>
