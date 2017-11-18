@@ -222,7 +222,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
                                         <% for (Software sw : asw) { %>
                                         <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
-                                        <% }
+                                        <%
+                                            }
                                         %>
                                     </select>
                                 </div>
