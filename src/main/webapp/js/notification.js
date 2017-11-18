@@ -30,15 +30,17 @@ function updateWidgets(obj) {
     $("#qtd-computadores").text(obj.qtdComputadores);
 }
 
-function notify(msg, status) {
+function notify(msg, status, title) {
     if (msg != "null") {
-        var title = "";
         switch (status) {
             case "error":
                 title = "Erro!";
                 break;
             case "success":
                 title = "Sucesso!";
+                break;
+            case "info":
+                title = "Aviso!";
                 break;
         }
 
