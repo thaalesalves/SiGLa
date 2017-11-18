@@ -106,11 +106,11 @@ Copyright (C) 2016 Thales Alves Pereira
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
                                 <div class='form-group'>
                                     <label>Fabricante</label>
-                                    <input name="fabricante" type='text' class='form-control pull-right' placeholder="Nome do fabricante" />
+                                    <input autocomplete="off" name="fabricante" type='text' class='form-control pull-right' placeholder="Nome do fabricante" />
                                 </div>
                                 <div class="form-group">
                                     <label>Nome</label>
-                                    <input name="nome" type='text' class='form-control pull-right' placeholder="Nome do software" />
+                                    <input autocomplete="off" name="nome" type='text' class='form-control pull-right' placeholder="Nome do software" />
                                 </div>
                         </div>
                         <div class="box-footer">
