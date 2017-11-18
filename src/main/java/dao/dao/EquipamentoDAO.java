@@ -30,4 +30,10 @@ public interface EquipamentoDAO {
     public ArrayList<Equipamento> select() throws SQLException, ClassNotFoundException;
 
     public int qtdEquip() throws SQLException, ClassNotFoundException;
+    
+    public Equipamento select(Equipamento equipamento) throws SQLException, ClassNotFoundException;
+    
+    public void retirar(Equipamento e) throws SQLException, ClassNotFoundException;
+    
+    public void devolver(Equipamento e) throws SQLException, ClassNotFoundException;
 }

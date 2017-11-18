@@ -17,7 +17,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.EquipamentoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -28,38 +27,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
-import model.Laboratorio;
+import util.Logger;
 
-public class EquipamentoInsercaoAction implements ICommand {
+public class EquipamentoRetiradaAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
-
         try {
-            Equipamento e = new Equipamento();
             DAOFactory fac = DAOFactory.getFactory();
-            e.setLab(new Laboratorio());
-            
-            e.setNome(request.getParameter("netbios"));
-            e.setIp(request.getParameter("ip"));
-            e.setMac(request.getParameter("mac"));
-            e.setConfig(request.getParameter("config"));            
-            e.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
-            
-            fac.getEquipamentoDAO().insert(e);
+            Equipamento e = new Equipamento();
+            e.setId(Integer.parseInt(request.getParameter("equip-id-retirar")));
+            e.setMotivo(request.getParameter("motivo"));
+            e.setDataRetirada(request.getParameter("equip-data-retirada"));
+            fac.getEquipamentoDAO().retirar(e);
         } catch (Exception e) {
-            System.out.println("ERRO: " + e.getMessage());
-            util.Logger.logSevere(e, EquipamentoInsercaoAction.class);
+            Logger.logSevere(e, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
-            session.setAttribute("msg", "Erro ao cadastrar computador");
-
-            return request.getContextPath() + "/equip/novo";
+            session.setAttribute("msg", "Erro ao retirar computador");
+            return request.getContextPath() + "/equip/lista";
         }
 
-        session.setAttribute("status", "error");
-        session.setAttribute("msg", "Erro ao cadastrar computador");
-
-        return request.getContextPath() + "/equip/novo";
+        session.setAttribute("status", "success");
+        session.setAttribute("msg", "Computador retirado");
+        return request.getContextPath() + "/equip/lista";
     }
 }

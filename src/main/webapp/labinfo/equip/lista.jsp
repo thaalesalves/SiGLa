@@ -19,6 +19,7 @@ Copyright (C) 2016 Thales Alves Pereira
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
+<%@include file="/includes/modal-equip.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>

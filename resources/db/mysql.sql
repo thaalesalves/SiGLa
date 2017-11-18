@@ -25,13 +25,15 @@ CREATE TABLE tb_equipamento (
     ip VARCHAR(15) NOT NULL,
     mac VARCHAR(30) NOT NULL,
     config VARCHAR(255) NOT NULL,
+    motivo VARCHAR,
+    data_retirada VARCHAR,
     status INT NOT NULL
 );
 
 CREATE TABLE tb_grupo (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	cargo VARCHAR(20) NOT NULL,
-	grupo VARCHAR(255) NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cargo VARCHAR(20) NOT NULL,
+    grupo VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE tb_reserva (

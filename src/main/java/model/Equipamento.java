@@ -33,4 +33,6 @@ public class Equipamento implements Serializable {
     private Integer id;
     private Integer qtd;
     private Laboratorio lab;
+    private String motivo;
+    private String dataRetirada;
 }
