@@ -46,7 +46,7 @@ import model.Pessoa;
  */
 public class ActiveDirectory {
 
-    private final String[] returnAttributes = {"mail", "jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName"};
+    private final String[] returnAttributes = {"mail", "jpegPhoto", "thumbnailPhoto", "sAMAccountName", "givenName", "cn", "memberOf", "title", "department", "physicalDeliveryOfficeName", "manager", "company", "displayName"};
     private Properties properties;
     private DirContext dirContext;
     private SearchControls searchCtls;
@@ -254,7 +254,9 @@ public class ActiveDirectory {
                 attr = attr.substring(attr.indexOf(":") + 1);
                 p.setEmail(attr.trim());
 
-                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
+                attr = attrs.get("displayName").toString();
+                attr = attr.substring(attr.indexOf(":") + 1);
+                p.setShownName(attr.trim());
 
                 ps.add(p);
             }
@@ -340,7 +342,7 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
 
-        return givenName;
+        return givenName.trim();
     }
 
     /**
@@ -366,7 +368,59 @@ public class ActiveDirectory {
             Logger.logSevere(e, this.getClass());
         }
 
-        return mail;
+        return mail.trim();
+    }
+
+    /**
+     * Busca o parâmetro <code>manager</code> do <code>Active Directory</code>,
+     * que representa o gerente do usuário.
+     *
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de
+     * nomes falhar
+     */
+    public String getManager(Pessoa p) throws NamingException {
+        String manager = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                manager = attrs.get("manager").toString();
+                manager = manager.substring(manager.indexOf(":") + 1);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        return manager.trim();
+    }
+
+    /**
+     * Busca o parâmetro <code>Company</code> do <code>Active Directory</code>,
+     * que representa a empresa na qual o usuário trabalha.
+     *
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de
+     * nomes falhar
+     */
+    public String getCompany(Pessoa p) throws NamingException {
+        String company = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                company = attrs.get("company").toString();
+                company = company.substring(company.indexOf(":") + 1);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        return company.trim();
     }
 
     /**
@@ -394,6 +448,32 @@ public class ActiveDirectory {
         }
 
         return sAMAccountName;
+    }
+
+    /**
+     * Busca o parâmetro <code>displayName</code> do
+     * <code>Active Directory</code>, que representa o apelido do usuário
+     *
+     * @return
+     * @param p classe de modelo Pessoa
+     * @throws javax.naming.NamingException se uma operação de resolução de
+     * nomes falhar
+     */
+    public String getDisplayName(Pessoa p) throws NamingException {
+        String displayName = "";
+        try {
+            NamingEnumeration<SearchResult> result = this.searchUser(p);
+            if (result.hasMoreElements()) {
+                SearchResult sr = (SearchResult) result.next();
+                Attributes attrs = sr.getAttributes();
+                displayName = attrs.get("displayName").toString();
+                displayName = displayName.substring(displayName.indexOf(":") + 1);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, this.getClass());
+        }
+
+        return displayName.trim();
     }
 
     /**

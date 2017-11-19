@@ -40,7 +40,7 @@ public class RedirectController extends HttpServlet {
         Map<String, String> mapaUrl = new HashMap<String, String>();
         RequestDispatcher rd;
 
-        try {
+        try {            
             /* Redirecionamentos de /equip/ */
             mapaUrl.put("/equip/novo", "../labinfo/equip/novo.jsp");
             mapaUrl.put("/equip/lista", "../labinfo/equip/lista.jsp");

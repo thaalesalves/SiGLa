@@ -50,6 +50,7 @@
         <url-pattern>/controle/*</url-pattern>
         <url-pattern>/admin/*</url-pattern>
         <url-pattern>/install/*</url-pattern>
+        <url-pattern>/user/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>

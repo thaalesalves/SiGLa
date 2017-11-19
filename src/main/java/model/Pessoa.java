@@ -35,5 +35,8 @@ public class Pessoa implements Serializable {
     private String senha;
     private String depto;
     private String chapa;
+    private String empresa;
+    private String gerente;
+    private String picturePath;
     private byte[] picture;
 }

@@ -83,7 +83,8 @@ public class LoginAction implements ICommand, Serializable {
                 p.setCargo(ad.getTitle(p));
                 p.setDepto(ad.getDepartment(p));
                 p.setEmail(ad.getMail(p));
-                p.setShownName(p.getNome() + " " + p.getNomeCompleto().substring(p.getNomeCompleto().lastIndexOf(" ") + 1));
+                p.setEmpresa(ad.getCompany(p));
+                p.setShownName(ad.getDisplayName(p));
 
                 session.setAttribute("pessoa", p);
                 return request.getContextPath() + "/pagina/home";

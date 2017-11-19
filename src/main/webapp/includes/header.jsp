@@ -51,7 +51,7 @@
                         <!-- Menu Body -->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="perfil" class="btn btn-default btn-flat">Perfil</a>
+                                <a href="#" data-toggle="modal" data-target="#modalPerfilSelf" class="btn btn-default btn-flat">Perfil</a>
                             </div>
                             <div class="pull-right">
                                 <a href="${pageContext.request.contextPath}/pagina/logout" class="btn btn-default btn-flat">Logout</a>

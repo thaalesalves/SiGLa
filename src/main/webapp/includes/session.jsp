@@ -18,8 +18,13 @@
         session.removeAttribute("status");
     }
 
-    String picPath = request.getContextPath() + "/img/user/thumbnail.png";
+    String picPath;
+    String picPathBlack;
     if (new File(request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg").exists()) {
         picPath = request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg";
+        picPathBlack = request.getContextPath() + "/img/user/" + p.getUsername() + "_pic.jpg";
+    } else {
+        picPath = request.getContextPath() + "/img/user/thumbnail.png";
+        picPathBlack = request.getContextPath() + "/img/user/thumbnail1.png";
     }
 %>

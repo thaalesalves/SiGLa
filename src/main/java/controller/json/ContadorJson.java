@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import model.Counter;
 import model.Curso;
 import model.Laboratorio;
+import model.Pessoa;
 import model.Software;
 import model.Solicitacao;
 import util.ActiveDirectory;
@@ -48,9 +49,12 @@ public class ContadorJson implements IJson {
             ArrayList<Laboratorio> l = fac.getLaboratorioDAO().selectLaboratorios();
 
             for (Solicitacao i : r) {
-                i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
-                i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
-                i.getPessoa().setShownName(i.getPessoa().getNome() + " " + i.getPessoa().getNomeCompleto().substring(i.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
+                Pessoa ps = new Pessoa();
+                ps.setUsername(i.getPessoa().getUsername());
+                ps.setNome(ad.getGivenName(ps));
+                ps.setNomeCompleto(ad.getCN(ps));
+                ps.setShownName(ps.getNome() + " " + ps.getNomeCompleto().substring(ps.getNomeCompleto().lastIndexOf(" ") + 1));
+                i.setPessoa(ps);
             }
 
             counter.setQtdComputadores(fac.getEquipamentoDAO().qtdEquip());

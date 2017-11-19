@@ -55,11 +55,12 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
+
                 r.getPessoa().setUsername(request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", ""));
                 r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
                 r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
+                r.getPessoa().setEmail(ad.getMail(r.getPessoa()).trim());
                 r.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
                 r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
@@ -99,11 +100,14 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 Solicitacao s = new Solicitacao();                
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
+                
+                String username = request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", "");
+                
                 s.getPessoa().setUsername(request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", ""));
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
                 s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
                 s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-                s.getPessoa().setEmail(ad.getMail(s.getPessoa()));
+                s.getPessoa().setEmail(ad.getMail(s.getPessoa()).trim());
                 s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
                 s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
