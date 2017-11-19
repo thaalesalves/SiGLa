@@ -275,7 +275,7 @@ function carregaSolicitacoes() {
             $.each(obj, function (i, item) {
                 cont += '<tr>';
                 cont += '<td>' + obj[i].id + '</td>';
-                cont += '<td>' + obj[i].pessoa.shownName + '</td>';
+                cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
                 cont += '<td>';
                 for (var j = 0; j < obj[i].modulos.length; j++) {
                     cont += obj[i].modulos[j].id + 'º módulo';
