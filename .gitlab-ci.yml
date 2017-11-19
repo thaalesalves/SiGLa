@@ -19,4 +19,4 @@ deploy_staging:
     name: SiGLa-1.2b
     url: http://sigla-1.2b.thalesalv.es/
   only:
-  - 1.2b
+  - master
