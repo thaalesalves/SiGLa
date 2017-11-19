@@ -60,7 +60,7 @@ function carregaLabs() {
 
 function solicitacaoLabs(modulo, dia) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia,
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + $("#softwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
         type: 'POST',
         cache: false,
         dataType: 'JSON',

@@ -14,51 +14,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package controller.json;
+package dao_test;
 
+import controller.json.LaboratoriosDisponiveisJson;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import model.Laboratorio;
 import model.Modulo;
 import model.Reserva;
 import model.Software;
+import util.IO;
 
-public class LaboratoriosDisponiveisJson implements IJson {
+public class LaboratoriosDisponiveisTeste {
 
-    @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
+    public static void main(String[] args) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
         Reserva r = new Reserva();
         DAOFactory fac = DAOFactory.getFactory();
         ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
 
         try {
-            String[] modulos = request.getParameter("modulo").split(",");
-            String[] softwares = request.getParameter("softwares").split(",");
+            String[] modulos = {"1", "2", "3"};
+            String[] softwares = {"1"};
 
             for (String i : modulos) {
                 Modulo mod = new Modulo();
                 mod.setId(Integer.parseInt(i));
                 r.getModulos().add(mod);
             }
-            
+
+            r.setDiaDaSemana("Segunda-feira");
+
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i));
                 r.getSoftwares().add(sw);
             }
-
-            r.setDiaDaSemana(request.getParameter("dia").replace(" %C3%A7", "ç").replace("%C3%A1", "á"));
-
+            
             al = fac.getLaboratorioDAO().selectAvailableLabs(r);
         } catch (Exception e) {
             util.Logger.logSevere(e, LaboratoriosDisponiveisJson.class);
         }
 
-        return util.Json.toJson(al);
+        IO.writeln(util.Json.toJson(al));
     }
 }

@@ -126,14 +126,23 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             $(document).on('change', '#modalModuloCombo', function () {
                 var mod = $('#modalModuloCombo').val();
+                var sw = $("#modalSoftwares").val();
                 var dia = $('#modalDiaCombo :selected').val();
-                modalReservaLaboratorio(mod, dia);
+                modalLaboratorio(dia, mod, sw);
             });
 
-            $(document).on('change', '#modalDiaCombo', function () {
+            $(document).on('change', '#modalSoftwares', function () {
                 var mod = $('#modalModuloCombo').val();
+                var sw = $("#modalSoftwares").val();
                 var dia = $('#modalDiaCombo :selected').val();
-                modalReservaLaboratorio(mod, dia);
+                modalLaboratorio(dia, mod, sw);
+            });
+
+            $(document).on('change', '#modalDiaSemana', function () {
+                var mod = $('#modalModuloCombo').val();
+                var sw = $("#modalSoftwares").val();
+                var dia = $('#modalDiaCombo :selected').val();
+                modalLaboratorio(dia, mod, sw);
             });
 
             $(document).on('change', '#modalProfessores', function () {

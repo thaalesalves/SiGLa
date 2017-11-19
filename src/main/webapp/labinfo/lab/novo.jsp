@@ -32,7 +32,6 @@ Copyright (C) 2016 Thales Alves Pereira
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Cadastro de Laboratório | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/icon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -87,13 +86,13 @@ Copyright (C) 2016 Thales Alves Pereira
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Laboratório
-                        <small>cadastro de laboratório</small>
+                        Software
+                        <small>cadastro de software</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li>Laboratórios</li>
-                        <li class="active">Cadastro de laboratório</li>
+                        <li>Softwares</li>
+                        <li class="active">Cadastro de software</li>
                     </ol>
                 </section>
 
@@ -103,8 +102,8 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Cadastro de laboratório</h3>
                         </div>
-                        <div class="box-body">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                            <div class="box-body">
                                 <div class='form-group'>
                                     <label>Número</label>
                                     <input autocomplete="off" name="numero" type='text' class='form-control pull-right' placeholder="2T-27" />
@@ -134,10 +133,10 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <input autocomplete="off" name="ip" id="ip" type='text' class='form-control pull-right' placeholder="10.8.101" data-mask="999.999.999" data-mask-selectonfocus="true"/>
                                     <span class="help-block">Para a 12-14, por exemplo, o prefixo seria <strong>10.8.114</strong></span>
                                 </div>
-                        </div>
-                        <div class="box-footer">
-                            <button value="LaboratorioInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                        </div>
+                            </div>
+                            <div class="box-footer">
+                                <button value="LaboratorioInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                            </div>
                         </form>
                     </div>
                 </section>
@@ -163,12 +162,73 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+
         <script>
             $(function () {
                 $("#ip").mask("999.999.999");
+            });
+
+            $(function () {
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                //Datemask2 mm/dd/yyyy
+                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                //Money Euro
+                $("[data-mask]").inputmask();
+
+                //Date range picker
+                $('#reservation').daterangepicker();
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+                //Date range as a button
+                $('#daterange-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                            },
+                            startDate: moment().subtract(29, 'days'),
+                            endDate: moment()
+                        },
+                        function (start, end) {
+                            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                        }
+                );
+
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                });
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                });
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                });
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                });
+
+                //Colorpicker
+                $(".my-colorpicker1").colorpicker();
+                //color picker with addon
+                $(".my-colorpicker2").colorpicker();
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
             });
         </script>
     </body>

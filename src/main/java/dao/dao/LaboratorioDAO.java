@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Laboratorio;
 import model.Reserva;
+import model.Software;
 
 public interface LaboratorioDAO {
 
@@ -43,4 +44,6 @@ public interface LaboratorioDAO {
     public Integer delete(Laboratorio lab) throws SQLException, ClassNotFoundException;
     
     public void atualizar(Laboratorio lab) throws SQLException, ClassNotFoundException;
+    
+    public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException;
 }

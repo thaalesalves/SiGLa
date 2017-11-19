@@ -1,9 +1,24 @@
+<%@page import="model.Curso"%>
+<%@page import="model.Software"%>
+<%@page import="model.Reserva"%>
 <%@page import="model.Pessoa"%>
 <%@page import="java.util.ArrayList"%>
 <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
+<%--    Reserva r;
+    ArrayList<Software> asw;
+    ArrayList<Curso> ac;
 
+    r = (Reserva) request.getAttribute("reserva");
+
+    if ((r = (Reserva) session.getAttribute("reserva")) == null) {
+        request.getRequestDispatcher(request.getContextPath() + "/InfoController?acao=nova-reserva").forward(request, response);
+    }
+
+    asw = r.getSoftwares();
+    ac = r.getCursos();
+--%>
 <!-- ========== JANELA MODAL ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,8 +80,11 @@
                                     <label>Software</label>
                                 </div>
                             </td>
-                            <td>
-                                <textarea style="width: 80%;" disabled class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software"></textarea>
+                            <td style="padding-left: 17.2%;display:none;" id="td_soli_sw">
+                                <textarea style="width: 100%;" disabled class='form-control pull-right' name="modalSoftware" id="modalSoftware" placeholder="Nome do Software"></textarea>
+                            </td>
+                            <td style="padding-left: 17.2%;display:none;" id="td_res_sw">
+                                <select id="modalSoftwares" name="modalSoftwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required></select>
                             </td>
                         </tr>
                         <tr>

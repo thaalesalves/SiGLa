@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import model.Laboratorio;
 import model.Reserva;
 import model.Modulo;
+import model.Software;
 import util.DatabaseConnection;
 import util.Logger;
 
@@ -157,12 +158,40 @@ public class LaboratorioDAOPsql implements dao.dao.LaboratorioDAO {
     }
 
     @Override
-    public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
-        ArrayList<Laboratorio> arrayLab = this.selectLaboratorios();
-        ArrayList<Laboratorio> labsReservados = this.selectReservedLabs(reserva);
-        arrayLab.removeAll(labsReservados);
+    public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException {
+        ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
+
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_laboratorio WHERE id NOT IN (SELECT s.id from tb_laboratorio s JOIN aux_sw_lab ss ON s.id = ss.lab WHERE ss.sw = ?)");
+
+            for (Software i : softwares) {
+                pstmt.setInt(1, i.getId());
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Laboratorio lab = new Laboratorio();
+                    lab.setId(rs.getInt("id"));
+                    lab.setNumero(rs.getString("numero"));
+                    lab.setComputadores(rs.getInt("qtd_comps"));
+                    lab.setCapacidade(rs.getInt("qtd_alunos"));
+                    arrayLab.add(lab);
+                }
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, LaboratorioDAOPsql.class);
+        }
 
         return arrayLab;
+    }
+
+    @Override
+    public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
+        ArrayList<Laboratorio> arrayLab = selectSoftwareLabs(reserva.getSoftwares());
+        ArrayList<Laboratorio> labsDisponiveis = selectLaboratorios();
+        ArrayList<Laboratorio> labsReservados = selectReservedLabs(reserva);
+        labsDisponiveis.removeAll(labsReservados);
+        labsDisponiveis.removeAll(arrayLab);
+        return labsDisponiveis;
     }
 
     @Override

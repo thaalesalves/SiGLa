@@ -42,9 +42,17 @@ public class IO {
     public static Float readFloat() {
         return in.nextFloat();
     }
-    
+
     public static Double readDouble() {
         return in.nextDouble();
+    }
+
+    public static void writeln(String[] value) {
+        out.println(value);
+    }
+
+    public static void write(String[] value) {
+        out.print(value);
     }
 
     public static void write(String value) {
@@ -66,11 +74,11 @@ public class IO {
     public static void write(Float value) {
         out.print(value);
     }
-    
+
     public static void writeln(Float value) {
         out.println(value);
     }
-    
+
     public static void write(Double value) {
         out.print(value);
     }

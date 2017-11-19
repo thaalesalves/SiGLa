@@ -91,15 +91,21 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             var mods = "vazio";
             var dia = "vazio";
+            var sws = "vazio";
 
             $(document).on('change', '#modulo', function () {
                 mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
-                solicitacaoLabs(mods, dia);
+                solicitacaoLabs(mods, dia, sws);
             });
 
             $(document).on('change', '#dia-semana', function () {
                 dia = $('#dia-semana').val();
-                solicitacaoLabs(mods, dia);
+                solicitacaoLabs(mods, dia, sws);
+            });
+            
+            $(document).on('change', '#softwares', function () {
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
+                solicitacaoLabs(mods, dia, sws);
             });
 
             $(document).on('change', '#usuario', function () {
@@ -164,7 +170,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div id="user-fixo" class='form-group' style="display:none;">
                                     <label>Usuário</label>
-                                    <input type='text' class='form-control pull-right' value="<% out.println(p.getUsername()); %>" placeholder="<% out.println(p.getNomeCompleto()); %>" readonly/>
+                                    <input type='text' class='form-control pull-right' value="<% out.println(p.getNomeCompleto() + " (" + p.getEmail().trim() + ")"); %>" readonly/>
                                 </div>
                                 <div id="user-select" class='form-group' style="display:none;">
                                     <label>Usuário</label>
@@ -219,9 +225,9 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Softwares</label>
-                                    <select name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
+                                    <select id="softwares" name="softwares" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" multiple required>
                                         <% for (Software sw : asw) { %>
-                                        <option id="softwares" value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
+                                        <option value="<% out.println(asw.get(asw.indexOf(sw)).getId()); %>"><% out.println(asw.get(asw.indexOf(sw)).getFabricante() + " " + asw.get(asw.indexOf(sw)).getNome()); %></option>
                                         <%
                                             }
                                         %>
