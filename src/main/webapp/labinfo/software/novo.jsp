@@ -118,6 +118,7 @@ Copyright (C) 2016 Thales Alves Pereira
                         </div>
                         </form>
                     </div>
+                </section>
             </div>
             <%@include file="/includes/footer.jsp" %>
             <div class="control-sidebar-bg"></div>
