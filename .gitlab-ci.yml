@@ -16,7 +16,7 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
   environment:
-    name: staging
-    url: https://staging.example.com
+    name: SiGLa-1.2b
+    url: http://sigla-1.2b.thalesalv.es/
   only:
-  - master
+  - 1.2b
