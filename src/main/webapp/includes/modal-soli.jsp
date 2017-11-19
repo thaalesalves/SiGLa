@@ -111,7 +111,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class='form-group'>
+                                <div>
                                     <label>Dia da Semana</label>
                                 </div>
                             </td>
@@ -124,7 +124,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class='form-group'>
+                                <div>
                                     <label>Qtd. de Alunos</label>
                                 </div>   
                             </td>
