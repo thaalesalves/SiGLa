@@ -58,9 +58,9 @@ function carregaLabs() {
     });
 }
 
-function solicitacaoLabs(modulo, dia) {
+function solicitacaoLabs(modulo, dia, software) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + $("#softwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
