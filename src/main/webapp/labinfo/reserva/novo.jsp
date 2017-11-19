@@ -95,15 +95,21 @@ Copyright (C) 2016 Thales Alves Pereira
 
             $(document).on('change', '#modulo', function () {
                 mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
                 solicitacaoLabs(mods, dia, sws);
             });
 
             $(document).on('change', '#dia-semana', function () {
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
                 dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
                 solicitacaoLabs(mods, dia, sws);
             });
             
             $(document).on('change', '#softwares', function () {
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
                 sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
                 solicitacaoLabs(mods, dia, sws);
             });
@@ -164,9 +170,9 @@ Copyright (C) 2016 Thales Alves Pereira
                         </div>
                         <div id="form-soli-func" class="box-body">                                                                
                             <form action="${pageContext.request.contextPath}/AlmightyController" method="post" onsubmit="secureInjection()">
-                                <div class='form-group' style="display:none;">
-                                    <input readonly value="<% out.println(p.getUsername()); %>" type="text" id="professor" name="professor"/>
-                                    <input readonly value="<% out.println(p.getRole()); %>" type="text" id="role" name="role"/>
+                                <div class='form-group' style="display:none;" >
+                                    <input value="<% out.println(p.getUsername()); %>" type="text" id="professor" name="professor"/>
+                                    <input value="<% out.println(p.getRole()); %>" type="text" id="role" name="role"/>
                                 </div>
                                 <div id="user-fixo" class='form-group' style="display:none;">
                                     <label>Usuário</label>
@@ -183,7 +189,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Turma</label>
-                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" />
+                                    <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" autocomplete="off" />
                                 </div>
                                 <div class='form-group'>
                                     <label>Curso</label>
@@ -196,7 +202,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" min="0" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" />
+                                    <input name="qtd" min="0" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" autocomplete="off"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
