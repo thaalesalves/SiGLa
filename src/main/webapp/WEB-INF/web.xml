@@ -31,10 +31,6 @@
         <servlet-class>controller.RedirectController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ReservaController</servlet-name>
-        <servlet-class>controller.ReservaController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>JsonController</servlet-name>
         <servlet-class>controller.JsonController</servlet-class>
     </servlet>
@@ -55,10 +51,6 @@
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
         <url-pattern>/AlmightyController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReservaController</servlet-name>
-        <url-pattern>/ReservaController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JsonController</servlet-name>
