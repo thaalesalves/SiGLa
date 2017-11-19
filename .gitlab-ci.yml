@@ -1,7 +1,4 @@
-maven_build:
-  script: mvn verify
-  
-  stages:
+stages:
   - test
   - build
   - deploy
@@ -19,7 +16,7 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
   environment:
-    name: SiGLa-1.2b
-    url: http://http://sigla-1.2b.thalesalv.es/
+    name: staging
+    url: https://staging.example.com
   only:
   - master
