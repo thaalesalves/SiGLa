@@ -57,7 +57,7 @@ function carregaEquip() {
                 }
 
                 cont += '<tr>';
-                cont += '<td>' + obj[i].id + '</td>';
+                cont += '<td data-toggle="modal" data-target="#myModal" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
                 cont += '<td>' + obj[i].nome + '</td>';
                 cont += '<td>' + obj[i].lab.numero + '</td>';
                 cont += '<td>' + obj[i].ip + '</td>';
