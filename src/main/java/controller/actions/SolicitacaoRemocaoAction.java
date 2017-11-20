@@ -19,7 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -29,7 +28,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mailsender.Mail;
+import mailsender.SolicitacaoReprovacaoMail;
 import model.Solicitacao;
+import util.ActiveDirectory;
 
 public class SolicitacaoRemocaoAction implements ICommand {
 
@@ -37,13 +39,25 @@ public class SolicitacaoRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
+            Mail mail = new SolicitacaoReprovacaoMail();
             Solicitacao s = new Solicitacao();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
             
             String id = request.getParameter("solicitacao_id").trim();
             s.setId(Integer.parseInt(id));
 
+            s = fac.getSolicitacaoDAO().selectSolicitacao(s);
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
+            
+            s.getPessoa().setEmail(ad.getMail(s.getPessoa()));
+            s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
+            s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
+            s.getPessoa().setShownName(ad.getDisplayName(s.getPessoa()));
+            
+            mail.setPessoa(s.getPessoa());
+            mail.setSolicitacao(s);
+            mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             

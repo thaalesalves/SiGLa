@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package mailsender;
 
@@ -29,7 +29,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Pessoa;
 
-public class MailMessage extends Mail {
+public class ModalMailMessage extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
@@ -42,11 +42,6 @@ public class MailMessage extends Mail {
         Transport.send(message);
     }
 
-    @Override
-    public String getMessage(Mail mail) {
-        return "";
-    }
-    
     @Override
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
@@ -85,6 +80,11 @@ public class MailMessage extends Mail {
     @Override
     public String getSubject() {
         return subject;
+    }
+
+    @Override
+    public String getMessage(Mail mail) {
+        return "";
     }
 
     @Override

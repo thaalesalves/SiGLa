@@ -36,7 +36,32 @@
                                 <b>Empresa</b> <a class="pull-right" id="modal-perfil-empresa"></a>
                             </li>
                             <li class="list-group-item">
-                                <%@include file="/includes/modal-email-form.jsp"%>
+                                <div class="box box-info">
+                                    <div class="box-header">
+                                        <i class="fa fa-envelope"></i>
+                                        <h3 class="box-title" id="modal-email-titulo"></h3>
+                                    </div>
+                                    <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                                        <div class="box-body">
+                                            <div class="form-group" style="display:none;">
+                                                <input autocomplete="off" required type="text" class="form-control" name="modal-email-pag" id="modal-email-pag" placeholder="URL">
+                                            </div>
+                                            <div class="form-group">
+                                                <input readonly autocomplete="off" required type="email" class="form-control" name="modal-email-dest" id="modal-email-dest" placeholder="Destinatário">
+                                            </div>
+                                            <div class="form-group">
+                                                <input autocomplete="off" required type="text" class="form-control" name="modal-email-ass" placeholder="Assunto">
+                                            </div>
+                                            <div>
+                                                <textarea required name="modal-email-msg" class="textarea" placeholder="Mensagem" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <button value="EnviarEmailModal" name="acao" type="submit" class="pull-right btn btn-default" id="sendEmail">Enviar
+                                                <i class="fa fa-arrow-circle-right"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
                             </li>
                         </ul>
                     </div>

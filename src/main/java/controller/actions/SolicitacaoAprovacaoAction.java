@@ -63,16 +63,16 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r = fac.getReservaDAO().insert(r);
             
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
-            mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            mail.setPessoa(r.getPessoa());
             mail.setReserva(r);
-            //mail.sendMail(mail);
+            mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
 
             session.setAttribute("msg", "Erro ao efetivar a solicitação");
             session.setAttribute("status", "error");
 
-            return request.getContextPath() + "/controle/listar-solicitacoes";
+            return request.getContextPath() + "/controle/solicitacoes";
         }
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");

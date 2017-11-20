@@ -44,13 +44,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
         HttpSession session = request.getSession();
 
         try {
-            Mail mail = new SolicitacaoMail();
             DAOFactory fac = DAOFactory.getFactory();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             String role = request.getParameter("role");
             boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
 
             if (role.equals("admin") || role.equals("funcionario")) {
+                Mail mail = new SolicitacaoMail();
                 Reserva r = new Reserva();
 
                 String[] modulos = request.getParameterValues("modulo");
@@ -97,11 +97,10 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 return request.getContextPath() + "/reserva/novo";
             } else if (role.equals("coordenador") || role.equals("professor")) {
+                Mail mail = new SolicitacaoMail();
                 Solicitacao s = new Solicitacao();                
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
-                
-                String username = request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", "");
                 
                 s.getPessoa().setUsername(request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", ""));
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
@@ -137,7 +136,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 mail.setPessoa(s.getPessoa());
                 mail.setSolicitacao(s);
-                //mail.sendMail(mail);
+                mail.sendMail(mail);
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

@@ -35,16 +35,16 @@ import model.Solicitacao;
 
 public abstract class Mail {
 
-    private Reserva reserva = new Reserva();
-    private Solicitacao solicitacao = new Solicitacao();
-    private Pessoa pessoa = new Pessoa();
-    private Software software = new Software();
-    private Laboratorio laboratorio = new Laboratorio();
-    private Curso curso = new Curso();
-    private String sender;
-    private String recipient;
-    private String subject;
-    private String message;
+    protected Reserva reserva = new Reserva();
+    protected Solicitacao solicitacao = new Solicitacao();
+    protected Pessoa pessoa = new Pessoa();
+    protected Software software = new Software();
+    protected Laboratorio laboratorio = new Laboratorio();
+    protected Curso curso = new Curso();
+    protected String sender;
+    protected String recipient;
+    protected String subject;
+    protected String message;
 
     public abstract String getMessage(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException;            
     public abstract void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException;

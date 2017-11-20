@@ -27,7 +27,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Modulo;
+import model.Pessoa;
+import model.Reserva;
 import model.Software;
+import model.Solicitacao;
 import util.Logger;
 
 public class SolicitacaoMail extends Mail {
@@ -40,7 +43,7 @@ public class SolicitacaoMail extends Mail {
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("Solicitação de Reserva");
             message.setContent(getMessage(mail), "text/html");
-            message.setSentDate(new Date());            
+            message.setSentDate(new Date());
             Transport.send(message);
         } catch (MessagingException e) {
             Logger.logWarning(e, this.getClass());
@@ -53,15 +56,15 @@ public class SolicitacaoMail extends Mail {
     public String getMessage(Mail mail) {
         String softwares = "";
         String modulos = "";
-        
+
         for (Software s : mail.getSolicitacao().getSoftwares()) {
             softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
         }
-        
+
         for (Modulo m : mail.getSolicitacao().getModulos()) {
             modulos = modulos + ", " + m.getId() + "º módulo";
         }
-        
+
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
                 + "Sua solicitação foi recebida e será avaliada pela nossa equipe. Você receberá um email dizendo se foi possível atendê-lo ou não.\n\n"
                 + "Número da solicitação: " + mail.getSolicitacao().getId() + "\n"
@@ -72,5 +75,25 @@ public class SolicitacaoMail extends Mail {
                 + "Módulos: " + modulos.substring(1) + "\n"
                 + "Softwares: " + softwares.substring(1) + "\n"
                 + "Observação: " + mail.getSolicitacao().getObservacao();
+    }
+
+    @Override
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    @Override
+    public void setSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+    }
+
+    @Override
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    @Override
+    public Solicitacao getSolicitacao() {
+        return solicitacao;
     }
 }

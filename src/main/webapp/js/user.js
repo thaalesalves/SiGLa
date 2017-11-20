@@ -31,6 +31,9 @@ function getUser(username) {
             $("#modal-perfil-depto").html(obj.depto);
             $("#modal-perfil-cargo").html(obj.cargo);
             $("#modal-perfil-empresa").html(obj.empresa);
+            $("#modal-email-titulo").html("Contato direto com " + obj.nome);
+            $("#modal-email-dest").val(obj.email);
+            $("#modal-email-pag").val(window.location.href);
         }
     });
 }

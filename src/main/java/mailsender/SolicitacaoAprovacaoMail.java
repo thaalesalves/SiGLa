@@ -29,7 +29,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Modulo;
+import model.Pessoa;
 import model.Software;
+import model.Solicitacao;
 import util.Logger;
 
 public class SolicitacaoAprovacaoMail extends Mail {
@@ -52,18 +54,18 @@ public class SolicitacaoAprovacaoMail extends Mail {
     }
 
     @Override
-    public String getMessage(Mail mail) {    
+    public String getMessage(Mail mail) {
         String softwares = "";
         String modulos = "";
-        
+
         for (Software s : mail.getReserva().getSoftwares()) {
             softwares = softwares + ", " + s.getFabricante() + " " + s.getNome();
         }
-        
+
         for (Modulo m : mail.getReserva().getModulos()) {
             modulos = modulos + ", " + m.getId() + "º módulo";
         }
-        
+
         return "Olá, " + mail.getPessoa().getNome() + "!\n"
                 + "Sua solicitação foi aprovada!\n\n"
                 + "Número da solicitação: " + mail.getReserva().getId() + "\n"
@@ -74,6 +76,26 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "Módulos: " + modulos.substring(1) + "\n"
                 + "Softwares: " + softwares.substring(1) + "\n"
                 + "Observação: " + mail.getReserva().getObservacao() + "\n"
-                + "Laboratório: " + mail.getReserva().getLab().getNumero();                
+                + "Laboratório: " + mail.getReserva().getLab().getNumero();
+    }
+
+    @Override
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    @Override
+    public void setSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+    }
+
+    @Override
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    @Override
+    public Solicitacao getSolicitacao() {
+        return solicitacao;
     }
 }
