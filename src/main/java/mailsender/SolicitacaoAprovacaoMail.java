@@ -700,7 +700,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "                        \n"
                 + "                            <h1 style='text-align: center;'>Sua solicitação foi aprovada!</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A solicitação <strong>#" + mail.getReserva().getId() + "</strong> foi aprovada, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
+                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong> foi aprovada, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
                 + "<br>\n"
                 + "A reserva foi feita para o <strong>" + mail.getReserva().getTurma() + "</strong> de <strong>" + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos, </strong>de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e foi registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
                 + "\n"

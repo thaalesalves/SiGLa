@@ -35,6 +35,7 @@ public class Reserva implements Serializable {
     private String diaDaSemana;
     private String turma;
     private String observacao;
+    private String motivoRemocao;
     private Pessoa pessoa = new Pessoa();
     private Laboratorio lab = new Laboratorio();
     private Software software = new Software();

@@ -19,8 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.ReservaDAO;
-import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -72,6 +70,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
             mail.setPessoa(p);
             mail.setReserva(r);
+            mail.setSolicitacao(s);
             mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

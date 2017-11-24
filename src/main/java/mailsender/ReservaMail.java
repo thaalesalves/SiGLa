@@ -40,7 +40,7 @@ public class ReservaMail extends Mail {
         try {
             final Message message = new MimeMessage(getSession());
             message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getReserva().getPessoa().getEmail()));
             message.setSubject("SiGLa | Reserva de Laboratório");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");
             message.setSentDate(new Date());
