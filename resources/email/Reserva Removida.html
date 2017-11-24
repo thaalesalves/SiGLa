@@ -630,11 +630,11 @@
                         
                         <td valign='top' class='mcnTextContent' style='padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;'>
                         
-                            <h1 style='text-align: center;'>Reserva efetuada!</h1>
+                            <h1 style='text-align: center;'>Opa! Sua reserva foi invalidada!</h1>
 
-                            <p style='text-align: center;'>Olá, <strong>${user}</strong>. <strong>${funcionario.nomeCompleto}</strong> efetuou uma reserva para você, e seu laboratório está prontinho para ser usado!<br>
+                            <p style='text-align: center;'>Olá, <strong>${user}</strong>. A reserva <strong>#${reserva.id}</strong> foi invalidada por <strong>${funcionario.nomeCompleto}</strong> por <strong>${reserva.motivo}</strong>.<br>
 <br>
-A reserva foi feita para o <strong>${turma.turma}</strong> de <strong>${turma.curso}</strong>, que tem <strong>${turma.alunos} alunos, </strong>às <strong>${solicitacao.dia}</strong>, e foi registrada como reserva <strong>#${solicitacao.id}</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>
+A reserva havia sido feita para o <strong>${turma.turma}</strong> de <strong>${turma.curso}</strong>, que tem <strong>${turma.alunos} alunos, </strong>às <strong>${solicitacao.dia}</strong>, e havia sido registrada como reserva <strong>#${solicitacao.id}</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso você ache que a reserva foi removida por engano, entre em contato com a nossa equipe ou com a coordenação do seu curso.</p>
 
 <p style='text-align: left;'><strong>Módulos:</strong> ${solicitacao.modulos}<br>
 <strong>Softwares:</strong> ${solicitacao.softwares}<br>

@@ -28,7 +28,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mailsender.Mail;
+import mailsender.ReservaRemocaoMail;
+import model.Pessoa;
 import model.Reserva;
+import util.ActiveDirectory;
 
 /**
  *
@@ -40,12 +44,23 @@ public class ReservaRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         try {
+            Mail mail = new ReservaRemocaoMail();
             Reserva r = new Reserva();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
 
             r.setId(Integer.parseInt(request.getParameter("reserva_id")));
-
+            r = fac.getReservaDAO().selectReservaId(r);
+            r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
+            r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
+            r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
+            r.setMotivoRemocao(request.getParameter("motivo"));
+            
             fac.getReservaDAO().delete(r);
+            
+            mail.setReserva(r);
+            mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            mail.sendMail(mail);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
