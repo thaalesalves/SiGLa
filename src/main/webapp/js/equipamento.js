@@ -64,7 +64,7 @@ function carregaEquip() {
                 cont += '<td>' + obj[i].mac + '</td>';
                 cont += '<td>' + obj[i].config + '</td>';
                 cont += '<td>' + status + '</td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalEquipamento(' + obj[i].id + ')"></button></center></td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')"></button></center></td>';
                 cont += '</tr>';
             });
             cont += '</tbody></table>';

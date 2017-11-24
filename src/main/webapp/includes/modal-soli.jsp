@@ -6,19 +6,7 @@
 <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
-<%--    Reserva r;
-    ArrayList<Software> asw;
-    ArrayList<Curso> ac;
 
-    r = (Reserva) request.getAttribute("reserva");
-
-    if ((r = (Reserva) session.getAttribute("reserva")) == null) {
-        request.getRequestDispatcher(request.getContextPath() + "/InfoController?acao=nova-reserva").forward(request, response);
-    }
-
-    asw = r.getSoftwares();
-    ac = r.getCursos();
---%>
 <!-- ========== JANELA MODAL ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -154,14 +142,24 @@
                                 </select>
                             </td>
                         </tr>
+                        <tr style="display: none;" id="txtRemocao">
+                            <td>
+                                <div class='form-group'>
+                                    <label>Motivo da Remoção</label>
+                                </div>   
+                            </td>
+                            <td>
+                                <input style="width: 80%;" type='textarea' class='form-control pull-right' name="modalRemocao" id="modalRemocao" placeholder="Motivo da remoção" />
+                            </td>
+                        </tr>
                     </table>
                 </div>                        
                 <div id="modal-footer" class="modal-footer">
-                    <!--button data-toggle="modal" data-target="#labModal" type="button" class="btn btn-success" onclick="modalLabs()">Aprovar</button-->
                     <button id="btnModalAprovar" style="display:none;" type="button" class="btn btn-success" onclick="aprovarReserva()">Aprovar</button>
                     <button name="acao" value="ReservaAtualizacao" id="btnModalAtualizar" style="display:none;" type="submit" class="btn btn-success">Atualizar</button>
                     <button id="btnModalReprovar" style="display:none;" type="button" class="btn btn-danger" onclick="reprovarReserva()">Reprovar</button>
-                    <button id="btnModalExcluir" style="display:none;" type="button" class="btn btn-danger" onclick="removerReserva()">Excluir</button><br/>
+                    <button id="btnModalExcluir" style="display:none;" type="button" class="btn btn-danger" onclick="$('#btnModalExcluir2').show();$('#btnModalExcluir').hide();$('#txtRemocao').show();">Excluir</button>
+                    <button id="btnModalExcluir2" style="display:none;" type="button" class="btn btn-danger" onclick="removerReserva()">Excluir</button><br/>
                 </div>
             </div>
         </div>
