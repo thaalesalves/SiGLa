@@ -4,7 +4,7 @@
 
     <groupId>es.thalesalv</groupId>
     <artifactId>sigla</artifactId>
-    <version>1.2b</version>
+    <version>1.3b</version>
     <packaging>war</packaging>
 
     <name>SiGLa</name>
@@ -109,8 +109,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
@@ -127,6 +127,42 @@
         </plugins>
 
         <resources>
+            <!-- EMAIL -->
+            <resource>
+                <directory>resources/email</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>Solicitação.html</include>
+                    <include>Reserva.html</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/email</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>Solicitação.html</exclude>
+                    <exclude>Reserva.html</exclude>
+                </excludes>
+            </resource>
+            
+            <!-- BANCO DE DADOS -->
+            <resource>
+                <directory>resources/db</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>psql.sql</include>
+                    <include>mysql.sql</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>resources/db</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>psql.sql</exclude>
+                    <exclude>mysql.sql</exclude>
+                </excludes>
+            </resource>
+            
             <!-- PROPERTIES -->
             <resource>
                 <directory>resources/props</directory>
@@ -146,4 +182,5 @@
             </resource>
         </resources>
     </build>
+    <description>O SiGLa é um sistema integrato para gestão de laboratórios de informática, e contempla a gestão de reservas, controle de equipamento, cursos, laboratórios e solicitações, além de ser integrado com domínios do ActiveDirectory.</description>
 </project>

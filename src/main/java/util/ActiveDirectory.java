@@ -111,20 +111,6 @@ public class ActiveDirectory {
     }
 
     /**
-     * Busca todos os usuários dentro de um grupo específico
-     *
-     * @param g classe de modelo Grupo
-     * @return
-     * @throws javax.naming.NamingException se uma operação de resolução de
-     * nomes falhar
-     */
-    public NamingEnumeration<SearchResult> searchUser(Grupo g) throws NamingException {
-        String filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + "))";
-
-        return this.dirContext.search(ldap_base, filter, this.searchCtls);
-    }
-
-    /**
      * Busca uma pessoa dentro de um grupo específico
      *
      * @return
@@ -144,6 +130,20 @@ public class ActiveDirectory {
         return this.dirContext.search(ldap_base, filter, this.searchCtls);
     }
 
+    /**
+     * Busca todos os usuários dentro de um grupo específico
+     *
+     * @param g classe de modelo Grupo
+     * @return
+     * @throws javax.naming.NamingException se uma operação de resolução de
+     * nomes falhar
+     */
+    public NamingEnumeration<SearchResult> searchUserGroup(Grupo g) throws NamingException {
+        String filter = "(&(objectCategory=person)(objectClass=user)(" + g.getGrupo() + "))";
+
+        return this.dirContext.search(ldap_base, filter, this.searchCtls);
+    }
+    
     /**
      * Teste se um usuário realmente existe no contexto do diretório
      *

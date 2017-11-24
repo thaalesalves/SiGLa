@@ -52,12 +52,17 @@ public class LoginAction implements ICommand, Serializable {
             ActiveDirectory ad = new ActiveDirectory();
             Pessoa p = new Pessoa();
             DAOFactory fac = DAOFactory.getFactory();
+            ArrayList<Grupo> arrayg;
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", ""));
             p.setSenha(request.getParameter("password"));
 
-            if (ad.login(p)) {
+            if ((arrayg = fac.getGrupoDAO().select()).isEmpty()) {
+                session.setAttribute("msg", "Houve um problema ao buscar os grupos de acesso. Entre em contato com o suporte.");
+                session.setAttribute("status", "error");
+                ad.closeLdapConnection();
+                return request.getContextPath();
+            } else if (ad.login(p)) {
                 session.setAttribute("ad", ad);
-                ArrayList<Grupo> arrayg = fac.getGrupoDAO().select();
                 int c = 0;
 
                 for (Grupo g : arrayg) {
@@ -99,21 +104,26 @@ public class LoginAction implements ICommand, Serializable {
             System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
             return request.getContextPath();
         } catch (AuthenticationException e) {
-            session.invalidate();
+            session.removeAttribute("pessoa");
+            session.removeAttribute("ad");
+            session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
             System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
             return request.getContextPath();
         } catch (Exception e) {
-            session.invalidate();
+            session.removeAttribute("pessoa");
+            session.removeAttribute("ad");
+            session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
             System.out.println("Erro ao conectar: " + e.getMessage());
             return request.getContextPath() + "/error/error";
         }
-
-        session.invalidate();
+        session.removeAttribute("pessoa");
+        session.removeAttribute("ad");
+        session.removeAttribute("todos-usuarios");
         session.setAttribute("msg", "Erro ao fazer login");
         session.setAttribute("status", "error");
         return request.getContextPath();

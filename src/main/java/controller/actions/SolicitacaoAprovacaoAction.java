@@ -35,6 +35,7 @@ import mailsender.SolicitacaoAprovacaoMail;
 import model.Pessoa;
 import model.Reserva;
 import model.Solicitacao;
+import util.ActiveDirectory;
 
 public class SolicitacaoAprovacaoAction implements ICommand {
 
@@ -47,6 +48,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             Reserva r = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
             Mail mail = new SolicitacaoAprovacaoMail();
+            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
             s.setId(Integer.parseInt(request.getParameter("solicitacao")));
             s = fac.getSolicitacaoDAO().selectSolicitacao(s);
@@ -62,8 +64,13 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.setSoftwares(s.getSoftwares());
             r = fac.getReservaDAO().insert(r);
             
+            Pessoa p = r.getPessoa();
+            p.setEmail(ad.getMail(p));
+            p.setNome(ad.getGivenName(p));
+            p.setNomeCompleto(ad.getCN(p));
+            
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
-            mail.setPessoa(r.getPessoa());
+            mail.setPessoa(p);
             mail.setReserva(r);
             mail.sendMail(mail);
         } catch (Exception e) {

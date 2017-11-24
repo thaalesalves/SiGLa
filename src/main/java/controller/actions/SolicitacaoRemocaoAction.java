@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
 import mailsender.SolicitacaoReprovacaoMail;
+import model.Pessoa;
 import model.Solicitacao;
 import util.ActiveDirectory;
 
@@ -55,7 +56,12 @@ public class SolicitacaoRemocaoAction implements ICommand {
             s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
             s.getPessoa().setShownName(ad.getDisplayName(s.getPessoa()));
             
-            mail.setPessoa(s.getPessoa());
+            Pessoa p = s.getPessoa();
+            p.setEmail(ad.getMail(p));
+            p.setNome(ad.getGivenName(p));
+            p.setNomeCompleto(ad.getCN(p));
+            
+            mail.setPessoa(p);
             mail.setSolicitacao(s);
             mail.sendMail(mail);
         } catch (Exception e) {

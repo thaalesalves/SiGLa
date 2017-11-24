@@ -53,7 +53,7 @@ public abstract class Mail {
         final Properties props = new Properties();
         
         props.put("mail.smtp.starttls.enable","true");
-        props.put("mail.smtp.host", "in-v3.mailjet.com");
+        props.put("mail.smtp.host", "smtp.migadu.com");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "587");
         
@@ -62,8 +62,8 @@ public abstract class Mail {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(
-                        "64433914af1f6f49c45c5bb2a6c2dbac", 
-                        "b75f90b868d82ea6e0d30b3aba4ea4ce"
+                        "sigla@thalesalv.es", 
+                        "Thales33"
                 );
             }
         });
@@ -76,7 +76,7 @@ public abstract class Mail {
         final Mail mail = m;
         
         props.put("mail.smtp.starttls.enable","true");
-        props.put("mail.smtp.host", "in-v3.mailjet.com");
+        props.put("mail.smtp.host", "smtp.migadu.com");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "587");
         
@@ -86,8 +86,8 @@ public abstract class Mail {
             protected PasswordAuthentication getPasswordAuthentication() {
                 //return new PasswordAuthentication(mail.getPessoa().getEmail(), mail.getPessoa().getSenha());
                 return new PasswordAuthentication(
-                        "64433914af1f6f49c45c5bb2a6c2dbac", 
-                        "b75f90b868d82ea6e0d30b3aba4ea4ce"
+                        mail.getPessoa().getEmail(), 
+                        mail.getPessoa().getSenha()
                 );
             }
         });

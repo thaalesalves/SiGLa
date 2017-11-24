@@ -33,7 +33,7 @@ import model.Software;
 import model.Solicitacao;
 import util.Logger;
 
-public class SolicitacaoReprovacaoMail extends Mail {
+public class ReservaMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
@@ -41,7 +41,7 @@ public class SolicitacaoReprovacaoMail extends Mail {
             final Message message = new MimeMessage(getSession());
             message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
-            message.setSubject("SiGLa | Solicitação de Reserva");
+            message.setSubject("SiGLa | Reserva de Laboratório");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");
             message.setSentDate(new Date());
             Transport.send(message);
@@ -58,11 +58,11 @@ public class SolicitacaoReprovacaoMail extends Mail {
         String softwares = "";
         String modulos = "";
 
-        for (Software s : mail.getSolicitacao().getSoftwares()) {
+        for (Software s : mail.getReserva().getSoftwares()) {
             softwares += s.getFabricante() + " " + s.getNome() + "; ";
         }
 
-        for (Modulo m : mail.getSolicitacao().getModulos()) {
+        for (Modulo m : mail.getReserva().getModulos()) {
             modulos += m.getId() + "º módulo; ";
         }
 
@@ -698,15 +698,15 @@ public class SolicitacaoReprovacaoMail extends Mail {
                 + "                        \n"
                 + "                        <td valign='top' class='mcnTextContent' style='padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;'>\n"
                 + "                        \n"
-                + "                            <h1 style='text-align: center;'>Opa! Sua solicitação foi recusada!</h1>\n"
+                + "                            <h1 style='text-align: center;'>Reserva efetuada!</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getSolicitacao().getPessoa().getNome() + "</strong>. Infelizmente a solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong> foi recusada pois não temos como atendê-lo. Por favor, faça outra solicitação alterando alguns dados chave, como módulos e dia da semana, para que possamos revisar. Caso você ache que sua reserva foi recusada por engano, é só entrar em contato com a gente que nós damos um jeito!<br>\n"
+                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. <strong>" + mail.getPessoa().getNomeCompleto() + "</strong> efetuou uma reserva para você, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
                 + "<br>\n"
-                + "A solicitção havia sido feita para o <strong>" + mail.getSolicitacao().getTurma() + "</strong> de <strong>" + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getSolicitacao().getQtdAlunos() + " alunos</strong>, de <strong>" + mail.getSolicitacao().getDiaSemana() + "</strong>, e havia sido registrada como solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
+                + "A reserva foi feita para o <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos</strong>, de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e foi registrada como solicitação <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
                 + "\n"
                 + "<p style=\'text-align: left;\'><strong>Módulos:</strong> " + modulos + "<br>\n"
                 + "<strong>Softwares:</strong> " + softwares + "<br>\n"
-                + "<strong>Observação:</strong> " + mail.getSolicitacao().getObservacao() + "</p>\n"
+                + "<strong>Observação:</strong> " + mail.getReserva().getObservacao() + "</p>\n"
                 + "\n"
                 + "                        </td>\n"
                 + "                    </tr>\n"

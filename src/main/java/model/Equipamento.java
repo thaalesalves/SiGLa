@@ -29,10 +29,10 @@ public class Equipamento implements Serializable {
     private String ip;
     private String mac;
     private String config;
+    private String motivo;
+    private String dataRetirada;
     private Integer status;
     private Integer id;
     private Integer qtd;
     private Laboratorio lab;
-    private String motivo;
-    private String dataRetirada;
 }

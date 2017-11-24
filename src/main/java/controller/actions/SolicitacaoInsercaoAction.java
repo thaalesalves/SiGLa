@@ -19,6 +19,7 @@ package controller.actions;
 import dao.DAOFactory;
 import dao.dao.CursoDAO;
 import dao.dao.ReservaDAO;
+import dao.dao.SoftwareDAO;
 import dao.dao.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,8 +31,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
+import mailsender.ReservaMail;
 import mailsender.SolicitacaoMail;
 import model.Modulo;
+import model.Pessoa;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
@@ -50,7 +53,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
             boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
 
             if (role.equals("admin") || role.equals("funcionario")) {
-                Mail mail = new SolicitacaoMail();
+                Mail mail = new ReservaMail();
                 Reserva r = new Reserva();
 
                 String[] modulos = request.getParameterValues("modulo");
@@ -67,7 +70,12 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.setDiaDaSemana(request.getParameter("dia-semana").trim());
                 r.setCurso(fac.getCursoDAO().selectId(r.getCurso()));
                 r.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
-
+                r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
+                r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
+                r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
+                
+                Pessoa p = (Pessoa) session.getAttribute("pessoa");
+                
                 for (String i : modulos) {
                     Modulo m = new Modulo();
                     m.setId(Integer.parseInt(i.trim()));
@@ -77,6 +85,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 for (String i : softwares) {
                     Software sw = new Software();
                     sw.setId(Integer.parseInt(i.trim()));
+                    sw = fac.getSoftwareDAO().selectId(sw);
                     r.getSoftwares().add(sw);
                 }
 
@@ -88,7 +97,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 r = fac.getReservaDAO().insert(r);
 
-                mail.setPessoa(r.getPessoa());
+                mail.setPessoa(p);
                 mail.setReserva(r);
                 mail.sendMail(mail);
 
@@ -98,10 +107,10 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 return request.getContextPath() + "/reserva/novo";
             } else if (role.equals("coordenador") || role.equals("professor")) {
                 Mail mail = new SolicitacaoMail();
-                Solicitacao s = new Solicitacao();                
+                Solicitacao s = new Solicitacao();
                 String[] modulos = request.getParameterValues("modulo");
                 String[] softwares = request.getParameterValues("softwares");
-                
+
                 s.getPessoa().setUsername(request.getParameter("professor").replaceAll("\n", "").replaceAll("\r", ""));
                 s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
                 s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
@@ -114,6 +123,11 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 s.setModulo(request.getParameter("modulo").trim());
                 s.setCurso(fac.getCursoDAO().selectId(s.getCurso()));
 
+                Pessoa p = s.getPessoa();
+                p.setEmail(ad.getMail(p));
+                p.setNome(ad.getGivenName(p));
+                p.setNomeCompleto(ad.getCN(p));
+
                 for (String i : modulos) {
                     Modulo m = new Modulo();
                     m.setId(Integer.parseInt(i.trim()));
@@ -123,6 +137,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 for (String i : softwares) {
                     Software sw = new Software();
                     sw.setId(Integer.parseInt(i.trim()));
+                    sw = fac.getSoftwareDAO().selectId(sw);
                     s.getSoftwares().add(sw);
                 }
 
@@ -134,7 +149,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 s = fac.getSolicitacaoDAO().insertSolicitacoes(s);
 
-                mail.setPessoa(s.getPessoa());
+                mail.setPessoa(p);
                 mail.setSolicitacao(s);
                 mail.sendMail(mail);
             }
