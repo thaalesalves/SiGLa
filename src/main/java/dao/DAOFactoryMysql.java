@@ -23,6 +23,7 @@ import dao.dao.ModuloDAO;
 import dao.dao.SoftwareDAO;
 import dao.dao.SolicitacaoDAO;
 import dao.dao.CursoDAO;
+import dao.dao.IncidenteDAO;
 import dao.dao.ReservaDAO;
 
 public class DAOFactoryMysql extends DAOFactory {
@@ -65,5 +66,10 @@ public class DAOFactoryMysql extends DAOFactory {
     @Override
     public SolicitacaoDAO getSolicitacaoDAO() {
         return new dao.dao.mysql.SolicitacaoDAOMysql();
+    }
+
+    @Override
+    public IncidenteDAO getIncidenteDAO() {
+        return new dao.dao.mysql.IncidenteDAOMysql();
     }
 }

@@ -1,3 +1,4 @@
+<%@page import="model.Pessoa"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -7,16 +8,16 @@
 <script src="${pageContext.request.contextPath}/js/equipamento.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
-<!-- ========== JANELA MODAL ========== -->
+<!-- ========== JANELA MODAL DE INCIDENTE ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-    <div class="modal fade" id="myEquip" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalIncidente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title equip-tit" id="solicitacao-modal-titulo" >Equipamento</h5>
+                    <h5 class="modal-title equip-tit" id="solicitacao-modal-titulo" >Incidente</h5>
                 </div>     
                 <div class="modal-body">
                     <table cellpadding="0" cellspacing="0" border="0">
@@ -28,70 +29,119 @@
                             </td>
                             <td style="width:100%;">
                                 <div class="form-group">
-                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-id" id="equip-id" placeholder="ID do Computador" />
+                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="incidente_id" id="incidente_id" placeholder="ID do Incidente" />
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <label class="soli-tit">NetBIOS</label>
+                                    <label class="soli-tit">Data de Abertura</label>
                                 </div>
                             </td>
                             <td style="width:100%;">
                                 <div class="form-group">
-                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-netbios" id="equip-netbios" placeholder="Nome NetBIOS" />
+                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="incidente_data" id="incidente_data" placeholder="Data de Abertura" />
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class='form-group'>
-                                    <label>Endereço MAC</label>                                            
+                                    <label>Computador Retirado</label>                                            
                                 </div>
                             </td>
                             <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;" type='text' class='form-control pull-right equip-mac' name="equip-mac" id="equip-mac" placeholder="Endereço físico" data-mask="AA:AA:AA:AA:AA:AA" data-mask-selectonfocus="true"/>
+                                <input style="width: 100%;" readonly type='text' class='form-control pull-right equip-mac' name="incidente_computador" id="incidente_computador" placeholder="Computador Retirado"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <div class='form-group'>
-                                    <label>Endereço IP</label>                                            
+                                    <label>Aberto por</label>                                            
                                 </div>
                             </td>
                             <td>
-                                <input style="width: 80%;" readonly type='text' class='form-control pull-right' name="equip-ip" id="equip-ip" placeholder="Endereço lógico" />
+                                <input style="width: 80%;" value="<%=p.getNomeCompleto()%>" readonly type='text' class='form-control pull-right' placeholder="Nome de quem abriu o chamado" />
+                            </td>
+                            <td style="display:none;">
+                                <input style="width: 80%;" value="<%=p.getUsername()%>" readonly type='text' class='form-control pull-right' name="incidente_abridor" id="incidente_abridor" placeholder="Nome de quem abriu o chamado" />
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding-top: 5%;">
+                            <td>
                                 <div class='form-group'>
-                                    <label>Status</label>
+                                    <label>Descrição</label>                                            
                                 </div>
                             </td>
                             <td>
-                                <input type="text" style="width: 80%;" disabled class='form-control pull-right' name="equip-status" id="equip-status" placeholder="Status"></textarea>
+                                <input style="width: 80%;" readonly type='textarea' class='form-control pull-right' name="incidente_descricao" id="incidente_descricao" placeholder="Motivo da retirada" />
+                            </td>
+                        </tr>Ï
+                    </table>
+                </div>                        
+                <div id="modal-footer" class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- ========== JANELA MODAL DE ABERTURA DE INCIDENTE ========== -->
+<form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+    <div class="modal fade" id="modalAberturaIncidente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title equip-tit" id="solicitacao-modal-titulo" >Abertura de Incidente</h5>
+                </div>     
+                <div class="modal-body">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label class="soli-tit">Data de Abertura</label>
+                                </div>
+                            </td>
+                            <td style="width:100%;">
+                                <div class="form-group">
+                                    <input style="width: 80%;" value="<%=timeStamp%>" readonly type="text" class="form-control pull-right" name="incidente_data_abertura" id="incidente_data_abertura" placeholder="Data de Abertura" />
+                                </div>
                             </td>
                         </tr>
-                        <tr  id="data-retirado-div">
-                            <td style="padding-top: 5%;">
+                        <tr>
+                            <td>
                                 <div class='form-group'>
-                                    <label>Data da Retirada</label>
+                                    <label>Computador Retirado</label>                                            
                                 </div>
                             </td>
                             <td style="padding-left: 17.2%;">
-                                <input type="text" readonly id="data-retirado-campo" name="data-retirado-campo" class="form-control"></textarea>
+                                <input style="width: 100%;" readonly type='text' class='form-control pull-right equip-mac' name="incidente_computador_abertura" id="incidente_computador_abertura" placeholder="Computador Retirado"/>
                             </td>
                         </tr>
-                        <tr  id="motivo-retirado">
-                            <td style="padding-top: 5%;">
+                        <tr>
+                            <td>
                                 <div class='form-group'>
-                                    <label>Motivo da Retirada</label>
+                                    <label>Aberto por</label>                                            
                                 </div>
                             </td>
-                            <td style="padding-left: 17.2%;">
-                                <textarea readonly id="motivo-retirado-campo" name="motivo-retirado-campo" class="form-control"></textarea>
+                            <td>
+                                <input style="width: 80%;" value="<%=p.getNomeCompleto()%>" readonly type='text' class='form-control pull-right' placeholder="Nome de quem abriu o chamado" />
+                            </td>
+                            <td style="display:none;">
+                                <input style="width: 80%;" value="<%=p.getUsername()%>" readonly type='text' class='form-control pull-right' name="incidente_abridor_abertura" id="incidente_abridor_abertura" placeholder="Nome de quem abriu o chamado" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class='form-group'>
+                                    <label>Descrição</label>                                            
+                                </div>
+                            </td>
+                            <td>
+                                <input style="width: 80%;" type='textarea' class='form-control pull-right' name="incidente_descricao_abertura" id="incidente_descricao_abertura" placeholder="Motivo da retirada" />
                             </td>
                         </tr>
                     </table>
@@ -102,76 +152,6 @@
     </div>
 </form>
 
-<%
-    String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-%>
-
-<!-- ========== JANELA MODALDE RETIRADA  ========== -->
-<form action="${pageContext.request.contextPath}/AlmightyController" method="post">
-    <div class="modal fade" id="modalRetirar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title equip-tit" id="solicitacao-modal-titulo" >Retirar Equipamento</h5>
-                </div>     
-                <div class="modal-body">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <label class="soli-tit">ID</label>
-                                </div>
-                            </td>
-                            <td style="width:100%;">
-                                <div class="form-group">
-                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-id-retirar" id="equip-id-retirar" placeholder="ID" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <label class="soli-tit">NetBIOS</label>
-                                </div>
-                            </td>
-                            <td style="width:100%;">
-                                <div class="form-group">
-                                    <input style="width: 80%;" readonly type="text" class="form-control pull-right" name="equip-netbios-retirar" id="equip-netbios-retirar" placeholder="Nome NetBIOS" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class='form-group'>
-                                    <label>Data da Retirada</label>                                            
-                                </div>
-                            </td>
-                            <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;" autocomplete="off" readonly type='text' class='form-control pull-right' name="equip-data-retirada" id="equip-data-retirada" placeholder="Endereço físico" value="<%=timeStamp%>"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class='form-group'>
-                                    <label>Motivo</label>                                            
-                                </div>
-                            </td>
-                            <td id="motivo-retirar" style="padding-left: 17.2%;display:none;">
-                                <textarea id="motivo" name="motivo" class="form-control"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div>                        
-                <div id="modal-footer" class="modal-footer">
-                    <button name="acao" value="EquipamentoRetirada" id="btnModalRetirar" type="submit" class="btn btn-danger">Retirar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>

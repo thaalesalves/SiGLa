@@ -57,7 +57,7 @@ function carregaEquip() {
                 }
 
                 cont += '<tr>';
-                cont += '<td data-toggle="modal" data-target="#myModal" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
+                cont += '<td data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
                 cont += '<td>' + obj[i].nome + '</td>';
                 cont += '<td>' + obj[i].lab.numero + '</td>';
                 cont += '<td>' + obj[i].ip + '</td>';
@@ -106,7 +106,7 @@ function modalEquipamento(id) {
             if (obj.status == 1) {
                 status = "Em ordem.";
                 $("#modal-footer").empty();
-                $("#modal-footer").append('<button id="btnModalRetirar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalRetirar">Retirar</button>' +
+                $("#modal-footer").append('<button id="btnModalRetirar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAberturaIncidente">Retirar</button>' +
                         '<button name="acao" value="EquipamentoAtualizacao" id="btnModalDevolver" type="submit" class="btn btn-success">Atualizar</button>');
                 $("#motivo-retirar").show();
                 $("#motivo-retirado").hide();
@@ -130,6 +130,22 @@ function modalEquipamento(id) {
             $("#equip-id-retirar").val(obj.id);
             $("#equip-id").val(obj.id);
             $("#data-retirado-campo").val(obj.dataRetirada);
+            
+            $("#incidente_computador").val(obj.nome);
+            $("#incidente_computador_abertura").val(obj.nome);
+        }
+    });
+}
+
+function modalIncidente(id) {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=Incidente&id=' + id,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            
         }
     });
 }
