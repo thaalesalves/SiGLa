@@ -1,3 +1,7 @@
+<%
+    String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+%>
+
 <%@include file="/includes/modal-soli.jsp"%> 
 <%@include file="/includes/modal-perfil-self.jsp"%>
 <%@include file="/includes/modal-perfil.jsp"%>

@@ -102,10 +102,6 @@
     </div>
 </form>
 
-<%
-    String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
-%>
-
 <!-- ========== JANELA MODALDE RETIRADA  ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
     <div class="modal fade" id="modalRetirar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
