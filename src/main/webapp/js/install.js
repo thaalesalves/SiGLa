@@ -16,7 +16,6 @@
  */
 
 var contextPath;
-var formInstalacao;
 
 function notify(msg, status, title) {
     if (msg != "null") {
@@ -34,8 +33,22 @@ function notify(msg, status, title) {
     }
 }
 
+function configDb() {
+    var form = $('#db-form').serialize();
+    loadPage();
+    $.ajax({
+        url: contextPath + 'AlmightyController?acao=DatabaseInstallation&' + form,
+        type: 'POST',
+        cache: false,
+        complete: function (e) {
+            $('body').waitMe('hide');
+            console.log('O banco de dados foi configurado');
+        }
+    });
+}
+
 function enviar() {
-    formInstalacao = $('#install-form').serialize();
+    var formInstalacao = $('#install-form').serialize();
 
     loadPage();
 

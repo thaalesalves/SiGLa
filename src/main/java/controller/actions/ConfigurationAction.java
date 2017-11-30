@@ -43,10 +43,6 @@ public class ConfigurationAction implements ICommand {
         try {
             if (op.equals("install")) {
                 try {
-                    Grupo g;
-                    DAOFactory fac = DAOFactory.getFactory();
-                    ArrayList<Grupo> ag = new ArrayList<Grupo>();
-
                     /* Dados do Banco */
                     String dbDbms = request.getParameter("db-dbms");
                     String dbName = request.getParameter("db-name");
@@ -79,37 +75,47 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.auth.netbios", adNetbios);
                     SiGLa.writeProperty("sigla.auth.method", adAuth);
                     SiGLa.writeProperty("sigla.auth.host", adController);
-                    
-                    /* Dados de Acesso */
-                    g = new Grupo();
-                    g.setRole("admin");
-                    g.setGrupo(request.getParameter("ldap-admin"));
-                    ag.add(g);
 
-                    g = new Grupo();
-                    g.setRole("funcionario");
-                    g.setGrupo(request.getParameter("ldap-func"));
-                    ag.add(g);
+                    try {
+                        Grupo g;
+                        DAOFactory fac = DAOFactory.getFactory();
+                        ArrayList<Grupo> ag = new ArrayList<Grupo>();
 
-                    g = new Grupo();
-                    g.setRole("estagiario");
-                    g.setGrupo(request.getParameter("ldap-est"));
-                    ag.add(g);
+                        /* Dados de Acesso */
+                        g = new Grupo();
+                        g.setRole("admin");
+                        g.setGrupo(request.getParameter("ldap-admin"));
+                        ag.add(g);
 
-                    g = new Grupo();
-                    g.setRole("coordenador");
-                    g.setGrupo(request.getParameter("ldap-coord"));
-                    ag.add(g);
+                        g = new Grupo();
+                        g.setRole("funcionario");
+                        g.setGrupo(request.getParameter("ldap-func"));
+                        ag.add(g);
 
-                    g = new Grupo();
-                    g.setRole("professor");
-                    g.setGrupo(request.getParameter("ldap-prof"));
-                    ag.add(g);
+                        g = new Grupo();
+                        g.setRole("estagiario");
+                        g.setGrupo(request.getParameter("ldap-est"));
+                        ag.add(g);
 
-                    if (!util.DatabaseConnection.checkDatabase()) {
-                        for (Grupo i : ag) {
-                            fac.getGrupoDAO().insert(i);
+                        g = new Grupo();
+                        g.setRole("coordenador");
+                        g.setGrupo(request.getParameter("ldap-coord"));
+                        ag.add(g);
+
+                        g = new Grupo();
+                        g.setRole("professor");
+                        g.setGrupo(request.getParameter("ldap-prof"));
+                        ag.add(g);
+
+                        if (!util.DatabaseConnection.checkDatabase()) {
+                            for (Grupo i : ag) {
+                                fac.getGrupoDAO().insert(i);
+                            }
                         }
+                    } catch (Exception e) {
+                        session.setAttribute("msg", "Erro ao ");
+                        session.setAttribute("status", "error");
+                        return request.getContextPath() + "/admin/install";
                     }
 
                     session.setAttribute("msg", "SiGLa configurado");
@@ -119,11 +125,11 @@ public class ConfigurationAction implements ICommand {
                 } catch (Exception e) {
                     SiGLa.writeProperty("sigla.auth.domain", "null");
                     util.Logger.logSevere(e, ConfigurationAction.class);
-                    
-                    session.setAttribute("msg", "Curso não cadastrado");
+
+                    session.setAttribute("msg", "Erro ao instalar o SiGLa");
                     session.setAttribute("status", "error");
 
-                    return request.getContextPath();
+                    return request.getContextPath() + "/admin/install";
                 }
             } else if (op.equals("ad")) {
                 try {
