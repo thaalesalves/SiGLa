@@ -103,8 +103,13 @@ public class IO {
         return formato.format(formato.parse(data));
     }
     
-    public static Date getData(String data) throws ParseException {
+    public static Date getDataHora(String data) throws ParseException {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formato.parse(data);
+    }
+    
+    public static Date getData(String data) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.parse(data);
     }
 }
