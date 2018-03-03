@@ -7,6 +7,10 @@
 <script src="${pageContext.request.contextPath}/js/equipamento.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
+<%
+    String timeDate = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+%>
+
 <!-- ========== JANELA MODAL ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
     <div class="modal fade" id="myEquip" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -146,7 +150,7 @@
                                 </div>
                             </td>
                             <td style="padding-left: 17.2%;">
-                                <input style="width: 100%;" autocomplete="off" readonly type='text' class='form-control pull-right' name="equip-data-retirada" id="equip-data-retirada" placeholder="Endereço físico" value="<%=timeStamp%>"/>
+                                <input style="width: 100%;" autocomplete="off" readonly type='text' class='form-control pull-right' name="equip-data-retirada" id="equip-data-retirada" placeholder="Endereço físico" value="<%=timeDate%>"/>
                             </td>
                         </tr>
                         <tr>
@@ -171,11 +175,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-<script>
-    $(function () {
-        $("#equip-mac").keyup(function () {
-            $("#equip-mac").val($(this).val().toUpperCase().split(".")[0]);
-        });
-    });
-    $(".select2").select2();
-</script>

@@ -20,6 +20,9 @@
 package util;
 
 import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class IO {
@@ -47,6 +50,14 @@ public class IO {
         return in.nextDouble();
     }
 
+    public static void writeln(Date value) {
+        out.println(value);
+    }
+
+    public static void write(Date value) {
+        out.print(value);
+    }
+    
     public static void writeln(String[] value) {
         out.println(value);
     }
@@ -85,5 +96,15 @@ public class IO {
 
     public static void writeln(Double value) {
         out.println(value);
+    }
+    
+    public static String formatData(String data) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(formato.parse(data));
+    }
+    
+    public static Date getData(String data) throws ParseException {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        return formato.parse(data);
     }
 }

@@ -1,4 +1,7 @@
 <%@page import="java.io.File"%>
+<%
+    String timeStamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime());
+%>
 <script>
     contextPath = "${pageContext.request.contextPath}";
 </script>

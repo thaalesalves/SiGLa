@@ -19,16 +19,20 @@
  */
 package dao.dao.psql;
 
+import dao.dao.mysql.SoftwareDAOMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Laboratorio;
+import model.Licenca;
+import model.LicencaCodigo;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
 import util.DatabaseConnection;
+import util.Logger;
 
 public class SoftwareDAOPsql implements dao.dao.SoftwareDAO {
 
@@ -188,5 +192,49 @@ public class SoftwareDAOPsql implements dao.dao.SoftwareDAO {
         }
 
         return arrayRes;
+    }
+    
+    @Override
+    public Software selectLicenca(Software software) throws SQLException, ClassNotFoundException {
+        Licenca licenca = new Licenca();
+        LicencaCodigo licencaCodigo = new LicencaCodigo();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT l.id AS licenca, sw.nome AS software, "
+                    + "sw.fabricante AS fabricante, l.aquisicao AS data_aquisicao, l.vencimento AS data_vencimento "
+                    + "FROM tb_software sw, tb_licenca l, tb_licenca_codigo lc "
+                    + "WHERE l.software = sw.id AND sw.id = ?;");
+            pstmt.setInt(1, software.getId());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                licenca.setId(rs.getInt("licenca"));
+                licenca.setDataAquisicao(rs.getString("data_aquisicao"));
+                licenca.setDataVencimento(rs.getString("data_vencimento"));
+                licenca.setCodigos(new ArrayList<LicencaCodigo>());
+                software.setFabricante(rs.getString("fabricante"));
+                software.setNome(rs.getString("software"));
+            }
+
+            pstmt = conn.prepareStatement("SELECT lc.* FROM tb_licenca_codigo lc, tb_licenca l "
+                    + "WHERE lc.licenca = l.id AND l.id = ?");
+            pstmt.setInt(1, licenca.getId());
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                licencaCodigo.setId(rs.getInt("id"));
+                licencaCodigo.setCodigo(rs.getString("codigo"));
+                licencaCodigo.setCodigoTipo(rs.getString("nome"));
+                licenca.getCodigos().add(licencaCodigo);
+            }
+
+            software.setLicenca(licenca);
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOMysql.class);
+        }
+
+        return software;
     }
 }

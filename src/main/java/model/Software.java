@@ -28,4 +28,5 @@ public class Software implements Serializable {
     private String fabricante;
     private String nome;
     private Integer id;
+    private Licenca licenca;
 }

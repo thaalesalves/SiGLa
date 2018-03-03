@@ -41,4 +41,6 @@ public interface SoftwareDAO {
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException;
     
     public ArrayList<Software> selectSoftwareAux(Laboratorio lab) throws SQLException, ClassNotFoundException;
+    
+    public Software selectLicenca(Software sw) throws SQLException, ClassNotFoundException;
 }

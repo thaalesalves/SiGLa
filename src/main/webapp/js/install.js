@@ -68,7 +68,8 @@ function enviar() {
             swal("SiGLa pronto para usar!", "Você será redirecionado em 5 segundos", "success");
             
             setTimeout(function(){ 
-                window.location.reload(); 
+                //window.location.reload(); 
+                window.location = contextPath;
             }, 5000);
         }
     });

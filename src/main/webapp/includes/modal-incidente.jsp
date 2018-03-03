@@ -146,7 +146,9 @@
                         </tr>
                     </table>
                 </div>                        
-                <div id="modal-footer" class="modal-footer"></div>
+                <div id="modal-footer" class="modal-footer">
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -155,11 +157,3 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-<script>
-    $(function () {
-        $("#equip-mac").keyup(function () {
-            $("#equip-mac").val($(this).val().toUpperCase().split(".")[0]);
-        });
-    });
-    $(".select2").select2();
-</script>
