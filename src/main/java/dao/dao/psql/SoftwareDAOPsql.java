@@ -67,9 +67,9 @@ public class SoftwareDAOPsql implements dao.dao.SoftwareDAO {
 
             while (rs.next()) {
                 Software s = new Software();
-
-                s.setId(rs.getInt("id"));
+                
                 s.setFabricante(rs.getString("fabricante"));
+                s.setId(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
 
                 arrayRes.add(s);
