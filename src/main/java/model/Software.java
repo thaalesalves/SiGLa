@@ -25,8 +25,8 @@ import java.io.Serializable;
 @lombok.Setter
 public class Software implements Serializable {
 
-    private String fabricante;
-    private String nome;
     private Integer id;
+    private String nome;
+    private String fabricante;
     private Licenca licenca;
 }

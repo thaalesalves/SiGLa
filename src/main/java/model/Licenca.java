@@ -25,5 +25,6 @@ public class Licenca {
     private Integer id;
     private String dataAquisicao;
     private String dataVencimento;
+    private Software software;
     private List<LicencaCodigo> codigos;
 }
