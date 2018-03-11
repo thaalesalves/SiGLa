@@ -23,7 +23,10 @@ import dao.dao.ModuloDAO;
 import dao.dao.SoftwareDAO;
 import dao.dao.SolicitacaoDAO;
 import dao.dao.CursoDAO;
+import dao.dao.FornecedorDAO;
 import dao.dao.IncidenteDAO;
+import dao.dao.LicencaDAO;
+import dao.dao.RepresentanteDAO;
 import dao.dao.ReservaDAO;
 import util.SiGLa;
 
@@ -38,6 +41,9 @@ public abstract class DAOFactory {
     public abstract SoftwareDAO getSoftwareDAO();
     public abstract SolicitacaoDAO getSolicitacaoDAO();
     public abstract IncidenteDAO getIncidenteDAO();
+    public abstract FornecedorDAO getFornecedorDAO();
+    public abstract LicencaDAO getLicencaDAO();
+    public abstract RepresentanteDAO getRepresentanteDAO();
     
     public static DAOFactory getFactory() {
         if (SiGLa.getDbms().equalsIgnoreCase("mysql")) {

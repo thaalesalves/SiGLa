@@ -23,7 +23,10 @@ import dao.dao.ModuloDAO;
 import dao.dao.SoftwareDAO;
 import dao.dao.SolicitacaoDAO;
 import dao.dao.CursoDAO;
+import dao.dao.FornecedorDAO;
 import dao.dao.IncidenteDAO;
+import dao.dao.LicencaDAO;
+import dao.dao.RepresentanteDAO;
 import dao.dao.ReservaDAO;
 
 public class DAOFactoryPsql extends DAOFactory {
@@ -32,7 +35,7 @@ public class DAOFactoryPsql extends DAOFactory {
     public CursoDAO getCursoDAO() {
         return new dao.dao.psql.CursoDAOPsql();
     }
-    
+
     @Override
     public EquipamentoDAO getEquipamentoDAO() {
         return new dao.dao.psql.EquipamentoDAOPsql();
@@ -71,5 +74,20 @@ public class DAOFactoryPsql extends DAOFactory {
     @Override
     public IncidenteDAO getIncidenteDAO() {
         return new dao.dao.psql.IncidenteDAOPsql();
+    }
+
+    @Override
+    public FornecedorDAO getFornecedorDAO() {
+        return new dao.dao.psql.FornecedorDAOMysql();
+    }
+
+    @Override
+    public LicencaDAO getLicencaDAO() {
+        return new dao.dao.psql.LicencaDAOPsql();
+    }
+
+    @Override
+    public RepresentanteDAO getRepresentanteDAO() {
+        return new dao.dao.psql.RepresentanteDAOPsql();
     }
 }
