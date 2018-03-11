@@ -28,6 +28,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import model.Curso;
 import model.Laboratorio;
+import model.Licenca;
 import model.Pessoa;
 import model.Reserva;
 import model.Software;
@@ -41,6 +42,7 @@ public abstract class Mail {
     protected Software software = new Software();
     protected Laboratorio laboratorio = new Laboratorio();
     protected Curso curso = new Curso();
+    protected Licenca licenca = new Licenca();
     protected String sender;
     protected String recipient;
     protected String subject;
@@ -150,6 +152,14 @@ public abstract class Mail {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+    
+    public void setLicenca(Licenca licenca) {
+        this.licenca = licenca;
+    }
+    
+    public Licenca getLicenca() {
+        return licenca;
     }
 
     public Reserva getReserva() {
