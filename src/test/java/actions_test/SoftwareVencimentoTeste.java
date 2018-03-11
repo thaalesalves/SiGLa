@@ -14,14 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package test_model;
+package actions_test;
 
+import dao.DAOFactory;
 import java.util.List;
+import model.Licenca;
+import util.IO;
+import util.Json;
+import util.Logger;
 
-@lombok.Getter
-@lombok.Setter
-public class Fabricante {
-    private Integer id;
-    private String nome;
-    private List<Software> softwares;
+public class SoftwareVencimentoTeste {
+
+    public static void main(String[] args) {
+        try {
+            DAOFactory fac = DAOFactory.getFactory();
+            List<Licenca> licencas = fac.getLicencaDAO().selectVencimento();
+            
+            for (Licenca i : licencas) {
+                i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
+            }
+            
+            IO.writeln(Json.toJson(licencas));
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareLicencaTeste.class);
+        }
+    }
 }

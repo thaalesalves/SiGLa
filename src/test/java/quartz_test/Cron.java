@@ -17,7 +17,6 @@
 package quartz_test;
 
 import actions_test.SoftwareLicencaTeste;
-import dao.DAOFactory;
 import dao.dao.SoftwareDAO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,18 +38,17 @@ import util.IO;
  *
  * @author thales
  */
-public class QuartzCronTest implements Job {
+public class Cron implements Job {
 
     @Override
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         try {
             String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
             IO.writeln("Serviço rodado às: " + timeStamp);
-            DAOFactory fac = DAOFactory.getFactory();
             Software sw = new Software();
             SoftwareDAO swdao = new dao.dao.psql.SoftwareDAOPsql();
             SoftwareLicencaTeste.LicencaDAO ldao = new SoftwareLicencaTeste.LicencaDAO();
-            
+
             sw.setId(1);
             sw = swdao.selectId(sw);
             sw = ldao.selectLicenca(sw);
@@ -59,33 +57,33 @@ public class QuartzCronTest implements Job {
             IO.writeln("Data de vencimento: " + IO.formatData(sw.getLicenca().getDataVencimento()));
             IO.writeln("Data de aquisição: " + IO.formatData(sw.getLicenca().getDataAquisicao()));
             IO.writeln("Hoje: " + dateToday);
-            
+
             if (sw.getLicenca().getDataVencimento().equals(dateToday)) {
                 IO.writeln("Hora de renovar!");
             } else {
                 IO.writeln("Opa, dá pra esperar!");
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         try {
-            SchedulerFactory schedFact = new StdSchedulerFactory();
-            Scheduler sched = schedFact.getScheduler();
-            sched.start();
-            JobDetail job = JobBuilder.newJob(QuartzJobTest.class)
-                    .withIdentity("testeCron", "testeQuartz")
+            SchedulerFactory schFac = new StdSchedulerFactory();
+            Scheduler sch = schFac.getScheduler();
+            sch.start();
+            JobDetail j = JobBuilder.newJob(Cron.class)
+                    .withIdentity("bru1", "bru1")
                     .build();
 
-            Trigger trigger = TriggerBuilder
+            Trigger t = TriggerBuilder
                     .newTrigger()
-                    .withIdentity("testeCron", "testeQuartz")
+                    .withIdentity("bru", "bru")
                     .startNow()
-                    //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 1/1 * ? *"))
-                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *"))
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0 12 1/1 * ? *"))
                     .build();
-            sched.scheduleJob(job, trigger);
+            sch.scheduleJob(j, t);
         } catch (Exception e) {
             System.out.println("erro");
             e.printStackTrace();

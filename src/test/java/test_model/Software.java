@@ -16,6 +16,7 @@
  */
 package test_model;
 
+import model.Fabricante;
 import model.Licenca;
 
 @lombok.Getter
