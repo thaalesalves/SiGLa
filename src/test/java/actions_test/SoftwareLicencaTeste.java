@@ -17,7 +17,7 @@
 package actions_test;
 
 import dao.DAOFactory;
-import dao.dao.SoftwareDAO;
+import dao.sgbd.SoftwareDAO;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
@@ -89,7 +89,7 @@ public class SoftwareLicencaTeste {
     public static void main(String[] args) {
         DAOFactory fac = DAOFactory.getFactory();
         Software sw = new Software();
-        SoftwareDAO swdao = new dao.dao.psql.SoftwareDAOPsql();
+        SoftwareDAO swdao = new dao.sgbd.psql.SoftwareDAOPsql();
         LicencaDAO ldao = new LicencaDAO();
 
         try {

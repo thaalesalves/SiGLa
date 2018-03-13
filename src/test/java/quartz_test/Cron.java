@@ -17,7 +17,7 @@
 package quartz_test;
 
 import actions_test.SoftwareLicencaTeste;
-import dao.dao.SoftwareDAO;
+import dao.sgbd.SoftwareDAO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import model.Software;
@@ -46,7 +46,7 @@ public class Cron implements Job {
             String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
             IO.writeln("Serviço rodado às: " + timeStamp);
             Software sw = new Software();
-            SoftwareDAO swdao = new dao.dao.psql.SoftwareDAOPsql();
+            SoftwareDAO swdao = new dao.sgbd.psql.SoftwareDAOPsql();
             SoftwareLicencaTeste.LicencaDAO ldao = new SoftwareLicencaTeste.LicencaDAO();
 
             sw.setId(1);
