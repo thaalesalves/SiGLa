@@ -61,6 +61,37 @@ CREATE TABLE tb_modulo (
     id INT AUTO_INCREMENT PRIMARY KEY
 );
 
+CREATE TABLE tb_fornecedor (
+    id AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(255),
+    email VARCHAR(255)
+);
+
+CREATE TABLE tb_representate (
+    id AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(255),
+    email VARCHAR(255),
+    fornecedor INT REFERENCES tb_fornecedor(id)
+);
+
+CREATE TABLE tb_licenca (
+    id AUTO_INCREMENT PRIMARY KEY,
+    aquisicao VARCHAR(255) NOT NULL,
+    vencimento VARCHAR(255) NOT NULL,
+    status INT NOT NULL,
+    software INT REFERENCES tb_software(id),
+    fornecedor INT REFERENCES tb_fornecedor(id)
+);
+
+CREATE TABLE tb_licenca_codigo (
+    id AUTO_INCREMENT PRIMARY KEY,
+    codigo_tipo VARCHAR(255) NOT NULL,
+    codigo VARCHAR(255) NOT NULL,
+    licenca INT REFERENCES tb_licenca(id)
+);
+
 CREATE TABLE aux_sw_res (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sw INT REFERENCES tb_software(id),

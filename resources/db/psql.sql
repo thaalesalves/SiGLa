@@ -61,6 +61,37 @@ CREATE TABLE tb_modulo (
     id SERIAL PRIMARY KEY
 );
 
+CREATE TABLE tb_fornecedor (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR NOT NULL,
+    telefone VARCHAR,
+    email VARCHAR
+);
+
+CREATE TABLE tb_representate (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR NOT NULL,
+    telefone VARCHAR,
+    email VARCHAR,
+    fornecedor INTEGER REFERENCES tb_fornecedor(id)
+);
+
+CREATE TABLE tb_licenca (
+    id SERIAL PRIMARY KEY,
+    aquisicao VARCHAR NOT NULL,
+    vencimento VARCHAR NOT NULL,
+    status INTEGER NOT NULL,
+    software INTEGER REFERENCES tb_software(id),
+    fornecedor INTEGER REFERENCES tb_fornecedor(id)
+);
+
+CREATE TABLE tb_licenca_codigo (
+    id SERIAL PRIMARY KEY,
+    codigo_tipo VARCHAR NOT NULL,
+    codigo VARCHAR NOT NULL,
+    licenca INTEGER REFERENCES tb_licenca(id)
+);
+
 CREATE TABLE aux_sw_res (
     id SERIAL PRIMARY KEY,
     sw INT REFERENCES tb_software(id),
