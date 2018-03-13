@@ -16,78 +16,78 @@
  */
 package dao;
 
-import dao.dao.EquipamentoDAO;
-import dao.dao.GrupoDAO;
-import dao.dao.LaboratorioDAO;
-import dao.dao.ModuloDAO;
-import dao.dao.SoftwareDAO;
-import dao.dao.SolicitacaoDAO;
-import dao.dao.CursoDAO;
-import dao.dao.FornecedorDAO;
-import dao.dao.IncidenteDAO;
-import dao.dao.LicencaDAO;
-import dao.dao.RepresentanteDAO;
-import dao.dao.ReservaDAO;
+import dao.sgbd.EquipamentoDAO;
+import dao.sgbd.GrupoDAO;
+import dao.sgbd.LaboratorioDAO;
+import dao.sgbd.ModuloDAO;
+import dao.sgbd.SoftwareDAO;
+import dao.sgbd.SolicitacaoDAO;
+import dao.sgbd.CursoDAO;
+import dao.sgbd.FornecedorDAO;
+import dao.sgbd.IncidenteDAO;
+import dao.sgbd.LicencaDAO;
+import dao.sgbd.RepresentanteDAO;
+import dao.sgbd.ReservaDAO;
 
 public class DAOFactoryMysql extends DAOFactory {
 
     @Override
     public CursoDAO getCursoDAO() {
-        return new dao.dao.mysql.CursoDAOMysql();
+        return new dao.sgbd.mysql.CursoDAOMysql();
     }
     
     @Override
     public EquipamentoDAO getEquipamentoDAO() {
-        return new dao.dao.mysql.EquipamentoDAOMysql();
+        return new dao.sgbd.mysql.EquipamentoDAOMysql();
     }
 
     @Override
     public GrupoDAO getGrupoDAO() {
-        return new dao.dao.mysql.GrupoDAOMysql();
+        return new dao.sgbd.mysql.GrupoDAOMysql();
     }
 
     @Override
     public LaboratorioDAO getLaboratorioDAO() {
-        return new dao.dao.mysql.LaboratorioDAOMysql();
+        return new dao.sgbd.mysql.LaboratorioDAOMysql();
     }
 
     @Override
     public ModuloDAO getModuloDAO() {
-        return new dao.dao.mysql.ModuloDAOMysql();
+        return new dao.sgbd.mysql.ModuloDAOMysql();
     }
 
     @Override
     public ReservaDAO getReservaDAO() {
-        return new dao.dao.mysql.ReservaDAOMysql();
+        return new dao.sgbd.mysql.ReservaDAOMysql();
     }
 
     @Override
     public SoftwareDAO getSoftwareDAO() {
-        return new dao.dao.mysql.SoftwareDAOMysql();
+        return new dao.sgbd.mysql.SoftwareDAOMysql();
     }
 
     @Override
     public SolicitacaoDAO getSolicitacaoDAO() {
-        return new dao.dao.mysql.SolicitacaoDAOMysql();
+        return new dao.sgbd.mysql.SolicitacaoDAOMysql();
     }
 
     @Override
     public IncidenteDAO getIncidenteDAO() {
-        return new dao.dao.mysql.IncidenteDAOMysql();
+        return new dao.sgbd.mysql.IncidenteDAOMysql();
     }
 
     @Override
     public FornecedorDAO getFornecedorDAO() {
-        return new dao.dao.mysql.FornecedorDAOMysql();
+        return new dao.sgbd.mysql.FornecedorDAOMysql();
     }
 
     @Override
     public LicencaDAO getLicencaDAO() {
-        return new dao.dao.mysql.LicencaDAOMysql();
+        return new dao.sgbd.mysql.LicencaDAOMysql();
     }
 
     @Override
     public RepresentanteDAO getRepresentanteDAO() {
-        return new dao.dao.mysql.RepresentanteDAOMysql();
+        return new dao.sgbd.mysql.RepresentanteDAOMysql();
     }
 }

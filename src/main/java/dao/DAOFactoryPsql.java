@@ -16,78 +16,78 @@
  */
 package dao;
 
-import dao.dao.EquipamentoDAO;
-import dao.dao.GrupoDAO;
-import dao.dao.LaboratorioDAO;
-import dao.dao.ModuloDAO;
-import dao.dao.SoftwareDAO;
-import dao.dao.SolicitacaoDAO;
-import dao.dao.CursoDAO;
-import dao.dao.FornecedorDAO;
-import dao.dao.IncidenteDAO;
-import dao.dao.LicencaDAO;
-import dao.dao.RepresentanteDAO;
-import dao.dao.ReservaDAO;
+import dao.sgbd.EquipamentoDAO;
+import dao.sgbd.GrupoDAO;
+import dao.sgbd.LaboratorioDAO;
+import dao.sgbd.ModuloDAO;
+import dao.sgbd.SoftwareDAO;
+import dao.sgbd.SolicitacaoDAO;
+import dao.sgbd.CursoDAO;
+import dao.sgbd.FornecedorDAO;
+import dao.sgbd.IncidenteDAO;
+import dao.sgbd.LicencaDAO;
+import dao.sgbd.RepresentanteDAO;
+import dao.sgbd.ReservaDAO;
 
 public class DAOFactoryPsql extends DAOFactory {
 
     @Override
     public CursoDAO getCursoDAO() {
-        return new dao.dao.psql.CursoDAOPsql();
+        return new dao.sgbd.psql.CursoDAOPsql();
     }
 
     @Override
     public EquipamentoDAO getEquipamentoDAO() {
-        return new dao.dao.psql.EquipamentoDAOPsql();
+        return new dao.sgbd.psql.EquipamentoDAOPsql();
     }
 
     @Override
     public GrupoDAO getGrupoDAO() {
-        return new dao.dao.psql.GrupoDAOPsql();
+        return new dao.sgbd.psql.GrupoDAOPsql();
     }
 
     @Override
     public LaboratorioDAO getLaboratorioDAO() {
-        return new dao.dao.psql.LaboratorioDAOPsql();
+        return new dao.sgbd.psql.LaboratorioDAOPsql();
     }
 
     @Override
     public ModuloDAO getModuloDAO() {
-        return new dao.dao.psql.ModuloDAOPsql();
+        return new dao.sgbd.psql.ModuloDAOPsql();
     }
 
     @Override
     public ReservaDAO getReservaDAO() {
-        return new dao.dao.psql.ReservaDAOPsql();
+        return new dao.sgbd.psql.ReservaDAOPsql();
     }
 
     @Override
     public SoftwareDAO getSoftwareDAO() {
-        return new dao.dao.psql.SoftwareDAOPsql();
+        return new dao.sgbd.psql.SoftwareDAOPsql();
     }
 
     @Override
     public SolicitacaoDAO getSolicitacaoDAO() {
-        return new dao.dao.psql.SolicitacaoDAOPsql();
+        return new dao.sgbd.psql.SolicitacaoDAOPsql();
     }
 
     @Override
     public IncidenteDAO getIncidenteDAO() {
-        return new dao.dao.psql.IncidenteDAOPsql();
+        return new dao.sgbd.psql.IncidenteDAOPsql();
     }
 
     @Override
     public FornecedorDAO getFornecedorDAO() {
-        return new dao.dao.psql.FornecedorDAOMysql();
+        return new dao.sgbd.psql.FornecedorDAOPsql();
     }
 
     @Override
     public LicencaDAO getLicencaDAO() {
-        return new dao.dao.psql.LicencaDAOPsql();
+        return new dao.sgbd.psql.LicencaDAOPsql();
     }
 
     @Override
     public RepresentanteDAO getRepresentanteDAO() {
-        return new dao.dao.psql.RepresentanteDAOPsql();
+        return new dao.sgbd.psql.RepresentanteDAOPsql();
     }
 }

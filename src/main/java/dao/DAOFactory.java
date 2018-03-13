@@ -16,18 +16,18 @@
  */
 package dao;
 
-import dao.dao.EquipamentoDAO;
-import dao.dao.GrupoDAO;
-import dao.dao.LaboratorioDAO;
-import dao.dao.ModuloDAO;
-import dao.dao.SoftwareDAO;
-import dao.dao.SolicitacaoDAO;
-import dao.dao.CursoDAO;
-import dao.dao.FornecedorDAO;
-import dao.dao.IncidenteDAO;
-import dao.dao.LicencaDAO;
-import dao.dao.RepresentanteDAO;
-import dao.dao.ReservaDAO;
+import dao.sgbd.EquipamentoDAO;
+import dao.sgbd.GrupoDAO;
+import dao.sgbd.LaboratorioDAO;
+import dao.sgbd.ModuloDAO;
+import dao.sgbd.SoftwareDAO;
+import dao.sgbd.SolicitacaoDAO;
+import dao.sgbd.CursoDAO;
+import dao.sgbd.FornecedorDAO;
+import dao.sgbd.IncidenteDAO;
+import dao.sgbd.LicencaDAO;
+import dao.sgbd.RepresentanteDAO;
+import dao.sgbd.ReservaDAO;
 import util.SiGLa;
 
 public abstract class DAOFactory {
