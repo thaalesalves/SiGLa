@@ -40,7 +40,6 @@ public class Logger {
      * <code>Exception</code>
      * @param c Classe na qual o método foi chamado. Utilizado como parâmetro de
      * linha que deu erro.
-     * @throws java.io.FileNotFoundException
      */
     public static void logSevere(Throwable t, Class c) {
         try {
@@ -51,6 +50,7 @@ public class Logger {
             LOGGER.log(Level.SEVERE, message, t);
 
             File file = new File(SiGLa.LOGS + "/stderr.log");
+            file.createNewFile();
             FileOutputStream fileOut = new FileOutputStream(file, true);
             fileOut.write(message.getBytes());
         } catch (Exception e) {
@@ -78,6 +78,7 @@ public class Logger {
             LOGGER.log(Level.WARNING, message, t);
 
             File file = new File(SiGLa.LOGS + "/stderr.log");
+            file.createNewFile();
             FileOutputStream fileOut = new FileOutputStream(file, true);
             fileOut.write(message.getBytes());
         } catch (Exception e) {
@@ -94,12 +95,17 @@ public class Logger {
      * @param message <code>String</code> com a mensagem a ser exibida
      * @throws java.io.FileNotFoundException
      */
-    public static void logOutput(String message) throws FileNotFoundException, IOException {
-        message += "\n";
-        LOGGER.log(Level.INFO, message);
+    public static void logOutput(String message) {
+        try {
+            message += "\n";
+            LOGGER.log(Level.INFO, message);
 
-        File file = new File(SiGLa.LOGS + "/stdout.log");
-        FileOutputStream fileOut = new FileOutputStream(file, true);
-        fileOut.write(message.getBytes());
+            File file = new File(SiGLa.LOGS + "/stdout.log");
+            file.createNewFile();
+            FileOutputStream fileOut = new FileOutputStream(file, true);
+            fileOut.write(message.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
