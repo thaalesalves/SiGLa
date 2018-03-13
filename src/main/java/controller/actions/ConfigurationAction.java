@@ -17,7 +17,7 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.GrupoDAO;
+import dao.sgbd.GrupoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -43,6 +43,11 @@ public class ConfigurationAction implements ICommand {
         try {
             if (op.equals("install")) {
                 try {
+                    /* Dados de Email */
+                    String mailName = request.getParameter("sys-name");
+                    String mailSys = request.getParameter("sys-email");
+                    String mailGroup = request.getParameter("group-email");
+                    
                     /* Dados do Banco */
                     String dbDbms = request.getParameter("db-dbms");
                     String dbName = request.getParameter("db-name");
@@ -75,6 +80,10 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.auth.netbios", adNetbios);
                     SiGLa.writeProperty("sigla.auth.method", adAuth);
                     SiGLa.writeProperty("sigla.auth.host", adController);
+                    
+                    SiGLa.writeProperty("sigla.mail.name", mailName);
+                    SiGLa.writeProperty("sigla.mail.system", mailSys);
+                    SiGLa.writeProperty("sigla.mail.group", mailGroup);
 
                     try {
                         Grupo g;

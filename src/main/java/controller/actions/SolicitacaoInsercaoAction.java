@@ -17,10 +17,10 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.CursoDAO;
-import dao.dao.ReservaDAO;
-import dao.dao.SoftwareDAO;
-import dao.dao.SolicitacaoDAO;
+import dao.sgbd.CursoDAO;
+import dao.sgbd.ReservaDAO;
+import dao.sgbd.SoftwareDAO;
+import dao.sgbd.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;

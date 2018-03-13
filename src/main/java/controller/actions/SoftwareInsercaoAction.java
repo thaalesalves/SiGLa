@@ -20,7 +20,7 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.SoftwareDAO;
+import dao.sgbd.SoftwareDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;

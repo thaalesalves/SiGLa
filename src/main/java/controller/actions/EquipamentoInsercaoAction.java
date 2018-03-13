@@ -17,7 +17,7 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.EquipamentoDAO;
+import dao.sgbd.EquipamentoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;

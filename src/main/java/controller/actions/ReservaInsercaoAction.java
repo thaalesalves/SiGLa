@@ -19,8 +19,8 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.CursoDAO;
-import dao.dao.SoftwareDAO;
+import dao.sgbd.CursoDAO;
+import dao.sgbd.SoftwareDAO;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;

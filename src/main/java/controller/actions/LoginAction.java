@@ -92,6 +92,7 @@ public class LoginAction implements ICommand, Serializable {
                 p.setShownName(ad.getDisplayName(p));
 
                 session.setAttribute("pessoa", p);
+                ad.closeLdapConnection();
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {

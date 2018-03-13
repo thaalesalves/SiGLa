@@ -19,7 +19,7 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.CursoDAO;
+import dao.sgbd.CursoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;

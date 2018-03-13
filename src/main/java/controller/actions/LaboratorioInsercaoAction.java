@@ -19,7 +19,7 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.dao.LaboratorioDAO;
+import dao.sgbd.LaboratorioDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
