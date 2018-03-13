@@ -53,6 +53,9 @@ public final class SiGLa {
     private static String dbPort;
     private static String dbSsl;
     private static String dbDbms;
+    private static String mailName;
+    private static String mailGroup;
+    private static String mailSystem;
 
     private SiGLa() {
         throw new AssertionError();
@@ -83,6 +86,10 @@ public final class SiGLa {
             dbPort = (String) cfg.get("sigla.db.port");
             dbSsl = (String) cfg.get("sigla.db.ssl");
             dbDbms = (String) cfg.get("sigla.db.dbms");
+            
+            mailName = (String) cfg.get("sigla.mail.name");
+            mailGroup = (String) cfg.get("sigla.mail.group");
+            mailSystem = (String) cfg.get("sigla.mail.system");
         } catch (Exception e) {
             util.Logger.logSevere(e, SiGLa.class);
         }
@@ -154,4 +161,20 @@ public final class SiGLa {
     public static String getDbSsl() {
         return dbSsl;
     } 
+
+    public static String getDbDbms() {
+        return dbDbms;
+    }
+
+    public static String getMailName() {
+        return mailName;
+    }
+
+    public static String getMailGroup() {
+        return mailGroup;
+    }
+
+    public static String getMailSystem() {
+        return mailSystem;
+    }
 }

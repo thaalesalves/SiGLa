@@ -65,9 +65,17 @@ function enviar() {
             $('body').waitMe('hide');
             $('#div-assistente').hide();
             $('#div-sucesso').show();
-            swal("SiGLa pronto para usar!", "Você será redirecionado em 5 segundos", "success");
-            
-            setTimeout(function(){ 
+            swal({
+                title: "Pronto!",
+                text: "O SiGLa está pronto para ser utilizado. Você será redirecionado em 5 segundos.",
+                type: "success",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+
+            //swal("Pronto!", "O SiGLa está pronto para ser utilizado. Você será redirecionado em 5 segundos.", "success");
+
+            setTimeout(function () {
                 //window.location.reload(); 
                 window.location = contextPath;
             }, 5000);

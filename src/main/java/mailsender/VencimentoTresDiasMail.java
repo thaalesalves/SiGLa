@@ -30,6 +30,7 @@ import javax.mail.internet.MimeMessage;
 import model.Pessoa;
 import model.Solicitacao;
 import util.Logger;
+import util.SiGLa;
 
 public class VencimentoTresDiasMail extends Mail {
 
@@ -37,7 +38,7 @@ public class VencimentoTresDiasMail extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress("SiGLa <sigla@thalesalv.es>"));
+            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<"+ SiGLa.getMailSystem() + ">"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress("labinfo@thalesalv.es"));
             message.setSubject("SiGLa | Vencimento de Licença");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");
