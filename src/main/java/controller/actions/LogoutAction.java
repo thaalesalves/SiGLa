@@ -22,11 +22,15 @@ package controller.actions;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pessoa;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class LogoutAction implements ICommand {
 
@@ -34,9 +38,13 @@ public class LogoutAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
             ActiveDirectory ad = (ActiveDirectory) request.getSession().getAttribute("ad");
+            Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
             
             ad.closeLdapConnection();
-            request.getSession().invalidate(); // invalida a sessão
+            request.getSession().invalidate();
+            
+            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                        + p.getUsername() + " acaba de fazer logoff no SiGLa.");
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

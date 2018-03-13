@@ -19,7 +19,12 @@
  */
 package util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
+import static util.SiGLa.TARGET;
 
 public class Logger {
 
@@ -35,9 +40,22 @@ public class Logger {
      * <code>Exception</code>
      * @param c Classe na qual o método foi chamado. Utilizado como parâmetro de
      * linha que deu erro.
+     * @throws java.io.FileNotFoundException
      */
     public static void logSevere(Throwable t, Class c) {
-        LOGGER.log(Level.SEVERE, "\n=== ERRO ===\nErro em " + c.toString() + ": " + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: " + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===", t);
+        try {
+            String message = "\n=== ERRO ===\nErro em " + c.toString() + ": "
+                    + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
+                    + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===\n";
+
+            LOGGER.log(Level.SEVERE, message, t);
+
+            File file = new File(SiGLa.LOGS + "/stderr.log");
+            FileOutputStream fileOut = new FileOutputStream(file, true);
+            fileOut.write(message.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -52,6 +70,36 @@ public class Logger {
      * linha que deu erro.
      */
     public static void logWarning(Throwable t, Class c) {
-        LOGGER.log(Level.WARNING, "\n=== ERRO ===\nErro em " + c.toString() + ": " + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: " + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===", t);
+        try {
+            String message = "\n=== ERRO ===\nErro em " + c.toString() + ": "
+                    + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
+                    + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===\n";
+
+            LOGGER.log(Level.WARNING, message, t);
+
+            File file = new File(SiGLa.LOGS + "/stderr.log");
+            FileOutputStream fileOut = new FileOutputStream(file, true);
+            fileOut.write(message.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Método que gera um log sobre um erro, e lança a pilha do erro na saída do
+     * programa. Serve para gerar logs de erros não importantes
+     *
+     * @author Thales Alves Pereira
+     * @version 1.0
+     * @param message <code>String</code> com a mensagem a ser exibida
+     * @throws java.io.FileNotFoundException
+     */
+    public static void logOutput(String message) throws FileNotFoundException, IOException {
+        message += "\n";
+        LOGGER.log(Level.INFO, message);
+
+        File file = new File(SiGLa.LOGS + "/stdout.log");
+        FileOutputStream fileOut = new FileOutputStream(file, true);
+        fileOut.write(message.getBytes());
     }
 }

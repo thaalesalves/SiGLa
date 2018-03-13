@@ -17,6 +17,7 @@ public final class SiGLa {
     public static final String WEBAPP;
     public static final String VERSION;
     public static final String KEYSTORE;
+    public static final String LOGS;
 
     static {
         Properties app = new Properties();
@@ -37,6 +38,7 @@ public final class SiGLa {
         LIB = formatURI((String) app.get("sigla.dir.lib"));
         TARGET = formatURI((String) app.get("sigla.dir.target"));
         WEBAPP = formatURI((String) app.get("sigla.dir.webapp"));
+        LOGS = formatURI((String) app.get("sigla.dir.logs"));
 
         SiGLa.loadProperties();
     }      // </editor-fold>

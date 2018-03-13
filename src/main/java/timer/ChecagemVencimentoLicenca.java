@@ -17,20 +17,15 @@
 package timer;
 
 import dao.DAOFactory;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import mailsender.Mail;
 import mailsender.VencimentoHojeMail;
-import mailsender.VencimentoSeteDiasMail;
-import mailsender.VencimentoTresDiasMail;
 import model.Licenca;
-import model.LicencaCodigo;
 import model.Software;
-import org.joda.time.DateTime;
-import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -42,74 +37,47 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import util.IO;
-import util.Json;
 import util.Logger;
 
 public class ChecagemVencimentoLicenca implements Job {
 
-    Software sw = new Software();
+    private Software sw = new Software();
 
-    @Override
-    public void execute(JobExecutionContext jec) throws JobExecutionException {
+    public void vencimento(String data) {
         try {
-            String dataHoje = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DATE, 3);
-            String tresDias = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
-            cal.add(Calendar.DATE, 4);
-            String proxSemana = new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime());
             DAOFactory fac = DAOFactory.getFactory();
             Licenca licenca = new Licenca();
-            licenca.setDataVencimento(dataHoje);
+            licenca.setDataVencimento(data);
             List<Licenca> licencas = fac.getLicencaDAO().selectVencimento(licenca);
 
             if (licencas != null) {
-                IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                        + licencas.size() + " licenças vencerão hoje! Elas não serão mais exibidas como ativas a partir de agora.");
+                //IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                //        + licencas.size() + " licenças vencerão hoje! Elas não serão mais exibidas como ativas a partir de agora.");
                 for (Licenca i : licencas) {
                     Mail mail = new VencimentoHojeMail();
                     i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
                     fac.getLicencaDAO().desativa(i);
                     mail.setLicenca(i);
                     mail.sendMail(mail);
-                    IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                    Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
                             + "Enviado email de aviso sobre " + i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + ". "
-                            + "Este software vence hoje.");
+                            + "Este software vence em " + data + ".");
                 }
             }
+        } catch (Exception e) {
+            Logger.logSevere(e, ChecagemVencimentoLicenca.class);
+        }
+    }
 
-            licenca.setDataVencimento(tresDias);
-            licencas = fac.getLicencaDAO().selectVencimento(licenca);
-            if (licencas != null) {
-                IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                        + licencas.size() + " licenças vencerão em 3 dias! Elas não serão mais exibidas como ativas a partir de " + tresDias + ".");
-                for (Licenca i : licencas) {
-                    Mail mail = new VencimentoTresDiasMail();
-                    i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
-                    mail.setLicenca(i);
-                    mail.sendMail(mail);
-                    IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                            + "Enviado email de aviso sobre " + i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + ". "
-                            + "Este software vence em três dias.");
-                }
-            }
-
-            licenca.setDataVencimento(proxSemana);
-            licencas = fac.getLicencaDAO().selectVencimento(licenca);
-
-            if (licencas != null) {
-                IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                        + licencas.size() + " licenças vencerão em 7 dias! Elas não serão mais exibidas como ativas a partir de " + proxSemana + ".");
-                for (Licenca i : licencas) {
-                    Mail mail = new VencimentoSeteDiasMail();
-                    i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
-                    mail.setLicenca(i);
-                    mail.sendMail(mail);
-                    IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                            + "Enviado email de aviso sobre " + i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + ". "
-                            + "Este software vence em sete dias.");
-                }
-            }
+    @Override
+    public void execute(JobExecutionContext jec) throws JobExecutionException {
+        try {
+            Calendar cal = Calendar.getInstance();
+            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+            cal.add(Calendar.DATE, 3);
+            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
+            cal.add(Calendar.DATE, 4);
+            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
         } catch (Exception e) {
             Logger.logSevere(e, ChecagemVencimentoLicenca.class);
         }

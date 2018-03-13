@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
@@ -37,8 +39,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Grupo;
 import model.Pessoa;
+import util.IO;
+import util.Logger;
 
 public class LoginAction implements ICommand, Serializable {
+
+    Pessoa p = new Pessoa();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -50,7 +56,6 @@ public class LoginAction implements ICommand, Serializable {
             System.setProperty("javax.net.ssl.keyStore", SiGLa.KEYSTORE);
 
             ActiveDirectory ad = new ActiveDirectory();
-            Pessoa p = new Pessoa();
             DAOFactory fac = DAOFactory.getFactory();
             ArrayList<Grupo> arrayg;
             p.setUsername(request.getParameter("username").replaceAll("[0-9]", ""));
@@ -60,6 +65,8 @@ public class LoginAction implements ICommand, Serializable {
                 session.setAttribute("msg", "Houve um problema ao buscar os grupos de acesso. Entre em contato com o suporte.");
                 session.setAttribute("status", "error");
                 ad.closeLdapConnection();
+                Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                        + "Erro ao fazer login de " + p.getUsername() + ": problema ao buscar grupos de acesso. Abortando sessão.");
                 return request.getContextPath();
             } else if (ad.login(p)) {
                 session.setAttribute("ad", ad);
@@ -76,6 +83,8 @@ public class LoginAction implements ICommand, Serializable {
                         session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
                         session.setAttribute("status", "error");
                         ad.closeLdapConnection();
+                        Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                                + "Erro ao fazer login de " + p.getUsername() + ": usuário não tem permissão para logar. Abortando sessão.");
                         return request.getContextPath();
                     }
                 }
@@ -93,6 +102,8 @@ public class LoginAction implements ICommand, Serializable {
 
                 session.setAttribute("pessoa", p);
                 ad.closeLdapConnection();
+                Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                        + p.getUsername() + " acaba de fazer login no SiGLa.");
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {
@@ -102,7 +113,8 @@ public class LoginAction implements ICommand, Serializable {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
-            System.out.println("Erro ao conectar: CommunicationException - Erro ao contactar a controladora de domínio");
+            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                    + "Erro ao fazer login de " + p.getUsername() + ": CommunicationException. Abortando sessão.");
             return request.getContextPath();
         } catch (AuthenticationException e) {
             session.removeAttribute("pessoa");
@@ -111,7 +123,8 @@ public class LoginAction implements ICommand, Serializable {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
-            System.out.println("Erro ao conectar: AuthenticationException - Credenciais incorretas");
+            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                    + "Erro ao fazer login de " + p.getUsername() + ": AuthenticationException. Abortando sessão.");
             return request.getContextPath();
         } catch (Exception e) {
             session.removeAttribute("pessoa");
@@ -119,7 +132,8 @@ public class LoginAction implements ICommand, Serializable {
             session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
-            System.out.println("Erro ao conectar: " + e.getMessage());
+            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                    + "Erro ao fazer login de " + p.getUsername() + ". Abortando sessão.");
             return request.getContextPath() + "/error/error";
         }
         session.removeAttribute("pessoa");
@@ -127,6 +141,8 @@ public class LoginAction implements ICommand, Serializable {
         session.removeAttribute("todos-usuarios");
         session.setAttribute("msg", "Erro ao fazer login");
         session.setAttribute("status", "error");
+        Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
+                + "Erro ao fazer login de " + p.getUsername() + ". Abortando sessão.");
         return request.getContextPath();
     }
 }
