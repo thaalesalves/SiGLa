@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import mailsender.Mail;
 import mailsender.MailMessage;
 import model.Pessoa;
+import util.Logger;
 
 public class EnviarEmailAction implements ICommand {
 
@@ -57,7 +58,8 @@ public class EnviarEmailAction implements ICommand {
         
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Email enviado com sucesso");
-        
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de enviar um email para " + request.getParameter("emailto") + ".");
         return request.getContextPath() + "/pagina/home";
     }
 }

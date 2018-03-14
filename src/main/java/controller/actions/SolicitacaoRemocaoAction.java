@@ -23,6 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,15 +35,17 @@ import mailsender.SolicitacaoReprovacaoMail;
 import model.Pessoa;
 import model.Solicitacao;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SolicitacaoRemocaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Solicitacao s = new Solicitacao();
+        
         try {
             Mail mail = new SolicitacaoReprovacaoMail();
-            Solicitacao s = new Solicitacao();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
             
@@ -75,6 +79,8 @@ public class SolicitacaoRemocaoAction implements ICommand {
         
         session.setAttribute("msg", "Reserva reprovada");
         session.setAttribute("status", "success");        
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a solitação #" + s.getId() + " do banco de dados.");
         
         return request.getContextPath() + "/reserva/solicitacoes";
     }

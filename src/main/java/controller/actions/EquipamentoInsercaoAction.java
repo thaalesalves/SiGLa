@@ -17,7 +17,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.EquipamentoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -29,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
 import model.Laboratorio;
+import model.Pessoa;
+import util.Logger;
 
 public class EquipamentoInsercaoAction implements ICommand {
 
@@ -40,13 +41,13 @@ public class EquipamentoInsercaoAction implements ICommand {
             Equipamento e = new Equipamento();
             DAOFactory fac = DAOFactory.getFactory();
             e.setLab(new Laboratorio());
-            
+
             e.setNome(request.getParameter("netbios"));
             e.setIp(request.getParameter("ip"));
             e.setMac(request.getParameter("mac"));
-            e.setConfig(request.getParameter("config"));            
+            e.setConfig(request.getParameter("config"));
             e.getLab().setId(Integer.parseInt(request.getParameter("laboratorio")));
-            
+
             fac.getEquipamentoDAO().insert(e);
         } catch (Exception e) {
             System.out.println("ERRO: " + e.getMessage());
@@ -59,7 +60,8 @@ public class EquipamentoInsercaoAction implements ICommand {
 
         session.setAttribute("status", "error");
         session.setAttribute("msg", "Erro ao cadastrar computador");
-
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/equip/novo";
     }
 }

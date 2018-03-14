@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Modulo;
+import model.Pessoa;
 import model.Reserva;
 import util.Logger;
 
@@ -35,10 +36,9 @@ public class ReservaAtualizacaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
-        
+        Reserva r = new Reserva();
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            Reserva r = new Reserva();
             String[] modulos = request.getParameterValues("modalModuloCombo");
 
             r.setId(Integer.parseInt(request.getParameter("reserva-id")));
@@ -62,6 +62,8 @@ public class ReservaAtualizacaoAction implements ICommand {
 
         session.setAttribute("msg", "Dados de reserva atualizados.");
         session.setAttribute("status", "success");
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") alterou a reserva #" + r.getId() + ".");
         return request.getContextPath() + "/reserva/lista";
     }
 }

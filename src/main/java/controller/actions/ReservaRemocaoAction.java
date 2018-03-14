@@ -33,6 +33,7 @@ import mailsender.ReservaRemocaoMail;
 import model.Pessoa;
 import model.Reserva;
 import util.ActiveDirectory;
+import util.Logger;
 
 /**
  *
@@ -43,9 +44,9 @@ public class ReservaRemocaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Reserva r = new Reserva();
         try {
             Mail mail = new ReservaRemocaoMail();
-            Reserva r = new Reserva();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
 
@@ -65,6 +66,9 @@ public class ReservaRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
 
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + "do banco de dados.");
+        
         return request.getContextPath() + "/reserva/lista";
     }
 }

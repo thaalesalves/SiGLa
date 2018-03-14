@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Grupo;
+import model.Pessoa;
 import util.DatabaseConnection;
 import util.Logger;
 import util.SiGLa;
@@ -47,7 +48,7 @@ public class ConfigurationAction implements ICommand {
                     String mailName = request.getParameter("sys-name");
                     String mailSys = request.getParameter("sys-email");
                     String mailGroup = request.getParameter("group-email");
-                    
+
                     /* Dados do Banco */
                     String dbDbms = request.getParameter("db-dbms");
                     String dbName = request.getParameter("db-name");
@@ -80,7 +81,7 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.auth.netbios", adNetbios);
                     SiGLa.writeProperty("sigla.auth.method", adAuth);
                     SiGLa.writeProperty("sigla.auth.host", adController);
-                    
+
                     SiGLa.writeProperty("sigla.mail.name", mailName);
                     SiGLa.writeProperty("sigla.mail.system", mailSys);
                     SiGLa.writeProperty("sigla.mail.group", mailGroup);
@@ -130,6 +131,8 @@ public class ConfigurationAction implements ICommand {
                     session.setAttribute("msg", "SiGLa configurado");
                     session.setAttribute("status", "success");
 
+                    Logger.logOutput("Parabéns! O SiGLa foi instalado.");
+
                     return request.getContextPath();
                 } catch (Exception e) {
                     SiGLa.writeProperty("sigla.auth.domain", "null");
@@ -170,7 +173,9 @@ public class ConfigurationAction implements ICommand {
 
                 session.setAttribute("msg", "Domínio atualizado");
                 session.setAttribute("status", "success");
-
+                Pessoa u = (Pessoa) session.getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") atualizou o domínio do Active Directory para "
+                        + SiGLa.getDomain() + ".");
                 return request.getContextPath();
             } else if (op.equals("db")) {
                 try {
@@ -196,7 +201,9 @@ public class ConfigurationAction implements ICommand {
 
                 session.setAttribute("msg", "Banco de dados atualizado");
                 session.setAttribute("status", "success");
-
+                Pessoa u = (Pessoa) session.getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") atualizou o banco de dados para "
+                        + SiGLa.getDbName() + "(SGBD: " + SiGLa.getDbDbms() + ".");
                 return request.getContextPath() + "/admin/database";
             }
         } catch (Exception e) {

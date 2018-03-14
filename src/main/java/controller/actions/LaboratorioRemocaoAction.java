@@ -27,16 +27,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Laboratorio;
+import model.Pessoa;
+import util.Logger;
 
 public class LaboratorioRemocaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
-
+        Laboratorio lab = new Laboratorio();
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            Laboratorio lab = new Laboratorio();
             lab.setId(Integer.parseInt(request.getParameter("id")));
             if (fac.getLaboratorioDAO().delete(lab) == 1) {
                 session.setAttribute("msg", "Laboratório removido com sucesso");
@@ -54,7 +55,8 @@ public class LaboratorioRemocaoAction implements ICommand {
         }
         session.setAttribute("msg", "Não foi possível remover o laboratório pois existem reservas atreladas a ele");
         session.setAttribute("status", "info");
-
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu o laboratório #" + lab.getId() + ".");
         return request.getContextPath() + "/laboratorio/lista";
     }
 }

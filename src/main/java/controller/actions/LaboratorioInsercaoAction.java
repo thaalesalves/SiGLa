@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
 import model.Laboratorio;
+import model.Pessoa;
+import util.Logger;
 
 public class LaboratorioInsercaoAction implements ICommand {
 
@@ -73,6 +75,8 @@ public class LaboratorioInsercaoAction implements ICommand {
         }
         session.setAttribute("msg", "Laboratório cadastrado com sucesso");
         session.setAttribute("status", "success");
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/laboratorio/novo";
     }
 

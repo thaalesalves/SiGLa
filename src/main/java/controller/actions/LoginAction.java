@@ -65,8 +65,7 @@ public class LoginAction implements ICommand, Serializable {
                 session.setAttribute("msg", "Houve um problema ao buscar os grupos de acesso. Entre em contato com o suporte.");
                 session.setAttribute("status", "error");
                 ad.closeLdapConnection();
-                Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                        + "Erro ao fazer login de " + p.getUsername() + ": problema ao buscar grupos de acesso. Abortando sessão.");
+                Logger.logOutput("Erro ao fazer login de " + p.getUsername() + ": problema ao buscar grupos de acesso. Abortando sessão.");
                 return request.getContextPath();
             } else if (ad.login(p)) {
                 session.setAttribute("ad", ad);
@@ -83,8 +82,7 @@ public class LoginAction implements ICommand, Serializable {
                         session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
                         session.setAttribute("status", "error");
                         ad.closeLdapConnection();
-                        Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                                + "Erro ao fazer login de " + p.getUsername() + ": usuário não tem permissão para logar. Abortando sessão.");
+                        Logger.logOutput("Erro ao fazer login de " + p.getUsername() + ": usuário não tem permissão para logar. Abortando sessão.");
                         return request.getContextPath();
                     }
                 }
@@ -102,8 +100,7 @@ public class LoginAction implements ICommand, Serializable {
 
                 session.setAttribute("pessoa", p);
                 ad.closeLdapConnection();
-                Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                        + p.getUsername() + " acaba de fazer login no SiGLa.");
+                Logger.logOutput(p.getNome() + " (" + p.getUsername() + ") acaba de fazer login no SiGLa.");
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {
@@ -113,8 +110,6 @@ public class LoginAction implements ICommand, Serializable {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
-            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                    + "Erro ao fazer login de " + p.getUsername() + ": CommunicationException. Abortando sessão.");
             return request.getContextPath();
         } catch (AuthenticationException e) {
             session.removeAttribute("pessoa");
@@ -123,8 +118,6 @@ public class LoginAction implements ICommand, Serializable {
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
-            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                    + "Erro ao fazer login de " + p.getUsername() + ": AuthenticationException. Abortando sessão.");
             return request.getContextPath();
         } catch (Exception e) {
             session.removeAttribute("pessoa");
@@ -132,8 +125,6 @@ public class LoginAction implements ICommand, Serializable {
             session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
-            Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                    + "Erro ao fazer login de " + p.getUsername() + ". Abortando sessão.");
             return request.getContextPath() + "/error/error";
         }
         session.removeAttribute("pessoa");
@@ -141,8 +132,6 @@ public class LoginAction implements ICommand, Serializable {
         session.removeAttribute("todos-usuarios");
         session.setAttribute("msg", "Erro ao fazer login");
         session.setAttribute("status", "error");
-        Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                + "Erro ao fazer login de " + p.getUsername() + ". Abortando sessão.");
         return request.getContextPath();
     }
 }

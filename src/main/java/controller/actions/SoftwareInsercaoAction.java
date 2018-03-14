@@ -20,7 +20,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.SoftwareDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -30,8 +29,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Pessoa;
 import model.Software;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SoftwareInsercaoAction implements ICommand {
 
@@ -59,6 +60,8 @@ public class SoftwareInsercaoAction implements ICommand {
         session.setAttribute("msg", "Software cadastrado com sucesso");
         session.setAttribute("status", "success");
         
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") cadastrou um software.");
         
         return request.getContextPath() + "/software/novo";
     }

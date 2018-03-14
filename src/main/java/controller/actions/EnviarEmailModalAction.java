@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import mailsender.Mail;
 import mailsender.ModalMailMessage;
 import model.Pessoa;
+import util.Logger;
 
 public class EnviarEmailModalAction implements ICommand {
 
@@ -58,7 +59,8 @@ public class EnviarEmailModalAction implements ICommand {
         
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Email enviado com sucesso");
-        
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de enviar um email para " + request.getParameter("modal-email-msg")  +  ".");
         return url;
     }
 }

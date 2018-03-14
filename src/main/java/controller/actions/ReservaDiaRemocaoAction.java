@@ -19,7 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.ReservaDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -29,15 +28,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Pessoa;
 import model.Reserva;
+import util.Logger;
 
 public class ReservaDiaRemocaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Reserva r = new Reserva();
         try {
-            Reserva r = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
 
             r.setId(Integer.parseInt(request.getParameter("reserva_id")));
@@ -46,7 +47,8 @@ public class ReservaDiaRemocaoAction implements ICommand {
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + ".");
         return request.getContextPath() + "/reserva/hoje";
     }
 }

@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import static util.SiGLa.TARGET;
 
@@ -87,8 +89,7 @@ public class Logger {
     }
 
     /**
-     * Método que gera um log sobre um erro, e lança a pilha do erro na saída do
-     * programa. Serve para gerar logs de erros não importantes
+     * Método que gera um log de informação e o joga no arquivo de saída
      *
      * @author Thales Alves Pereira
      * @version 1.0
@@ -98,6 +99,8 @@ public class Logger {
     public static void logOutput(String message) {
         try {
             message += "\n";
+            String timeStamp = "[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: ";
+            message = timeStamp + message;
             LOGGER.log(Level.INFO, message);
 
             File file = new File(SiGLa.LOGS + "/stdout.log");

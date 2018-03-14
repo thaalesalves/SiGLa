@@ -19,7 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.CursoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -29,6 +28,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Curso;
+import model.Pessoa;
+import util.Logger;
 
 /**
  *
@@ -38,16 +39,19 @@ public class CursoRemocaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
+        Curso c = new Curso();
         try {
-            Curso c = new Curso();
             DAOFactory fac = DAOFactory.getFactory();
 
             c.setId(Integer.parseInt(request.getParameter("curso_id")));
 
+            c = fac.getCursoDAO().selectId(c);
             fac.getCursoDAO().delete(c);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de remover o curso "+ c.getNome() + "(#" + c.getId() + ".");
         return request.getContextPath() + "/curso/lista";
     }
 

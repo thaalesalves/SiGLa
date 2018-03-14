@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 thaal
+ * Copyright (C) 2018 thales
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package controller.actions;
 
 import dao.DAOFactory;
@@ -25,35 +26,37 @@ import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Equipamento;
+import model.Fornecedor;
 import model.Pessoa;
+import model.Representante;
 import util.Logger;
 
-public class EquipamentoRetiradaAction implements ICommand {
+public class FornecedorCadastroAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        HttpSession session = request.getSession();
-        Equipamento e = new Equipamento();
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            e.setId(Integer.parseInt(request.getParameter("equip-id-retirar")));
-            e.setMotivo(request.getParameter("motivo"));
-            e.setDataRetirada(request.getParameter("equip-data-retirada"));
-            e = fac.getEquipamentoDAO().select(e);
-            fac.getEquipamentoDAO().retirar(e);
-        } catch (Exception ex) {
-            Logger.logSevere(ex, EquipamentoInsercaoAction.class);
-            session.setAttribute("status", "error");
-            session.setAttribute("msg", "Erro ao retirar computador");
-            return request.getContextPath() + "/equip/lista";
+            Fornecedor f = new Fornecedor();
+            
+            f.setNome(request.getParameter("forname"));
+            f.setEmail(request.getParameter("formail"));
+            f.setTelefone(request.getParameter("fortel"));
+            fac.getFornecedorDAO().insert(f);
+            
+            if (request.getParameter("hasrep") != null) {
+                Representante r = new Representante();
+                r.setNome(request.getParameter("repnome"));
+                r.setEmail(request.getParameter("repmail"));
+                r.setTelefone(request.getParameter("reptel"));
+                fac.getRepresentanteDAO().insert(r);
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, FornecedorCadastroAction.class);
         }
-
-        session.setAttribute("status", "success");
-        session.setAttribute("msg", "Computador retirado");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() +  "(#" + e.getId() +  ").");
-        return request.getContextPath() + "/equip/lista";
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de cadastrar um fornecedor.");
+        return request.getContextPath() + "/software/fornecedor/novo";
     }
+
 }

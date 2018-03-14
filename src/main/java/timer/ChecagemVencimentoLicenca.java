@@ -51,16 +51,14 @@ public class ChecagemVencimentoLicenca implements Job {
             List<Licenca> licencas = fac.getLicencaDAO().selectVencimento(licenca);
 
             if (licencas != null) {
-                //IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                //        + licencas.size() + " licenças vencerão hoje! Elas não serão mais exibidas como ativas a partir de agora.");
                 for (Licenca i : licencas) {
                     Mail mail = new VencimentoHojeMail();
                     i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
                     fac.getLicencaDAO().desativa(i);
                     mail.setLicenca(i);
                     mail.sendMail(mail);
-                    Logger.logOutput("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: "
-                            + "Enviado email de aviso sobre " + i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + ". "
+                    Logger.logOutput("Enviado email de aviso sobre " + i.getSoftware().getFabricante() 
+                            + " " + i.getSoftware().getNome() + ". "
                             + "Este software vence em " + data + ".");
                 }
             }
@@ -99,7 +97,7 @@ public class ChecagemVencimentoLicenca implements Job {
                     //.withSchedule(CronScheduleBuilder.cronSchedule("0 30 23 1/1 * ? *"))
                     .build();
 
-            IO.writeln("[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: Serviço de checagem de licenças iniciado.");
+            Logger.logOutput("Serviço de checagem de licenças iniciado.");
             sch.scheduleJob(j, t);
         } catch (Exception e) {
             Logger.logSevere(e, ChecagemVencimentoLicenca.class);

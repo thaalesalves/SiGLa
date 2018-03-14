@@ -19,7 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.CursoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -30,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Curso;
+import model.Pessoa;
+import util.Logger;
 
 public class CursoInsercaoAction implements ICommand {
 
@@ -55,7 +56,8 @@ public class CursoInsercaoAction implements ICommand {
         }
         session.setAttribute("msg", "Curso cadastrado com sucesso");
         session.setAttribute("status", "success");
-
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um novo curso.");
         return request.getContextPath() + "/curso/novo";
     }
 }

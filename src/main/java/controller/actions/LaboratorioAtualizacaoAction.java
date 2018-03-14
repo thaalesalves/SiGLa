@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Laboratorio;
+import model.Pessoa;
 import model.Software;
 import util.Logger;
 
@@ -37,9 +38,9 @@ public class LaboratorioAtualizacaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Laboratorio lab = new Laboratorio();
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            Laboratorio lab = new Laboratorio();
             
             List<Software> softwares = new ArrayList<Software>();
             String[] sws = request.getParameterValues("modal_sw_lab");
@@ -65,6 +66,8 @@ public class LaboratorioAtualizacaoAction implements ICommand {
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Laboratório atualizado");
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") alterou o laboratório #"+ lab.getId() + ".");
         return request.getContextPath() + "/laboratorio/lista";
     }
 }

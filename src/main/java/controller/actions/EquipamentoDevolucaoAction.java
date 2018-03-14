@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
+import model.Pessoa;
 import util.Logger;
 
 public class EquipamentoDevolucaoAction implements ICommand {
@@ -34,13 +35,13 @@ public class EquipamentoDevolucaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Equipamento e = new Equipamento();
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            Equipamento e = new Equipamento();
             e.setId(Integer.parseInt(request.getParameter("equip-id")));
             fac.getEquipamentoDAO().devolver(e);
-        } catch (Exception e) {
-            Logger.logSevere(e, EquipamentoInsercaoAction.class);
+        } catch (Exception ex) {
+            Logger.logSevere(ex, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
             session.setAttribute("msg", "Erro ao devolver computador");
             return request.getContextPath() + "/equip/lista";
@@ -48,6 +49,8 @@ public class EquipamentoDevolucaoAction implements ICommand {
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador devolvido");
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de fazer a devolução de " + e.getNome() + "(#" + e.getId() + ").");
         return request.getContextPath() + "/equip/lista";
     }
 }

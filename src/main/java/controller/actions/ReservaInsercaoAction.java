@@ -19,8 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.CursoDAO;
-import dao.sgbd.SoftwareDAO;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
@@ -31,8 +29,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Curso;
+import model.Pessoa;
 import model.Reserva;
 import model.Software;
+import util.Logger;
 
 public class ReservaInsercaoAction implements ICommand {
 
@@ -53,7 +53,8 @@ public class ReservaInsercaoAction implements ICommand {
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") criou uma reserva.");
         return request.getContextPath() + "/reserva/novo";
     }
 }

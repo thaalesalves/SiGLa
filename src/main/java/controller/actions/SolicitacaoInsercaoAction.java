@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,7 @@ import model.Reserva;
 import model.Software;
 import model.Solicitacao;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SolicitacaoInsercaoAction implements ICommand {
 
@@ -163,6 +166,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");
         session.setAttribute("status", "success");
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") fez uma solitação.");
         return request.getContextPath() + "/reserva/novo";
     }
 }

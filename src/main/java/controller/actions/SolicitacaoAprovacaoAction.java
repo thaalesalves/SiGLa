@@ -23,6 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,16 +36,17 @@ import model.Pessoa;
 import model.Reserva;
 import model.Solicitacao;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SolicitacaoAprovacaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Solicitacao s = new Solicitacao();
+        Reserva r = new Reserva();
 
         try {
-            Solicitacao s = new Solicitacao();
-            Reserva r = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
             Mail mail = new SolicitacaoAprovacaoMail();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
@@ -61,12 +64,12 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             r.setTurma(s.getTurma());
             r.setSoftwares(s.getSoftwares());
             r = fac.getReservaDAO().insert(r);
-            
+
             Pessoa p = r.getPessoa();
             p.setEmail(ad.getMail(p));
             p.setNome(ad.getGivenName(p));
             p.setNomeCompleto(ad.getCN(p));
-            
+
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
             mail.setPessoa(p);
             mail.setReserva(r);
@@ -82,7 +85,9 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         }
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
-
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") aprovou a solitação #" 
+                + s.getId() + ", e a reserva #" + r.getId() + " foi criada.");
         return request.getContextPath() + "/reserva/solicitacoes";
     }
 }
