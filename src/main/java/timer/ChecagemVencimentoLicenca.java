@@ -24,6 +24,7 @@ import mailsender.Mail;
 import mailsender.VencimentoHojeMail;
 import model.Licenca;
 import model.Software;
+import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
