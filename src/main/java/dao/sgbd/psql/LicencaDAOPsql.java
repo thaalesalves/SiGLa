@@ -85,7 +85,7 @@ public class LicencaDAOPsql implements LicencaDAO {
         List<Licenca> licencas = new ArrayList<Licenca>();
         
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE vencimento = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE status = 1 AND vencimento = ?");
             pstmt.setString(1, new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
             ResultSet rs = pstmt.executeQuery();
             

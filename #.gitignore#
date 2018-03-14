@@ -1,0 +1,5 @@
+/target/
+/log/stderr.log
+/log/stdin.log
+/log/stdout.log
+.DS_
