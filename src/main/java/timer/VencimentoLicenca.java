@@ -37,7 +37,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import util.Logger;
 
-public class ChecagemVencimentoLicenca implements Job {
+public class VencimentoLicenca implements Job {
 
     private Software sw = new Software();
 
@@ -61,7 +61,7 @@ public class ChecagemVencimentoLicenca implements Job {
                 }
             }
         } catch (Exception e) {
-            Logger.logSevere(e, ChecagemVencimentoLicenca.class);
+            Logger.logSevere(e, VencimentoLicenca.class);
         }
     }
 
@@ -75,7 +75,7 @@ public class ChecagemVencimentoLicenca implements Job {
             cal.add(Calendar.DATE, 4);
             vencimento(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
         } catch (Exception e) {
-            Logger.logSevere(e, ChecagemVencimentoLicenca.class);
+            Logger.logSevere(e, VencimentoLicenca.class);
         }
     }
 
@@ -84,7 +84,7 @@ public class ChecagemVencimentoLicenca implements Job {
             SchedulerFactory schFac = new StdSchedulerFactory();
             Scheduler sch = schFac.getScheduler();
             sch.start();
-            JobDetail j = JobBuilder.newJob(ChecagemVencimentoLicenca.class)
+            JobDetail j = JobBuilder.newJob(VencimentoLicenca.class)
                     .withIdentity("aviso_licenca", "licenca")
                     .build();
 
@@ -98,7 +98,7 @@ public class ChecagemVencimentoLicenca implements Job {
             Logger.logOutput("Serviço de checagem de licenças iniciado.");
             sch.scheduleJob(j, t);
         } catch (Exception e) {
-            Logger.logSevere(e, ChecagemVencimentoLicenca.class);
+            Logger.logSevere(e, VencimentoLicenca.class);
         }
     }
 }
