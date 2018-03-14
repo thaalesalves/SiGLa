@@ -17,8 +17,6 @@
 package timer;
 
 import dao.DAOFactory;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -36,7 +34,6 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
-import util.IO;
 import util.Logger;
 
 public class ChecagemVencimentoLicenca implements Job {
@@ -94,7 +91,7 @@ public class ChecagemVencimentoLicenca implements Job {
                     .newTrigger()
                     .withIdentity("aviso_licenca_trigger", "licenca")
                     .startNow()
-                    //.withSchedule(CronScheduleBuilder.cronSchedule("0 30 23 1/1 * ? *"))
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 30 23 1/1 * ? *"))
                     .build();
 
             Logger.logOutput("Serviço de checagem de licenças iniciado.");
