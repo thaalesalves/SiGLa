@@ -24,14 +24,14 @@ public class Timer {
 
     public static void main(String[] args) {
         try {
-            ExecutorService executorService = Executors.newFixedThreadPool(Integer.parseInt(args[0]));
+            ExecutorService executorService = Executors.newFixedThreadPool(1);
 
             executorService.execute(
                     new Runnable() {
-                public void run() {
-                    VencimentoLicenca.main(args);
-                }
-            }
+                        public void run() {
+                            VencimentoLicenca.main(args);
+                        }
+                    }
             );
         } catch (Exception e) {
             Logger.logSevere(e, Timer.class);
