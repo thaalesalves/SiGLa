@@ -20,13 +20,10 @@
 package util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
-import static util.SiGLa.TARGET;
 
 public class Logger {
 
@@ -47,7 +44,8 @@ public class Logger {
         try {
             String message = "\n=== ERRO ===\nErro em " + c.toString() + ": "
                     + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
-                    + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===\n";
+                    + t.getStackTrace()[0].getLineNumber() 
+                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "\n=== FIM DO ERRO ===\n";
 
             LOGGER.log(Level.SEVERE, message, t);
 
@@ -94,7 +92,6 @@ public class Logger {
      * @author Thales Alves Pereira
      * @version 1.0
      * @param message <code>String</code> com a mensagem a ser exibida
-     * @throws java.io.FileNotFoundException
      */
     public static void logOutput(String message) {
         try {
