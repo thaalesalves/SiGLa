@@ -42,10 +42,12 @@ public class Logger {
      */
     public static void logSevere(Throwable t, Class c) {
         try {
-            String message = "\n=== ERRO ===\nErro em " + c.toString() + ": "
+            String message = "\n=== ERRO ==="
+                    + "\nErro em " + c.toString() + ": "
                     + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
                     + t.getStackTrace()[0].getLineNumber() 
-                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "\n=== FIM DO ERRO ===\n";
+                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) 
+                    + "\n=== FIM DO ERRO ===\n";
 
             LOGGER.log(Level.SEVERE, message, t);
 
@@ -71,9 +73,12 @@ public class Logger {
      */
     public static void logWarning(Throwable t, Class c) {
         try {
-            String message = "\n=== ERRO ===\nErro em " + c.toString() + ": "
+            String message = "\n=== AVISO ==="
+                    + "\nErro em " + c.toString() + ": "
                     + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
-                    + t.getStackTrace()[0].getLineNumber() + "\n=== FIM DO ERRO ===\n";
+                    + t.getStackTrace()[0].getLineNumber()
+                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) 
+                    + "\n=== FIM DO AVISO ===\n";
 
             LOGGER.log(Level.WARNING, message, t);
 
