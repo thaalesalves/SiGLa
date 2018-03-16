@@ -19,9 +19,12 @@ package timer;
 import dao.DAOFactory;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import mailsender.Mail;
 import mailsender.VencimentoHojeMail;
+import mailsender.VencimentoSeteDiasMail;
+import mailsender.VencimentoTresDiasMail;
 import model.Licenca;
 import model.Software;
 import org.quartz.CronScheduleBuilder;
@@ -41,39 +44,47 @@ public class VencimentoLicenca implements Job {
 
     private Software sw = new Software();
 
-    public void vencimento(String data) {
-        try {
-            DAOFactory fac = DAOFactory.getFactory();
-            Licenca licenca = new Licenca();
-            licenca.setDataVencimento(data);
-            List<Licenca> licencas = fac.getLicencaDAO().selectVencimento(licenca);
+    public enum VENCIMENTO_LICENCA {
+        HOJE(0, new VencimentoHojeMail()),
+        TRES_DIAS(3, new VencimentoTresDiasMail()),
+        SETE_DIAS(7, new VencimentoSeteDiasMail());
 
-            if (licencas != null) {
-                for (Licenca i : licencas) {
-                    Mail mail = new VencimentoHojeMail();
-                    i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
-                    fac.getLicencaDAO().desativa(i);
-                    mail.setLicenca(i);
-                    mail.sendMail(mail);
-                    Logger.logOutput("Enviado email de aviso sobre " + i.getSoftware().getFabricante() 
-                            + " " + i.getSoftware().getNome() + ". "
-                            + "Este software vence em " + data + ".");
-                }
-            }
-        } catch (Exception e) {
-            Logger.logSevere(e, VencimentoLicenca.class);
+        private Integer quantidadeDias;
+        private Mail emailNotificacao;
+
+        private VENCIMENTO_LICENCA(Integer quantidadeDias, Mail emailNotificacao) {
+            this.quantidadeDias = quantidadeDias;
+            this.emailNotificacao = emailNotificacao;
         }
     }
 
     @Override
     public void execute(JobExecutionContext jec) throws JobExecutionException {
         try {
-            Calendar cal = Calendar.getInstance();
-            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
-            cal.add(Calendar.DATE, 3);
-            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
-            cal.add(Calendar.DATE, 4);
-            vencimento(new SimpleDateFormat("dd/MM/yyyy").format(cal.getTime()));
+            SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+
+            for (VENCIMENTO_LICENCA prazo : VENCIMENTO_LICENCA.values()) {
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, prazo.quantidadeDias);
+                Date date = data.parse(data.format(cal.getTime()));
+                Licenca l = new Licenca();
+                l.setDataVencimento(data.format(cal.getTime()));
+
+                List<Licenca> licencas = DAOFactory.getFactory().getLicencaDAO().selectVencimento(l);
+
+                for (Licenca i : licencas) {
+                    Logger.logOutput(i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + "vence "
+                            + ((prazo.quantidadeDias == 0) ? "hoje. " : "em " + prazo.quantidadeDias + " dias (" + i.getDataVencimento() + "). ")
+                            + "Enviando email de aviso.");
+                    Mail mail = prazo.emailNotificacao;
+                    mail.setLicenca(i);
+                    mail.sendMail(mail);
+                    
+                    if (i.venceHoje(date)) {
+                        DAOFactory.getFactory().getLicencaDAO().desativa(i);
+                    }
+                }
+            }
         } catch (Exception e) {
             Logger.logSevere(e, VencimentoLicenca.class);
         }

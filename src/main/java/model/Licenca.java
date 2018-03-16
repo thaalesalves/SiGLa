@@ -16,7 +16,11 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import util.Logger;
 
 @lombok.Getter
 @lombok.Setter
@@ -27,4 +31,20 @@ public class Licenca {
     private String dataVencimento;
     private Software software;
     private List<LicencaCodigo> codigos;
+
+    public boolean venceHoje(Date data) {
+        try {
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataHoje = df.parse(df.format(cal.getTime()));
+            
+            if (data.equals(dataHoje)) {
+                return true;
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, Licenca.class);
+        }
+        
+        return false;
+    }
 }
