@@ -42,8 +42,6 @@ import util.Logger;
 
 public class VencimentoLicenca implements Job {
 
-    private Software sw = new Software();
-
     public enum VENCIMENTO_LICENCA {
         HOJE(0, new VencimentoHojeMail()),
         TRES_DIAS(3, new VencimentoTresDiasMail()),
