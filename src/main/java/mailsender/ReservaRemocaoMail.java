@@ -28,9 +28,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Modulo;
-import model.Pessoa;
 import model.Software;
-import model.Solicitacao;
 import util.Logger;
 import util.SiGLa;
 
@@ -698,7 +696,7 @@ public class ReservaRemocaoMail extends Mail {
                 + "                        \n"
                 + "                            <h1 style='text-align: center;'>Opa! Sua reserva foi invalidada!</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A reserva <strong>#" + mail.getReserva().getId() + "</strong> foi invalidada por <strong>" + mail.getPessoa().getNomeCompleto() + "</strong> por: <strong>" + mail.getReserva().getMotivoRemocao() + "</strong>.<br>\n"
+                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A reserva <strong>#" + mail.getReserva().getId() + "</strong> foi invalidada por: <strong>" + mail.getReserva().getMotivoRemocao() + "</strong>.<br>\n"
                 + "<br>\n"
                 + "A reserva havia sido feita para o <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos</strong>, de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e havia sido registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso você ache que a reserva foi removida por engano, entre em contato com a nossa equipe ou com a coordenação do seu curso.</p>\n"
                 + "\n"
@@ -771,25 +769,5 @@ public class ReservaRemocaoMail extends Mail {
                 + "    </body>\n"
                 + "</html>\n"
                 + "";
-    }
-
-    @Override
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    @Override
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-
-    @Override
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    @Override
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
     }
 }

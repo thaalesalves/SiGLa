@@ -23,14 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
+import mailsender.SolicitacaoAprovacaoEquipeMail;
 import mailsender.SolicitacaoAprovacaoMail;
 import model.Pessoa;
 import model.Reserva;
@@ -48,7 +47,8 @@ public class SolicitacaoAprovacaoAction implements ICommand {
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            Mail mail = new SolicitacaoAprovacaoMail();
+            Mail mailProf = new SolicitacaoAprovacaoMail();
+            Mail mailFunc = new SolicitacaoAprovacaoEquipeMail();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
 
             s.setId(Integer.parseInt(request.getParameter("solicitacao")));
@@ -71,10 +71,16 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             p.setNomeCompleto(ad.getCN(p));
 
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
-            mail.setPessoa(p);
-            mail.setReserva(r);
-            mail.setSolicitacao(s);
-            mail.sendMail(mail);
+            
+            mailFunc.setPessoa(p);
+            mailFunc.setReserva(r);
+            mailFunc.setSolicitacao(s);
+            mailFunc.sendMail(mailFunc);
+            
+            mailProf.setPessoa(p);
+            mailProf.setReserva(r);
+            mailProf.setSolicitacao(s);
+            mailProf.sendMail(mailProf);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
 

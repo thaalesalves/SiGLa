@@ -34,10 +34,14 @@ import model.Reserva;
 import model.Software;
 import model.Solicitacao;
 
+@lombok.Getter
+@lombok.Setter
 public abstract class Mail {
 
     protected Reserva reserva = new Reserva();
     protected Solicitacao solicitacao = new Solicitacao();
+    protected Pessoa funcionario = new Pessoa();
+    protected Pessoa usuario = new Pessoa();
     protected Pessoa pessoa = new Pessoa();
     protected Software software = new Software();
     protected Laboratorio laboratorio = new Laboratorio();
@@ -88,101 +92,12 @@ public abstract class Mail {
             protected PasswordAuthentication getPasswordAuthentication() {
                 //return new PasswordAuthentication(mail.getPessoa().getEmail(), mail.getPessoa().getSenha());
                 return new PasswordAuthentication(
-                        mail.getPessoa().getEmail(), 
-                        mail.getPessoa().getSenha()
+                        mail.getFuncionario().getEmail(), 
+                        mail.getFuncionario().getSenha()
                 );
             }
         });
         
         return session;
     }
-
-    // <editor-fold defaultstate="collapsed" desc="Métodos de Acesso">
-    public void setSoftware(Software software) {
-        this.software = software;
-    }
-
-    public void setLaboratorio(Laboratorio laboratorio) {
-        this.laboratorio = laboratorio;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Software getSoftware() {
-        return software;
-    }
-
-    public Laboratorio getLaboratorio() {
-        return laboratorio;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-    
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-    
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-    
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-    
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-    
-    public void setLicenca(Licenca licenca) {
-        this.licenca = licenca;
-    }
-    
-    public Licenca getLicenca() {
-        return licenca;
-    }
-
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
-    }
-    
-    public String getSender() {
-        return sender;
-    }
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public String getMessage() {
-        return message;
-    } //</editor-fold>
 }

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
+import mailsender.ReservaRemocaoEquipeMail;
 import mailsender.ReservaRemocaoMail;
 import model.Pessoa;
 import model.Reserva;
@@ -46,7 +47,8 @@ public class ReservaRemocaoAction implements ICommand {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
         try {
-            Mail mail = new ReservaRemocaoMail();
+            Mail mailProf = new ReservaRemocaoMail();
+            Mail mailFunc = new ReservaRemocaoEquipeMail();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
 
@@ -59,9 +61,13 @@ public class ReservaRemocaoAction implements ICommand {
             
             fac.getReservaDAO().delete(r);
             
-            mail.setReserva(r);
-            mail.setPessoa((Pessoa) session.getAttribute("pessoa"));
-            mail.sendMail(mail);
+            mailFunc.setReserva(r);
+            mailFunc.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            mailFunc.sendMail(mailFunc);
+            
+            mailProf.setReserva(r);
+            mailProf.setPessoa((Pessoa) session.getAttribute("pessoa"));
+            mailProf.sendMail(mailProf);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }

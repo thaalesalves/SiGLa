@@ -17,22 +17,17 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.CursoDAO;
-import dao.sgbd.ReservaDAO;
-import dao.sgbd.SoftwareDAO;
-import dao.sgbd.SolicitacaoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
+import mailsender.ReservaEquipeMail;
 import mailsender.ReservaMail;
 import mailsender.SolicitacaoMail;
 import model.Modulo;
@@ -56,7 +51,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
             boolean isEmpty = (request.getParameter("obs").trim().isEmpty() || request.getParameter("obs").trim() == null);
 
             if (role.equals("admin") || role.equals("funcionario")) {
-                Mail mail = new ReservaMail();
+                Mail mailProf = new ReservaMail();
+                Mail mailFunc = new ReservaEquipeMail();
                 Reserva r = new Reserva();
 
                 String[] modulos = request.getParameterValues("modulo");
@@ -100,9 +96,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 r = fac.getReservaDAO().insert(r);
 
-                mail.setPessoa(p);
-                mail.setReserva(r);
-                mail.sendMail(mail);
+                mailFunc.setPessoa(p);
+                mailFunc.setReserva(r);
+                mailFunc.sendMail(mailFunc);
+                
+                mailProf.setPessoa(p);
+                mailProf.setReserva(r);
+                mailProf.sendMail(mailProf);
 
                 session.setAttribute("msg", "Reserva efetuada com sucesso.");
                 session.setAttribute("status", "success");

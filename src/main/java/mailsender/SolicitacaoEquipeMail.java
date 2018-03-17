@@ -32,15 +32,15 @@ import model.Software;
 import util.Logger;
 import util.SiGLa;
 
-public class SolicitacaoAprovacaoMail extends Mail {
+public class SolicitacaoEquipeMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<"+ SiGLa.getMailSystem() + ">"));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
-            message.setSubject("SiGLa | Solicitação Aprovada");
+            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<" + SiGLa.getMailSystem() + ">"));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(SiGLa.getMailGroup()));
+            message.setSubject("SiGLa | Solicitação de Reserva");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");
             message.setSentDate(new Date());
             Transport.send(message);
@@ -57,11 +57,11 @@ public class SolicitacaoAprovacaoMail extends Mail {
         String softwares = "";
         String modulos = "";
 
-        for (Software s : mail.getReserva().getSoftwares()) {
+        for (Software s : mail.getSolicitacao().getSoftwares()) {
             softwares += s.getFabricante() + " " + s.getNome() + "; ";
         }
 
-        for (Modulo m : mail.getReserva().getModulos()) {
+        for (Modulo m : mail.getSolicitacao().getModulos()) {
             modulos += m.getId() + "º módulo; ";
         }
 
@@ -609,6 +609,9 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "\n"
                 + "}</style></head>\n"
                 + "    <body>\n"
+                + "		<!--*|IF:MC_PREVIEW_TEXT|*-->\n"
+                + "		<!--[if !gte mso 9]><!----><span class='mcnPreviewText' style='display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;'>*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->\n"
+                + "		<!--*|END:IF|*-->\n"
                 + "        <center>\n"
                 + "            <table align='center' border='0' cellpadding='0' cellspacing='0' height='100%' width='100%' id='bodyTable'>\n"
                 + "                <tr>\n"
@@ -694,15 +697,15 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "                        \n"
                 + "                        <td valign='top' class='mcnTextContent' style='padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;'>\n"
                 + "                        \n"
-                + "                            <h1 style='text-align: center;'>Sua solicitação foi aprovada!</h1>\n"
+                + "                            <h1 style='text-align: center;'>Solicitação recebida!</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong> foi aprovada, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
+                + "<p style='text-align: center;'><strong>" + mail.getSolicitacao().getPessoa().getNome() + "</strong> fez uma solicitação! É necessário verificar a disponibilidade!<br>\n"
                 + "<br>\n"
-                + "A reserva foi feita para o <strong>" + mail.getReserva().getTurma() + "</strong> de <strong>" + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos, </strong>de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e foi registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
+                + "A solicitação foi feita para o <strong>" + mail.getSolicitacao().getTurma() + "</strong> de <strong>" + mail.getSolicitacao().getCurso().getModalidade() + " em " + mail.getSolicitacao().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getSolicitacao().getQtdAlunos() + " alunos</strong>, de <strong>" + mail.getSolicitacao().getDiaSemana() + "</strong>, e foi registrada como solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong>.</p>\n"
                 + "\n"
                 + "<p style=\'text-align: left;\'><strong>Módulos:</strong> " + modulos + "<br>\n"
                 + "<strong>Softwares:</strong> " + softwares + "<br>\n"
-                + "<strong>Observação:</strong> " + mail.getReserva().getObservacao() + "</p>\n"
+                + "<strong>Observação:</strong> " + mail.getSolicitacao().getObservacao() + "</p>\n"
                 + "\n"
                 + "                        </td>\n"
                 + "                    </tr>\n"
@@ -767,6 +770,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "            </table>\n"
                 + "        </center>\n"
                 + "    </body>\n"
-                + "</html>";
+                + "</html>\n"
+                + "";
     }
 }

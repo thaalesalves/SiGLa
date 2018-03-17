@@ -27,7 +27,6 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.Pessoa;
 
 public class MailMessage extends Mail {
 
@@ -45,55 +44,5 @@ public class MailMessage extends Mail {
     @Override
     public String getMessage(Mail mail) {
         return "";
-    }
-    
-    @Override
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    @Override
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    @Override
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    @Override
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    @Override
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    @Override
-    public String getSender() {
-        return sender;
-    }
-
-    @Override
-    public String getRecipient() {
-        return recipient;
-    }
-
-    @Override
-    public String getSubject() {
-        return subject;
-    }
-
-    @Override
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

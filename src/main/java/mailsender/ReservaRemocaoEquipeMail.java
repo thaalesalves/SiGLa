@@ -32,15 +32,15 @@ import model.Software;
 import util.Logger;
 import util.SiGLa;
 
-public class SolicitacaoAprovacaoMail extends Mail {
+public class ReservaRemocaoEquipeMail extends Mail {
 
     @Override
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<"+ SiGLa.getMailSystem() + ">"));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
-            message.setSubject("SiGLa | Solicitação Aprovada");
+            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<" + SiGLa.getMailSystem() + ">"));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(SiGLa.getMailGroup()));
+            message.setSubject("SiGLa | Invalidação de Reserva");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");
             message.setSentDate(new Date());
             Transport.send(message);
@@ -609,6 +609,9 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "\n"
                 + "}</style></head>\n"
                 + "    <body>\n"
+                + "		<!--*|IF:MC_PREVIEW_TEXT|*-->\n"
+                + "		<!--[if !gte mso 9]><!----><span class='mcnPreviewText' style='display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;'>*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->\n"
+                + "		<!--*|END:IF|*-->\n"
                 + "        <center>\n"
                 + "            <table align='center' border='0' cellpadding='0' cellspacing='0' height='100%' width='100%' id='bodyTable'>\n"
                 + "                <tr>\n"
@@ -694,11 +697,11 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "                        \n"
                 + "                        <td valign='top' class='mcnTextContent' style='padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;'>\n"
                 + "                        \n"
-                + "                            <h1 style='text-align: center;'>Sua solicitação foi aprovada!</h1>\n"
+                + "                            <h1 style='text-align: center;'>Reserva <strong>#" + mail.getReserva().getId() + "</strong> invalidada</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. A solicitação <strong>#" + mail.getSolicitacao().getId() + "</strong> foi aprovada, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
+                + "                            <p style='text-align: center;'>A reserva <strong>#" + mail.getReserva().getId() + "</strong> foi invalidada por <strong>" + mail.getPessoa().getNomeCompleto() + "</strong> por <strong>" + mail.getReserva().getMotivoRemocao() + "</strong>.<br>\n"
                 + "<br>\n"
-                + "A reserva foi feita para o <strong>" + mail.getReserva().getTurma() + "</strong> de <strong>" + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos, </strong>de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e foi registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
+                + "A reserva havia sido feita para o <strong>" + mail.getReserva().getTurma()+ "</strong> de <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos()+ " alunos, </strong>às <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e havia sido registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.</p>\n"
                 + "\n"
                 + "<p style=\'text-align: left;\'><strong>Módulos:</strong> " + modulos + "<br>\n"
                 + "<strong>Softwares:</strong> " + softwares + "<br>\n"
@@ -767,6 +770,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
                 + "            </table>\n"
                 + "        </center>\n"
                 + "    </body>\n"
-                + "</html>";
+                + "</html>\n"
+                + "";
     }
 }

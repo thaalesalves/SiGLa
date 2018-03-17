@@ -28,9 +28,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Modulo;
-import model.Pessoa;
 import model.Software;
-import model.Solicitacao;
 import util.Logger;
 import util.SiGLa;
 
@@ -770,25 +768,5 @@ public class SolicitacaoMail extends Mail {
             + "        </center>\n"
             + "    </body>\n"
             + "</html>";
-    }
-
-    @Override
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    @Override
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-
-    @Override
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    @Override
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
     }
 }

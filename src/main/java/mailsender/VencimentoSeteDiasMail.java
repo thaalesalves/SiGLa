@@ -27,8 +27,6 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import model.Pessoa;
-import model.Solicitacao;
 import util.Logger;
 import util.SiGLa;
 
@@ -752,25 +750,5 @@ public class VencimentoSeteDiasMail extends Mail {
                 + "    </body>\n"
                 + "</html>\n"
                 + "";
-    }
-
-    @Override
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    @Override
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-
-    @Override
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    @Override
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
     }
 }

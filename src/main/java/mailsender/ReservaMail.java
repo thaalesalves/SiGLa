@@ -28,9 +28,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import model.Modulo;
-import model.Pessoa;
 import model.Software;
-import model.Solicitacao;
 import util.Logger;
 import util.SiGLa;
 
@@ -698,7 +696,7 @@ public class ReservaMail extends Mail {
                 + "                        \n"
                 + "                            <h1 style='text-align: center;'>Reserva efetuada!</h1>\n"
                 + "\n"
-                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. <strong>" + mail.getPessoa().getNomeCompleto() + "</strong> efetuou uma reserva para você, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
+                + "                            <p style='text-align: center;'>Olá, <strong>" + mail.getReserva().getPessoa().getNome() + "</strong>. Uma reserva foi efetuada para você, e o laboratório <strong>" + mail.getReserva().getLab().getNumero() + "</strong> está prontinho para ser usado!<br>\n"
                 + "<br>\n"
                 + "A reserva foi feita para o <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos</strong>, de <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e foi registrada como solicitação <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.&nbsp;Caso haja algum dado incorreto, basta entrar em contato com a gente que nós damos um jeito.</p>\n"
                 + "\n"
@@ -771,25 +769,5 @@ public class ReservaMail extends Mail {
                 + "    </body>\n"
                 + "</html>\n"
                 + "";
-    }
-
-    @Override
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
-
-    @Override
-    public void setSolicitacao(Solicitacao solicitacao) {
-        this.solicitacao = solicitacao;
-    }
-
-    @Override
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    @Override
-    public Solicitacao getSolicitacao() {
-        return solicitacao;
     }
 }

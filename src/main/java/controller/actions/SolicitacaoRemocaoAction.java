@@ -23,14 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mailsender.Mail;
+import mailsender.SolicitacaoReprovacaoEquipeMail;
 import mailsender.SolicitacaoReprovacaoMail;
 import model.Pessoa;
 import model.Solicitacao;
@@ -45,7 +44,8 @@ public class SolicitacaoRemocaoAction implements ICommand {
         Solicitacao s = new Solicitacao();
         
         try {
-            Mail mail = new SolicitacaoReprovacaoMail();
+            Mail mailProf = new SolicitacaoReprovacaoMail();
+            Mail mailFunc = new SolicitacaoReprovacaoEquipeMail();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
             
@@ -65,9 +65,13 @@ public class SolicitacaoRemocaoAction implements ICommand {
             p.setNome(ad.getGivenName(p));
             p.setNomeCompleto(ad.getCN(p));
             
-            mail.setPessoa(p);
-            mail.setSolicitacao(s);
-            mail.sendMail(mail);
+            mailProf.setPessoa(p);
+            mailProf.setSolicitacao(s);
+            mailProf.sendMail(mailProf);
+            
+            mailFunc.setPessoa(p);
+            mailFunc.setSolicitacao(s);
+            mailFunc.sendMail(mailFunc);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             
