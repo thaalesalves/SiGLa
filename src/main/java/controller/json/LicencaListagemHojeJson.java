@@ -16,9 +16,9 @@
  */
 package controller.json;
 
+import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +29,12 @@ public class LicencaListagemHojeJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
-        List<Licenca> licencas = new ArrayList<Licenca>();
+        DAOFactory fac = DAOFactory.getFactory();
+        Licenca licenca = new Licenca();
+        licenca.setDataVencimento(request.getParameter("data"));
         
-        return util.Json.toJson("");
+        List<Licenca> licencas = fac.getLicencaDAO().selectVencimento(licenca);
+        
+        return util.Json.toJson(licencas);
     }
 }

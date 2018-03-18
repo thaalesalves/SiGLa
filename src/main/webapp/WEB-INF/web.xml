@@ -51,10 +51,12 @@
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
         <url-pattern>/AlmightyController</url-pattern>
+        <url-pattern>/controller/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JsonController</servlet-name>
         <url-pattern>/JsonController</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

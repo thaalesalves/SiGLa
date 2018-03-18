@@ -46,7 +46,7 @@ public class Logger {
                     + "\nErro em " + c.toString() + ": "
                     + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
                     + t.getStackTrace()[0].getLineNumber() 
-                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) 
+                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) 
                     + "\n=== FIM DO ERRO ===\n";
 
             LOGGER.log(Level.SEVERE, message, t);
@@ -77,7 +77,7 @@ public class Logger {
                     + "\nErro em " + c.toString() + ": "
                     + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
                     + t.getStackTrace()[0].getLineNumber()
-                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) 
+                    + "\nData: "+ new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) 
                     + "\n=== FIM DO AVISO ===\n";
 
             LOGGER.log(Level.WARNING, message, t);
@@ -101,7 +101,7 @@ public class Logger {
     public static void logOutput(String message) {
         try {
             message += "\n";
-            String timeStamp = "[" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(Calendar.getInstance().getTime()) + "]: ";
+            String timeStamp = "[" + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + "]: ";
             message = timeStamp + message;
             LOGGER.log(Level.INFO, message);
 
