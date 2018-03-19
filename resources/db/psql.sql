@@ -21,7 +21,7 @@ CREATE TABLE tb_software (
 CREATE TABLE tb_equipamento (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(20) NOT NULL,
-    laboratorio INT REFERENCES tb_laboratorio(id),
+    laboratorio INT REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE,
     ip VARCHAR(15) NOT NULL,
     mac VARCHAR(30) NOT NULL,
     config VARCHAR NOT NULL,
@@ -38,8 +38,8 @@ CREATE TABLE tb_grupo (
 
 CREATE TABLE tb_reserva (
     id SERIAL PRIMARY KEY,
-    laboratorio INT REFERENCES tb_laboratorio(id) NOT NULL,
-    curso INT REFERENCES tb_curso(id) NOT NULL,
+    laboratorio INT REFERENCES tb_laboratorio(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+    curso INT REFERENCES tb_curso(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE tb_reserva (
 
 CREATE TABLE tb_solicitacao (
     id SERIAL PRIMARY KEY,
-    curso INT REFERENCES tb_curso(id) NOT NULL,
+    curso INT REFERENCES tb_curso(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE tb_representate (
     nome VARCHAR NOT NULL,
     telefone VARCHAR,
     email VARCHAR,
-    fornecedor INTEGER REFERENCES tb_fornecedor(id)
+    fornecedor INTEGER REFERENCES tb_fornecedor(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tb_licenca (
@@ -81,21 +81,21 @@ CREATE TABLE tb_licenca (
     aquisicao VARCHAR NOT NULL,
     vencimento VARCHAR NOT NULL,
     status INTEGER NOT NULL,
-    software INTEGER REFERENCES tb_software(id),
-    fornecedor INTEGER REFERENCES tb_fornecedor(id)
+    software INTEGER REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    fornecedor INTEGER REFERENCES tb_fornecedor(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tb_licenca_codigo (
     id SERIAL PRIMARY KEY,
     codigo_tipo VARCHAR NOT NULL,
     codigo VARCHAR NOT NULL,
-    licenca INTEGER REFERENCES tb_licenca(id)
+    licenca INTEGER REFERENCES tb_licenca(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_res (
     id SERIAL PRIMARY KEY,
-    sw INT REFERENCES tb_software(id),
-    res INT REFERENCES tb_reserva(id)
+    sw INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    res INT REFERENCES tb_reserva(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_soli (
@@ -106,20 +106,20 @@ CREATE TABLE aux_sw_soli (
 
 CREATE TABLE aux_modulo_res (
     id SERIAL PRIMARY KEY,
-    res INT REFERENCES tb_reserva(id),
-    modulo INT REFERENCES tb_modulo(id)
+    res INT REFERENCES tb_reserva(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    modulo INT REFERENCES tb_modulo(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_modulo_soli (
     id SERIAL PRIMARY KEY,
-    res INT REFERENCES tb_solicitacao(id),
-    modulo INT REFERENCES tb_modulo(id)
+    res INT REFERENCES tb_solicitacao(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    modulo INT REFERENCES tb_modulo(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_lab (
     id SERIAL PRIMARY KEY,
-    sw INTEGER REFERENCES tb_software(id) NOT NULL,
-    lab INTEGER REFERENCES tb_laboratorio(id) NOT NULL
+    sw INTEGER REFERENCES tb_software(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+    lab INTEGER REFERENCES tb_laboratorio(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Inserção de Valores
