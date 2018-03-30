@@ -75,6 +75,10 @@ body {
     .main-footer {
         margin-left: 0;
     }
+    
+    .logo-mini,.logo-lg {
+        width: 5%;
+    }
 }
 @media (min-width: 768px) {
     .sidebar-collapse .content-wrapper,
