@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 // <editor-fold defaultstate="collapsed" desc="Pacotes & Importações">
 package controller;
@@ -40,31 +40,31 @@ public class RedirectController extends HttpServlet {
         Map<String, String> mapaUrl = new HashMap<String, String>();
         RequestDispatcher rd;
 
-        try {            
+        try {
             /* Redirecionamentos de /equip/ */
             mapaUrl.put("/equip/novo", "../labinfo/equip/novo.jsp");
             mapaUrl.put("/equip/lista", "../labinfo/equip/lista.jsp");
-            
+
             /* Redirecionamentos de /admin/ */
             mapaUrl.put("/admin", "/admin/install");
             mapaUrl.put("/admin/install", "../labinfo/admin/install.jsp");
             mapaUrl.put("/admin/database", "../labinfo/admin/db.jsp");
             mapaUrl.put("/admin/activedirectory", "../labinfo/admin/ad.jsp");
-            
+
             /* Redirecionamentos de /controle/ */
             mapaUrl.put("/controle/contar-solicitacoes", "../CounterController");
             mapaUrl.put("/controle/nova-reserva", "../AlmightyController?acao=ReservaInsercao");
-            
+
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
-            /* Redirecionamentos de /reserva/ */            
+            /* Redirecionamentos de /reserva/ */
             mapaUrl.put("/reserva/novo", "../labinfo/reserva/novo.jsp");
             mapaUrl.put("/reserva/lista", "../labinfo/reserva/lista.jsp");
             mapaUrl.put("/reserva/hoje", "../labinfo/reserva/lista_dia.jsp");
             mapaUrl.put("/reserva/solicitacoes", "../labinfo/reserva/solicitacoes.jsp");
-            
+
             /* Redirecionamentos de /curso/ */
             mapaUrl.put("/curso/novo", "../labinfo/curso/novo.jsp");
             mapaUrl.put("/curso/lista", "../labinfo/curso/lista.jsp");
@@ -79,11 +79,16 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /software/ */
             mapaUrl.put("/software/novo", "../labinfo/software/novo.jsp");
             mapaUrl.put("/software/lista", "../labinfo/software/lista.jsp");
+            mapaUrl.put("/software/licenca/lista", "../labinfo/licenca/lista.jsp");
             
+            /* Redirecionamentos de /licenca/ */
+            mapaUrl.put("/licenca/lista", "../labinfo/licenca/lista.jsp");
+            mapaUrl.put("/licenca/novo", "../labinfo/licenca/novo.jsp");
+
             /* Redirecionamentos de /laboratorio/ */
             mapaUrl.put("/laboratorio/novo", "../labinfo/lab/novo.jsp");
             mapaUrl.put("/laboratorio/lista", "../labinfo/lab/lista.jsp");
-            
+
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);
             } else {
