@@ -14,33 +14,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package controller.json;
+
+package controller.actions;
 
 import dao.DAOFactory;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.NamingException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Licenca;
-import util.IO;
 import util.Logger;
 
-public class LicencaListagemHojeJson implements IJson {
+public class LicencaDesativacaoAction implements ICommand {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
-        List<Licenca> licencas = new ArrayList<Licenca>();
-
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         try {
+            Licenca licenca = new Licenca();
             DAOFactory fac = DAOFactory.getFactory();
-            licencas = fac.getLicencaDAO().selectVencimento();
+            licenca.setId(Integer.parseInt(request.getParameter("id")));
+            fac.getLicencaDAO().desativa(licenca);
+            
         } catch (Exception e) {
-            Logger.logSevere(e, LicencaListagemHojeJson.class);
+            Logger.logSevere(e, LicencaDesativacaoAction.class);
         }
-
-        return util.Json.toJson(licencas);
+        
+        return request.getContextPath() + "/licenca/lista";
     }
 }

@@ -19,28 +19,37 @@ package controller.json;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Licenca;
-import util.IO;
+import model.Pessoa;
 import util.Logger;
 
-public class LicencaListagemHojeJson implements IJson {
+public class LicencaListagemJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         List<Licenca> licencas = new ArrayList<Licenca>();
+        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            licencas = fac.getLicencaDAO().selectVencimento();
+            licencas = fac.getLicencaDAO().select();
+
+            for (Licenca i : licencas) {
+                i.setCodigos(fac.getLicencaCodigoDAO().select(i));
+                i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
+            }
         } catch (Exception e) {
-            Logger.logSevere(e, LicencaListagemHojeJson.class);
+            Logger.logSevere(e, LicencaListagemJson.class);
         }
 
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem das licenças.");
+        
         return util.Json.toJson(licencas);
     }
 }

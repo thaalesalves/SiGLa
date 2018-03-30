@@ -25,22 +25,25 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Licenca;
+import model.Pessoa;
 import util.IO;
 import util.Logger;
 
-public class LicencaListagemHojeJson implements IJson {
+public class LicencaListagemDesativadoJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         List<Licenca> licencas = new ArrayList<Licenca>();
+        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            licencas = fac.getLicencaDAO().selectVencimento();
+            licencas = fac.getLicencaDAO().selectDesativado();
         } catch (Exception e) {
-            Logger.logSevere(e, LicencaListagemHojeJson.class);
+            Logger.logSevere(e, LicencaListagemDesativadoJson.class);
         }
 
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") listou os softwares desativados");
         return util.Json.toJson(licencas);
     }
 }
