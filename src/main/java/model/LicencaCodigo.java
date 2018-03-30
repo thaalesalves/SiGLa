@@ -22,4 +22,5 @@ public class LicencaCodigo {
     private Integer id;
     private String codigo;
     private String codigoTipo;
+    private Licenca licenca;
 }

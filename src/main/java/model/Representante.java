@@ -22,6 +22,5 @@ public class Representante {
     private Integer id;
     private String nome;
     private String telefone;
-    private String celular;
     private String email;
 }

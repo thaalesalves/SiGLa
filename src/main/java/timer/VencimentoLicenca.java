@@ -26,7 +26,6 @@ import mailsender.VencimentoHojeMail;
 import mailsender.VencimentoSeteDiasMail;
 import mailsender.VencimentoTresDiasMail;
 import model.Licenca;
-import model.Software;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
@@ -38,6 +37,7 @@ import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+import util.IO;
 import util.Logger;
 
 public class VencimentoLicenca implements Job {
@@ -66,7 +66,7 @@ public class VencimentoLicenca implements Job {
                 cal.add(Calendar.DATE, prazo.quantidadeDias);
                 Date date = data.parse(data.format(cal.getTime()));
                 Licenca l = new Licenca();
-                l.setDataVencimento(data.format(cal.getTime()));
+                l.setDataVencimento(IO.getData(data.format(cal.getTime())));
 
                 List<Licenca> licencas = DAOFactory.getFactory().getLicencaDAO().selectVencimento(l);
 

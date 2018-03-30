@@ -20,6 +20,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 @lombok.Getter
 @lombok.Setter
@@ -29,4 +30,5 @@ public class Software implements Serializable {
     private String nome;
     private String fabricante;
     private Licenca licenca;
+    private List<Licenca> licencas;
 }

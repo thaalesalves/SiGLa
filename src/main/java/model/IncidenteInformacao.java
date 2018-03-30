@@ -16,6 +16,8 @@
  */
 package model;
 
+import java.util.Date;
+
 @lombok.Getter
 @lombok.Setter
 public class IncidenteInformacao {
@@ -23,6 +25,6 @@ public class IncidenteInformacao {
     private Integer id;
     private Incidente incidente;
     private Pessoa pessoa;
-    private String dataAdicao;
+    private Date dataAdicao;
     private String descricao;
 }

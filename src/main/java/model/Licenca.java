@@ -27,8 +27,9 @@ import util.Logger;
 public class Licenca {
 
     private Integer id;
-    private String dataAquisicao;
-    private String dataVencimento;
+    private Integer status;
+    private Date dataAquisicao;
+    private Date dataVencimento;
     private Software software;
     private List<LicencaCodigo> codigos;
 
@@ -37,14 +38,14 @@ public class Licenca {
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             Date dataHoje = df.parse(df.format(cal.getTime()));
-            
+
             if (data.equals(dataHoje)) {
                 return true;
             }
         } catch (Exception e) {
             Logger.logSevere(e, Licenca.class);
         }
-        
+
         return false;
     }
 }
