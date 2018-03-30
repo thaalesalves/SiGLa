@@ -51,10 +51,15 @@ public class ReservaInsercaoAction implements ICommand {
 
             session.setAttribute("reserva", reserva);
         } catch (Exception e) {
+            session.setAttribute("msg", "Erro ao inserir reserva.");
+            session.setAttribute("status", "error");
             util.Logger.logSevere(e, this.getClass());
+            return request.getContextPath() + "/reserva/novo";
         }
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") criou uma reserva.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") criou uma reserva.");
+        session.setAttribute("msg", "Reserva inserida com sucesso.");
+        session.setAttribute("status", "success");
         return request.getContextPath() + "/reserva/novo";
     }
 }

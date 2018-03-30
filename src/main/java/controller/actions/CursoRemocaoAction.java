@@ -51,7 +51,7 @@ public class CursoRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de remover o curso "+ c.getNome() + "(#" + c.getId() + ".");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de remover o curso "+ c.getNome() + "(#" + c.getId() + ".");
         return request.getContextPath() + "/curso/lista";
     }
 

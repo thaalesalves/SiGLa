@@ -61,7 +61,7 @@ public class SoftwareInsercaoAction implements ICommand {
         session.setAttribute("status", "success");
         
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") cadastrou um software.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") cadastrou um software.");
         
         return request.getContextPath() + "/software/novo";
     }

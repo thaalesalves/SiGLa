@@ -60,7 +60,7 @@ public class EnviarEmailModalAction implements ICommand {
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Email enviado com sucesso");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de enviar um email para " + request.getParameter("modal-email-msg")  +  ".");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de enviar um email para " + request.getParameter("modal-email-msg")  +  ".");
         return url;
     }
 }

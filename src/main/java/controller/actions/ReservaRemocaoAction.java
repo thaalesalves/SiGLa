@@ -73,7 +73,7 @@ public class ReservaRemocaoAction implements ICommand {
         }
 
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + "do banco de dados.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + "do banco de dados.");
         
         return request.getContextPath() + "/reserva/lista";
     }

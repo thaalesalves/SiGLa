@@ -174,7 +174,7 @@ public class ConfigurationAction implements ICommand {
                 session.setAttribute("msg", "Domínio atualizado");
                 session.setAttribute("status", "success");
                 Pessoa u = (Pessoa) session.getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") atualizou o domínio do Active Directory para "
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o domínio do Active Directory para "
                         + SiGLa.getDomain() + ".");
                 return request.getContextPath();
             } else if (op.equals("db")) {
@@ -202,7 +202,7 @@ public class ConfigurationAction implements ICommand {
                 session.setAttribute("msg", "Banco de dados atualizado");
                 session.setAttribute("status", "success");
                 Pessoa u = (Pessoa) session.getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") atualizou o banco de dados para "
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o banco de dados para "
                         + SiGLa.getDbName() + "(SGBD: " + SiGLa.getDbDbms() + ".");
                 return request.getContextPath() + "/admin/database";
             }

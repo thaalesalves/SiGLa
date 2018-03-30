@@ -92,7 +92,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") aprovou a solitação #" 
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") aprovou a solitação #" 
                 + s.getId() + ", e a reserva #" + r.getId() + " foi criada.");
         return request.getContextPath() + "/reserva/solicitacoes";
     }

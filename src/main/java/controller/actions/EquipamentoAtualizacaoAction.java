@@ -51,7 +51,7 @@ public class EquipamentoAtualizacaoAction implements ICommand {
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador atualizado");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de alterar " + e.getNome() + "(#" + e.getId() + ".");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de alterar " + e.getNome() + "(#" + e.getId() + ".");
         return request.getContextPath() + "/equip/lista";
     }
 }

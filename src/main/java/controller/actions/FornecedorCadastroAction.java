@@ -55,7 +55,7 @@ public class FornecedorCadastroAction implements ICommand {
             Logger.logSevere(e, FornecedorCadastroAction.class);
         }
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de cadastrar um fornecedor.");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de cadastrar um fornecedor.");
         return request.getContextPath() + "/software/fornecedor/novo";
     }
 

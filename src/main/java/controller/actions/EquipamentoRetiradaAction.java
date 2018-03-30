@@ -53,7 +53,7 @@ public class EquipamentoRetiradaAction implements ICommand {
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador retirado");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() +  "(#" + e.getId() +  ").");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() +  "(#" + e.getId() +  ").");
         return request.getContextPath() + "/equip/lista";
     }
 }

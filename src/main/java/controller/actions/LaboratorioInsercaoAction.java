@@ -76,7 +76,7 @@ public class LaboratorioInsercaoAction implements ICommand {
         session.setAttribute("msg", "Laboratório cadastrado com sucesso");
         session.setAttribute("status", "success");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/laboratorio/novo";
     }
 

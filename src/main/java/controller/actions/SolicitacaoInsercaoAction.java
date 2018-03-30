@@ -167,7 +167,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");
         session.setAttribute("status", "success");
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") fez uma solitação.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez uma solitação.");
         return request.getContextPath() + "/reserva/novo";
     }
 }

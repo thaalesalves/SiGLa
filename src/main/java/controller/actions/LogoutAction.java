@@ -47,7 +47,7 @@ public class LogoutAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de fazer logout do SiGLa.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de fazer logout do SiGLa.");
         return request.getContextPath();
     }
 }

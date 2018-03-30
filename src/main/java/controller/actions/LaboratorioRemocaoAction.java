@@ -56,7 +56,7 @@ public class LaboratorioRemocaoAction implements ICommand {
         session.setAttribute("msg", "Não foi possível remover o laboratório pois existem reservas atreladas a ele");
         session.setAttribute("status", "info");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu o laboratório #" + lab.getId() + ".");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu o laboratório #" + lab.getId() + ".");
         return request.getContextPath() + "/laboratorio/lista";
     }
 }

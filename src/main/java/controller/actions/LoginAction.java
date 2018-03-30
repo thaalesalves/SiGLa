@@ -100,7 +100,7 @@ public class LoginAction implements ICommand, Serializable {
 
                 session.setAttribute("pessoa", p);
                 ad.closeLdapConnection();
-                Logger.logOutput(p.getNome() + " (" + p.getUsername() + ") acaba de fazer login no SiGLa.");
+                Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") acaba de fazer login no SiGLa.");
                 return request.getContextPath() + "/pagina/home";
             }
         } catch (CommunicationException e) {

@@ -63,7 +63,7 @@ public class ReservaAtualizacaoAction implements ICommand {
         session.setAttribute("msg", "Dados de reserva atualizados.");
         session.setAttribute("status", "success");
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") alterou a reserva #" + r.getId() + ".");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") alterou a reserva #" + r.getId() + ".");
         return request.getContextPath() + "/reserva/lista";
     }
 }

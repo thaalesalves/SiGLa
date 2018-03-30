@@ -61,7 +61,7 @@ public class ReservaDiaRemocaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
         }
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + ".");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + ".");
         return request.getContextPath() + "/reserva/hoje";
     }
 }

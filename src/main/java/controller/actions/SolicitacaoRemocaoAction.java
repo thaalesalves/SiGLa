@@ -84,7 +84,7 @@ public class SolicitacaoRemocaoAction implements ICommand {
         session.setAttribute("msg", "Reserva reprovada");
         session.setAttribute("status", "success");        
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") removeu a solitação #" + s.getId() + " do banco de dados.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu a solitação #" + s.getId() + " do banco de dados.");
         
         return request.getContextPath() + "/reserva/solicitacoes";
     }

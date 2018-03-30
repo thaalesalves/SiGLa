@@ -61,7 +61,7 @@ public class EquipamentoInsercaoAction implements ICommand {
         session.setAttribute("status", "error");
         session.setAttribute("msg", "Erro ao cadastrar computador");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/equip/novo";
     }
 }

@@ -57,7 +57,7 @@ public class CursoInsercaoAction implements ICommand {
         session.setAttribute("msg", "Curso cadastrado com sucesso");
         session.setAttribute("status", "success");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") acaba de inserir um novo curso.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um novo curso.");
         return request.getContextPath() + "/curso/novo";
     }
 }

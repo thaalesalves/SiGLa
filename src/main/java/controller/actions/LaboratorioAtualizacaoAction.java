@@ -67,7 +67,7 @@ public class LaboratorioAtualizacaoAction implements ICommand {
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Laboratório atualizado");
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNome() + " (" + u.getUsername() + ") alterou o laboratório #"+ lab.getId() + ".");
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") alterou o laboratório #"+ lab.getId() + ".");
         return request.getContextPath() + "/laboratorio/lista";
     }
 }
