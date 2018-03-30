@@ -2,6 +2,8 @@
 <%@include file="/includes/modal-perfil-self.jsp"%>
 <%@include file="/includes/modal-perfil.jsp"%>
 <%@include file="/includes/modal-incidente.jsp"%>
+<%@include file="/includes/modal-licenca.jsp"%>
+<%@include file="/includes/modal-codigo.jsp"%>
 <footer class="main-footer">
     <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> All rights reserved. Versão <%=util.SiGLa.VERSION%></strong>
 </footer>

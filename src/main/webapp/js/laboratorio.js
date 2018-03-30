@@ -21,7 +21,7 @@ function removeLab(id) {
     window.location.href = contextPath + '/AlmightyController?acao=LaboratorioRemocao&id=' + id;
 }
 
-function carregaLabs() {
+function populaLabs() {
     $.ajax({
         url: contextPath + '/JsonController?acao=LaboratorioListagem',
         type: 'POST',
@@ -58,7 +58,7 @@ function carregaLabs() {
     });
 }
 
-function solicitacaoLabs(modulo, dia, software) {
+function populaSolicitacaoLabs(modulo, dia, software) {
     $.ajax({
         url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software,
         type: 'POST',

@@ -94,24 +94,27 @@ Copyright (C) 2016 Thales Alves Pereira
             var sws = "vazio";
 
             $(document).on('change', '#modulo', function () {
+                console.log('Módulo alterado');
                 mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
                 dia = $('#dia-semana').val();
                 sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                solicitacaoLabs(mods, dia, sws);
+                populaSolicitacaoLabs(mods, dia, sws);
             });
 
             $(document).on('change', '#dia-semana', function () {
+                console.log('Dia alterado');
                 mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
                 dia = $('#dia-semana').val();
                 sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                solicitacaoLabs(mods, dia, sws);
+                populaSolicitacaoLabs(mods, dia, sws);
             });
             
             $(document).on('change', '#softwares', function () {
+                console.log('Software alterado');
                 mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
                 dia = $('#dia-semana').val();
                 sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                solicitacaoLabs(mods, dia, sws);
+                populaSolicitacaoLabs(mods, dia, sws);
             });
 
             $(document).on('change', '#usuario', function () {
@@ -219,7 +222,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class="form-group">
                                     <label>Dia da Semana</label>
-                                    <select name="dia-semana" id="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
+                                    <select id="dia-semana" name="dia-semana" id="dia-semana" class="select2 form-control" data-placeholder="Selecione o dia" style="width: 100%;" required>
                                         <option selected disabled>Selecione um dia</option>
                                         <option value="Segunda-feira">Segunda-feira</option>
                                         <option value="Terça-feira">Terça-feira</option>
