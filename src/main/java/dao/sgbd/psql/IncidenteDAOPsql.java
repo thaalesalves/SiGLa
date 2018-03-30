@@ -28,6 +28,8 @@ import model.Incidente;
 import model.IncidenteInformacao;
 import model.Pessoa;
 import util.DatabaseConnection;
+import util.IO;
+import util.Logger;
 
 /**
  *
@@ -51,13 +53,15 @@ public class IncidenteDAOPsql extends IncidenteDAO {
                 incidente.getEquipamento().setNome(rs.getString("computador"));
                 incidente.getPessoa().setUsername(rs.getString("user"));
                 incidente.setId(rs.getInt("incidente"));
-                incidente.setDataAbertura(rs.getString("data_abertura"));
+                incidente.setDataAbertura(IO.getData(rs.getString("data_abertura")));
                 incidente.setDescricao(rs.getString("descricao"));
                 
                 incidentes.add(incidente);
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
         }
 
         return incidentes;
@@ -78,11 +82,13 @@ public class IncidenteDAOPsql extends IncidenteDAO {
                 incidente.getEquipamento().setNome(rs.getString("computador"));
                 incidente.getPessoa().setUsername(rs.getString("usuario"));
                 incidente.setId(rs.getInt("incidente"));
-                incidente.setDataAbertura(rs.getString("data_abertura"));
+                incidente.setDataAbertura(IO.getData(rs.getString("data_abertura")));
                 incidente.setDescricao(rs.getString("descricao"));
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
         }
 
         return incidente;
@@ -94,10 +100,12 @@ public class IncidenteDAOPsql extends IncidenteDAO {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_info_incidente VALUES(DEFAULT, ?, ?, ?, ?)");
             pstmt.setInt(1, info.getIncidente().getId());
             pstmt.setString(2, info.getDescricao());
-            pstmt.setString(3, info.getDataAdicao());
+            pstmt.setString(3, IO.formatData(info.getDataAdicao()));
             pstmt.setString(4, info.getPessoa().getUsername());
             pstmt.executeUpdate();
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
         }
     }
 

@@ -29,6 +29,7 @@ import model.Licenca;
 import model.LicencaCodigo;
 import model.Software;
 import util.DatabaseConnection;
+import util.IO;
 import util.Logger;
 
 public class LicencaDAOPsql implements LicencaDAO {
@@ -36,15 +37,15 @@ public class LicencaDAOPsql implements LicencaDAO {
     @Override
     public Licenca select(Software software) throws SQLException, ClassNotFoundException {
         Licenca licenca = new Licenca();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE software = ?");
             pstmt.setInt(1, software.getId());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                licenca.setDataAquisicao(rs.getString("aquisicao"));
-                licenca.setDataVencimento(rs.getString("vencimento"));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
                 software.setLicenca(licenca);
             }
 
@@ -66,80 +67,171 @@ public class LicencaDAOPsql implements LicencaDAO {
         } catch (Exception e) {
             Logger.logSevere(e, LicencaDAOPsql.class);
         }
-        
+
         return licenca;
     }
 
     @Override
     public Licenca select(Licenca licenca) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE id = ?");
+            pstmt.setInt(1, licenca.getId());
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setStatus(rs.getInt("status"));
+                licenca.setSoftware(new Software());
+                licenca.getSoftware().setId(rs.getInt("software"));
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+
+        return licenca;
     }
 
     @Override
     public List<Licenca> select() throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Licenca> licencas = new ArrayList<Licenca>();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Licenca licenca = new Licenca();
+                licenca.setSoftware(new Software());
+                licenca.setId(rs.getInt("id"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.getSoftware().setId(rs.getInt("software"));
+                licencas.add(licenca);
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+
+        return licencas;
+    }
+    
+    @Override
+    public List<Licenca> selectAtivado() throws SQLException, ClassNotFoundException {
+        List<Licenca> licencas = new ArrayList<Licenca>();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE status = 1");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Licenca licenca = new Licenca();
+                licenca.setSoftware(new Software());
+                licenca.setId(rs.getInt("id"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.getSoftware().setId(rs.getInt("software"));
+                licencas.add(licenca);
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+
+        return licencas;
+    }
+    
+    @Override
+    public List<Licenca> selectDesativado() throws SQLException, ClassNotFoundException {
+        List<Licenca> licencas = new ArrayList<Licenca>();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE status = 0");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Licenca licenca = new Licenca();
+                licenca.setSoftware(new Software());
+                licenca.setId(rs.getInt("id"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.getSoftware().setId(rs.getInt("software"));
+                licencas.add(licenca);
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+
+        return licencas;
     }
 
     @Override
     public List<Licenca> selectVencimento() throws SQLException, ClassNotFoundException {
         List<Licenca> licencas = new ArrayList<Licenca>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE status = 1 AND vencimento = ?");
             pstmt.setString(1, new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Licenca licenca = new Licenca();
                 licenca.setSoftware(new Software());
                 licenca.setId(rs.getInt("id"));
-                licenca.setDataVencimento(rs.getString("vencimento"));
-                licenca.setDataAquisicao(rs.getString("aquisicao"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaDAOPsql.class);
         }
-        
+
         return licencas;
     }
 
     @Override
     public List<Licenca> selectVencimento(Licenca l) throws SQLException, ClassNotFoundException {
         List<Licenca> licencas = new ArrayList<Licenca>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE vencimento = ?");
-            pstmt.setString(1, l.getDataVencimento());
+            pstmt.setString(1, IO.formatData(l.getDataVencimento()));
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Licenca licenca = new Licenca();
                 licenca.setSoftware(new Software());
                 licenca.setId(rs.getInt("id"));
-                licenca.setDataVencimento(rs.getString("vencimento"));
-                licenca.setDataAquisicao(rs.getString("aquisicao"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaDAOPsql.class);
         }
-        
+
         return licencas;
     }
-    
+
     @Override
     public void ativa(Licenca licenca) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_licenca SET status = 1 WHERE id = ?");
             pstmt.setInt(1, licenca.getId());
-            pstmt.executeUpdate();                
+            pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaDAOPsql.class);
@@ -151,7 +243,59 @@ public class LicencaDAOPsql implements LicencaDAO {
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_licenca SET status = 0 WHERE id = ?");
             pstmt.setInt(1, licenca.getId());
-            pstmt.executeUpdate();                
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+    }
+
+    @Override
+    public List<Licenca> selectAtivos() throws SQLException, ClassNotFoundException {
+        List<Licenca> licencas = new ArrayList<Licenca>();
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca WHERE status = 1");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Licenca licenca = new Licenca();
+                licenca.setSoftware(new Software());
+                licenca.setId(rs.getInt("id"));
+                licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
+                licenca.getSoftware().setId(rs.getInt("software"));
+                licencas.add(licenca);
+            }
+
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+
+        return licencas;
+    }
+
+    @Override
+    public void delete(Licenca licenca) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tb_licenca WHERE id = ?");
+            pstmt.setInt(1, licenca.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, LicencaDAOPsql.class);
+        }
+    }
+
+    @Override
+    public void insert(Licenca licenca) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_licenca VALUES(DEFAULT, ?, ?, ?, 1)");
+            pstmt.setString(1, IO.formatData(licenca.getDataAquisicao()));
+            pstmt.setString(2, IO.formatData(licenca.getDataVencimento()));
+            pstmt.setInt(3, licenca.getSoftware().getId());
+            pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaDAOPsql.class);

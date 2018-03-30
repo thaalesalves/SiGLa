@@ -25,6 +25,7 @@ import dao.sgbd.SolicitacaoDAO;
 import dao.sgbd.CursoDAO;
 import dao.sgbd.FornecedorDAO;
 import dao.sgbd.IncidenteDAO;
+import dao.sgbd.LicencaCodigoDAO;
 import dao.sgbd.LicencaDAO;
 import dao.sgbd.RepresentanteDAO;
 import dao.sgbd.ReservaDAO;
@@ -89,5 +90,10 @@ public class DAOFactoryMysql extends DAOFactory {
     @Override
     public RepresentanteDAO getRepresentanteDAO() {
         return new dao.sgbd.mysql.RepresentanteDAOMysql();
+    }
+
+    @Override
+    public LicencaCodigoDAO getLicencaCodigoDAO() {
+        return new dao.sgbd.mysql.LicencaCodigoDAOMysql();
     }
 }

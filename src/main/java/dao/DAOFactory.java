@@ -25,6 +25,7 @@ import dao.sgbd.SolicitacaoDAO;
 import dao.sgbd.CursoDAO;
 import dao.sgbd.FornecedorDAO;
 import dao.sgbd.IncidenteDAO;
+import dao.sgbd.LicencaCodigoDAO;
 import dao.sgbd.LicencaDAO;
 import dao.sgbd.RepresentanteDAO;
 import dao.sgbd.ReservaDAO;
@@ -44,6 +45,7 @@ public abstract class DAOFactory {
     public abstract FornecedorDAO getFornecedorDAO();
     public abstract LicencaDAO getLicencaDAO();
     public abstract RepresentanteDAO getRepresentanteDAO();
+    public abstract LicencaCodigoDAO getLicencaCodigoDAO();
     
     public static DAOFactory getFactory() {
         if (SiGLa.getDbms().equalsIgnoreCase("mysql")) {
