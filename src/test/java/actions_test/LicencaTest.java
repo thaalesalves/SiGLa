@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import model.Licenca;
 import model.LicencaCodigo;
 import model.Software;
-import org.junit.*;
 import util.DatabaseConnection;
+import util.IO;
 import util.Logger;
 
 /**
@@ -49,8 +49,8 @@ public class LicencaTest {
 
                 while (rs.next()) {
                     licenca.setId(rs.getInt("licenca"));
-                    licenca.setDataAquisicao(rs.getString("data_aquisicao"));
-                    licenca.setDataVencimento(rs.getString("data_vencimento"));
+                    licenca.setDataAquisicao(IO.getData(rs.getString("data_aquisicao")));
+                    licenca.setDataVencimento(IO.getData(rs.getString("data_vencimento")));
                     licenca.setCodigos(new ArrayList<LicencaCodigo>());
                     software.setFabricante(rs.getString("fabricante"));
                     software.setNome(rs.getString("software"));
