@@ -65,10 +65,18 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li id='item-novo-software'><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
-                    <li id='item-lista-software'><a href="${pageContext.request.contextPath}/software/lista"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
-                </ul>
-                <ul class="treeview-menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-edit"></i> <span>Softwares</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li id="item-novo-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i>Inserção</a></li>
+                            <li id="item-lista-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="#">
                             <i class="fa fa-edit"></i> <span>Licenças</span>
@@ -77,8 +85,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="item-novo-lab" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
-                            <li id="item-lista-lab" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
+                            <li id="item-novo-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+                            <li id="item-lista-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>
                     <li id='item-lista-equip'>
@@ -89,8 +97,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="item-novo-equip" class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
-                            <li class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
+                            <li id="item-novo-fornecedor" class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+                            <li id="item-lista-fornecedor" class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>
                 </ul>

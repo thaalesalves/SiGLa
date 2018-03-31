@@ -88,6 +88,10 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /laboratorio/ */
             mapaUrl.put("/laboratorio/novo", "../labinfo/lab/novo.jsp");
             mapaUrl.put("/laboratorio/lista", "../labinfo/lab/lista.jsp");
+            
+            /* Redirecionamentos de /fornecedor/ */
+            mapaUrl.put("/fornecedor/novo", "../labinfo/fornecedor/novo.jsp");
+            mapaUrl.put("/fornecedor/lista", "../labinfo/fornecedor/lista.jsp");
 
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);

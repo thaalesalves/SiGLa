@@ -15,12 +15,16 @@
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/equip/*</url-pattern>
+        <url-pattern>/licenca/*</url-pattern>
+        <url-pattern>/fornecedor/*</url-pattern>
         <url-pattern>/reserva/*</url-pattern>
         <url-pattern>/laboratorio/*</url-pattern>
         <url-pattern>/software/*</url-pattern>
         <url-pattern>/admin/activedirectory</url-pattern>
         <url-pattern>/admin/database</url-pattern>
         <url-pattern>/pagina/home</url-pattern>
+        <url-pattern>/licenca/*</url-pattern>
+        <url-pattern>/fornecedor/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>AlmightyController</servlet-name>
@@ -48,6 +52,7 @@
         <url-pattern>/install/*</url-pattern>
         <url-pattern>/user/*</url-pattern>
         <url-pattern>/licenca/*</url-pattern>
+        <url-pattern>/fornecedor/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlmightyController</servlet-name>
