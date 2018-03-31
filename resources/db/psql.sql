@@ -38,8 +38,8 @@ CREATE TABLE tb_grupo (
 
 CREATE TABLE tb_reserva (
     id SERIAL PRIMARY KEY,
-    laboratorio INT REFERENCES tb_laboratorio(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
-    curso INT REFERENCES tb_curso(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+    laboratorio INT REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    curso INT REFERENCES tb_curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE tb_reserva (
 
 CREATE TABLE tb_solicitacao (
     id SERIAL PRIMARY KEY,
-    curso INT REFERENCES tb_curso(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
+    curso INT REFERENCES tb_curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR NOT NULL,
     professor VARCHAR NOT NULL,
@@ -100,8 +100,8 @@ CREATE TABLE aux_sw_res (
 
 CREATE TABLE aux_sw_soli (
     id SERIAL PRIMARY KEY,
-    sw INT REFERENCES tb_software(id),
-    res INT REFERENCES tb_solicitacao(id)
+    sw INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    res INT REFERENCES tb_solicitacao(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_modulo_res (
@@ -118,8 +118,8 @@ CREATE TABLE aux_modulo_soli (
 
 CREATE TABLE aux_sw_lab (
     id SERIAL PRIMARY KEY,
-    sw INTEGER REFERENCES tb_software(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
-    lab INTEGER REFERENCES tb_laboratorio(id) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE
+    sw INTEGER REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    lab INTEGER REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Inserção de Valores
