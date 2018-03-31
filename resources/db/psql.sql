@@ -68,7 +68,7 @@ CREATE TABLE tb_fornecedor (
     email VARCHAR
 );
 
-CREATE TABLE tb_representate (
+CREATE TABLE tb_representante (
     id SERIAL PRIMARY KEY,
     nome VARCHAR NOT NULL,
     telefone VARCHAR,
