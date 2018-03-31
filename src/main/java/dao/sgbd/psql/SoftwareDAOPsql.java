@@ -87,7 +87,8 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_software s JOIN aux_sw_res ss ON s.id = ss.sw where ss.res = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_software s, tb_licenca l JOIN aux_sw_res ss ON s.id = ss.sw where ss.res = ? "
+                    + "WHERE l.software = s.id AND l.status = 1");
             pstmt.setInt(1, r.getId());
             ResultSet rs = pstmt.executeQuery();
 

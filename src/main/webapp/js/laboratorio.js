@@ -58,9 +58,9 @@ function populaLabs() {
     });
 }
 
-function populaSolicitacaoLabs(modulo, dia, software) {
+function populaSolicitacaoLabs(modulo, dia, software, qtd) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software,
+        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software + '&qtd-alunos=' + qtd,
         type: 'POST',
         cache: false,
         dataType: 'JSON',

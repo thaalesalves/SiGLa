@@ -20,6 +20,7 @@ import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,13 +40,14 @@ public class LaboratoriosDisponiveisJson implements IJson {
         try {
             String[] modulos = request.getParameter("modulo").split(",");
             String[] softwares = request.getParameter("softwares").split(",");
+            int qtdAlunos = Integer.parseInt(request.getParameter("qtd-alunos"));
 
             for (String i : modulos) {
                 Modulo mod = new Modulo();
                 mod.setId(Integer.parseInt(i));
                 r.getModulos().add(mod);
             }
-            
+
             for (String i : softwares) {
                 Software sw = new Software();
                 sw.setId(Integer.parseInt(i));
@@ -55,6 +57,14 @@ public class LaboratoriosDisponiveisJson implements IJson {
             r.setDiaDaSemana(request.getParameter("dia").replace(" %C3%A7", "ç").replace("%C3%A1", "á"));
 
             al = fac.getLaboratorioDAO().selectAvailableLabs(r);
+
+
+            Iterator<Laboratorio> it = al.iterator();
+            while (it.hasNext()) {
+                if (qtdAlunos > it.next().getCapacidade()) {
+                    it.remove();
+                }
+            }
         } catch (Exception e) {
             util.Logger.logSevere(e, LaboratoriosDisponiveisJson.class);
         }

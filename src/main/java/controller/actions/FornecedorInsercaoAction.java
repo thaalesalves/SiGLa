@@ -26,38 +26,37 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Licenca;
-import model.LicencaCodigo;
+import model.Fornecedor;
 import model.Pessoa;
 import util.Logger;
 
-public class LicencaCodigoAdicaoAction implements ICommand {
+public class FornecedorInsercaoAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
-        LicencaCodigo codigo = new LicencaCodigo();
         HttpSession session = request.getSession();
-        codigo.setLicenca(new Licenca());
-        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
 
         try {
+            Fornecedor fornecedor = new Fornecedor();
             DAOFactory fac = DAOFactory.getFactory();
-            codigo.getLicenca().setId(Integer.parseInt(request.getParameter("codigo-licenca")));
-            codigo.setCodigoTipo(request.getParameter("tipo-chave"));
-            codigo.setCodigo(request.getParameter("chave"));
-            fac.getLicencaCodigoDAO().insert(codigo);
+            fornecedor.setEmail(request.getParameter("email"));
+            fornecedor.setNome(request.getParameter("nome"));
+            fornecedor.setTelefone(request.getParameter("telefone"));
+            fac.getFornecedorDAO().insert(fornecedor);
         } catch (Exception e) {
-            session.setAttribute("msg", "Erro ao inserir código de licença.");
-            session.setAttribute("status", "success");
-            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou "
-                    + "adicionar um novo código à licença #" + codigo.getLicenca().getId());
-            Logger.logSevere(e, LicencaCodigoAdicaoAction.class);
-            return request.getContextPath() + "/licenca/lista";
+            Logger.logSevere(e, FornecedorInsercaoAction.class);
+            session.setAttribute("status", "error");
+            session.setAttribute("msg", "Erro ao cadastrar computador");
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "inserir um novo fornecedor");
+            return request.getContextPath() + "/fornecedor/novo";
         }
 
-        session.setAttribute("msg", "Código de licença inserido com sucesso.");
         session.setAttribute("status", "success");
-        Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") adicionou um novo código à licença #" + codigo.getLicenca().getId());
-        return request.getContextPath() + "/licenca/lista";
+        session.setAttribute("msg", "Fornecedor cadastrado com sucesso");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um fornecedor.");
+        return request.getContextPath() + "/fornecedor/novo";
     }
+
 }

@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import model.Fornecedor;
 import model.Licenca;
 import model.LicencaCodigo;
 import model.Software;
@@ -46,6 +47,9 @@ public class LicencaDAOPsql implements LicencaDAO {
             if (rs.next()) {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.setDataVencimento(IO.getData(rs.getString("vencimento")));
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
                 software.setLicenca(licenca);
             }
 
@@ -84,6 +88,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setStatus(rs.getInt("status"));
                 licenca.setSoftware(new Software());
                 licenca.getSoftware().setId(rs.getInt("software"));
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -110,6 +117,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -136,6 +146,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -162,6 +175,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -189,6 +205,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -216,6 +235,9 @@ public class LicencaDAOPsql implements LicencaDAO {
                 licenca.setDataAquisicao(IO.getData(rs.getString("aquisicao")));
                 licenca.getSoftware().setId(rs.getInt("software"));
                 licencas.add(licenca);
+                licenca.setFornecedor(new Fornecedor());
+                licenca.getFornecedor().setId(rs.getInt("fornecedor"));
+                licenca.setFornecedor(new FornecedorDAOPsql().select(licenca.getFornecedor()));
             }
 
             conn.close();
@@ -291,10 +313,11 @@ public class LicencaDAOPsql implements LicencaDAO {
     @Override
     public void insert(Licenca licenca) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_licenca VALUES(DEFAULT, ?, ?, ?, 1)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_licenca VALUES(DEFAULT, ?, ?, ?, 1, ?)");
             pstmt.setString(1, IO.formatData(licenca.getDataAquisicao()));
             pstmt.setString(2, IO.formatData(licenca.getDataVencimento()));
             pstmt.setInt(3, licenca.getSoftware().getId());
+            pstmt.setInt(4, licenca.getFornecedor().getId());
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {

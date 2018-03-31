@@ -20,8 +20,6 @@ package controller.json;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,17 +27,18 @@ import model.Fornecedor;
 import model.Pessoa;
 import util.Logger;
 
-public class FornecedorListagemJson implements IJson {
+public class FornecedorListagemIdJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
-        List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
+        Fornecedor fornecedor = new Fornecedor();
         DAOFactory fac = DAOFactory.getFactory();
-        fornecedores = fac.getFornecedorDAO().select();
+        fornecedor.setId(Integer.parseInt(request.getParameter("id")));
+        fornecedor = fac.getFornecedorDAO().select(fornecedor);
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem dos fornecedores");
-
-        return util.Json.toJson(fornecedores);
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou detalhes do fornecedor #" + fornecedor.getId());
+        
+        return util.Json.toJson(fornecedor);
     }
 
 }

@@ -46,8 +46,40 @@ function carregaSoftware() {
     });
 }
 
+function carregaFornecedores() {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=FornecedorListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            var cont = '<table id="tb-fornecedores" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th>Nome</th>';
+            cont += '<th>Telefone</th><th>Email</th><th style="width: 3%;">Opções';
+            cont += '</th></tr></thead><tbody>';
+            console.log("Montada tabela");
+
+            $.each(obj, function (i, item) {
+                cont += '<tr class="gradeC">';
+                cont += '<td class="center">' + obj[i].id + '</td>';
+                cont += '<td class="center">' + obj[i].nome + '</td>';
+                cont += '<td class="center">' + obj[i].telefone + '</td>';
+                cont += '<td class="center">' + obj[i].email + '</td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-fornecedor" onclick="modalFornecedor(' + obj[i].id + ')"></button></center></td>';
+                cont += '</tr>';
+            });
+
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-fornecedores").DataTable();</script>';
+            $('#tb-div').append(cont);
+        }
+    });
+}
+
 function carregaLicencas() {
     console.log('Carregando licenças');
+    $('#tb-div').html('');
     $.ajax({
         url: contextPath + '/JsonController?acao=LicencaListagem',
         type: 'POST',
@@ -56,7 +88,7 @@ function carregaLicencas() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-licencas" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th>';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th>Fornecedor</th>';
             cont += '<th>Software</th><th>Aquisição</th><th>Vencimento</th><th style="width: 3%;">Opções';
             cont += '</th></tr></thead><tbody>';
             console.log("Montada tabela");
@@ -64,6 +96,81 @@ function carregaLicencas() {
             $.each(obj, function (i, item) {
                 cont += '<tr class="gradeC">';
                 cont += '<td class="center">' + obj[i].id + '</td>';
+                cont += '<td class="center">' + obj[i].fornecedor.nome + '</td>';
+                cont += '<td class="center">' + obj[i].software.fabricante + ' ' + obj[i].software.nome + '</td>';
+                cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataAquisicao), "dd/MM/yyyy") + '</td>';
+                cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataVencimento), "dd/MM/yyyy") + '</td>';
+                //cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ')"></button></center></td>';
+                cont += '</tr>';
+                console.log("Adicionada licença #" + obj[i].id);
+            });
+
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-licencas").DataTable();</script>';
+            $('#tb-div').append(cont);
+            console.log('Objeto montado na div');
+        }
+    });
+}
+
+function carregaLicencasAtivas() {
+    console.log('Carregando licenças');
+    $('#tb-div').html('');
+    $.ajax({
+        url: contextPath + '/JsonController?acao=LicencaListagemAtivado',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            var cont = '<table id="tb-licencas" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th>Fornecedor</th>';
+            cont += '<th>Software</th><th>Aquisição</th><th>Vencimento</th><th style="width: 3%;">Opções';
+            cont += '</th></tr></thead><tbody>';
+            console.log("Montada tabela");
+
+            $.each(obj, function (i, item) {
+                cont += '<tr class="gradeC">';
+                cont += '<td class="center">' + obj[i].id + '</td>';
+                cont += '<td class="center">' + obj[i].fornecedor.nome + '</td>';
+                cont += '<td class="center">' + obj[i].software.fabricante + ' ' + obj[i].software.nome + '</td>';
+                cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataAquisicao), "dd/MM/yyyy") + '</td>';
+                cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataVencimento), "dd/MM/yyyy") + '</td>';
+                //cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ')"></button></center></td>';
+                cont += '</tr>';
+                console.log("Adicionada licença #" + obj[i].id);
+            });
+
+            cont += '</tbody></table>';
+            cont += '<script>$("#tb-licencas").DataTable();</script>';
+            $('#tb-div').append(cont);
+            console.log('Objeto montado na div');
+        }
+    });
+}
+
+function carregaLicencasDesativas() {
+    console.log('Carregando licenças');
+    $('#tb-div').html('');
+    $.ajax({
+        url: contextPath + '/JsonController?acao=LicencaListagemDesativado',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+            var cont = '<table id="tb-licencas" class="table table-bordered table-hover">';
+            cont += '<thead><tr><th style="width: 1%;">#</th><th>Fornecedor</th>';
+            cont += '<th>Software</th><th>Aquisição</th><th>Vencimento</th><th style="width: 3%;">Opções';
+            cont += '</th></tr></thead><tbody>';
+            console.log("Montada tabela");
+
+            $.each(obj, function (i, item) {
+                cont += '<tr class="gradeC">';
+                cont += '<td class="center">' + obj[i].id + '</td>';
+                cont += '<td class="center">' + obj[i].fornecedor.nome + '</td>';
                 cont += '<td class="center">' + obj[i].software.fabricante + ' ' + obj[i].software.nome + '</td>';
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataAquisicao), "dd/MM/yyyy") + '</td>';
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataVencimento), "dd/MM/yyyy") + '</td>';
@@ -93,11 +200,12 @@ function modalLicenca(id) {
             var table = '<tr><td><div class="form-group"><label class="soli-tit">Códigos <a data-toggle="modal" data-target="#modal-codigo" style="font-size:8px;">(adicionar)</a></label></div></td></tr>';
 
             $("#licenca-id").val(json.id);
+            $("#licenca-fornecedor").val(json.fornecedor.nome);
             $("#codigo-licenca").val(json.id);
             $("#data-aquisicao").val(DateFormat.format.date(new Date(json.dataAquisicao), "dd/MM/yyyy"));
             $("#data-vencimento").val(DateFormat.format.date(new Date(json.dataAquisicao), "dd/MM/yyyy"));
             $("#licenca-software").val(json.software.fabricante + " " + json.software.nome);
-            
+
             if (json.status == '1') {
                 $('#btn-desativar').show();
             } else {
@@ -130,21 +238,38 @@ function desativarLicenca() {
 
 function adicionarLicenca() {
     $.ajax({
-                url: contextPath + '/JsonController?acao=SoftwareListagem',
-                type: 'POST',
-                cache: false,
-                dataType: 'JSON',
-                complete: function (e) {
-                    var obj = JSON.parse(e.responseText);
+        url: contextPath + '/JsonController?acao=SoftwareListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
 
-                    for (i = 0; i < obj.length; i++) {
-                        $("#licenca-software").append($('<option>', {
-                            value: obj[i].id,
-                            text: obj[i].fabricante + ' ' + obj[i].nome
-                        }));
-                    }
-                }
-            });
+            for (i = 0; i < obj.length; i++) {
+                $("#licenca-software").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].fabricante + ' ' + obj[i].nome
+                }));
+            }
+        }
+    });
+    
+    $.ajax({
+        url: contextPath + '/api/?acao=FornecedorListagem',
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            var obj = JSON.parse(e.responseText);
+
+            for (i = 0; i < obj.length; i++) {
+                $("#licenca-fornecedor").append($('<option>', {
+                    value: obj[i].id,
+                    text: obj[i].nome
+                }));
+            }
+        }
+    });
 }
 
 function adicionarCodigo() {

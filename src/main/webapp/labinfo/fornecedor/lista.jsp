@@ -24,7 +24,7 @@ Copyright (C) 2016 Thales Alves Pereira
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Licenças | SiGLa</title>
+        <title>Fornecedores | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/icon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
@@ -57,7 +57,7 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
-                carregaLicencas();
+                carregaFornecedores();
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -69,13 +69,13 @@ Copyright (C) 2016 Thales Alves Pereira
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        Licenças
+                        Fornecedores
                         <small>lista geral</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Softwares</a></li>
-                        <li class="active">Listagem de Licenças</li>
+                        <li class="active">Listagem de Fornecedores</li>
                     </ol>
                 </section>
 
@@ -83,13 +83,6 @@ Copyright (C) 2016 Thales Alves Pereira
                     <div class="box box-primary">
                         <div class="box-header">
                             <h3 class="box-title">Lista geral</h3>
-                        </div>
-                        <div class="box-body">
-                            <form>
-                                <input type="radio" name="lista" value="tudo" checked> Tudo&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="lista" value="ativas"> Ativas&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="lista" value="inativas"> Inativas
-                            </form>
                         </div>
                         <div id='tb-div' class="box-body"></div>
                     </div>
@@ -106,20 +99,5 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-        <script>
-            $('input[type=radio][name=lista]').on('change', function () {
-                switch ($(this).val()) {
-                    case 'tudo':
-                        carregaLicencas();
-                        break;
-                    case 'ativas':
-                        carregaLicencasAtivas();
-                        break;
-                    case 'inativas':
-                        carregaLicencasDesativas();
-                        break;
-                }
-            });
-        </script>
     </body>
 </html>

@@ -99,8 +99,8 @@ Copyright (C) 2016 Thales Alves Pereira
                         <div class="box-header">
                             <h3 class="box-title">Cadastro de licença</h3>
                         </div>
-                        <div class="box-body">
-                            <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                            <div class="box-body">
                                 <div class='form-group'>
                                     <label>Aquisição</label>
                                     <div class="input-group date">
@@ -124,10 +124,15 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <select id="licenca-software" name="licenca-software" class="select2 form-control" data-placeholder="Selecione um software" style="width: 100%;" required>
                                     </select>
                                 </div>
-                        </div>
-                        <div class="box-footer">
-                            <button value="LicencaInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
-                        </div>
+                                <div class='form-group'>
+                                    <label>Fornecedor</label>
+                                    <select id="licenca-fornecedor" name="licenca-fornecedor" class="select2 form-control" data-placeholder="Selecione um fornecedor" style="width: 100%;" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button value="LicencaInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                            </div>
                         </form>
                     </div>
                 </section>

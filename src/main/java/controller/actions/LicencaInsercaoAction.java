@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Fornecedor;
 import model.Licenca;
 import model.Pessoa;
 import model.Software;
@@ -48,6 +49,8 @@ public class LicencaInsercaoAction implements ICommand {
             licenca.getSoftware().setId(Integer.parseInt(request.getParameter("licenca-software")));
             licenca.setDataVencimento(getData(request.getParameter("vencimento")));
             licenca.setDataAquisicao(getData(request.getParameter("aquisicao")));
+            licenca.setFornecedor(new Fornecedor());
+            licenca.getFornecedor().setId(Integer.parseInt(request.getParameter("licenca-fornecedor")));
             fac.getLicencaDAO().insert(licenca);
         } catch (Exception e) {
             session.setAttribute("msg", "Erro ao inserir licença.");

@@ -20,19 +20,32 @@ Copyright (C) 2016 Thales Alves Pereira
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/includes/session.jsp" %>
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Licenças | SiGLa</title>
+        <title>Cadastro de Fornecedor | SiGLa</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/icon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/flat/blue.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
@@ -47,7 +60,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <script src="${pageContext.request.contextPath}/js/software.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery-dateformat.js" type="text/javascript"></script>
+
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -55,71 +68,79 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <script>
             $(document).ready(function () {
+                adicionarLicenca();
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
-                carregaLicencas();
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">        
+    <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">
             <%@include file="/includes/header.jsp" %>
             <%@include file="/includes/sidebar.jsp"%>
             <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Licenças
-                        <small>lista geral</small>
+                        Software
+                        <small>cadastro de fornecedor</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Softwares</a></li>
-                        <li class="active">Listagem de Licenças</li>
+                        <li>Licenças</li>
+                        <li class="active">Cadastro de fornecedor</li>
                     </ol>
                 </section>
 
+                <!-- Main content -->
                 <section class="content">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <h3 class="box-title">Lista geral</h3>
+                            <h3 class="box-title">Cadastro de licença</h3>
                         </div>
-                        <div class="box-body">
-                            <form>
-                                <input type="radio" name="lista" value="tudo" checked> Tudo&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="lista" value="ativas"> Ativas&nbsp;&nbsp;&nbsp;
-                                <input type="radio" name="lista" value="inativas"> Inativas
-                            </form>
-                        </div>
-                        <div id='tb-div' class="box-body"></div>
+                        <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
+                            <div class="box-body">
+                                <div class='form-group'>
+                                    <label>Nome</label>
+                                    <input type="text" class='form-control pull-right' id="nome" name="nome" required>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Telefone</label>
+                                    <input type="text" class='form-control pull-right' id="telefone" name="telefone" required>
+                                </div>
+                                <div class='form-group'>
+                                    <label>Email</label>
+                                    <input type="email" class="form-control pull-right " id="email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button value="FornecedorInsercao" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
             </div>
             <%@include file="/includes/footer.jsp" %>
             <div class="control-sidebar-bg"></div>
         </div>
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-        <script>
-            $('input[type=radio][name=lista]').on('change', function () {
-                switch ($(this).val()) {
-                    case 'tudo':
-                        carregaLicencas();
-                        break;
-                    case 'ativas':
-                        carregaLicencasAtivas();
-                        break;
-                    case 'inativas':
-                        carregaLicencasDesativas();
-                        break;
-                }
-            });
-        </script>
     </body>
 </html>

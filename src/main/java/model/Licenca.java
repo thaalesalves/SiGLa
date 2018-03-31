@@ -31,6 +31,7 @@ public class Licenca {
     private Date dataAquisicao;
     private Date dataVencimento;
     private Software software;
+    private Fornecedor fornecedor;
     private List<LicencaCodigo> codigos;
 
     public boolean venceHoje(Date data) {

@@ -32,6 +32,18 @@
                                 </div>
                             </td>
                         </tr>
+                         <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label class="soli-tit">Fornecedor</label>
+                                </div>
+                            </td>
+                            <td style="width:100%;">
+                                <div class="form-group">
+                                    <input readonly style="width: 80%;" type="text" class="form-control pull-right" name="licenca-fornecedor" id="licenca-fornecedor" placeholder="Fornecedor" />
+                                </div>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <div class="form-group">
@@ -72,8 +84,8 @@
                     <table id="lista-codigos" cellpadding="0" cellspacing="0" border="0"></table>
                 </div>                        
                 <div id="modal-footer" class="modal-footer">
-                    <button style="display:none;" id="btn-desativar" type="button" class="btn btn-success" onclick="removerLicenca()">Desativar</button>
-                    <button style="display:none;" id="btn-ativar" type="button" class="btn btn-success" onclick="removerLicenca()">Ativar</button>
+                    <button style="display:none;" id="btn-desativar" type="button" class="btn btn-success" onclick="desativarLicenca()">Desativar</button>
+                    <button style="display:none;" id="btn-ativar" type="button" class="btn btn-success" onclick="ativarLicenca()">Ativar</button>
                     <button id="btnModalExcluir2" type="button" class="btn btn-danger" onclick="removerLicenca()">Excluir</button>
                 </div>
             </div>

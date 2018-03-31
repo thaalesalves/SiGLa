@@ -92,35 +92,7 @@ Copyright (C) 2016 Thales Alves Pereira
             var mods = "vazio";
             var dia = "vazio";
             var sws = "vazio";
-
-            $(document).on('change', '#modulo', function () {
-                console.log('Módulo alterado');
-                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
-                dia = $('#dia-semana').val();
-                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                populaSolicitacaoLabs(mods, dia, sws);
-            });
-
-            $(document).on('change', '#dia-semana', function () {
-                console.log('Dia alterado');
-                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
-                dia = $('#dia-semana').val();
-                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                populaSolicitacaoLabs(mods, dia, sws);
-            });
-            
-            $(document).on('change', '#softwares', function () {
-                console.log('Software alterado');
-                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
-                dia = $('#dia-semana').val();
-                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
-                populaSolicitacaoLabs(mods, dia, sws);
-            });
-
-            $(document).on('change', '#usuario', function () {
-                var opt = $('#usuario :selected').val();
-                $('#professor').val(opt);
-            });
+            var alunos = "vazio";
 
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
@@ -205,7 +177,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input name="qtd" min="0" required type='number' class='form-control pull-right' name='qtd-alunos' placeholder="50" autocomplete="off"/>
+                                    <input min="0" required type='number' class='form-control pull-right' name='qtd-alunos' id='qtd-alunos' placeholder="50" autocomplete="off"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>
@@ -266,8 +238,6 @@ Copyright (C) 2016 Thales Alves Pereira
 
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
         <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
-        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
         <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
@@ -281,5 +251,47 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        <script>
+            $(document).on('change', '#modulo', function () {
+                console.log('Módulo alterado');
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
+                alunos = $('#qtd-alunos').val();
+                populaSolicitacaoLabs(mods, dia, sws, alunos);
+            });
+
+            $(document).on('change', '#dia-semana', function () {
+                console.log('Dia alterado');
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
+                alunos = $('#qtd-alunos').val();
+                populaSolicitacaoLabs(mods, dia, sws, alunos);
+            });
+
+            $(document).on('change', '#softwares', function () {
+                console.log('Software alterado');
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
+                alunos = $('#qtd-alunos').val();
+                populaSolicitacaoLabs(mods, dia, sws, alunos);
+            });
+            
+            $(document).on('change', '#qtd-alunos', function () {
+                console.log('Quantidade de alunos alterada');
+                mods = $('#modulo').val().toString().replace(/[^0-9\.]/g, '').split('');
+                dia = $('#dia-semana').val();
+                sws = $('#softwares').val().toString().replace(/[^0-9\.]/g, '').split('');
+                alunos = $('#qtd-alunos').val();
+                populaSolicitacaoLabs(mods, dia, sws, alunos);
+            });
+
+            $(document).on('change', '#usuario', function () {
+                var opt = $('#usuario :selected').val();
+                $('#professor').val(opt);
+            });
+        </script>
     </body>
 </html>
