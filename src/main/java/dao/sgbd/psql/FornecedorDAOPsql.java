@@ -55,6 +55,7 @@ public class FornecedorDAOPsql implements FornecedorDAO {
                 fornecedor.setNome(rs.getString("nome"));
                 fornecedor.setTelefone(rs.getString("telefone"));
                 fornecedor.setEmail(rs.getString("email"));
+                fornecedor.setRepresentantes(new RepresentanteDAOPsql().select(fornecedor));
             }
             
             conn.close();

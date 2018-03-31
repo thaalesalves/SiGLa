@@ -19,6 +19,7 @@ package dao.sgbd.mysql;
 import dao.sgbd.RepresentanteDAO;
 import java.sql.SQLException;
 import java.util.List;
+import model.Fornecedor;
 import model.Representante;
 
 /**
@@ -39,6 +40,11 @@ public class RepresentanteDAOMysql implements RepresentanteDAO {
 
     @Override
     public List<Representante> select() throws SQLException, ClassNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

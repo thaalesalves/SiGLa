@@ -4,6 +4,8 @@
 <%@include file="/includes/modal-incidente.jsp"%>
 <%@include file="/includes/modal-licenca.jsp"%>
 <%@include file="/includes/modal-codigo.jsp"%>
+<%@include file="/includes/modal-fornecedor.jsp"%>
+<%@include file="/includes/modal-add-rep.jsp"%>
 <footer class="main-footer">
     <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> All rights reserved. Versão <%=util.SiGLa.VERSION%></strong>
 </footer>

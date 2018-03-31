@@ -224,6 +224,47 @@ function modalLicenca(id) {
     });
 }
 
+function modalFornecedor(id) {
+    $.ajax({
+        url: contextPath + '/JsonController?acao=FornecedorListagemId&id=' + id,
+        type: 'POST',
+        cache: false,
+        dataType: 'JSON',
+        complete: function (e) {
+            $('#lista-codigos').html("");
+            var json = JSON.parse(e.responseText);
+            var table = '<tr><td><div class="form-group"><label class="soli-tit">Representantes <a data-toggle="modal" data-target="#modal-add-rep" style="font-size:8px;">(adicionar)</a></label></div></td></tr>';
+
+            $('#fornecedor-id').val(json.id);
+            $('#forn-id').val(json.id);
+            $("#fornecedor-nome").val(json.nome);
+
+            if (json.telefone != '') {
+                $('#tr-tel').show();
+                $('#forn-telefone').val(json.telefone);
+            }
+
+            if (json.email != '') {
+                $('#tr-email').show();
+                $('#forn-email').val(json.email);
+            }
+
+            var codigos = "";
+            for (i = 0; i < json.representantes.length; i++) {
+                codigos += '<tr><td><div class="form-group">' +
+                        '<label class="soli-tit">Nome</label></div></td><td style="width:100%;"><div class="form-group">' +
+                        '<input readonly value="' + json.representantes[i].nome + '" style="width: 80%;" type="text" class="form-control pull-right" name="rep-tel" id="licenca-software" placeholder="Código" />' +
+                        '</tr><tr><td><div class="form-group"><label class="soli-tit">Telefone</label></div></td><td style="width:100%;"><div class="form-group">' +
+                        '<input readonly value="' + json.representantes[i].telefone + '" style="width: 80%;" type="text" class="form-control pull-right" name="rep-tel" id="licenca-software" placeholder="Código" />' +
+                        '</tr><tr><td><div class="form-group"><label class="soli-tit">Email</label></div></td><td style="width:100%;"><div class="form-group">' +
+                        '<input readonly value="' + json.representantes[i].email + '" style="width: 80%;" type="text" class="form-control pull-right" name="rep-email" id="licenca-software" placeholder="Código" />' +
+                        '</div></td></tr><tr style="height:25px"></tr>';
+            }
+            $('#lista-reps').append(table + codigos);
+        }
+    });
+}
+
 function removerLicenca() {
     window.location.href = contextPath + "/AlmightyController?acao=LicencaRemocao&id=" + $("#licenca-id").val();
 }
@@ -253,7 +294,7 @@ function adicionarLicenca() {
             }
         }
     });
-    
+
     $.ajax({
         url: contextPath + '/api/?acao=FornecedorListagem',
         type: 'POST',

@@ -23,23 +23,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Fornecedor;
 import model.Representante;
 import util.DatabaseConnection;
 import util.Logger;
 
-/**
- *
- * @author thales
- */
 public class RepresentanteDAOPsql implements RepresentanteDAO {
 
     @Override
     public void insert(Representante representante) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_representante VALUES(DEFAULT, ?, ?, ?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_representante VALUES(DEFAULT, ?, ?, ?, ?)");
             pstmt.setString(1, representante.getNome());
             pstmt.setString(2, representante.getTelefone());
             pstmt.setString(3, representante.getEmail());
+            pstmt.setInt(4, representante.getFornecedor().getId());
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -75,6 +73,32 @@ public class RepresentanteDAOPsql implements RepresentanteDAO {
         
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_representante");
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                Representante representante = new Representante();
+                representante.setId(rs.getInt("id"));
+                representante.setNome(rs.getString("nome"));
+                representante.setTelefone(rs.getString("telefone"));
+                representante.setEmail(rs.getString("email"));
+                representantes.add(representante);
+            }
+            
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, RepresentanteDAOPsql.class);
+        }
+        
+        return representantes;
+    }
+
+    @Override
+    public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
+        List<Representante> representantes = new ArrayList<Representante>();
+        
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_representante WHERE fornecedor = ?");
+            pstmt.setInt(1, fornecedor.getId());
             ResultSet rs = pstmt.executeQuery();
             
             while (rs.next()) {

@@ -18,6 +18,7 @@ package dao.sgbd;
 
 import java.sql.SQLException;
 import java.util.List;
+import model.Fornecedor;
 import model.Representante;
 
 /**
@@ -27,5 +28,6 @@ import model.Representante;
 public interface RepresentanteDAO {
     public void insert(Representante representante) throws SQLException, ClassNotFoundException;
     public Representante select(Representante representante) throws SQLException, ClassNotFoundException;
+    public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
     public List<Representante> select() throws SQLException, ClassNotFoundException;
 }
