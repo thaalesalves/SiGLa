@@ -38,7 +38,7 @@ public class ReservaAtualizacaoAction implements ICommand {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
             String[] modulos = request.getParameterValues("modalModuloCombo");

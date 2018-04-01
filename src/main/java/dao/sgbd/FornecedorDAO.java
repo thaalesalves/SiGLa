@@ -25,7 +25,10 @@ import model.Fornecedor;
  * @author thales
  */
 public interface FornecedorDAO {
+
     public void insert(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
+
     public Fornecedor select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
+
     public List<Fornecedor> select() throws SQLException, ClassNotFoundException;
 }

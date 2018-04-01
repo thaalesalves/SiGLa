@@ -46,18 +46,18 @@ public class AuthenticationFilter implements Filter {
         String contextPath = req.getContextPath() + "/";
         HttpSession session = req.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("pessoa") != null;
-        
+
         if (loggedIn) {
             if (uri.equals(contextPath + "admin/install")) {
                 res.sendRedirect(req.getContextPath() + "/error/404");
             }
-            
+
             chain.doFilter(request, response);
         } else {
             if (uri.equals(contextPath + "admin/install")) {
                 res.sendRedirect(req.getContextPath() + "/error/404");
             }
-            
+
             res.sendRedirect(req.getContextPath() + "/error/401");
         }
     }

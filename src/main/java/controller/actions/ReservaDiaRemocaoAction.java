@@ -42,7 +42,7 @@ public class ReservaDiaRemocaoAction implements ICommand {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             Mail mailProf = new ReservaRemocaoMail();
             Mail mailFunc = new ReservaRemocaoEquipeMail();

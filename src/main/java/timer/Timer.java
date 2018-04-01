@@ -28,10 +28,10 @@ public class Timer {
 
             executorService.execute(
                     new Runnable() {
-                        public void run() {
-                            VencimentoLicenca.main(args);
-                        }
-                    }
+                public void run() {
+                    VencimentoLicenca.main(args);
+                }
+            }
             );
         } catch (Exception e) {
             Logger.logSevere(e, Timer.class);

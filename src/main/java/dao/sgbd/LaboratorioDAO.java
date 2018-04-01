@@ -38,12 +38,12 @@ public interface LaboratorioDAO {
     public int qtdLabs() throws SQLException, ClassNotFoundException;
 
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException;
-    
+
     public Laboratorio selectLaboratorioNumero(Laboratorio lab) throws SQLException, NullPointerException, ClassNotFoundException;
-    
+
     public Integer delete(Laboratorio lab) throws SQLException, ClassNotFoundException;
-    
+
     public void atualizar(Laboratorio lab) throws SQLException, ClassNotFoundException;
-    
+
     public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException;
 }

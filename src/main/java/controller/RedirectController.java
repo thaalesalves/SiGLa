@@ -80,7 +80,7 @@ public class RedirectController extends HttpServlet {
             mapaUrl.put("/software/novo", "../labinfo/software/novo.jsp");
             mapaUrl.put("/software/lista", "../labinfo/software/lista.jsp");
             mapaUrl.put("/software/licenca/lista", "../labinfo/licenca/lista.jsp");
-            
+
             /* Redirecionamentos de /licenca/ */
             mapaUrl.put("/licenca/lista", "../labinfo/licenca/lista.jsp");
             mapaUrl.put("/licenca/novo", "../labinfo/licenca/novo.jsp");
@@ -88,7 +88,7 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /laboratorio/ */
             mapaUrl.put("/laboratorio/novo", "../labinfo/lab/novo.jsp");
             mapaUrl.put("/laboratorio/lista", "../labinfo/lab/lista.jsp");
-            
+
             /* Redirecionamentos de /fornecedor/ */
             mapaUrl.put("/fornecedor/novo", "../labinfo/fornecedor/novo.jsp");
             mapaUrl.put("/fornecedor/lista", "../labinfo/fornecedor/lista.jsp");

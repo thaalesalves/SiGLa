@@ -36,14 +36,14 @@ public class EquipamentoIdJson implements IJson {
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
         e.setId(Integer.parseInt(request.getParameter("id")));
-        
+
         if (e.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
             Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao listar um equipamento. ID: " + e.getId());
             return util.Json.toJson(err);
         }
-        
+
         fac.getEquipamentoDAO().select(e);
         Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") buscou detalhes do equipamento " + e.getNome() + "(#" + e.getId() + ").");
         return util.Json.toJson(e);

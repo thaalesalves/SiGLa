@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.json;
 
 import dao.DAOFactory;
@@ -36,17 +35,17 @@ public class FornecedorListagemIdJson implements IJson {
         DAOFactory fac = DAOFactory.getFactory();
         fornecedor.setId(Integer.parseInt(request.getParameter("id")));
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
-        
+
         if (fornecedor.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
             Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao buscar um fornecedor. ID: " + fornecedor.getId());
             return util.Json.toJson(err);
         }
-        
+
         fornecedor = fac.getFornecedorDAO().select(fornecedor);
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou detalhes do fornecedor #" + fornecedor.getId());
-        
+
         return util.Json.toJson(fornecedor);
     }
 

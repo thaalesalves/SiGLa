@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package dao.sgbd;
 
 import java.sql.SQLException;
@@ -23,9 +22,14 @@ import model.Licenca;
 import model.LicencaCodigo;
 
 public interface LicencaCodigoDAO {
+
     public List<LicencaCodigo> select() throws SQLException, ClassNotFoundException;
+
     public List<LicencaCodigo> select(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public LicencaCodigo select(LicencaCodigo codigo) throws SQLException, ClassNotFoundException;
+
     public LicencaCodigo selectLicenca(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public void insert(LicencaCodigo codigo) throws SQLException, ClassNotFoundException;
 }

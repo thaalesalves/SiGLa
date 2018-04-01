@@ -143,7 +143,7 @@ public class ActiveDirectory {
 
         return this.dirContext.search(ldap_base, filter, this.searchCtls);
     }
-    
+
     /**
      * Teste se um usuário realmente existe no contexto do diretório
      *
@@ -155,7 +155,7 @@ public class ActiveDirectory {
     public boolean isUser(Pessoa p) throws NamingException {
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMore()) {
                 return true;
             }
@@ -178,7 +178,7 @@ public class ActiveDirectory {
     public boolean isMember(Pessoa p, Grupo g) throws NamingException {
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p, g);
-            
+
             if (result.hasMoreElements()) {
                 return true;
             }
@@ -201,7 +201,7 @@ public class ActiveDirectory {
         String cn = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -229,7 +229,7 @@ public class ActiveDirectory {
             String filter = "(&(objectCategory=person)(objectClass=user)(memberOf=CN=sigla_prof,OU=GRUPOS,OU=SiGLa,DC=thalesalv,DC=es))";
 
             NamingEnumeration<SearchResult> result = this.dirContext.search(ldap_base, filter, this.searchCtls);
-            
+
             while (result.hasMoreElements()) {
                 Pessoa p = new Pessoa();
                 String attr;
@@ -280,7 +280,7 @@ public class ActiveDirectory {
         String title = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -307,7 +307,7 @@ public class ActiveDirectory {
         String depto = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -334,7 +334,7 @@ public class ActiveDirectory {
         String givenName = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -361,7 +361,7 @@ public class ActiveDirectory {
         String mail = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -388,7 +388,7 @@ public class ActiveDirectory {
         String manager = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -415,7 +415,7 @@ public class ActiveDirectory {
         String company = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -443,7 +443,7 @@ public class ActiveDirectory {
         String sAMAccountName = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -470,7 +470,7 @@ public class ActiveDirectory {
         String displayName = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -497,7 +497,7 @@ public class ActiveDirectory {
         String physicalDeliveryOfficeName = "";
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -524,7 +524,7 @@ public class ActiveDirectory {
         byte[] pic;
         try {
             NamingEnumeration<SearchResult> result = this.searchUser(p);
-            
+
             if (result.hasMoreElements()) {
                 SearchResult sr = (SearchResult) result.next();
                 Attributes attrs = sr.getAttributes();
@@ -533,7 +533,7 @@ public class ActiveDirectory {
                 if (pic == null) {
                     pic = (byte[]) attrs.get("thumbnailPhoto").get();
                 }
-                
+
                 return pic;
             }
         } catch (Exception e) {

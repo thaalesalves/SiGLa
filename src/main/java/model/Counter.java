@@ -24,6 +24,7 @@ import java.util.ArrayList;
 @lombok.Getter
 @lombok.Setter
 public class Counter implements Serializable {
+
     private int qtdSolicitacoes;
     private int qtdReservas;
     private int qtdReservasHoje;

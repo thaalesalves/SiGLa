@@ -26,10 +26,15 @@ import model.IncidenteInformacao;
  * @author thaalesalves
  */
 public abstract class IncidenteDAO {
+
     public abstract List<Incidente> select() throws SQLException, ClassNotFoundException;
+
     public abstract Incidente select(Incidente incidente) throws SQLException, ClassNotFoundException;
+
     public abstract void adicionaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
+
     public abstract void removeInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
+
     public abstract void editaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
-    
+
 }

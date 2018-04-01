@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package dao.sgbd.psql;
 
 import dao.sgbd.LicencaCodigoDAO;
@@ -63,27 +62,27 @@ public class LicencaCodigoDAOPsql implements LicencaCodigoDAO {
     @Override
     public List<LicencaCodigo> select(Licenca licenca) throws SQLException, ClassNotFoundException {
         List<LicencaCodigo> codigos = new ArrayList<LicencaCodigo>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_licenca_codigo WHERE licenca = ?");
             pstmt.setInt(1, licenca.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 LicencaCodigo codigo = new LicencaCodigo();
-                
+
                 codigo.setId(rs.getInt("id"));
                 codigo.setCodigoTipo(rs.getString("nome"));
                 codigo.setCodigo(rs.getString("codigo"));
-                
+
                 codigos.add(codigo);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaCodigoDAOPsql.class);
         }
-        
+
         return codigos;
     }
 

@@ -27,7 +27,8 @@ import model.Solicitacao;
 import util.DatabaseConnection;
 
 public class SolicitacaoDAOPsql implements dao.sgbd.SolicitacaoDAO {
-@Override
+
+    @Override
     public Solicitacao selectSolicitacao(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_solicitacao WHERE id = ?");
@@ -55,7 +56,8 @@ public class SolicitacaoDAOPsql implements dao.sgbd.SolicitacaoDAO {
 
         return s;
     }
-@Override
+
+    @Override
     public Solicitacao insertSolicitacoes(Solicitacao s) throws SQLException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = connString.prepareStatement("INSERT INTO tb_solicitacao VALUES(DEFAULT, ?, ?, ?, ?, ?, ?)");
@@ -99,7 +101,8 @@ public class SolicitacaoDAOPsql implements dao.sgbd.SolicitacaoDAO {
 
         return s;
     }
-@Override
+
+    @Override
     public int countSolicitacoes() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 

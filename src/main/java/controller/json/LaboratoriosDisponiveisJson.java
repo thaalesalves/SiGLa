@@ -75,7 +75,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
             err.setErro(e.getMessage());
             return util.Json.toJson(err);
         }
-        
+
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os laboratórios disponíveis.");
         return util.Json.toJson(al);
     }

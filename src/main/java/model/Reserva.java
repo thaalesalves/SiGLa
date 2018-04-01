@@ -1,22 +1,22 @@
 /**
-* Copyright (C) 2016 Thales Alves Pereira
-* 
-*  This file is part of SiGla.
-
-*   SiGla is free software: you can redistribute it and/or modify
-*   it under the terms of the GNU General Public License as published by
-*   the Free Software Foundation, either version 3 of the License, or
-*   (at your option) any later version.
-
-*   SiGla is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*   GNU General Public License for more details.
-
-*   You should have received a copy of the GNU General Public License
-*   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-**/
-
+ * Copyright (C) 2016 Thales Alves Pereira
+ *
+ *  This file is part of SiGla.
+ *
+ *   SiGla is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SiGla is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 package model;
 
 import java.io.Serializable;
@@ -44,7 +44,7 @@ public class Reserva implements Serializable {
     private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
     private ArrayList<Software> softwares = new ArrayList<Software>();
     private ArrayList<Curso> cursos = new ArrayList<Curso>();
-    
+
     public static String calendarioDia() {
         Calendar calendar = Calendar.getInstance();
         Integer dia = calendar.get(Calendar.DAY_OF_WEEK);

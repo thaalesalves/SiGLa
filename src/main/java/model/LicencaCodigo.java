@@ -19,6 +19,7 @@ package model;
 @lombok.Getter
 @lombok.Setter
 public class LicencaCodigo {
+
     private Integer id;
     private String codigo;
     private String codigoTipo;

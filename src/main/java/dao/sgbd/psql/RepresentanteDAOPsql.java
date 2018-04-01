@@ -51,30 +51,30 @@ public class RepresentanteDAOPsql implements RepresentanteDAO {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_representante WHERE id = ?");
             pstmt.setInt(1, representante.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 representante.setId(rs.getInt("id"));
                 representante.setNome(rs.getString("nome"));
                 representante.setTelefone(rs.getString("telefone"));
                 representante.setEmail(rs.getString("email"));
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, RepresentanteDAOPsql.class);
         }
-        
+
         return representante;
     }
 
     @Override
     public List<Representante> select() throws SQLException, ClassNotFoundException {
         List<Representante> representantes = new ArrayList<Representante>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_representante");
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Representante representante = new Representante();
                 representante.setId(rs.getInt("id"));
@@ -83,24 +83,24 @@ public class RepresentanteDAOPsql implements RepresentanteDAO {
                 representante.setEmail(rs.getString("email"));
                 representantes.add(representante);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, RepresentanteDAOPsql.class);
         }
-        
+
         return representantes;
     }
 
     @Override
     public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
         List<Representante> representantes = new ArrayList<Representante>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_representante WHERE fornecedor = ?");
             pstmt.setInt(1, fornecedor.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Representante representante = new Representante();
                 representante.setId(rs.getInt("id"));
@@ -109,12 +109,12 @@ public class RepresentanteDAOPsql implements RepresentanteDAO {
                 representante.setEmail(rs.getString("email"));
                 representantes.add(representante);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, RepresentanteDAOPsql.class);
         }
-        
+
         return representantes;
     }
 }

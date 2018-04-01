@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package model;
 
@@ -28,7 +28,7 @@ public class Pessoa implements Serializable {
     private String shownName;
     private String username;
     private String nome;
-    private String nomeCompleto;    
+    private String nomeCompleto;
     private String email;
     private String cargo;
     private String role;

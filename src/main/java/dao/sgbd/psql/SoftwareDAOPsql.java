@@ -68,7 +68,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             while (rs.next()) {
                 Software s = new Software();
-                
+
                 s.setFabricante(rs.getString("fabricante"));
                 s.setId(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
@@ -195,7 +195,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
         return arrayRes;
     }
-    
+
     @Override
     public Software selectLicenca(Software software) throws SQLException, ClassNotFoundException {
         Licenca licenca = new Licenca();

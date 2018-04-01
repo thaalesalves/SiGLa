@@ -25,7 +25,7 @@ import java.util.ArrayList;
 @lombok.Setter
 public class Solicitacao implements Serializable {
 
-    private Integer id;    
+    private Integer id;
     private Integer qtdAlunos;
     private String diaSemana;
     private String turma;

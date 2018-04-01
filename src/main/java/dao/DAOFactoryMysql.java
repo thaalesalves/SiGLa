@@ -36,7 +36,7 @@ public class DAOFactoryMysql extends DAOFactory {
     public CursoDAO getCursoDAO() {
         return new dao.sgbd.mysql.CursoDAOMysql();
     }
-    
+
     @Override
     public EquipamentoDAO getEquipamentoDAO() {
         return new dao.sgbd.mysql.EquipamentoDAOMysql();

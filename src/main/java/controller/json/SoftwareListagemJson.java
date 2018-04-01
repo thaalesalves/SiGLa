@@ -31,7 +31,7 @@ public class SoftwareListagemJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
         DAOFactory fac = DAOFactory.getFactory();
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os softwares."); 
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os softwares.");
         return util.Json.toJson(fac.getSoftwareDAO().selectAll());
     }
 }

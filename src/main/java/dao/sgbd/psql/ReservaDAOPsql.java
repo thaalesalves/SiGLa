@@ -337,7 +337,7 @@ public class ReservaDAOPsql implements dao.sgbd.ReservaDAO {
             pstmt = conn.prepareStatement("DELETE FROM aux_modulo_res WHERE res = ?");
             pstmt.setInt(1, r.getId());
             pstmt.executeUpdate();
-            
+
             pstmt = conn.prepareStatement("INSERT INTO aux_modulo_res VALUES(DEFAULT, ?, ?)");
 
             for (int i = 0; i < r.getModulos().size(); i++) {

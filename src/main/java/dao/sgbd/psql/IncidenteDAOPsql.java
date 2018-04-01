@@ -40,7 +40,7 @@ public class IncidenteDAOPsql extends IncidenteDAO {
     @Override
     public List<Incidente> select() throws SQLException, ClassNotFoundException {
         List<Incidente> incidentes = new ArrayList<Incidente>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT i.usuario AS user, i.id AS incidente, i.data_abertura AS data_abertura, i.descricao AS descricao, eq.id AS equip_id, eq.nome AS computador, lab.numero AS laboratorio FROM tb_laboratorio lab, tb_incidente i, tb_equipamento eq WHERE eq.laboratorio = lab.id AND i.equipamento = eq.id");
             ResultSet rs = pstmt.executeQuery();
@@ -55,7 +55,7 @@ public class IncidenteDAOPsql extends IncidenteDAO {
                 incidente.setId(rs.getInt("incidente"));
                 incidente.setDataAbertura(IO.getData(rs.getString("data_abertura")));
                 incidente.setDescricao(rs.getString("descricao"));
-                
+
                 incidentes.add(incidente);
             }
 

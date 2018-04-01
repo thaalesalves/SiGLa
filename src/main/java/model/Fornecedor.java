@@ -21,6 +21,7 @@ import java.util.List;
 @lombok.Getter
 @lombok.Setter
 public class Fornecedor {
+
     private Integer id;
     private String nome;
     private String telefone;

@@ -72,12 +72,12 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             p.setNomeCompleto(ad.getCN(p));
 
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
-            
+
             mailFunc.setPessoa(p);
             mailFunc.setReserva(r);
             mailFunc.setSolicitacao(s);
             mailFunc.sendMail(mailFunc);
-            
+
             mailProf.setPessoa(p);
             mailProf.setReserva(r);
             mailProf.setSolicitacao(s);
@@ -94,7 +94,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         }
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") aprovou a solitação #" 
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") aprovou a solitação #"
                 + s.getId() + ", e a reserva #" + r.getId() + " foi criada.");
         return request.getContextPath() + "/reserva/solicitacoes";
     }

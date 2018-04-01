@@ -77,7 +77,7 @@ public class VencimentoLicenca implements Job {
                     Mail mail = prazo.emailNotificacao;
                     mail.setLicenca(i);
                     mail.sendMail(mail);
-                    
+
                     if (i.venceHoje(date)) {
                         DAOFactory.getFactory().getLicencaDAO().desativa(i);
                     }

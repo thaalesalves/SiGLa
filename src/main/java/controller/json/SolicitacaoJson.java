@@ -34,7 +34,7 @@ public class SolicitacaoJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, NullPointerException, NamingException, IOException {
         HttpSession session = request.getSession();
-        
+
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         DAOFactory fac = DAOFactory.getFactory();
@@ -45,7 +45,7 @@ public class SolicitacaoJson implements IJson {
             s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
             s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
-        
+
         ad.closeLdapConnection();
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou as solicitações.");
         return util.Json.toJson(solicitacao);

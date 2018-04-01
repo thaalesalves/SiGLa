@@ -26,8 +26,12 @@ import model.Representante;
  * @author thales
  */
 public interface RepresentanteDAO {
+
     public void insert(Representante representante) throws SQLException, ClassNotFoundException;
+
     public Representante select(Representante representante) throws SQLException, ClassNotFoundException;
+
     public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
+
     public List<Representante> select() throws SQLException, ClassNotFoundException;
 }

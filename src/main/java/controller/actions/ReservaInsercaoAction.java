@@ -40,7 +40,7 @@ public class ReservaInsercaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             Reserva reserva = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
@@ -60,7 +60,7 @@ public class ReservaInsercaoAction implements ICommand {
             util.Logger.logSevere(e, this.getClass());
             return request.getContextPath() + "/reserva/novo";
         }
-        
+
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") criou uma reserva.");
         session.setAttribute("msg", "Reserva inserida com sucesso.");
         session.setAttribute("status", "success");

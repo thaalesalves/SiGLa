@@ -32,10 +32,10 @@ public class LaboratorioIdJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         DAOFactory fac = DAOFactory.getFactory();
-        Laboratorio lab = new Laboratorio();        
-        lab.setId(Integer.parseInt(request.getParameter("id"))); 
+        Laboratorio lab = new Laboratorio();
+        lab.setId(Integer.parseInt(request.getParameter("id")));
         Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        
+
         if (lab.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");

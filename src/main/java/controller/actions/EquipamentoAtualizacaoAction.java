@@ -37,7 +37,7 @@ public class EquipamentoAtualizacaoAction implements ICommand {
         HttpSession session = request.getSession();
         Equipamento e = new Equipamento();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id")));

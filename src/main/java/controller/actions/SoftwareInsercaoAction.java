@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package controller.actions;
 
@@ -40,30 +40,30 @@ public class SoftwareInsercaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
-        try {   
+
+        try {
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             Software s = new Software();
             DAOFactory fac = DAOFactory.getFactory();
-            
+
             s.setFabricante(request.getParameter("fabricante"));
             s.setNome(request.getParameter("nome"));
-            
+
             fac.getSoftwareDAO().insertSoftware(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
                     + "inserir um software");
-            
+
             session.setAttribute("msg", "Erro ao cadastrar o software");
             session.setAttribute("status", "error");
-            
+
             return request.getContextPath() + "/software/novo";
         }
         session.setAttribute("msg", "Software cadastrado com sucesso");
         session.setAttribute("status", "success");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") cadastrou um software.");
-        
+
         return request.getContextPath() + "/software/novo";
     }
 

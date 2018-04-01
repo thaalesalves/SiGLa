@@ -41,7 +41,7 @@ public class IncidenteJson implements IJson {
         Incidente incidente = new Incidente();
         incidente.setId(Integer.parseInt(request.getParameter("id")));
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         if (incidente.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Valores inválidos passados");
@@ -51,7 +51,7 @@ public class IncidenteJson implements IJson {
 
         DAOFactory fac = DAOFactory.getFactory();
         incidente = fac.getIncidenteDAO().select(incidente);
-        
+
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         incidente.getPessoa().setNomeCompleto(ad.getCN(incidente.getPessoa()));
         incidente.getPessoa().setEmail(ad.getMail(incidente.getPessoa()));

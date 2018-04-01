@@ -8,6 +8,7 @@ import java.util.Properties;
 
 public final class SiGLa {
 // <editor-fold defaultstate="collapsed" desc="Inicializador e constantes">
+
     public static final String HOME;
     public static final String TEST;
     public static final String SOURCE;
@@ -72,7 +73,7 @@ public final class SiGLa {
             Properties cfg = new Properties();
             InputStream stream = new FileInputStream(TARGET + "/classes/config.properties");
             cfg.load(stream);
-            
+
             domain = (String) cfg.get("sigla.auth.domain");
             domainHost = (String) cfg.get("sigla.auth.host");
             domainHost = domainHost.replaceAll("\\\\", "");
@@ -88,7 +89,7 @@ public final class SiGLa {
             dbPort = (String) cfg.get("sigla.db.port");
             dbSsl = (String) cfg.get("sigla.db.ssl");
             dbDbms = (String) cfg.get("sigla.db.dbms");
-            
+
             mailName = (String) cfg.get("sigla.mail.name");
             mailGroup = (String) cfg.get("sigla.mail.group");
             mailSystem = (String) cfg.get("sigla.mail.system");
@@ -107,7 +108,7 @@ public final class SiGLa {
             configProperty.setProperty(key, value);
             FileOutputStream fileOut = new FileOutputStream(file);
             configProperty.store(fileOut, null);
-            
+
             fileOut.close();
 
             loadProperties();
@@ -119,7 +120,7 @@ public final class SiGLa {
     public static String getDbms() {
         return dbDbms;
     }
-    
+
     public static String getDomain() {
         return domain;
     }
@@ -135,7 +136,7 @@ public final class SiGLa {
     public static String getAuthMethod() {
         return authMethod;
     }
-    
+
     public static String getAuthPort() {
         return authPort;
     }
@@ -162,7 +163,7 @@ public final class SiGLa {
 
     public static String getDbSsl() {
         return dbSsl;
-    } 
+    }
 
     public static String getDbDbms() {
         return dbDbms;

@@ -38,7 +38,7 @@ public class ReservaEquipeMail extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<"+ SiGLa.getMailSystem() + ">"));
+            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<" + SiGLa.getMailSystem() + ">"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(SiGLa.getMailGroup()));
             message.setSubject("SiGLa | Reserva de Laboratório");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");

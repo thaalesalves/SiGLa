@@ -53,7 +53,7 @@ public class LicencaListagemJson implements IJson {
         }
 
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem das licenças.");
-        
+
         return util.Json.toJson(licencas);
     }
 }

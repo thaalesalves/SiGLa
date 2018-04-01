@@ -37,7 +37,7 @@ public class EquipamentoInsercaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             Equipamento e = new Equipamento();
             DAOFactory fac = DAOFactory.getFactory();

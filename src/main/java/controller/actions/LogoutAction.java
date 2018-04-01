@@ -15,7 +15,7 @@
  *
  *   You should have received a copy of the GNU General Public License
  *   along with SiGLa.  If not, see <http://www.gnu.org/licenses/>.
-*
+ *
  */
 package controller.actions;
 
@@ -35,7 +35,7 @@ public class LogoutAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
-        
+
         try {
             ActiveDirectory ad = (ActiveDirectory) request.getSession().getAttribute("ad");
 
@@ -47,7 +47,7 @@ public class LogoutAction implements ICommand {
                     + "fazer logout do SiGLa.");
             util.Logger.logSevere(e, this.getClass());
         }
-        
+
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") acaba de fazer logout do SiGLa.");
         return request.getContextPath();
     }

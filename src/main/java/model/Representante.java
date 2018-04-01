@@ -19,6 +19,7 @@ package model;
 @lombok.Getter
 @lombok.Setter
 public class Representante {
+
     private Integer id;
     private String nome;
     private String telefone;

@@ -47,5 +47,5 @@ public class RepresentanteDAOMysql implements RepresentanteDAO {
     public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

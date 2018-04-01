@@ -49,7 +49,7 @@ public class FornecedorDAOPsql implements FornecedorDAO {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_fornecedor WHERE id = ?");
             pstmt.setInt(1, fornecedor.getId());
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 fornecedor.setId(rs.getInt("id"));
                 fornecedor.setNome(rs.getString("nome"));
@@ -57,23 +57,23 @@ public class FornecedorDAOPsql implements FornecedorDAO {
                 fornecedor.setEmail(rs.getString("email"));
                 fornecedor.setRepresentantes(new RepresentanteDAOPsql().select(fornecedor));
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, FornecedorDAOPsql.class);
         }
-        
+
         return fornecedor;
     }
 
     @Override
     public List<Fornecedor> select() throws SQLException, ClassNotFoundException {
         List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
-        
+
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_fornecedor");
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 Fornecedor fornecedor = new Fornecedor();
                 fornecedor.setId(rs.getInt("id"));
@@ -82,12 +82,12 @@ public class FornecedorDAOPsql implements FornecedorDAO {
                 fornecedor.setEmail(rs.getString("email"));
                 fornecedores.add(fornecedor);
             }
-            
+
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, FornecedorDAOPsql.class);
         }
-        
+
         return fornecedores;
     }
 }

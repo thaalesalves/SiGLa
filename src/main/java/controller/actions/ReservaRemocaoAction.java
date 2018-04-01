@@ -47,7 +47,7 @@ public class ReservaRemocaoAction implements ICommand {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             Mail mailProf = new ReservaRemocaoMail();
             Mail mailFunc = new ReservaRemocaoEquipeMail();
@@ -60,13 +60,13 @@ public class ReservaRemocaoAction implements ICommand {
             r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
             r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
             r.setMotivoRemocao(request.getParameter("motivo"));
-            
+
             fac.getReservaDAO().delete(r);
-            
+
             mailFunc.setReserva(r);
             mailFunc.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mailFunc.sendMail(mailFunc);
-            
+
             mailProf.setReserva(r);
             mailProf.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mailProf.sendMail(mailProf);

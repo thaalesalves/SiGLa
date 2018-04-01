@@ -52,5 +52,5 @@ public class IncidenteDAOMysql extends IncidenteDAO {
     public void editaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

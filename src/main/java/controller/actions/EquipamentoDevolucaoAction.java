@@ -37,7 +37,7 @@ public class EquipamentoDevolucaoAction implements ICommand {
         HttpSession session = request.getSession();
         Equipamento e = new Equipamento();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id")));
@@ -53,7 +53,7 @@ public class EquipamentoDevolucaoAction implements ICommand {
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador devolvido");
-                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de fazer a devolução de " + e.getNome() + "(#" + e.getId() + ").");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de fazer a devolução de " + e.getNome() + "(#" + e.getId() + ").");
         return request.getContextPath() + "/equip/lista";
     }
 }

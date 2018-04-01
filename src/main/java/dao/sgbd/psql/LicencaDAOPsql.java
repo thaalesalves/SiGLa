@@ -129,7 +129,7 @@ public class LicencaDAOPsql implements LicencaDAO {
 
         return licencas;
     }
-    
+
     @Override
     public List<Licenca> selectAtivado() throws SQLException, ClassNotFoundException {
         List<Licenca> licencas = new ArrayList<Licenca>();
@@ -158,7 +158,7 @@ public class LicencaDAOPsql implements LicencaDAO {
 
         return licencas;
     }
-    
+
     @Override
     public List<Licenca> selectDesativado() throws SQLException, ClassNotFoundException {
         List<Licenca> licencas = new ArrayList<Licenca>();

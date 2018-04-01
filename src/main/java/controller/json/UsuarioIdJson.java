@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.json;
 
 import java.io.IOException;
@@ -27,7 +26,6 @@ import model.Pessoa;
 import util.ActiveDirectory;
 import util.Logger;
 
-
 public class UsuarioIdJson implements IJson {
 
     @Override
@@ -37,7 +35,7 @@ public class UsuarioIdJson implements IJson {
         Pessoa prof = new Pessoa();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         ad.login(pessoa);
-        
+
         prof.setUsername(request.getParameter("username"));
         prof.setEmail(ad.getMail(prof));
         prof.setCargo(ad.getTitle(prof));
@@ -49,7 +47,7 @@ public class UsuarioIdJson implements IJson {
         ad.closeLdapConnection();
         Logger.logOutput(pessoa.getNomeCompleto() + "(" + pessoa.getUsername() + ") acaba de buscar "
                 + "detalhes sobre " + prof.getNomeCompleto() + "(" + prof.getUsername() + ").");
-        
+
         return util.Json.toJson(prof);
     }
 }

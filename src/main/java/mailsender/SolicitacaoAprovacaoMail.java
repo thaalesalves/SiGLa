@@ -38,7 +38,7 @@ public class SolicitacaoAprovacaoMail extends Mail {
     public void sendMail(Mail mail) throws MessagingException, UnsupportedEncodingException, IOException, NullPointerException {
         try {
             final Message message = new MimeMessage(getSession());
-            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<"+ SiGLa.getMailSystem() + ">"));
+            message.setFrom(new InternetAddress(SiGLa.getMailName() + "<" + SiGLa.getMailSystem() + ">"));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getPessoa().getEmail()));
             message.setSubject("SiGLa | Solicitação Aprovada");
             message.setContent(getMessage(mail), "text/html; charset=UTF-8");

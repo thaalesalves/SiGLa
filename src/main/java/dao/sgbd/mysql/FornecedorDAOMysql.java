@@ -41,5 +41,5 @@ public class FornecedorDAOMysql implements FornecedorDAO {
     public List<Fornecedor> select() throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

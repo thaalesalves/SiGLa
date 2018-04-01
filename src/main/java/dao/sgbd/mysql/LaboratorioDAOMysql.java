@@ -242,7 +242,7 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
             util.Logger.logSevere(e, this.getClass());
         }
     }
-    
+
     @Override
     public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();

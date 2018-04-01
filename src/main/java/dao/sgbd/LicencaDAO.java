@@ -22,16 +22,28 @@ import model.Licenca;
 import model.Software;
 
 public interface LicencaDAO {
+
     public Licenca select(Software software) throws SQLException, ClassNotFoundException;
+
     public Licenca select(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public List<Licenca> select() throws SQLException, ClassNotFoundException;
+
     public List<Licenca> selectAtivado() throws SQLException, ClassNotFoundException;
+
     public List<Licenca> selectDesativado() throws SQLException, ClassNotFoundException;
+
     public List<Licenca> selectAtivos() throws SQLException, ClassNotFoundException;
+
     public List<Licenca> selectVencimento() throws SQLException, ClassNotFoundException;
+
     public List<Licenca> selectVencimento(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public void insert(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public void ativa(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public void desativa(Licenca licenca) throws SQLException, ClassNotFoundException;
+
     public void delete(Licenca licenca) throws SQLException, ClassNotFoundException;
 }

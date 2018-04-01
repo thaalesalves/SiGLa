@@ -44,7 +44,7 @@ public class InstallationFilter implements Filter {
         String uri = req.getRequestURI();
         String contextPath = req.getContextPath() + "/";
         boolean dominioNulo = util.SiGLa.getDomain().equals("null");
-        
+
         if (dominioNulo && uri.equals(contextPath + "admin/install")) {
             chain.doFilter(request, response);
         } else if (dominioNulo && (uri.equals(contextPath))) {

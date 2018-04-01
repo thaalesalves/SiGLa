@@ -701,7 +701,7 @@ public class ReservaRemocaoEquipeMail extends Mail {
                 + "\n"
                 + "                            <p style='text-align: center;'>A reserva <strong>#" + mail.getReserva().getId() + "</strong> foi invalidada por <strong>" + mail.getPessoa().getNomeCompleto() + "</strong> por <strong>" + mail.getReserva().getMotivoRemocao() + "</strong>.<br>\n"
                 + "<br>\n"
-                + "A reserva havia sido feita para o <strong>" + mail.getReserva().getTurma()+ "</strong> de <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos()+ " alunos, </strong>às <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e havia sido registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.</p>\n"
+                + "A reserva havia sido feita para o <strong>" + mail.getReserva().getTurma() + "</strong> de <strong>" + mail.getReserva().getCurso().getModalidade() + " em " + mail.getReserva().getCurso().getNome() + "</strong>, que tem <strong>" + mail.getReserva().getQtdAlunos() + " alunos, </strong>às <strong>" + mail.getReserva().getDiaDaSemana() + "</strong>, e havia sido registrada como reserva <strong>#" + mail.getReserva().getId() + "</strong>. Organizamos os dados abaixo para que você possa verificá-los.</p>\n"
                 + "\n"
                 + "<p style=\'text-align: left;\'><strong>Módulos:</strong> " + modulos + "<br>\n"
                 + "<strong>Softwares:</strong> " + softwares + "<br>\n"

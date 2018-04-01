@@ -34,26 +34,38 @@ import util.SiGLa;
 public abstract class DAOFactory {
 
     public abstract CursoDAO getCursoDAO();
+
     public abstract EquipamentoDAO getEquipamentoDAO();
+
     public abstract GrupoDAO getGrupoDAO();
+
     public abstract LaboratorioDAO getLaboratorioDAO();
+
     public abstract ModuloDAO getModuloDAO();
+
     public abstract ReservaDAO getReservaDAO();
+
     public abstract SoftwareDAO getSoftwareDAO();
+
     public abstract SolicitacaoDAO getSolicitacaoDAO();
+
     public abstract IncidenteDAO getIncidenteDAO();
+
     public abstract FornecedorDAO getFornecedorDAO();
+
     public abstract LicencaDAO getLicencaDAO();
+
     public abstract RepresentanteDAO getRepresentanteDAO();
+
     public abstract LicencaCodigoDAO getLicencaCodigoDAO();
-    
+
     public static DAOFactory getFactory() {
         if (SiGLa.getDbms().equalsIgnoreCase("mysql")) {
             return new DAOFactoryMysql();
         } else if (SiGLa.getDbms().equalsIgnoreCase("psql")) {
             return new DAOFactoryPsql();
         }
-        
+
         return null;
     }
 }

@@ -40,7 +40,7 @@ public class LaboratorioAtualizacaoAction implements ICommand {
         HttpSession session = request.getSession();
         Laboratorio lab = new Laboratorio();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-        
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
 

@@ -33,8 +33,8 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 public final class DatabaseConnection {
 
     /**
-     * Método que busca a conexão com PostgreSQL. Usado nos demais métodos (e nas
-     * camadas DAO) para buscar a conexão com este SGDB
+     * Método que busca a conexão com PostgreSQL. Usado nos demais métodos (e
+     * nas camadas DAO) para buscar a conexão com este SGDB
      *
      * @author Thales Alves Pereira
      * @version 1.0
