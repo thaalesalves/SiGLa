@@ -69,7 +69,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <div class="module form-module">
             <div class="form">
                 <center><h2>Login no SiGLa</h2></center>
-                <form action="${pageContext.request.contextPath}/AlmightyController" method="post" name="frm_login">
+                <form action="${pageContext.request.contextPath}/controller/" method="post" name="frm_login">
                     <input autofocus autocomplete="off" name="username" id="username" required type="text" placeholder="Usuário"/>
                     <input autocomplete="off" name="password" id="password" required type="password" placeholder="Senha"/>
                     <button id="login" onclick="loadPage();" class="btn btn-default submit" value="Login" name="acao" type="submit">Entrar</button>

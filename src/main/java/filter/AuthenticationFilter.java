@@ -16,7 +16,15 @@
  */
 package filter;
 
+import controller.actions.ICommand;
+import controller.actions.LoginAction;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -39,7 +47,7 @@ public class AuthenticationFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException, FileNotFoundException, ConnectException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getRequestURI();
@@ -49,13 +57,13 @@ public class AuthenticationFilter implements Filter {
 
         if (loggedIn) {
             if (uri.equals(contextPath + "admin/install")) {
-                res.sendRedirect(req.getContextPath() + "/error/404");
+                res.sendRedirect(contextPath + "error/404");
             }
 
             chain.doFilter(request, response);
         } else {
             if (uri.equals(contextPath + "admin/install")) {
-                res.sendRedirect(req.getContextPath() + "/error/404");
+                res.sendRedirect(contextPath + "error/404");
             }
 
             res.sendRedirect(req.getContextPath() + "/error/401");
