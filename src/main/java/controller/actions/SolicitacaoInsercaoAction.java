@@ -70,6 +70,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 if (r.getQtdAlunos() < 1) {
                     session.setAttribute("mensagem", "Tentativa ilegal de passar valores.");
                     session.setAttribute("estado", "error");
+                    ad.closeLdapConnection();
                     return request.getContextPath() + "/reserva/novo";
                 }
 
@@ -114,7 +115,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
                 session.setAttribute("msg", "Reserva efetuada com sucesso.");
                 session.setAttribute("status", "success");
-
+                ad.closeLdapConnection();
                 return request.getContextPath() + "/reserva/novo";
             } else if (role.equals("coordenador") || role.equals("professor")) {
                 Mail mail = new SolicitacaoMail();
@@ -163,6 +164,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 mail.setPessoa(p);
                 mail.setSolicitacao(s);
                 mail.sendMail(mail);
+                ad.closeLdapConnection();
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
@@ -170,7 +172,6 @@ public class SolicitacaoInsercaoAction implements ICommand {
                     + "inserir uma solicitação.");
             session.setAttribute("msg", "Erro ao efetivar a reserva.");
             session.setAttribute("status", "error");
-
             return request.getContextPath() + "/reserva/novo";
         }
 

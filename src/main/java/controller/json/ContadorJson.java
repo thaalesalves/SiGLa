@@ -66,7 +66,7 @@ public class ContadorJson implements IJson {
             counter.setLaboratorios(l);
             counter.setCursos(c);
             counter.setSoftwares(sw);
-
+            ad.closeLdapConnection();
             return util.Json.toJson(counter);
         } catch (Exception e) {
             util.Logger.logSevere(e, ContadorJson.class);

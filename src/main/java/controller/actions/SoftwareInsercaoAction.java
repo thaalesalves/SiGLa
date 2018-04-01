@@ -50,6 +50,7 @@ public class SoftwareInsercaoAction implements ICommand {
             s.setNome(request.getParameter("nome"));
 
             fac.getSoftwareDAO().insertSoftware(s);
+            ad.closeLdapConnection();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
