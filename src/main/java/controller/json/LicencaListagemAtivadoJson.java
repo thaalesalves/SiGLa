@@ -24,6 +24,7 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Licenca;
 import model.Pessoa;
 import util.IO;
@@ -41,9 +42,13 @@ public class LicencaListagemAtivadoJson implements IJson {
             licencas = fac.getLicencaDAO().selectAtivado();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaListagemAtivadoJson.class);
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou listar as licenças ativadas");
+            Erro err = new Erro();
+            err.setErro(e.getMessage());
+            return util.Json.toJson(err);
         }
 
-        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") listou os softwares ativados");
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") listou as licenças ativadas");
         return util.Json.toJson(licencas);
     }
 }

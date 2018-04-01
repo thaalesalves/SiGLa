@@ -36,7 +36,8 @@ public class EquipamentoInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
-
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             Equipamento e = new Equipamento();
             DAOFactory fac = DAOFactory.getFactory();
@@ -54,13 +55,13 @@ public class EquipamentoInsercaoAction implements ICommand {
             util.Logger.logSevere(e, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
             session.setAttribute("msg", "Erro ao cadastrar computador");
-
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "inserir um equipamento.");
             return request.getContextPath() + "/equip/novo";
         }
 
         session.setAttribute("status", "error");
         session.setAttribute("msg", "Erro ao cadastrar computador");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/equip/novo";
     }

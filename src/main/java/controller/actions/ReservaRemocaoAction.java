@@ -46,6 +46,8 @@ public class ReservaRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             Mail mailProf = new ReservaRemocaoMail();
             Mail mailFunc = new ReservaRemocaoEquipeMail();
@@ -69,12 +71,17 @@ public class ReservaRemocaoAction implements ICommand {
             mailProf.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mailProf.sendMail(mailProf);
         } catch (Exception e) {
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "remover  reserva #" + r.getId());
             util.Logger.logSevere(e, this.getClass());
+            session.setAttribute("msg", "Erro ao remover reserva.");
+            session.setAttribute("status", "error");
+            return request.getContextPath() + "/reserva/lista";
         }
 
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu a reserva #" + r.getId() + "do banco de dados.");
-        
+        session.setAttribute("msg", "Reserva removida.");
+        session.setAttribute("status", "success");
         return request.getContextPath() + "/reserva/lista";
     }
 }

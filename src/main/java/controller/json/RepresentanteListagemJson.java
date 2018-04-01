@@ -25,7 +25,9 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pessoa;
 import model.Representante;
+import util.Logger;
 
 public class RepresentanteListagemJson implements IJson {
 
@@ -34,7 +36,8 @@ public class RepresentanteListagemJson implements IJson {
         List<Representante> representantes = new ArrayList<Representante>();
         DAOFactory fac = DAOFactory.getFactory();
         representantes = fac.getRepresentanteDAO().select();
-
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os representantes.");
         return util.Json.toJson(representantes);
     }
 }

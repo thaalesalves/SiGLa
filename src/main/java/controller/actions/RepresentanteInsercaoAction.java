@@ -37,6 +37,7 @@ public class RepresentanteInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         
         try {
             DAOFactory fac = DAOFactory.getFactory();
@@ -49,7 +50,8 @@ public class RepresentanteInsercaoAction implements ICommand {
             fac.getRepresentanteDAO().insert(rep);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "inserir um representante.");
             session.setAttribute("msg", "Erro ao cadastrar o representante");
             session.setAttribute("status", "error");
             
@@ -58,8 +60,6 @@ public class RepresentanteInsercaoAction implements ICommand {
         
         session.setAttribute("msg", "Representante cadastrado com sucesso");
         session.setAttribute("status", "success");
-        
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") cadastrou um representante.");
         return request.getContextPath() + "/fornecedor/lista";
     }

@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Equipamento;
 import model.Erro;
+import model.Pessoa;
+import util.Logger;
 
 public class EquipamentoIdJson implements IJson {
 
@@ -31,17 +33,19 @@ public class EquipamentoIdJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         Equipamento e = new Equipamento();
         DAOFactory fac = DAOFactory.getFactory();
+        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
         e.setId(Integer.parseInt(request.getParameter("id")));
         
         if (e.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
+            Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao listar um equipamento. ID: " + e.getId());
             return util.Json.toJson(err);
         }
         
         fac.getEquipamentoDAO().select(e);
-
+        Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") buscou detalhes do equipamento " + e.getNome() + "(#" + e.getId() + ").");
         return util.Json.toJson(e);
     }
 }

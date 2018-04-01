@@ -23,8 +23,11 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Erro;
 import model.Incidente;
+import model.Pessoa;
 import util.ActiveDirectory;
+import util.Logger;
 
 /**
  *
@@ -37,6 +40,14 @@ public class IncidenteJson implements IJson {
         HttpSession session = request.getSession();
         Incidente incidente = new Incidente();
         incidente.setId(Integer.parseInt(request.getParameter("id")));
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
+        if (incidente.getId() < 1) {
+            Erro err = new Erro();
+            err.setErro("Valores inválidos passados");
+            Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores inválidos ao listar um incidente. ID: " + incidente.getId());
+            return util.Json.toJson(err);
+        }
 
         DAOFactory fac = DAOFactory.getFactory();
         incidente = fac.getIncidenteDAO().select(incidente);
@@ -48,7 +59,8 @@ public class IncidenteJson implements IJson {
         incidente.getPessoa().setEmpresa(ad.getCompany(incidente.getPessoa()));
         incidente.getPessoa().setCargo(ad.getTitle(incidente.getPessoa()));
         incidente.getPessoa().setDepto(ad.getDepartment(incidente.getPessoa()));
-        
+        ad.closeLdapConnection();
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes do incidente #" + incidente.getId());
         return util.Json.toJson(incidente);
     }
 }

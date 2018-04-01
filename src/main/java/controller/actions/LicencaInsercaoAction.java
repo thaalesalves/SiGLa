@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.actions;
 
 import dao.DAOFactory;
@@ -43,7 +42,8 @@ public class LicencaInsercaoAction implements ICommand {
         HttpSession session = request.getSession();
         Licenca licenca = new Licenca();
         licenca.setSoftware(new Software());
-        
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
             licenca.getSoftware().setId(Integer.parseInt(request.getParameter("licenca-software")));
@@ -54,13 +54,15 @@ public class LicencaInsercaoAction implements ICommand {
             fac.getLicencaDAO().insert(licenca);
         } catch (Exception e) {
             session.setAttribute("msg", "Erro ao inserir licença.");
-        session.setAttribute("status", "error");
+            session.setAttribute("status", "error");
             Logger.logSevere(e, LicencaInsercaoAction.class);
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "inserir uma licença");
+            return request.getContextPath() + "/licenca/novo";
         }
-        
+
         session.setAttribute("msg", "Licença inserida com sucesso.");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") inseriu uma licença no software #" + licenca.getSoftware().getId() + ".");
         return request.getContextPath() + "/licenca/novo";
     }

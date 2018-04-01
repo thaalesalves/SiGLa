@@ -26,9 +26,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.naming.AuthenticationException;
 import javax.naming.CommunicationException;
@@ -39,7 +37,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Grupo;
 import model.Pessoa;
-import util.IO;
 import util.Logger;
 
 public class LoginAction implements ICommand, Serializable {
@@ -108,6 +105,8 @@ public class LoginAction implements ICommand, Serializable {
             session.removeAttribute("ad");
             session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + " (" + p.getUsername() + ") tentou "
+                    + "fazer login no SiGLa");
             session.setAttribute("msg", "Erro ao contactar a controladora de dom&iacute;nio");
             session.setAttribute("status", "error");
             return request.getContextPath();
@@ -116,6 +115,8 @@ public class LoginAction implements ICommand, Serializable {
             session.removeAttribute("ad");
             session.removeAttribute("todos-usuarios");
             util.Logger.logSevere(e, this.getClass());
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + " (" + p.getUsername() + ") tentou "
+                    + "fazer login no SiGLa");
             session.setAttribute("msg", "Credenciais de acesso incorretas");
             session.setAttribute("status", "error");
             return request.getContextPath();
@@ -123,6 +124,8 @@ public class LoginAction implements ICommand, Serializable {
             session.removeAttribute("pessoa");
             session.removeAttribute("ad");
             session.removeAttribute("todos-usuarios");
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + " (" + p.getUsername() + ") tentou "
+                    + "fazer login no SiGLa");
             util.Logger.logSevere(e, this.getClass());
             session.setAttribute("exception", e);
             return request.getContextPath() + "/error/error";
@@ -132,6 +135,8 @@ public class LoginAction implements ICommand, Serializable {
         session.removeAttribute("todos-usuarios");
         session.setAttribute("msg", "Erro ao fazer login");
         session.setAttribute("status", "error");
+        Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + " (" + p.getUsername() + ") tentou "
+                + "fazer login no SiGLa");
         return request.getContextPath();
     }
 }

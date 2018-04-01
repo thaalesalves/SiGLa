@@ -36,6 +36,8 @@ public class EquipamentoRetiradaAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Equipamento e = new Equipamento();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+
         try {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id-retirar")));
@@ -47,13 +49,14 @@ public class EquipamentoRetiradaAction implements ICommand {
             Logger.logSevere(ex, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
             session.setAttribute("msg", "Erro ao retirar computador");
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "retirar o equipamento " + e.getNome() + "(#" + e.getId() + ").");
             return request.getContextPath() + "/equip/lista";
         }
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador retirado");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() +  "(#" + e.getId() +  ").");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() + "(#" + e.getId() + ").");
         return request.getContextPath() + "/equip/lista";
     }
 }

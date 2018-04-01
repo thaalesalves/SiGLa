@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Erro;
 import model.Laboratorio;
+import model.Pessoa;
+import util.Logger;
 
 public class LaboratorioIdJson implements IJson {
 
@@ -32,13 +34,15 @@ public class LaboratorioIdJson implements IJson {
         DAOFactory fac = DAOFactory.getFactory();
         Laboratorio lab = new Laboratorio();        
         lab.setId(Integer.parseInt(request.getParameter("id"))); 
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
         
         if (lab.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
+            Logger.logOutput("Parece que " + u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores inválidos ao buscar um laboratório. ID: " + lab.getId());
             return util.Json.toJson(err);
         }
-        
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes do laboratório #" + lab.getId());
         return util.Json.toJson(fac.getLaboratorioDAO().selectLaboratorio(lab));
     }
 }

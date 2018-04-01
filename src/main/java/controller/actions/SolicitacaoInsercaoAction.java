@@ -43,6 +43,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
@@ -165,6 +166,8 @@ public class SolicitacaoInsercaoAction implements ICommand {
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "inserir uma solicitação.");
             session.setAttribute("msg", "Erro ao efetivar a reserva.");
             session.setAttribute("status", "error");
 
@@ -173,7 +176,6 @@ public class SolicitacaoInsercaoAction implements ICommand {
 
         session.setAttribute("msg", "Solicitação efetuada com sucesso.");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez uma solitação.");
         return request.getContextPath() + "/reserva/novo";
     }

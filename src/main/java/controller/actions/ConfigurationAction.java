@@ -17,7 +17,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.GrupoDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -40,6 +39,7 @@ public class ConfigurationAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         String op = request.getParameter("op");
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
             if (op.equals("install")) {
@@ -140,7 +140,7 @@ public class ConfigurationAction implements ICommand {
 
                     session.setAttribute("msg", "Erro ao instalar o SiGLa");
                     session.setAttribute("status", "error");
-
+                    Logger.logOutput("Houve um erro quando ao instalar o SiGLa");
                     return request.getContextPath() + "/admin/install";
                 }
             } else if (op.equals("ad")) {
@@ -167,13 +167,14 @@ public class ConfigurationAction implements ICommand {
 
                     session.setAttribute("msg", "Erro ao atualizar domínio");
                     session.setAttribute("status", "error");
+                    Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                            + "alterar informações do domínio.");
 
                     return request.getContextPath();
                 }
 
                 session.setAttribute("msg", "Domínio atualizado");
                 session.setAttribute("status", "success");
-                Pessoa u = (Pessoa) session.getAttribute("pessoa");
                 Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o domínio do Active Directory para "
                         + SiGLa.getDomain() + ".");
                 return request.getContextPath();
@@ -195,13 +196,13 @@ public class ConfigurationAction implements ICommand {
 
                     session.setAttribute("msg", "Erro ao atualizar as informações");
                     session.setAttribute("status", "error");
-
+                    Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                            + "alterar informações do banco de dados.");
                     return request.getContextPath() + "/admin/database";
                 }
 
                 session.setAttribute("msg", "Banco de dados atualizado");
                 session.setAttribute("status", "success");
-                Pessoa u = (Pessoa) session.getAttribute("pessoa");
                 Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o banco de dados para "
                         + SiGLa.getDbName() + "(SGBD: " + SiGLa.getDbDbms() + ".");
                 return request.getContextPath() + "/admin/database";

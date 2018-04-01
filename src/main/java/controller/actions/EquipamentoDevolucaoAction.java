@@ -36,6 +36,8 @@ public class EquipamentoDevolucaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Equipamento e = new Equipamento();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id")));
@@ -44,12 +46,13 @@ public class EquipamentoDevolucaoAction implements ICommand {
             Logger.logSevere(ex, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
             session.setAttribute("msg", "Erro ao devolver computador");
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "devolver o equipamento " + e.getNome() + "(#" + e.getId() + ").");
             return request.getContextPath() + "/equip/lista";
         }
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador devolvido");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
                 Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de fazer a devolução de " + e.getNome() + "(#" + e.getId() + ").");
         return request.getContextPath() + "/equip/lista";
     }

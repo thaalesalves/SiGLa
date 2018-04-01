@@ -36,27 +36,30 @@ public class LaboratorioRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Laboratorio lab = new Laboratorio();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         try {
             DAOFactory fac = DAOFactory.getFactory();
             lab.setId(Integer.parseInt(request.getParameter("id")));
             if (fac.getLaboratorioDAO().delete(lab) == 1) {
                 session.setAttribute("msg", "Laboratório removido com sucesso");
                 session.setAttribute("status", "success");
-
+                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu o laboratório " + lab.getNumero() + "(#" + lab.getId() + ").");
                 return request.getContextPath() + "/laboratorio/lista";
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "remover o laboratório " + lab.getNumero() + "(#" + lab.getId() + ").");
             session.setAttribute("msg", "Erro ao remover o laboratório");
             session.setAttribute("status", "error");
 
             return request.getContextPath() + "/laboratorio/lista";
         }
+        
         session.setAttribute("msg", "Não foi possível remover o laboratório pois existem reservas atreladas a ele");
         session.setAttribute("status", "info");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu o laboratório #" + lab.getId() + ".");
+        Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                + "remover o laboratório " + lab.getNumero() + "(#" + lab.getId() + ").");
         return request.getContextPath() + "/laboratorio/lista";
     }
 }

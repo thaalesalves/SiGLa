@@ -24,8 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Erro;
+import model.Pessoa;
 import model.Solicitacao;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SolicitacaoIdJson implements IJson {
 
@@ -33,6 +35,7 @@ public class SolicitacaoIdJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, IOException, NamingException {
         HttpSession session = request.getSession();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         DAOFactory fac = DAOFactory.getFactory();
         Solicitacao s = new Solicitacao();
 
@@ -42,13 +45,16 @@ public class SolicitacaoIdJson implements IJson {
         if (s.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
+            Logger.logOutput("Parece que " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou passar valores ilegais. Valor de ID passado: " + s.getId());
             return util.Json.toJson(err);
         }
         
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
         s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-
+        ad.closeLdapConnection();
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes sobre a solicitação #" + s.getId());
+        
         return util.Json.toJson(s);
     }
 }

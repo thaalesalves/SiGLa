@@ -19,12 +19,12 @@ package controller.json;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Licenca;
 import model.Pessoa;
 import util.Logger;
@@ -46,6 +46,10 @@ public class LicencaListagemJson implements IJson {
             }
         } catch (Exception e) {
             Logger.logSevere(e, LicencaListagemJson.class);
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou listar as licenças.");
+            Erro err = new Erro();
+            err.setErro(e.getMessage());
+            return util.Json.toJson(err);
         }
 
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem das licenças.");

@@ -39,6 +39,8 @@ public class ReservaInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             Reserva reserva = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
@@ -51,12 +53,14 @@ public class ReservaInsercaoAction implements ICommand {
 
             session.setAttribute("reserva", reserva);
         } catch (Exception e) {
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "inserir uma reserva.");
             session.setAttribute("msg", "Erro ao inserir reserva.");
             session.setAttribute("status", "error");
             util.Logger.logSevere(e, this.getClass());
             return request.getContextPath() + "/reserva/novo";
         }
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") criou uma reserva.");
         session.setAttribute("msg", "Reserva inserida com sucesso.");
         session.setAttribute("status", "success");

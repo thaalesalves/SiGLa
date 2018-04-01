@@ -25,7 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Incidente;
+import model.Pessoa;
 import util.ActiveDirectory;
+import util.Logger;
 
 /**
  *
@@ -39,6 +41,7 @@ public class IncidenteListagemJson implements IJson {
         DAOFactory fac = DAOFactory.getFactory();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         List<Incidente> incidentes = fac.getIncidenteDAO().select();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         for (Incidente i : incidentes) {
             i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
@@ -48,7 +51,8 @@ public class IncidenteListagemJson implements IJson {
             i.getPessoa().setCargo(ad.getTitle(i.getPessoa()));
             i.getPessoa().setDepto(ad.getDepartment(i.getPessoa()));
         }
-
+        ad.closeLdapConnection();
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os incidentes.");
         return util.Json.toJson(incidentes);
     }
 }

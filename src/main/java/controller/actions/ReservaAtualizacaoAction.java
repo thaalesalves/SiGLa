@@ -37,6 +37,8 @@ public class ReservaAtualizacaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Reserva r = new Reserva();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             DAOFactory fac = DAOFactory.getFactory();
             String[] modulos = request.getParameterValues("modalModuloCombo");
@@ -54,6 +56,8 @@ public class ReservaAtualizacaoAction implements ICommand {
 
             fac.getReservaDAO().update(r);
         } catch (Exception e) {
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "atualizar a reserva #" + r.getId());
             session.setAttribute("msg", "Erro ao atualizar dados de reserva.");
             session.setAttribute("status", "error");
             Logger.logSevere(e, ReservaAtualizacaoAction.class);
@@ -62,7 +66,6 @@ public class ReservaAtualizacaoAction implements ICommand {
 
         session.setAttribute("msg", "Dados de reserva atualizados.");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") alterou a reserva #" + r.getId() + ".");
         return request.getContextPath() + "/reserva/lista";
     }

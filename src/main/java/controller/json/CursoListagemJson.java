@@ -24,6 +24,8 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Curso;
+import model.Pessoa;
+import util.Logger;
 
 public class CursoListagemJson implements IJson {
 
@@ -32,7 +34,8 @@ public class CursoListagemJson implements IJson {
         ArrayList<Curso> ac = new ArrayList<Curso>();
         DAOFactory fac = DAOFactory.getFactory();
         ac = fac.getCursoDAO().selectAll();
-
+        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") listou os cursos.");
         return util.Json.toJson(ac);
     }
 }

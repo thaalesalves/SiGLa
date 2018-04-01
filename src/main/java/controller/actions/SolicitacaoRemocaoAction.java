@@ -42,50 +42,52 @@ public class SolicitacaoRemocaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Solicitacao s = new Solicitacao();
-        
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+
         try {
             Mail mailProf = new SolicitacaoReprovacaoMail();
             Mail mailFunc = new SolicitacaoReprovacaoEquipeMail();
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             DAOFactory fac = DAOFactory.getFactory();
-            
+
             String id = request.getParameter("solicitacao_id").trim();
             s.setId(Integer.parseInt(id));
 
             s = fac.getSolicitacaoDAO().selectSolicitacao(s);
             fac.getSolicitacaoDAO().deleteSolicitacao(s);
-            
+
             s.getPessoa().setEmail(ad.getMail(s.getPessoa()));
             s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
             s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
             s.getPessoa().setShownName(ad.getDisplayName(s.getPessoa()));
-            
+
             Pessoa p = s.getPessoa();
             p.setEmail(ad.getMail(p));
             p.setNome(ad.getGivenName(p));
             p.setNomeCompleto(ad.getCN(p));
-            
+
             mailProf.setPessoa(p);
             mailProf.setSolicitacao(s);
             mailProf.sendMail(mailProf);
-            
+
             mailFunc.setPessoa(p);
             mailFunc.setSolicitacao(s);
             mailFunc.sendMail(mailFunc);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "remover a solitação #" + s.getId() + " do banco de dados.");
+
             session.setAttribute("msg", "Erro ao reprovar solicitação");
             session.setAttribute("status", "error");
-            
+
             return request.getContextPath() + "/controle/listar-solicitacoes";
         }
-        
+
         session.setAttribute("msg", "Reserva reprovada");
-        session.setAttribute("status", "success");        
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        session.setAttribute("status", "success");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") removeu a solitação #" + s.getId() + " do banco de dados.");
-        
+
         return request.getContextPath() + "/reserva/solicitacoes";
     }
 }

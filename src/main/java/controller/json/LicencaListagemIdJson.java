@@ -48,7 +48,11 @@ public class LicencaListagemIdJson implements IJson {
             licenca.setCodigos(fac.getLicencaCodigoDAO().select(licenca));
             licenca.setSoftware(fac.getSoftwareDAO().selectId(licenca.getSoftware()));
         } catch (Exception e) {
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou buscar detalhes da licença #" + licenca.getId());
             Logger.logSevere(e, LicencaListagemIdJson.class);
+            Erro err = new Erro();
+            err.setErro(e.getMessage());
+            return util.Json.toJson(err);
         }
 
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem da licença #" + request.getParameter("id") + ".");

@@ -35,15 +35,16 @@ public class FornecedorListagemIdJson implements IJson {
         Fornecedor fornecedor = new Fornecedor();
         DAOFactory fac = DAOFactory.getFactory();
         fornecedor.setId(Integer.parseInt(request.getParameter("id")));
+        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
         
         if (fornecedor.getId() < 1) {
             Erro err = new Erro();
             err.setErro("Tentativa ilegal de passar valores.");
+            Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao buscar um fornecedor. ID: " + fornecedor.getId());
             return util.Json.toJson(err);
         }
         
         fornecedor = fac.getFornecedorDAO().select(fornecedor);
-        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou detalhes do fornecedor #" + fornecedor.getId());
         
         return util.Json.toJson(fornecedor);

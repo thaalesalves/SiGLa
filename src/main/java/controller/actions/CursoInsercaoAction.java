@@ -37,6 +37,7 @@ public class CursoInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
@@ -48,15 +49,14 @@ public class CursoInsercaoAction implements ICommand {
             fac.getCursoDAO().insert(c);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "inserir um curso.");
             session.setAttribute("msg", "Erro ao cadastrar curso");
             session.setAttribute("status", "error");
-
             return request.getContextPath() + "/curso/novo";
         }
         session.setAttribute("msg", "Curso cadastrado com sucesso");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um novo curso.");
         return request.getContextPath() + "/curso/novo";
     }

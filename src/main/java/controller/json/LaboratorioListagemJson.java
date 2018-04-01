@@ -22,13 +22,16 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pessoa;
+import util.Logger;
 
 public class LaboratorioListagemJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, NullPointerException, ClassNotFoundException, NamingException, IOException {
         DAOFactory fac = DAOFactory.getFactory();
-
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os laboratórios.");
         return util.Json.toJson(fac.getLaboratorioDAO().selectLaboratorios());
     }
 }

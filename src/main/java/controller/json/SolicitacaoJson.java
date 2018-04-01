@@ -24,15 +24,18 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Pessoa;
 import model.Solicitacao;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class SolicitacaoJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ClassNotFoundException, NullPointerException, NamingException, IOException {
         HttpSession session = request.getSession();
-
+        
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         DAOFactory fac = DAOFactory.getFactory();
         ArrayList<Solicitacao> solicitacao = fac.getSolicitacaoDAO().selectSolicitacao();
@@ -43,6 +46,8 @@ public class SolicitacaoJson implements IJson {
             s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
         
+        ad.closeLdapConnection();
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou as solicitações.");
         return util.Json.toJson(solicitacao);
     }
 }

@@ -24,9 +24,9 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Licenca;
 import model.Pessoa;
-import util.IO;
 import util.Logger;
 
 public class LicencaListagemDesativadoJson implements IJson {
@@ -41,9 +41,13 @@ public class LicencaListagemDesativadoJson implements IJson {
             licencas = fac.getLicencaDAO().selectDesativado();
         } catch (Exception e) {
             Logger.logSevere(e, LicencaListagemDesativadoJson.class);
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou listar as licenças desativadas.");
+            Erro err = new Erro();
+            err.setErro(e.getMessage());
+            return util.Json.toJson(err);
         }
 
-        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") listou os softwares desativados");
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") listou as licenças desativadas");
         return util.Json.toJson(licencas);
     }
 }

@@ -25,16 +25,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import util.ActiveDirectory;
+import util.Logger;
 
 
 public class UsuarioIdJson implements IJson {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
-        Pessoa pessoa = new Pessoa();
-        Pessoa prof = new Pessoa();
         HttpSession session = request.getSession();
-        pessoa = (Pessoa) session.getAttribute("pessoa");
+        Pessoa pessoa = (Pessoa) session.getAttribute("pessoa");
+        Pessoa prof = new Pessoa();
         ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         ad.login(pessoa);
         
@@ -46,6 +46,9 @@ public class UsuarioIdJson implements IJson {
         prof.setNomeCompleto(ad.getCN(prof));
         prof.setNome(ad.getGivenName(prof));
         prof.setShownName(ad.getDisplayName(prof));
+        ad.closeLdapConnection();
+        Logger.logOutput(pessoa.getNomeCompleto() + "(" + pessoa.getUsername() + ") acaba de buscar "
+                + "detalhes sobre " + prof.getNomeCompleto() + "(" + prof.getUsername() + ").");
         
         return util.Json.toJson(prof);
     }

@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
+import model.Pessoa;
 import model.Software;
 import util.Json;
 import util.Logger;
@@ -33,11 +35,19 @@ public class SoftwareLicencaListagemJson implements IJson {
         try {
             DAOFactory fac = DAOFactory.getFactory();
             Software sw = new Software();
-            
+            Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
             sw.setId(Integer.parseInt(request.getParameter("id")));
+            
+            if (sw.getId() < 1) {
+                Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores ilegais ao buscar um software. ID: " + sw.getId());
+                Erro err = new Erro();
+                err.setErro("Valores ilegais passados.");
+                return Json.toJson(sw);
+            }
+            
             sw = fac.getSoftwareDAO().selectId(sw);
             sw = fac.getSoftwareDAO().selectLicenca(sw);
-
+            Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes do software #" + sw.getId());
             return Json.toJson(sw);
         } catch (Exception e) {
             Logger.logSevere(e, SoftwareLicencaListagemJson.class);

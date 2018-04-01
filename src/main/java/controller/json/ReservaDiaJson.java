@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import model.Pessoa;
 import model.Reserva;
 import util.ActiveDirectory;
+import util.Logger;
 
 public class ReservaDiaJson implements IJson {
 
@@ -48,7 +49,8 @@ public class ReservaDiaJson implements IJson {
             res.getPessoa().setNomeCompleto(ad.getCN(res.getPessoa()));
             res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
-
+        ad.closeLdapConnection();
+        Logger.logOutput(r.getPessoa().getNomeCompleto() + "(" + r.getPessoa().getUsername() + ") listou as reservas de hoje.");
         return util.Json.toJson(reserva);
     }
 

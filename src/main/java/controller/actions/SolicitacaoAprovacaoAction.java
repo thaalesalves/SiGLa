@@ -44,6 +44,7 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         HttpSession session = request.getSession();
         Solicitacao s = new Solicitacao();
         Reserva r = new Reserva();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
@@ -83,6 +84,8 @@ public class SolicitacaoAprovacaoAction implements ICommand {
             mailProf.sendMail(mailProf);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "aprovar a solicitação #" + s.getId() + ".");
 
             session.setAttribute("msg", "Erro ao efetivar a solicitação");
             session.setAttribute("status", "error");
@@ -91,7 +94,6 @@ public class SolicitacaoAprovacaoAction implements ICommand {
         }
         session.setAttribute("msg", "Reserva efetivada com sucesso");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") aprovou a solitação #" 
                 + s.getId() + ", e a reserva #" + r.getId() + " foi criada.");
         return request.getContextPath() + "/reserva/solicitacoes";

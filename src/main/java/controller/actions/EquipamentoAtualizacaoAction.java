@@ -36,6 +36,8 @@ public class EquipamentoAtualizacaoAction implements ICommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
         Equipamento e = new Equipamento();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
+        
         try {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id")));
@@ -45,13 +47,14 @@ public class EquipamentoAtualizacaoAction implements ICommand {
             Logger.logSevere(ex, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");
             session.setAttribute("msg", "Erro ao atualizar computador");
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "atualizar o equipamento " + e.getNome() + "(#" + e.getId() + ").");
             return request.getContextPath() + "/equip/lista";
         }
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador atualizado");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de alterar " + e.getNome() + "(#" + e.getId() + ".");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de alterar " + e.getNome() + "(#" + e.getId() + ".");
         return request.getContextPath() + "/equip/lista";
     }
 }

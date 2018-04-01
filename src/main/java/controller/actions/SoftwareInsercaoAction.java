@@ -39,6 +39,7 @@ public class SoftwareInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         
         try {   
             ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
@@ -51,6 +52,8 @@ public class SoftwareInsercaoAction implements ICommand {
             fac.getSoftwareDAO().insertSoftware(s);
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
+                    + "inserir um software");
             
             session.setAttribute("msg", "Erro ao cadastrar o software");
             session.setAttribute("status", "error");
@@ -59,8 +62,6 @@ public class SoftwareInsercaoAction implements ICommand {
         }
         session.setAttribute("msg", "Software cadastrado com sucesso");
         session.setAttribute("status", "success");
-        
-        Pessoa u = (Pessoa) session.getAttribute("pessoa");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") cadastrou um software.");
         
         return request.getContextPath() + "/software/novo";

@@ -24,10 +24,13 @@ import java.util.Iterator;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Laboratorio;
 import model.Modulo;
+import model.Pessoa;
 import model.Reserva;
 import model.Software;
+import util.Logger;
 
 public class LaboratoriosDisponiveisJson implements IJson {
 
@@ -36,6 +39,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
         Reserva r = new Reserva();
         DAOFactory fac = DAOFactory.getFactory();
         ArrayList<Laboratorio> al = new ArrayList<Laboratorio>();
+        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
 
         try {
             String[] modulos = request.getParameter("modulo").split(",");
@@ -58,7 +62,6 @@ public class LaboratoriosDisponiveisJson implements IJson {
 
             al = fac.getLaboratorioDAO().selectAvailableLabs(r);
 
-
             Iterator<Laboratorio> it = al.iterator();
             while (it.hasNext()) {
                 if (qtdAlunos > it.next().getCapacidade()) {
@@ -67,8 +70,13 @@ public class LaboratoriosDisponiveisJson implements IJson {
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, LaboratoriosDisponiveisJson.class);
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou listar os laboratórios disponíveis.");
+            Erro err = new Erro();
+            err.setErro(e.getMessage());
+            return util.Json.toJson(err);
         }
-
+        
+        Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os laboratórios disponíveis.");
         return util.Json.toJson(al);
     }
 }

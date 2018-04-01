@@ -38,6 +38,7 @@ public class LaboratorioInsercaoAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
         HttpSession session = request.getSession();
+        Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
             Laboratorio l = new Laboratorio();
@@ -45,13 +46,13 @@ public class LaboratorioInsercaoAction implements ICommand {
 
             l.setCapacidade(Integer.parseInt(request.getParameter("capacidade")));
             l.setComputadores(Integer.parseInt(request.getParameter("computadores")));
-            
+
             if (l.getComputadores() < 1 || l.getCapacidade() < 1) {
                 session.setAttribute("mensagem", "Tentativa ilegal de passar valores.");
                 session.setAttribute("estado", "error");
                 return request.getContextPath() + "/laboratorio/novo";
             }
-            
+
             l.setNumero(request.getParameter("numero"));
             l.setMemoria(request.getParameter("memoria"));
             l.setModelo(request.getParameter("modelo"));
@@ -59,7 +60,7 @@ public class LaboratorioInsercaoAction implements ICommand {
 
             fac.getLaboratorioDAO().insertLaboratorio(l);
             l = fac.getLaboratorioDAO().selectLaboratorioNumero(l);
-            
+
             for (int i = 1; i < l.getComputadores() + 1; i++) {
                 String formatted = String.format("%03d", i);
                 Equipamento e = new Equipamento();
@@ -73,16 +74,16 @@ public class LaboratorioInsercaoAction implements ICommand {
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
-            
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "tentou inserir um laboratório.");
             session.setAttribute("msg", "Erro ao cadastrar o laboratório");
             session.setAttribute("status", "error");
-            
+
             return request.getContextPath() + "/laboratorio/novo";
         }
         session.setAttribute("msg", "Laboratório cadastrado com sucesso");
         session.setAttribute("status", "success");
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-                Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de inserir um laboratório.");
         return request.getContextPath() + "/laboratorio/novo";
     }
 

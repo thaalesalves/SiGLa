@@ -22,8 +22,6 @@ package controller.actions;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +35,7 @@ public class LogoutAction implements ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, ConnectException, IOException, NamingException, ServletException {
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
+        
         try {
             ActiveDirectory ad = (ActiveDirectory) request.getSession().getAttribute("ad");
 
@@ -44,10 +43,12 @@ public class LogoutAction implements ICommand {
             request.getSession().invalidate();
 
         } catch (Exception e) {
+            Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + " (" + p.getUsername() + ") tentou "
+                    + "fazer logout do SiGLa.");
             util.Logger.logSevere(e, this.getClass());
         }
-        Pessoa u = (Pessoa) request.getSession().getAttribute("pessoa");
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") acaba de fazer logout do SiGLa.");
+        
+        Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") acaba de fazer logout do SiGLa.");
         return request.getContextPath();
     }
 }
