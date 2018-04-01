@@ -25,6 +25,9 @@
         <url-pattern>/pagina/home</url-pattern>
         <url-pattern>/licenca/*</url-pattern>
         <url-pattern>/fornecedor/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+        <url-pattern>/AlmightyController</url-pattern>
+        <url-pattern>/JsonController</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>AlmightyController</servlet-name>

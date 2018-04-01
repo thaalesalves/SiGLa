@@ -49,12 +49,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>  
-        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
+        <link href="${pageContext.request.contextPath}/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
-
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
@@ -66,9 +65,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <![endif]-->
 
         <script>
+            var msg = "<%=msg%>";
+            var status = "<%=status%>";
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
-                notify("<%=msg%>", "<%=status%>");
+                notify(msg, status, "erro");
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
@@ -98,7 +99,6 @@ Copyright (C) 2016 Thales Alves Pereira
             <%@include file="/includes/footer.jsp" %>
             <div class="control-sidebar-bg"></div>
         </div>
-        <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <script>
             $.widget.bridge('uibutton', $.ui.button);

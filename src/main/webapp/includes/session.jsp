@@ -11,11 +11,13 @@
 
     String msg = "null";
     String status = null;
-    if ((msg = (String) session.getAttribute("msg")) != null) {
-        msg = (String) session.getAttribute("msg");
-        status = (String) session.getAttribute("status");
+
+    if ((msg = (String) session.getAttribute("msg")) != null || (msg = (String) session.getAttribute("mensagem")) != null) {
+        if ((status = (String) session.getAttribute("status")) != null || (status = (String) session.getAttribute("estado")) != null);
         session.removeAttribute("msg");
         session.removeAttribute("status");
+        session.removeAttribute("mensagem");
+        session.removeAttribute("estado");
     }
 
     String picPath;

@@ -65,6 +65,13 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.getPessoa().setEmail(ad.getMail(r.getPessoa()).trim());
                 r.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
                 r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
+
+                if (r.getQtdAlunos() < 1) {
+                    session.setAttribute("mensagem", "Tentativa ilegal de passar valores.");
+                    session.setAttribute("estado", "error");
+                    return request.getContextPath() + "/reserva/novo";
+                }
+
                 r.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
                 r.setDiaDaSemana(request.getParameter("dia-semana").trim());
                 r.setCurso(fac.getCursoDAO().selectId(r.getCurso()));
@@ -72,9 +79,9 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
                 r.getPessoa().setNome(ad.getGivenName(r.getPessoa()));
                 r.getPessoa().setNomeCompleto(ad.getCN(r.getPessoa()));
-                
+
                 Pessoa p = (Pessoa) session.getAttribute("pessoa");
-                
+
                 for (String i : modulos) {
                     Modulo m = new Modulo();
                     m.setId(Integer.parseInt(i.trim()));
@@ -99,7 +106,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 mailFunc.setPessoa(p);
                 mailFunc.setReserva(r);
                 mailFunc.sendMail(mailFunc);
-                
+
                 mailProf.setPessoa(p);
                 mailProf.setReserva(r);
                 mailProf.sendMail(mailProf);

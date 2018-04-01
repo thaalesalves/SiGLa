@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Licenca;
 import model.Pessoa;
 import util.Logger;
@@ -36,6 +37,13 @@ public class LicencaListagemIdJson implements IJson {
         try {
             DAOFactory fac = DAOFactory.getFactory();
             licenca.setId(Integer.parseInt(request.getParameter("id")));
+
+            if (licenca.getId() < 1) {
+                Erro err = new Erro();
+                err.setErro("Tentativa ilegal de passar valores.");
+                return util.Json.toJson(err);
+            }
+
             licenca = fac.getLicencaDAO().select(licenca);
             licenca.setCodigos(fac.getLicencaCodigoDAO().select(licenca));
             licenca.setSoftware(fac.getSoftwareDAO().selectId(licenca.getSoftware()));
@@ -44,7 +52,7 @@ public class LicencaListagemIdJson implements IJson {
         }
 
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou uma listagem da licença #" + request.getParameter("id") + ".");
-        
+
         return util.Json.toJson(licenca);
     }
 }

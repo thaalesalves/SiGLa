@@ -19,7 +19,6 @@
 package controller.actions;
 
 import dao.DAOFactory;
-import dao.sgbd.LaboratorioDAO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
@@ -46,6 +45,13 @@ public class LaboratorioInsercaoAction implements ICommand {
 
             l.setCapacidade(Integer.parseInt(request.getParameter("capacidade")));
             l.setComputadores(Integer.parseInt(request.getParameter("computadores")));
+            
+            if (l.getComputadores() < 1 || l.getCapacidade() < 1) {
+                session.setAttribute("mensagem", "Tentativa ilegal de passar valores.");
+                session.setAttribute("estado", "error");
+                return request.getContextPath() + "/laboratorio/novo";
+            }
+            
             l.setNumero(request.getParameter("numero"));
             l.setMemoria(request.getParameter("memoria"));
             l.setModelo(request.getParameter("modelo"));

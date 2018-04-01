@@ -23,6 +23,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Erro;
 import model.Reserva;
 import util.ActiveDirectory;
 import util.IO;
@@ -40,6 +41,12 @@ public class ReservaIdJson implements IJson {
         s.setId(Integer.parseInt(request.getParameter("id")));
         s = fac.getReservaDAO().selectReservaId(s);
 
+        if (s.getId() < 1) {
+            Erro err = new Erro();
+            err.setErro("Tentativa ilegal de passar valores.");
+            return util.Json.toJson(err);
+        }
+        
         s.getPessoa().setEmail(ad.getMail(s.getPessoa()).trim());
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));

@@ -37,7 +37,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <div class="text-center">
             <h1 class="error-code">440</h1><br />
             <hr class="separator" />
-            <h2 class="error-title">Deu ruim!</h2><br />
+            <h2 class="error-title">Eita!</h2><br />
             <p class="error-description">Parece que sua sessão expirou! Faça login novamente!</p><br />
             <a href="${pageContext.request.contextPath}" class="error-link">Voltar</a> <p class="error-link">|</p> <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
         </div>

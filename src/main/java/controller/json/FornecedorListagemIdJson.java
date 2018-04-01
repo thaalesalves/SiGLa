@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Fornecedor;
 import model.Pessoa;
 import util.Logger;
@@ -34,6 +35,13 @@ public class FornecedorListagemIdJson implements IJson {
         Fornecedor fornecedor = new Fornecedor();
         DAOFactory fac = DAOFactory.getFactory();
         fornecedor.setId(Integer.parseInt(request.getParameter("id")));
+        
+        if (fornecedor.getId() < 1) {
+            Erro err = new Erro();
+            err.setErro("Tentativa ilegal de passar valores.");
+            return util.Json.toJson(err);
+        }
+        
         fornecedor = fac.getFornecedorDAO().select(fornecedor);
         Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
         Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") solicitou detalhes do fornecedor #" + fornecedor.getId());

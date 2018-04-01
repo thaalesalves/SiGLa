@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Erro;
 import model.Laboratorio;
 
 public class LaboratorioIdJson implements IJson {
@@ -30,7 +31,14 @@ public class LaboratorioIdJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         DAOFactory fac = DAOFactory.getFactory();
         Laboratorio lab = new Laboratorio();        
-        lab.setId(Integer.parseInt(request.getParameter("id")));        
+        lab.setId(Integer.parseInt(request.getParameter("id"))); 
+        
+        if (lab.getId() < 1) {
+            Erro err = new Erro();
+            err.setErro("Tentativa ilegal de passar valores.");
+            return util.Json.toJson(err);
+        }
+        
         return util.Json.toJson(fac.getLaboratorioDAO().selectLaboratorio(lab));
     }
 }

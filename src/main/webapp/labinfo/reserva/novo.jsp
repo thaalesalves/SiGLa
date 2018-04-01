@@ -177,7 +177,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                                 <div class='form-group'>
                                     <label>Qtd. de Alunos</label>
-                                    <input min="0" required type='number' class='form-control pull-right' name='qtd-alunos' id='qtd-alunos' placeholder="50" autocomplete="off"/>
+                                    <input min="1" required type='number' class='form-control pull-right' name='qtd-alunos' id='qtd-alunos' placeholder="50" autocomplete="off"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Módulo</label>

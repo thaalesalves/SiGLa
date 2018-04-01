@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package controller.json;
 
 import dao.DAOFactory;
@@ -24,7 +23,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Equipamento;
-
+import model.Erro;
 
 public class EquipamentoIdJson implements IJson {
 
@@ -32,10 +31,17 @@ public class EquipamentoIdJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         Equipamento e = new Equipamento();
         DAOFactory fac = DAOFactory.getFactory();
-        
+
         e.setId(Integer.parseInt(request.getParameter("id")));
-        fac.getEquipamentoDAO().select(e);
         
-         return util.Json.toJson(e);
+        if (e.getId() < 1) {
+            Erro err = new Erro();
+            err.setErro("Tentativa ilegal de passar valores.");
+            return util.Json.toJson(err);
+        }
+        
+        fac.getEquipamentoDAO().select(e);
+
+        return util.Json.toJson(e);
     }
 }
