@@ -29,7 +29,7 @@ public class Timer {
             executorService.execute(
                     new Runnable() {
                 public void run() {
-                    VencimentoLicenca.main(args);
+                    VencimentoLicenca.main(null);
                 }
             }
             );
