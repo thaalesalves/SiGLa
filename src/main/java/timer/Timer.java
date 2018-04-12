@@ -26,13 +26,9 @@ public class Timer {
         try {
             ExecutorService executorService = Executors.newFixedThreadPool(1);
 
-            executorService.execute(
-                    new Runnable() {
-                public void run() {
-                    VencimentoLicenca.main(null);
-                }
-            }
-            );
+            executorService.execute(() -> {
+                VencimentoLicenca.main(null);
+            });
         } catch (Exception e) {
             Logger.logSevere(e, Timer.class);
         }

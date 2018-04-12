@@ -133,7 +133,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </ul>
                             </div>
 
-                            <form action="${pageContext.request.contextPath}/AlmightyController" role="form" class="form-horizontal" id="install-form">
+                            <form action="${pageContext.request.contextPath}/controller/" role="form" class="form-horizontal" id="install-form">
                                 <div class="tab-content">
                                     <div class="tab-pane active" role="tabpanel" id="step1">
                                         <div class="box-body" style="margin-left: 2%; margin-right: 2%;">
@@ -280,12 +280,6 @@ Copyright (C) 2016 Thales Alves Pereira
                                             <h3>Emails do Sistema</h3>
                                             <p>Emails utilizados no sistema</p><br/>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Email do SiGLa</label>
-                                                <div class="col-sm-10">
-                                                    <input autocomplete="off" type="text" class="form-control" id="sys-email" name="sys-email" placeholder="sigla@thalesalv.es">
-                                                </div>
-                                            </div>
-                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
                                                 <label class="col-sm-2 control-label">Nome do SiGLa</label>
                                                 <div class="col-sm-10">
                                                     <input autocomplete="off" type="text" class="form-control" id="sys-name" name="sys-name" placeholder="SiGLa">
@@ -293,9 +287,27 @@ Copyright (C) 2016 Thales Alves Pereira
                                                 </div>
                                             </div>
                                             <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
-                                                <label class="col-sm-2 control-label">Email do Laboratório</label>
+                                                <label class="col-sm-2 control-label">Email do SiGLa</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="sys-email" name="sys-email" placeholder="sigla@thalesalv.es">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Senha do SiGLa</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="password" class="form-control" id="sys-passwd" name="sys-passwd" placeholder="Senha do SiGLa">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Email do<br/>Laboratório</label>
                                                 <div class="col-sm-10">
                                                     <input autocomplete="off" type="text" class="form-control" id="group-email" name="group-email" placeholder="labinfo@thalesalv.es">
+                                                </div>
+                                            </div>
+                                            <div class='form-group' style="margin-left: -10%; margin-right: 2%;">
+                                                <label class="col-sm-2 control-label">Servidor SMTP</label>
+                                                <div class="col-sm-10">
+                                                    <input autocomplete="off" type="text" class="form-control" id="smtp" name="smtp" placeholder="smtp.thalesalv.es">
                                                 </div>
                                             </div>
                                         </div>

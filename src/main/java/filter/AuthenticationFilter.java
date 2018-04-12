@@ -54,6 +54,10 @@ public class AuthenticationFilter implements Filter {
         String contextPath = req.getContextPath() + "/";
         HttpSession session = req.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("pessoa") != null;
+        
+        if (req.getParameter("acao") != null && (req.getParameter("acao").equals("Login") || req.getParameter("acao").equals("Configuration"))) {
+            chain.doFilter(request, response);
+        } 
 
         if (loggedIn) {
             if (uri.equals(contextPath + "admin/install")) {

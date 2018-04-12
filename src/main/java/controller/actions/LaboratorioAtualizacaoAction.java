@@ -59,6 +59,7 @@ public class LaboratorioAtualizacaoAction implements ICommand {
             lab.setSoftwares(softwares);
 
             fac.getLaboratorioDAO().atualizar(lab);
+            lab = fac.getLaboratorioDAO().selectLaboratorio(lab);
         } catch (Exception e) {
             Logger.logSevere(e, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");

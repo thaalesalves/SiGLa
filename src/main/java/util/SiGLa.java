@@ -59,6 +59,8 @@ public final class SiGLa {
     private static String mailName;
     private static String mailGroup;
     private static String mailSystem;
+    private static String mailSystemPasswd;
+    private static String mailSmtp;
 
     private SiGLa() {
         throw new AssertionError();
@@ -93,6 +95,8 @@ public final class SiGLa {
             mailName = (String) cfg.get("sigla.mail.name");
             mailGroup = (String) cfg.get("sigla.mail.group");
             mailSystem = (String) cfg.get("sigla.mail.system");
+            mailSystemPasswd = (String) cfg.get("sigla.mail.system.passwd");
+            mailSmtp = (String) cfg.get("sigla.mail.smtp");
         } catch (Exception e) {
             util.Logger.logSevere(e, SiGLa.class);
         }
@@ -179,5 +183,13 @@ public final class SiGLa {
 
     public static String getMailSystem() {
         return mailSystem;
+    }
+
+    public static String getMailSystemPasswd() {
+        return mailSystemPasswd;
+    }
+
+    public static String getMailSmtp() {
+        return mailSmtp;
     }
 }

@@ -10,14 +10,12 @@ O SiGLa é um sistema voltado para instituições de ensino que utilizam laborat
 - Tenha pleno controle sobre as oprações do laboratório.
 
 ## Live demo
---------
 O SiGLa está disponível para live demo para aqueles que gostariam de testá-lo e vê-lo em ação. Existem níveis de acesso com funções de diferentes, e a senha será sempre o mesmo que o nome de usuário.
 ### Como acessar
-Basta clicar [aqui](http://sigla.thalesalv.es:8084), e a página de login aparecerá. Os usuários disponíveis são **admin**, **funcionario**, **estagiario**, **coordenador** e **professor**. As senhas são o mesmo que os usuários (i.e., a senha do usuário **professor** é **professor**).
+Basta clicar [aqui](https://sigla.thalesalv.es), e a página de login aparecerá. Os usuários disponíveis são **admin**, **funcionario**, **estagiario**, **coordenador** e **professor**. As senhas são o mesmo que os usuários (i.e., a senha do usuário **professor** é **professor**).
 
 
 ## Features
---------
 ### Integração com o Active Directory
 O SiGLa possui integração com Active Directory, unificando o login de usuários com aqueles existentes no Active Directory Domain Controller. O controle de acesso é feito a partir de grupos de distribuição dados aos usuários no AD, que atribuem permissões específicas no sistema aos usuários.
 
@@ -34,7 +32,6 @@ O SiGLa possui um módulo de controle de tarefas, que permite delegar tarefas ao
 O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos computadores e softwares dos laboratórios, que é integrado com as tarefas. Caso algum equipamento esteja danificado, uma tarefa de retirada do equipamento será criada, e o estado do laboratório será atualizado com o equipamento retirado, alterando o mapa do laboratório. O corpo docente terá acesso a esta informação.
 
 ## Especificações Técnicas
---------
 ### Tecnologias Utilizadas
 ##### Banco de Dados
 - PostgreSQL

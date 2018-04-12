@@ -33,6 +33,7 @@ import model.Pessoa;
 import model.Reserva;
 import model.Software;
 import model.Solicitacao;
+import util.SiGLa;
 
 @lombok.Getter
 @lombok.Setter
@@ -60,7 +61,7 @@ public abstract class Mail {
         final Properties props = new Properties();
 
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.migadu.com");
+        props.put("mail.smtp.host", SiGLa.getMailSmtp());
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "587");
 
@@ -69,8 +70,8 @@ public abstract class Mail {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(
-                        "sigla@thalesalv.es",
-                        "Thales33"
+                        SiGLa.getMailSystem(),
+                        SiGLa.getMailSystemPasswd()
                 );
             }
         });
@@ -82,8 +83,9 @@ public abstract class Mail {
         final Properties props = new Properties();
         final Mail mail = m;
 
+        String server = SiGLa.getMailSmtp();
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.migadu.com");
+        props.put("mail.smtp.host", server);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "587");
 
@@ -93,8 +95,8 @@ public abstract class Mail {
             protected PasswordAuthentication getPasswordAuthentication() {
                 //return new PasswordAuthentication(mail.getPessoa().getEmail(), mail.getPessoa().getSenha());
                 return new PasswordAuthentication(
-                        mail.getFuncionario().getEmail(),
-                        mail.getFuncionario().getSenha()
+                        mail.getPessoa().getEmail(),
+                        mail.getPessoa().getSenha()
                 );
             }
         });

@@ -48,6 +48,8 @@ public class ConfigurationAction implements ICommand {
                     String mailName = request.getParameter("sys-name");
                     String mailSys = request.getParameter("sys-email");
                     String mailGroup = request.getParameter("group-email");
+                    String mailSystemPasswd = request.getParameter("sys-passwd");
+                    String mailSmtp = request.getParameter("smtp");
 
                     /* Dados do Banco */
                     String dbDbms = request.getParameter("db-dbms");
@@ -85,6 +87,8 @@ public class ConfigurationAction implements ICommand {
                     SiGLa.writeProperty("sigla.mail.name", mailName);
                     SiGLa.writeProperty("sigla.mail.system", mailSys);
                     SiGLa.writeProperty("sigla.mail.group", mailGroup);
+                    SiGLa.writeProperty("sigla.mail.system.passwd", mailSystemPasswd);
+                    SiGLa.writeProperty("sigla.mail.smtp", mailSmtp);
 
                     try {
                         Grupo g;
