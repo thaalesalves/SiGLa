@@ -107,7 +107,7 @@ function modalEquipamento(id) {
                 status = "Em ordem.";
                 $("#modal-footer").empty();
                 //$("#modal-footer").append('<button id="btnModalRetirar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalAberturaIncidente">Retirar</button>' +
-                $("#modal-footer").append('<a href="' + contextPath + '/AlmightyController?acao=EquipamentoRetirada&equip-id-retirar=' + obj.id + '" id="btnModalRetirar" class="btn btn-danger">Retirar</a>' +
+                $("#modal-footer").append('<a id="btnModalRetirar" class="btn btn-danger" data-toggle="modal" data-target="#modalRetirar">Retirar</a>' +
                         '<button name="acao" value="EquipamentoAtualizacao" id="btnModalDevolver" type="submit" class="btn btn-success">Atualizar</button>');
                 $("#motivo-retirar").show();
                 $("#motivo-retirado").hide();
