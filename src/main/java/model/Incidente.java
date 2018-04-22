@@ -17,16 +17,15 @@
 package model;
 
 import java.util.Date;
-import java.util.List;
 
 @lombok.Getter
 @lombok.Setter
 public class Incidente {
 
     private Integer id;
-    private Date dataAbertura;
+    private Date dataRetirada;
+    private Date dataDevolucao;
     private String descricao;
+    private String resolucao;
     private Equipamento equipamento;
-    private Pessoa pessoa;
-    private List<IncidenteInformacao> informacoes;
 }

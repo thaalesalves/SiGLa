@@ -20,7 +20,6 @@ import dao.sgbd.IncidenteDAO;
 import java.sql.SQLException;
 import java.util.List;
 import model.Incidente;
-import model.IncidenteInformacao;
 
 /**
  *
@@ -39,18 +38,17 @@ public class IncidenteDAOMysql extends IncidenteDAO {
     }
 
     @Override
-    public void adicionaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
+    public void insert(Incidente incidente) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void removeInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
+    public void devolver(Incidente incidente) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void editaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
+    public void update(Incidente incidente) throws SQLException, ClassNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

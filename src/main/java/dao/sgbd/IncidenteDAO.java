@@ -19,7 +19,6 @@ package dao.sgbd;
 import java.sql.SQLException;
 import java.util.List;
 import model.Incidente;
-import model.IncidenteInformacao;
 
 /**
  *
@@ -30,11 +29,10 @@ public abstract class IncidenteDAO {
     public abstract List<Incidente> select() throws SQLException, ClassNotFoundException;
 
     public abstract Incidente select(Incidente incidente) throws SQLException, ClassNotFoundException;
-
-    public abstract void adicionaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
-
-    public abstract void removeInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
-
-    public abstract void editaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException;
-
+    
+    public abstract void insert(Incidente incidente) throws SQLException, ClassNotFoundException;
+    
+    public abstract void devolver(Incidente incidente) throws SQLException, ClassNotFoundException;
+    
+    public abstract void update(Incidente incidente) throws SQLException, ClassNotFoundException;
 }

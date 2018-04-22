@@ -25,83 +25,64 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Equipamento;
 import model.Incidente;
-import model.IncidenteInformacao;
-import model.Pessoa;
 import util.DatabaseConnection;
 import util.IO;
 import util.Logger;
 
-/**
- *
- * @author thaalesalves
- */
 public class IncidenteDAOPsql extends IncidenteDAO {
 
     @Override
     public List<Incidente> select() throws SQLException, ClassNotFoundException {
         List<Incidente> incidentes = new ArrayList<Incidente>();
-
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT i.usuario AS user, i.id AS incidente, i.data_abertura AS data_abertura, i.descricao AS descricao, eq.id AS equip_id, eq.nome AS computador, lab.numero AS laboratorio FROM tb_laboratorio lab, tb_incidente i, tb_equipamento eq WHERE eq.laboratorio = lab.id AND i.equipamento = eq.id");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente");
             ResultSet rs = pstmt.executeQuery();
-
             while (rs.next()) {
                 Incidente incidente = new Incidente();
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataRetirada(IO.getData(rs.getString("data_retirada")));
+                incidente.setDataDevolucao(IO.getData(rs.getString("data_devolucao")));
+                incidente.setDescricao(rs.getString("motivo"));
                 incidente.setEquipamento(new Equipamento());
-                incidente.setPessoa(new Pessoa());
-                incidente.getEquipamento().setId(rs.getInt("equip_id"));
-                incidente.getEquipamento().setNome(rs.getString("computador"));
-                incidente.getPessoa().setUsername(rs.getString("user"));
-                incidente.setId(rs.getInt("incidente"));
-                incidente.setDataAbertura(IO.getData(rs.getString("data_abertura")));
-                incidente.setDescricao(rs.getString("descricao"));
-
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
                 incidentes.add(incidente);
             }
-
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
         }
-
+        
         return incidentes;
     }
 
     @Override
     public Incidente select(Incidente incidente) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT i.usuario AS usuario, i.id AS incidente, i.data_abertura AS data_abertura, i.descricao AS descricao, eq.id AS equip_id, eq.nome AS computador, lab.numero AS laboratorio "
-                    + "FROM tb_laboratorio lab, tb_incidente i, tb_equipamento eq WHERE eq.laboratorio = lab.id AND i.equipamento = eq.id AND i.id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE id = ?");
             pstmt.setInt(1, incidente.getId());
             ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
+            while (rs.next()) {
+                incidente.setDataDevolucao(IO.getData(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getData(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
                 incidente.setEquipamento(new Equipamento());
-                incidente.setPessoa(new Pessoa());
-                incidente.getEquipamento().setId(rs.getInt("equip_id"));
-                incidente.getEquipamento().setNome(rs.getString("computador"));
-                incidente.getPessoa().setUsername(rs.getString("usuario"));
-                incidente.setId(rs.getInt("incidente"));
-                incidente.setDataAbertura(IO.getData(rs.getString("data_abertura")));
-                incidente.setDescricao(rs.getString("descricao"));
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
             }
-
             conn.close();
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
         }
-
+        
         return incidente;
     }
 
     @Override
-    public void adicionaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
+    public void insert(Incidente incidente) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_info_incidente VALUES(DEFAULT, ?, ?, ?, ?)");
-            pstmt.setInt(1, info.getIncidente().getId());
-            pstmt.setString(2, info.getDescricao());
-            pstmt.setString(3, IO.formatData(info.getDataAdicao()));
-            pstmt.setString(4, info.getPessoa().getUsername());
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_incidente VALUES(DEFAULT, ?, ?, ?)");
+            pstmt.setString(1, incidente.getDescricao());
+            pstmt.setInt(2, incidente.getEquipamento().getId());
+            pstmt.setString(3, IO.formatData(incidente.getDataRetirada()));
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -110,13 +91,27 @@ public class IncidenteDAOPsql extends IncidenteDAO {
     }
 
     @Override
-    public void removeInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void devolver(Incidente incidente) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET data_devolucao = ?, resolucao = ? WHERE id = ?");
+            pstmt.setString(1, IO.formatData(incidente.getDataDevolucao()));
+            pstmt.setString(2, incidente.getResolucao());
+            pstmt.setInt(3, incidente.getId());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
+        }
     }
 
     @Override
-    public void editaInformacao(IncidenteInformacao info) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Incidente incidente) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET motivo = ? WHERE id = ?");
+            pstmt.setString(1, incidente.getDescricao());
+            pstmt.setInt(2, incidente.getId());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
+        }
     }
-
 }

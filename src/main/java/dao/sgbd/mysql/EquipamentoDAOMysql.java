@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import model.Equipamento;
 import model.Laboratorio;
 import util.DatabaseConnection;
+import util.IO;
 import util.Logger;
 
 public class EquipamentoDAOMysql implements dao.sgbd.EquipamentoDAO {
@@ -133,7 +134,7 @@ public class EquipamentoDAOMysql implements dao.sgbd.EquipamentoDAO {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_equipamento SET motivo = ?, status = 0, data_retirada = ? WHERE id = ?");
             pstmt.setString(1, eq.getMotivo());
-            pstmt.setString(2, eq.getDataRetirada());
+            pstmt.setString(2, IO.formatData(eq.getDataRetirada()));
             pstmt.setInt(3, eq.getId());
             pstmt.executeUpdate();
             conn.close();

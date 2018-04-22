@@ -20,6 +20,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @lombok.Getter
 @lombok.Setter
@@ -30,7 +31,7 @@ public class Equipamento implements Serializable {
     private String mac;
     private String config;
     private String motivo;
-    private String dataRetirada;
+    private Date dataRetirada;
     private Integer status;
     private Integer id;
     private Integer qtd;
