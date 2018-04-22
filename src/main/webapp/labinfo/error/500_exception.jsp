@@ -1,3 +1,4 @@
+<%@page import="util.SiGLa"%>
 <!--
 Copyright (C) 2016 Thales Alves Pereira
 
@@ -45,7 +46,7 @@ Copyright (C) 2016 Thales Alves Pereira
             <hr class="separator" />
             <h2 class="error-title">Eita!</h2><br />
             <p class="error-description"><% out.println(e.getMessage()); %></p><br />
-            <a href="${pageContext.request.contextPath}" class="error-link">Voltar</a> <p class="error-link">|</p> <a href="mailto:suporte.lab.mc@umc.br" class="error-link">Reportar</a>
+            <a href="${pageContext.request.contextPath}" class="error-link">Voltar</a> <p class="error-link">|</p> <a href="mailto:<%=SiGLa.getMailGroup()%>" class="error-link">Reportar</a>
         </div>
     </body>
 </html>
