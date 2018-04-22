@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
 import model.Pessoa;
+import util.IO;
 import util.Logger;
 
 public class EquipamentoRetiradaAction implements ICommand {
@@ -42,7 +43,7 @@ public class EquipamentoRetiradaAction implements ICommand {
             DAOFactory fac = DAOFactory.getFactory();
             e.setId(Integer.parseInt(request.getParameter("equip-id-retirar")));
             e.setMotivo(request.getParameter("motivo"));
-            e.setDataRetirada(request.getParameter("equip-data-retirada"));
+            e.setDataRetirada(IO.getData(request.getParameter("equip-data-retirada")));
             e = fac.getEquipamentoDAO().select(e);
             fac.getEquipamentoDAO().retirar(e);
         } catch (Exception ex) {
