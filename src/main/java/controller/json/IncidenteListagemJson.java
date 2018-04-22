@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Incidente;
 import model.Pessoa;
-import util.ActiveDirectory;
 import util.Logger;
 
 /**
@@ -39,19 +38,8 @@ public class IncidenteListagemJson implements IJson {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         HttpSession session = request.getSession();
         DAOFactory fac = DAOFactory.getFactory();
-        ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
         List<Incidente> incidentes = fac.getIncidenteDAO().select();
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
-
-        for (Incidente i : incidentes) {
-            i.getPessoa().setNomeCompleto(ad.getCN(i.getPessoa()));
-            i.getPessoa().setEmail(ad.getMail(i.getPessoa()));
-            i.getPessoa().setNome(ad.getGivenName(i.getPessoa()));
-            i.getPessoa().setEmpresa(ad.getCompany(i.getPessoa()));
-            i.getPessoa().setCargo(ad.getTitle(i.getPessoa()));
-            i.getPessoa().setDepto(ad.getDepartment(i.getPessoa()));
-        }
-        ad.closeLdapConnection();
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou os incidentes.");
         return util.Json.toJson(incidentes);
     }

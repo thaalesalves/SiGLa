@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package controller.json;
-
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,13 +25,8 @@ import javax.servlet.http.HttpSession;
 import model.Erro;
 import model.Incidente;
 import model.Pessoa;
-import util.ActiveDirectory;
 import util.Logger;
 
-/**
- *
- * @author thaalesalves
- */
 public class IncidenteJson implements IJson {
 
     @Override
@@ -51,15 +45,6 @@ public class IncidenteJson implements IJson {
 
         DAOFactory fac = DAOFactory.getFactory();
         incidente = fac.getIncidenteDAO().select(incidente);
-
-        ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
-        incidente.getPessoa().setNomeCompleto(ad.getCN(incidente.getPessoa()));
-        incidente.getPessoa().setEmail(ad.getMail(incidente.getPessoa()));
-        incidente.getPessoa().setNome(ad.getGivenName(incidente.getPessoa()));
-        incidente.getPessoa().setEmpresa(ad.getCompany(incidente.getPessoa()));
-        incidente.getPessoa().setCargo(ad.getTitle(incidente.getPessoa()));
-        incidente.getPessoa().setDepto(ad.getDepartment(incidente.getPessoa()));
-        ad.closeLdapConnection();
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes do incidente #" + incidente.getId());
         return util.Json.toJson(incidente);
     }
