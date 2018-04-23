@@ -18,21 +18,24 @@ package dao.sgbd;
 
 import java.sql.SQLException;
 import java.util.List;
+import model.Equipamento;
 import model.Incidente;
 
-/**
- *
- * @author thaalesalves
- */
 public abstract class IncidenteDAO {
 
     public abstract List<Incidente> select() throws SQLException, ClassNotFoundException;
 
     public abstract Incidente select(Incidente incidente) throws SQLException, ClassNotFoundException;
     
+    public abstract Incidente selectAberto(Equipamento equipamento) throws SQLException, ClassNotFoundException;
+    
     public abstract void insert(Incidente incidente) throws SQLException, ClassNotFoundException;
     
     public abstract void devolver(Incidente incidente) throws SQLException, ClassNotFoundException;
     
     public abstract void update(Incidente incidente) throws SQLException, ClassNotFoundException;
+    
+    public abstract Incidente selectDevolucao(Incidente incidente) throws SQLException, ClassCastException;
+    
+    public abstract Incidente selectRetirada(Incidente incidente) throws SQLException, ClassCastException;
 }

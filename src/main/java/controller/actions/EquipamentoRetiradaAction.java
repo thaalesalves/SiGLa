@@ -21,14 +21,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
+import model.Incidente;
 import model.Pessoa;
-import util.IO;
 import util.Logger;
 
 public class EquipamentoRetiradaAction implements ICommand {
@@ -41,9 +42,12 @@ public class EquipamentoRetiradaAction implements ICommand {
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
+            Incidente in = new Incidente();
             e.setId(Integer.parseInt(request.getParameter("equip-id-retirar")));
-            e.setMotivo(request.getParameter("motivo"));
-            e.setDataRetirada(IO.getData(request.getParameter("equip-data-retirada")));
+            in.setDescricao(request.getParameter("motivo"));
+            in.setDataRetirada(Calendar.getInstance().getTime());
+            in.setEquipamento(e);
+            fac.getIncidenteDAO().insert(in);
             e = fac.getEquipamentoDAO().select(e);
             fac.getEquipamentoDAO().retirar(e);
         } catch (Exception ex) {
@@ -57,7 +61,7 @@ public class EquipamentoRetiradaAction implements ICommand {
 
         session.setAttribute("status", "success");
         session.setAttribute("msg", "Computador retirado");
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() + "(#" + e.getId() + ").");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") fez a retirada do computador " + e.getNome() + " (#" + e.getId() + ").");
         return request.getContextPath() + "/equip/lista";
     }
 }

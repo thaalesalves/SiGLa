@@ -69,8 +69,6 @@ public class EquipamentoDAOPsql implements dao.sgbd.EquipamentoDAO {
                 e.setIp(rs.getString("ip"));
                 e.setMac(rs.getString("mac"));
                 e.setConfig(rs.getString("config"));
-                e.setMotivo(rs.getString("motivo"));
-                e.setDataRetirada(IO.getData(rs.getString("data_retirada")));
 
                 e.getLab().setId(rs.getInt("lab"));
                 e.getLab().setNumero(rs.getString("numero"));
@@ -118,8 +116,6 @@ public class EquipamentoDAOPsql implements dao.sgbd.EquipamentoDAO {
                 equipamento.setMac(rs.getString("mac"));
                 equipamento.setStatus(rs.getInt("status"));
                 equipamento.setNome(rs.getString("nome"));
-                equipamento.setMotivo(rs.getString("motivo"));
-                equipamento.setDataRetirada(IO.getData(rs.getString("data_retirada")));
             }
 
             conn.close();
@@ -133,10 +129,8 @@ public class EquipamentoDAOPsql implements dao.sgbd.EquipamentoDAO {
     @Override
     public void retirar(Equipamento eq) throws SQLException, ClassNotFoundException {
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_equipamento SET motivo = ?, status = 0, data_retirada = ? WHERE id = ?");
-            pstmt.setString(1, eq.getMotivo());
-            pstmt.setString(2, IO.formatData(eq.getDataRetirada()));
-            pstmt.setInt(3, eq.getId());
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_equipamento SET status = 0 WHERE id = ?");
+            pstmt.setInt(1, eq.getId());
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {

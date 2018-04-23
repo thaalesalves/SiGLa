@@ -45,6 +45,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <link href="${pageContext.request.contextPath}/css/pnotify.custom.css" rel="stylesheet" type="text/css"/>
         <link href="${pageContext.request.contextPath}/css/animate.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/date.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <script src="${pageContext.request.contextPath}/js/equipamento.js" type="text/javascript"></script>

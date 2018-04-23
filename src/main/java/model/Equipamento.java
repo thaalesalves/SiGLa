@@ -21,6 +21,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @lombok.Getter
 @lombok.Setter
@@ -36,4 +37,5 @@ public class Equipamento implements Serializable {
     private Integer id;
     private Integer qtd;
     private Laboratorio lab;
+    private List<Incidente> incidentes;
 }

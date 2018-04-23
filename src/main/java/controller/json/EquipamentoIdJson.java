@@ -19,11 +19,15 @@ package controller.json;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Equipamento;
 import model.Erro;
+import model.Incidente;
 import model.Pessoa;
 import util.Logger;
 
@@ -32,20 +36,26 @@ public class EquipamentoIdJson implements IJson {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, NamingException, IOException, NullPointerException {
         Equipamento e = new Equipamento();
-        DAOFactory fac = DAOFactory.getFactory();
-        Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
+        try {
 
-        e.setId(Integer.parseInt(request.getParameter("id")));
+            DAOFactory fac = DAOFactory.getFactory();
+            Pessoa p = (Pessoa) request.getSession().getAttribute("pessoa");
 
-        if (e.getId() < 1) {
-            Erro err = new Erro();
-            err.setErro("Tentativa ilegal de passar valores.");
-            Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao listar um equipamento. ID: " + e.getId());
-            return util.Json.toJson(err);
+            e.setId(Integer.parseInt(request.getParameter("id")));
+            e.setIncidentes(new ArrayList<Incidente>());
+            e.getIncidentes().add(fac.getIncidenteDAO().selectAberto(e));
+            if (e.getId() < 1) {
+                Erro err = new Erro();
+                err.setErro("Tentativa ilegal de passar valores.");
+                Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao listar um equipamento. ID: " + e.getId());
+                return util.Json.toJson(err);
+            }
+
+            fac.getEquipamentoDAO().select(e);
+            Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") buscou detalhes do equipamento " + e.getNome() + "(#" + e.getId() + ").");
+        } catch (Exception ex) {
+            Logger.logSevere(ex, EquipamentoIdJson.class);
         }
-
-        fac.getEquipamentoDAO().select(e);
-        Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") buscou detalhes do equipamento " + e.getNome() + "(#" + e.getId() + ").");
         return util.Json.toJson(e);
     }
 }

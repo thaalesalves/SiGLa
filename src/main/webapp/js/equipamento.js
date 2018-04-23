@@ -115,11 +115,13 @@ function modalEquipamento(id) {
             } else {
                 status = "Retirado";
                 $("#modal-footer").empty();
-                $("#modal-footer").append('<button name="acao" value="EquipamentoDevolucao" id="btnModalDevolver" type="submit" class="btn btn-primary">Devolver</button>' +
-                        '<button name="acao" value="EquipamentoAtualizacao" id="btnModalDevolver" type="submit" class="btn btn-success">Atualizar</button>');
+                //$("#modal-footer").append('<button name="acao" value="EquipamentoDevolucao" id="btnModalDevolver" type="submit" class="btn btn-primary">Devolver</button>' +
+                $("#modal-footer").append('<a id="btnModalDevolver" class="btn btn-primary" data-target="#modalDevolucao" data-toggle="modal">Devolver</a>' +
+                        '<button name="acao" value="EquipamentoAtualizacao" id="btnModalAtualizar" type="submit" class="btn btn-success">Atualizar</button>');
                 $("#motivo-retirado").show();
                 $("#motivo-retirar").hide();
                 $("data-retirado-div").show();
+                $('#equipamento').val(id);
             }
 
             $("#equip-netbios").val(obj.nome);
@@ -127,11 +129,10 @@ function modalEquipamento(id) {
             $("#equip-status").val(status);
             $("#equip-ip").val(obj.ip);
             $("#equip-mac").val(obj.mac);
-            $("#motivo-retirado-campo").val(obj.motivo);
+            $("#motivo-retirado-campo").val(obj.incidentes[0].descricao);
             $("#equip-id-retirar").val(obj.id);
             $("#equip-id").val(obj.id);
-            $("#data-retirado-campo").val(obj.dataRetirada);
-
+            $("#data-retirado-campo").val(Date.parse(obj.incidentes[0].dataRetirada).toString('dd/MM/yyyy HH:mm'));
             $("#incidente_computador").val(obj.nome);
             $("#incidente_computador_abertura").val(obj.nome);
         }

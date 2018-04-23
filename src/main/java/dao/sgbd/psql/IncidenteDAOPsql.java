@@ -40,8 +40,8 @@ public class IncidenteDAOPsql extends IncidenteDAO {
             while (rs.next()) {
                 Incidente incidente = new Incidente();
                 incidente.setId(rs.getInt("id"));
-                incidente.setDataRetirada(IO.getData(rs.getString("data_retirada")));
-                incidente.setDataDevolucao(IO.getData(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
                 incidente.setDescricao(rs.getString("motivo"));
                 incidente.setEquipamento(new Equipamento());
                 incidente.getEquipamento().setId(rs.getInt("equipamento"));
@@ -51,7 +51,7 @@ public class IncidenteDAOPsql extends IncidenteDAO {
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
         }
-        
+
         return incidentes;
     }
 
@@ -62,8 +62,8 @@ public class IncidenteDAOPsql extends IncidenteDAO {
             pstmt.setInt(1, incidente.getId());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                incidente.setDataDevolucao(IO.getData(rs.getString("data_devolucao")));
-                incidente.setDataRetirada(IO.getData(rs.getString("data_retirada")));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
                 incidente.setDescricao(rs.getString("motivo"));
                 incidente.setEquipamento(new Equipamento());
                 incidente.getEquipamento().setId(rs.getInt("equipamento"));
@@ -72,7 +72,7 @@ public class IncidenteDAOPsql extends IncidenteDAO {
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
         }
-        
+
         return incidente;
     }
 
@@ -82,7 +82,7 @@ public class IncidenteDAOPsql extends IncidenteDAO {
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_incidente VALUES(DEFAULT, ?, ?, ?)");
             pstmt.setString(1, incidente.getDescricao());
             pstmt.setInt(2, incidente.getEquipamento().getId());
-            pstmt.setString(3, IO.formatData(incidente.getDataRetirada()));
+            pstmt.setString(3, IO.formatDataHora(incidente.getDataRetirada()));
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -93,10 +93,11 @@ public class IncidenteDAOPsql extends IncidenteDAO {
     @Override
     public void devolver(Incidente incidente) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET data_devolucao = ?, resolucao = ? WHERE id = ?");
-            pstmt.setString(1, IO.formatData(incidente.getDataDevolucao()));
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET data_devolucao = ?, resolucao = ? WHERE equipamento = ? AND data_retirada = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataDevolucao()));
             pstmt.setString(2, incidente.getResolucao());
-            pstmt.setInt(3, incidente.getId());
+            pstmt.setInt(3, incidente.getEquipamento().getId());
+            pstmt.setString(4, IO.formatDataHora(incidente.getDataRetirada()));
             pstmt.executeUpdate();
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
@@ -106,12 +107,78 @@ public class IncidenteDAOPsql extends IncidenteDAO {
     @Override
     public void update(Incidente incidente) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET motivo = ? WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET motivo = ? WHERE id = ? AND data_devolucao = ?");
             pstmt.setString(1, incidente.getDescricao());
             pstmt.setInt(2, incidente.getId());
+            pstmt.setString(3, IO.formatDataHora(incidente.getDataDevolucao()));
             pstmt.executeUpdate();
         } catch (Exception e) {
             Logger.logSevere(e, IncidenteDAOPsql.class);
         }
+    }
+
+    @Override
+    public Incidente selectDevolucao(Incidente incidente) throws SQLException, ClassCastException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE data_devolucao = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataDevolucao()));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
+        }
+
+        return incidente;
+    }
+
+    @Override
+    public Incidente selectRetirada(Incidente incidente) throws SQLException, ClassCastException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE data_retirada = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataRetirada()));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
+        }
+
+        return incidente;
+    }
+
+    @Override
+    public Incidente selectAberto(Equipamento equipamento) throws SQLException, ClassNotFoundException {
+        Incidente incidente = new Incidente();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE status = 1 AND equipamento = ?");
+            pstmt.setInt(1, equipamento.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOPsql.class);
+        }
+
+        return incidente;
     }
 }

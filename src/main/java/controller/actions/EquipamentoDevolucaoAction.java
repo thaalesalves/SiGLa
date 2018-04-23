@@ -21,12 +21,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.SQLException;
+import java.util.Calendar;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Equipamento;
+import model.Incidente;
 import model.Pessoa;
 import util.Logger;
 
@@ -40,8 +42,14 @@ public class EquipamentoDevolucaoAction implements ICommand {
 
         try {
             DAOFactory fac = DAOFactory.getFactory();
-            e.setId(Integer.parseInt(request.getParameter("equip-id")));
+            e.setId(Integer.parseInt(request.getParameter("equipamento")));
+            Incidente in = new Incidente();
+            in.setDataDevolucao(Calendar.getInstance().getTime());
+            in.setResolucao(request.getParameter("resolucao"));
+            in.setEquipamento(e);
+            e = fac.getEquipamentoDAO().select(e);
             fac.getEquipamentoDAO().devolver(e);
+            fac.getIncidenteDAO().devolver(in);
         } catch (Exception ex) {
             Logger.logSevere(ex, EquipamentoInsercaoAction.class);
             session.setAttribute("status", "error");

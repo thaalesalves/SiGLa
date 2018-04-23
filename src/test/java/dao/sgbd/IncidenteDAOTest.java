@@ -25,6 +25,7 @@ import model.Incidente;
 import model.Equipamento;
 import org.apache.commons.lang3.time.DateUtils;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import util.Logger;
@@ -48,14 +49,14 @@ public class IncidenteDAOTest {
     public void assertIncidenteReturnsItem() {
         try {
             Incidente in = new Incidente();
-            in.setId(1);
+            in.setId(11);
             in = dao.getIncidenteDAO().select(in);
-            assertEquals("Lento", in.getDescricao());
+            assertEquals("ruim", in.getDescricao());
         } catch (Exception e) {
             Logger.logWarning(e, IncidenteDAOTest.class);
         }
     }
-    
+
     @Test
     public void assertIncidenteRetirada() {
         try {
@@ -69,11 +70,43 @@ public class IncidenteDAOTest {
             in.setResolucao("Formatar");
             in.setDataDevolucao(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH));
             dao.getIncidenteDAO().devolver(in);
-            in = null;
             in = dao.getIncidenteDAO().select(in);
             assertEquals("Formatar", in.getResolucao());
         } catch (Exception e) {
             Logger.logWarning(e, IncidenteDAOTest.class);
+        }
+    }
+
+    @Test
+    public void assertRetirada() {
+        try {
+            Incidente in = new Incidente();
+            in.setDataRetirada(Calendar.getInstance().getTime());
+            in.setDescricao("ruim");
+            in.setEquipamento(new Equipamento());
+            in.getEquipamento().setId(10);
+            dao.getEquipamentoDAO().retirar(in.getEquipamento());
+            dao.getIncidenteDAO().insert(in);
+            in = dao.getIncidenteDAO().selectDevolucao(in);
+            assertFalse(in.getDataRetirada() == null);
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOTest.class);
+        }
+    }
+    
+    @Test
+    public void assertDevolucao() {
+        try {
+            Incidente in = new Incidente();
+            in.setId(17);
+            in.setResolucao("eu deletei tudo");
+            in.setDataDevolucao(Calendar.getInstance().getTime());
+            in = dao.getIncidenteDAO().select(in);
+            dao.getIncidenteDAO().devolver(in);
+            in = dao.getIncidenteDAO().select(in);
+            assertFalse(in.getDataDevolucao() == null);
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOTest.class);
         }
     }
 }
