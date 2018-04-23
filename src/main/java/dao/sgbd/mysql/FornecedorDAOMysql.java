@@ -21,10 +21,6 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Fornecedor;
 
-/**
- *
- * @author thales
- */
 public class FornecedorDAOMysql implements FornecedorDAO {
 
     @Override

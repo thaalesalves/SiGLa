@@ -21,10 +21,6 @@ import java.util.List;
 import model.Fornecedor;
 import model.Representante;
 
-/**
- *
- * @author thales
- */
 public interface RepresentanteDAO {
 
     public void insert(Representante representante) throws SQLException, ClassNotFoundException;

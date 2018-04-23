@@ -22,10 +22,6 @@ import java.util.List;
 import model.Fornecedor;
 import model.Representante;
 
-/**
- *
- * @author thales
- */
 public class RepresentanteDAOMysql implements RepresentanteDAO {
 
     @Override

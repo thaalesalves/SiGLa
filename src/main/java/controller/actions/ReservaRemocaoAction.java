@@ -36,10 +36,6 @@ import model.Reserva;
 import util.ActiveDirectory;
 import util.Logger;
 
-/**
- *
- * @author Administrator
- */
 public class ReservaRemocaoAction implements ICommand {
 
     @Override

@@ -26,10 +26,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author thaal
- */
 public class InstallationFilter implements Filter {
 
     @Override

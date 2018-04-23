@@ -34,10 +34,6 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import util.IO;
 
-/**
- *
- * @author thales
- */
 public class Cron implements Job {
 
     @Override

@@ -34,10 +34,6 @@ import util.IO;
 import util.Json;
 import util.Logger;
 
-/**
- *
- * @author thales
- */
 public class SoftwareLicencaTeste {
 
     public static class LicencaDAO {

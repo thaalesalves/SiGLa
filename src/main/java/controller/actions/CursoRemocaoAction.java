@@ -32,10 +32,6 @@ import model.Curso;
 import model.Pessoa;
 import util.Logger;
 
-/**
- *
- * @author Administrator
- */
 public class CursoRemocaoAction implements ICommand {
 
     @Override

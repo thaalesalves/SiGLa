@@ -28,10 +28,6 @@ import model.Incidente;
 import model.Pessoa;
 import util.Logger;
 
-/**
- *
- * @author thaalesalves
- */
 public class IncidenteListagemJson implements IJson {
 
     @Override

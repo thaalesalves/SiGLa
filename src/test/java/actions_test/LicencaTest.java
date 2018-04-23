@@ -28,10 +28,6 @@ import util.DatabaseConnection;
 import util.IO;
 import util.Logger;
 
-/**
- *
- * @author thales
- */
 public class LicencaTest {
     public static class LicencaDAO {
 
