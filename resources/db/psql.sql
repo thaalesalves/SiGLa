@@ -25,9 +25,16 @@ CREATE TABLE tb_equipamento (
     ip VARCHAR(15) NOT NULL,
     mac VARCHAR(30) NOT NULL,
     config VARCHAR NOT NULL,
-    motivo VARCHAR,
-    data_retirada VARCHAR,
     status INT NOT NULL
+);
+
+CREATE TABLE tb_incidente (
+    id SERIAL PRIMARY KEY,
+    motivo VARCHAR NOT NULL,
+    equipamento INTEGER REFERENCES tb_equipamento(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    data_retirada VARCHAR NOT NULL,
+    data_devolucao VARCHAR,
+    resolucao VARCHAR
 );
 
 CREATE TABLE tb_grupo (

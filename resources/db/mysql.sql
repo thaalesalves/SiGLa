@@ -21,13 +21,20 @@ CREATE TABLE tb_software (
 CREATE TABLE tb_equipamento (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(20) NOT NULL,
-    laboratorio INT REFERENCES tb_laboratorio(id),
+    laboratorio INT REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE,
     ip VARCHAR(15) NOT NULL,
     mac VARCHAR(30) NOT NULL,
     config VARCHAR(255) NOT NULL,
-    motivo VARCHAR,
-    data_retirada VARCHAR,
     status INT NOT NULL
+);
+
+CREATE TABLE tb_incidente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    motivo VARCHAR(255) NOT NULL,
+    equipamento INT REFERENCES tb_equipamento(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    data_retirada VARCHAR(10) NOT NULL,
+    data_devolucao VARCHAR(10),
+    resolucao VARCHAR(255)
 );
 
 CREATE TABLE tb_grupo (
@@ -38,8 +45,8 @@ CREATE TABLE tb_grupo (
 
 CREATE TABLE tb_reserva (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    laboratorio INT REFERENCES tb_laboratorio(id),
-    curso INT REFERENCES tb_curso(id),
+    laboratorio INT REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    curso INT REFERENCES tb_curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR(10) NOT NULL,
     professor VARCHAR(20) NOT NULL,
@@ -49,7 +56,7 @@ CREATE TABLE tb_reserva (
 
 CREATE TABLE tb_solicitacao (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    curso INT REFERENCES tb_curso(id),
+    curso INT REFERENCES tb_curso(id) ON DELETE CASCADE ON UPDATE CASCADE,
     qtd_alunos INT NOT NULL,
     turma VARCHAR(10) NOT NULL,
     professor VARCHAR(20) NOT NULL,
@@ -62,64 +69,64 @@ CREATE TABLE tb_modulo (
 );
 
 CREATE TABLE tb_fornecedor (
-    id AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(255),
     email VARCHAR(255)
 );
 
-CREATE TABLE tb_representate (
-    id AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE tb_representante (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(255),
     email VARCHAR(255),
-    fornecedor INT REFERENCES tb_fornecedor(id)
+    fornecedor INT REFERENCES tb_fornecedor(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tb_licenca (
-    id AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     aquisicao VARCHAR(255) NOT NULL,
     vencimento VARCHAR(255) NOT NULL,
     status INT NOT NULL,
-    software INT REFERENCES tb_software(id),
-    fornecedor INT REFERENCES tb_fornecedor(id)
+    software INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    fornecedor INT REFERENCES tb_fornecedor(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tb_licenca_codigo (
-    id AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     codigo_tipo VARCHAR(255) NOT NULL,
     codigo VARCHAR(255) NOT NULL,
-    licenca INT REFERENCES tb_licenca(id)
+    licenca INT REFERENCES tb_licenca(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_res (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    sw INT REFERENCES tb_software(id),
-    res INT REFERENCES tb_reserva(id)
+    sw INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    res INT REFERENCES tb_reserva(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_soli (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    sw INT REFERENCES tb_software(id),
-    res INT REFERENCES tb_solicitacao(id)
+    sw INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    res INT REFERENCES tb_solicitacao(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_modulo_res (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    res INT REFERENCES tb_reserva(id),
-    modulo INT REFERENCES tb_modulo(id)
+    res INT REFERENCES tb_reserva(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    modulo INT REFERENCES tb_modulo(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_modulo_soli (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    res INT REFERENCES tb_solicitacao(id),
-    modulo INT REFERENCES tb_modulo(id)
+    res INT REFERENCES tb_solicitacao(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    modulo INT REFERENCES tb_modulo(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE aux_sw_lab (
-    id SERIAL PRIMARY KEY,
-    sw INTEGER REFERENCES tb_software(id) NOT NULL,
-    lab INTEGER REFERENCES tb_laboratorio(id) NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sw INT REFERENCES tb_software(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    lab INT REFERENCES tb_laboratorio(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Inserção de Valores
