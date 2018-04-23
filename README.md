@@ -27,7 +27,7 @@ O SiGLa permite controlar reservas do laboratório, desde o momento da solicita�
 O SiGLa possui um controle de estado de equipamento, que depende do cadastro dos computadores e softwares dos laboratórios, que é integrado com as tarefas. Caso algum equipamento esteja danificado, uma tarefa de retirada do equipamento será criada, e o estado do laboratório será atualizado com o equipamento retirado, alterando o mapa do laboratório. O corpo docente terá acesso a esta informação.
 
 ### Controle de Reservas de Software
-O SiGLa permite que fornecedores de licenças sejam cadastrados, e dá espaço para representantes destes fornecedores também serem cadastrados (contato direto com um funcionário específico, por exemplo). As licenças de software cadastradas são atreladas a esses fornecedores, e podem ter ou não códigos de ativação (que são cadastrados junto com a licença). Foi utilizado o Quartz para enviar emails para a equipe do laboratório quando a licença do software estiver perto da data de vencimento, o que facilita a renovação delas.
+O SiGLa permite o cadastro de licenças atreladas aos softwares que o sistema já possui. São cadastrados data de aquisição, de vencimento, códigos de licença e fornecedor da licença, e existem validações que evitam que o sistema exiba na tela de reservas softwares que estejam com suas reservas vencidas. O SiGLa possui um módulo que avisa a equipe do laboratório que uma licença específica está para vencer um mês antes da data registrada, o que facilita o controle de reservas ativas e inativas.
 
 ## Especificações Técnicas
 ### Tecnologias Utilizadas
@@ -43,8 +43,9 @@ O SiGLa permite que fornecedores de licenças sejam cadastrados, e dá espaço p
 - LDAP
 
 ##### Infraestrutura
+- Debian 9
 - Microsoft Windows Server 2016
-- Amazon Web Servics
+- Amazon Web Services
 - Microsoft Active Directory Domain Services (AD DS)
 - JavaMail
 - Postfix
@@ -63,7 +64,9 @@ O SiGLa permite que fornecedores de licenças sejam cadastrados, e dá espaço p
 - Quartz
 
 ##### Tecnologias compatíveis utilizadas no passado
+- Windows Server 2012
 - Microsoft Azure
+- Azure Active Directory
 - MailGun
 - MailChimp
 - MailJet
@@ -77,5 +80,4 @@ O SiGLa permite que fornecedores de licenças sejam cadastrados, e dá espaço p
 - DAO
 - Factory
 - ICommand
-- Facade
 - MVC
