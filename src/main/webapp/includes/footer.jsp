@@ -6,6 +6,7 @@
 <%@include file="/includes/modal-codigo.jsp"%>
 <%@include file="/includes/modal-fornecedor.jsp"%>
 <%@include file="/includes/modal-add-rep.jsp"%>
+<%@include file="/includes/modal-incidente-devolucao.jsp"%>
 <footer class="main-footer">
     <strong>Copyright &copy; <% out.println(cal.get(Calendar.YEAR));%> All rights reserved. Versão <%=util.SiGLa.VERSION%></strong>
 </footer>
