@@ -100,6 +100,10 @@ public class IO {
     }
 
     public static String formatData(String data) throws ParseException {
+        if (data == null) {
+            return null;
+        }
+        
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(formato.parse(data));
     }
@@ -109,13 +113,27 @@ public class IO {
         Calendar cal = Calendar.getInstance();
         return data.format(cal.getTime());
     }
+    
+    public static String formatDataHora(Date date) throws ParseException {
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        return data.format(cal.getTime());
+    }
 
     public static Date getDataHora(String data) throws ParseException {
+        if (data == null) {
+            return null;
+        }
+        
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return formato.parse(data);
     }
 
     public static Date getData(String data) throws ParseException {
+        if (data == null) {
+            return null;
+        }
+        
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.parse(data);
     }
