@@ -73,19 +73,8 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li id="item-novo-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i>Inserção</a></li>
-                            <li id="item-lista-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-edit"></i> <span>Licenças</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+                            <li id="item-novo-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i>Cadastrar software</a></li>
+                            <li id="item-novo-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/novo"><i class="fa fa-circle-o"></i>Cadastrar licença</a></li>
                             <li id="item-lista-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>
