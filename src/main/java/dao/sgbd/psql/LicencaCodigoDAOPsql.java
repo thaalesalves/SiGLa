@@ -72,7 +72,7 @@ public class LicencaCodigoDAOPsql implements LicencaCodigoDAO {
                 LicencaCodigo codigo = new LicencaCodigo();
 
                 codigo.setId(rs.getInt("id"));
-                codigo.setCodigoTipo(rs.getString("nome"));
+                 codigo.setCodigoTipo(rs.getString("codigo_tipo"));
                 codigo.setCodigo(rs.getString("codigo"));
 
                 codigos.add(codigo);
