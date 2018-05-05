@@ -51,7 +51,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return qtd;
@@ -77,6 +77,8 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return arrayRes;
@@ -120,7 +122,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOPsql.class);
         }
     }
 
@@ -144,7 +146,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return sws;
@@ -165,7 +167,7 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return s;
@@ -191,6 +193,8 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return arrayRes;
@@ -234,9 +238,21 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
             conn.close();
         } catch (Exception e) {
-            Logger.logSevere(e, SoftwareDAOMysql.class);
+            Logger.logSevere(e, SoftwareDAOPsql.class);
         }
 
         return software;
+    }
+
+    @Override
+    public void delete(Software sw) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tb_software WHERE id = ?");
+            pstmt.setInt(1, sw.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOPsql.class);
+        }
     }
 }

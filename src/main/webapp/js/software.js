@@ -16,6 +16,11 @@
  */
 
 var contextPath;
+var swId;
+
+function removerSoftware() {
+    window.location.href = contextPath + '/AlmightyController?acao=SoftwareRemocao&id=' + swId;
+}
 
 function carregaSoftware() {
     $.ajax({
@@ -35,7 +40,7 @@ function carregaSoftware() {
                 cont += '<td class="center">' + obj[i].id + '</td>';
                 cont += '<td class="center">' + obj[i].fabricante + '</td>';
                 cont += '<td class="center">' + obj[i].nome + '</td>';
-                cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
+                cont += '<td class="center"><a href="' + contextPath + '/AlmightyController?acao=SoftwareRemocao&id=' + obj[i].id + '" class="btn btn-default fa fa-close"></a></td>';
                 cont += '</tr>';
             });
 
@@ -138,7 +143,7 @@ function carregaLicencasAtivas() {
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataAquisicao), "dd/MM/yyyy") + '</td>';
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataVencimento), "dd/MM/yyyy") + '</td>';
                 //cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ')"></button></center></td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ', ' + obj[i].software.id + ')"></button></center></td>';
                 cont += '</tr>';
                 console.log("Adicionada licença #" + obj[i].id);
             });
@@ -175,7 +180,7 @@ function carregaLicencasDesativas() {
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataAquisicao), "dd/MM/yyyy") + '</td>';
                 cont += '<td class="center">' + DateFormat.format.date(new Date(obj[i].dataVencimento), "dd/MM/yyyy") + '</td>';
                 //cont += '<td class="center"><a href="" class="fa fa-wrench"></a><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="fa fa-close"></a></td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ')"></button></center></td>';
+                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modal-licenca" onclick="modalLicenca(' + obj[i].id + ', ' + obj[i].software.id + ')"></button></center></td>';
                 cont += '</tr>';
                 console.log("Adicionada licença #" + obj[i].id);
             });
@@ -188,7 +193,8 @@ function carregaLicencasDesativas() {
     });
 }
 
-function modalLicenca(id) {
+function modalLicenca(id, sw) {
+    swId = sw;
     $.ajax({
         url: contextPath + '/JsonController?acao=LicencaListagemId&id=' + id,
         type: 'POST',

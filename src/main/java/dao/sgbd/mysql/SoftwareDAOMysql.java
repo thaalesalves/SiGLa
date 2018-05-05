@@ -237,4 +237,9 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
         return software;
     }
+
+    @Override
+    public void delete(Software sw) throws SQLException, ClassNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -87,7 +87,7 @@
                     <button style="display:none;" id="btn-desativar" type="button" class="btn btn-success" onclick="desativarLicenca()">Desativar</button>
                     <button style="display:none;" id="btn-ativar" type="button" class="btn btn-success" onclick="ativarLicenca()">Ativar</button>
                     <button id="btnModalExcluir2" type="button" class="btn btn-danger" onclick="removerLicenca()">Excluir</button>
-                </div>
+                    </div>
             </div>
         </div>
     </div>

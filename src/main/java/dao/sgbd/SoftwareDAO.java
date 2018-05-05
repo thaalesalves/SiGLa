@@ -43,4 +43,6 @@ public interface SoftwareDAO {
     public ArrayList<Software> selectSoftwareAux(Laboratorio lab) throws SQLException, ClassNotFoundException;
 
     public Software selectLicenca(Software sw) throws SQLException, ClassNotFoundException;
+    
+    public void delete(Software sw) throws SQLException, ClassNotFoundException;
 }
