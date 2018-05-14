@@ -61,7 +61,7 @@ public class LoginAction implements ICommand, Serializable {
             if ((arrayg = fac.getGrupoDAO().select()).isEmpty()) {
                 session.setAttribute("msg", "Houve um problema ao buscar os grupos de acesso. Entre em contato com o suporte.");
                 session.setAttribute("status", "error");
-                ad.closeLdapConnection();
+                 
                 Logger.logOutput("Erro ao fazer login de " + p.getUsername() + ": problema ao buscar grupos de acesso. Abortando sessão.");
                 return request.getContextPath();
             } else if (ad.login(p)) {
@@ -78,14 +78,16 @@ public class LoginAction implements ICommand, Serializable {
                     if (c == arrayg.size()) {
                         session.setAttribute("msg", "Voc&ecirc; n&atilde;o tem permiss&atilde;o de acesso");
                         session.setAttribute("status", "error");
-                        ad.closeLdapConnection();
+                         
                         Logger.logOutput("Erro ao fazer login de " + p.getUsername() + ": usuário não tem permissão para logar. Abortando sessão.");
                         return request.getContextPath();
                     }
                 }
 
-                List<Pessoa> ps = ad.getProfessores();
-                session.setAttribute("todos-usuarios", ps);
+                if (!p.getRole().equals("professor")) {
+                    List<Pessoa> ps = ad.getProfessores();
+                    session.setAttribute("todos-usuarios", ps);
+                }
 
                 p.setNome(ad.getGivenName(p));
                 p.setNomeCompleto(ad.getCN(p));
@@ -96,7 +98,7 @@ public class LoginAction implements ICommand, Serializable {
                 p.setShownName(ad.getDisplayName(p));
 
                 session.setAttribute("pessoa", p);
-                ad.closeLdapConnection();
+                 
                 Logger.logOutput(p.getNomeCompleto() + " (" + p.getUsername() + ") acaba de fazer login no SiGLa.");
                 return request.getContextPath() + "/pagina/home";
             }

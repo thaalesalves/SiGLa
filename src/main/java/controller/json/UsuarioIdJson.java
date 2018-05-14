@@ -44,7 +44,7 @@ public class UsuarioIdJson implements IJson {
         prof.setNomeCompleto(ad.getCN(prof));
         prof.setNome(ad.getGivenName(prof));
         prof.setShownName(ad.getDisplayName(prof));
-        ad.closeLdapConnection();
+         
         Logger.logOutput(pessoa.getNomeCompleto() + "(" + pessoa.getUsername() + ") acaba de buscar "
                 + "detalhes sobre " + prof.getNomeCompleto() + "(" + prof.getUsername() + ").");
 

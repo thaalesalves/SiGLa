@@ -51,7 +51,7 @@ public class ReservaProfessorDiaJson implements IJson {
             res.getPessoa().setShownName(res.getPessoa().getNome() + " " + res.getPessoa().getNomeCompleto().substring(res.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
         }
         Logger.logOutput(r.getPessoa().getNomeCompleto() + "(" + r.getPessoa().getUsername() + ") listou as próprias reservas de hoje");
-        ad.closeLdapConnection();
+         
         return util.Json.toJson(reserva);
     }
 

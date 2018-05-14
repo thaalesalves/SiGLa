@@ -73,7 +73,7 @@ public class SolicitacaoRemocaoAction implements ICommand {
             mailFunc.setPessoa(p);
             mailFunc.setSolicitacao(s);
             mailFunc.sendMail(mailFunc);
-            ad.closeLdapConnection();
+             
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "

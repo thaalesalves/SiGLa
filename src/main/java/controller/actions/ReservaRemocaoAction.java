@@ -66,7 +66,7 @@ public class ReservaRemocaoAction implements ICommand {
             mailProf.setReserva(r);
             mailProf.setPessoa((Pessoa) session.getAttribute("pessoa"));
             mailProf.sendMail(mailProf);
-            ad.closeLdapConnection();
+             
         } catch (Exception e) {
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
                     + "remover  reserva #" + r.getId());

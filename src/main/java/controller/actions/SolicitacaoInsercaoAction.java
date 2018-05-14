@@ -65,12 +65,12 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 r.getPessoa().setShownName(r.getPessoa().getNome() + " " + r.getPessoa().getNomeCompleto().substring(r.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
                 r.getPessoa().setEmail(ad.getMail(r.getPessoa()).trim());
                 r.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
-                r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
+                r.setQtdAlunos(Integer.parseInt(request.getParameter("qtd-alunos")));
 
                 if (r.getQtdAlunos() < 1) {
                     session.setAttribute("mensagem", "Tentativa ilegal de passar valores.");
                     session.setAttribute("estado", "error");
-                    ad.closeLdapConnection();
+                     
                     return request.getContextPath() + "/reserva/novo";
                 }
 
@@ -109,13 +109,15 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 mailFunc.setReserva(r);
                 mailFunc.sendMail(mailFunc);
 
+                r.getPessoa().setEmail(ad.getMail(r.getPessoa()));
+
                 mailProf.setPessoa(p);
                 mailProf.setReserva(r);
                 mailProf.sendMail(mailProf);
 
                 session.setAttribute("msg", "Reserva efetuada com sucesso.");
                 session.setAttribute("status", "success");
-                ad.closeLdapConnection();
+                 
                 return request.getContextPath() + "/reserva/novo";
             } else if (role.equals("coordenador") || role.equals("professor")) {
                 Mail mail = new SolicitacaoMail();
@@ -129,7 +131,7 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
                 s.getPessoa().setEmail(ad.getMail(s.getPessoa()).trim());
                 s.setTurma(request.getParameter("turma").replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", ""));
-                s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd")));
+                s.setQtdAlunos(Integer.parseInt(request.getParameter("qtd-alunos")));
                 s.getCurso().setId(Integer.parseInt(request.getParameter("curso").trim()));
                 s.setDiaSemana(request.getParameter("dia-semana").trim());
                 s.setModulo(request.getParameter("modulo").trim());
@@ -164,7 +166,6 @@ public class SolicitacaoInsercaoAction implements ICommand {
                 mail.setPessoa(p);
                 mail.setSolicitacao(s);
                 mail.sendMail(mail);
-                ad.closeLdapConnection();
             }
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

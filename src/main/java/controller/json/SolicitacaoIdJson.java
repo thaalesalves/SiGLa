@@ -52,7 +52,7 @@ public class SolicitacaoIdJson implements IJson {
         s.getPessoa().setNomeCompleto(ad.getCN(s.getPessoa()));
         s.getPessoa().setNome(ad.getGivenName(s.getPessoa()));
         s.getPessoa().setShownName(s.getPessoa().getNome() + " " + s.getPessoa().getNomeCompleto().substring(s.getPessoa().getNomeCompleto().lastIndexOf(" ") + 1));
-        ad.closeLdapConnection();
+         
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") buscou detalhes sobre a solicitação #" + s.getId());
 
         return util.Json.toJson(s);

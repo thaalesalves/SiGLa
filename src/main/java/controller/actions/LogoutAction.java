@@ -39,7 +39,7 @@ public class LogoutAction implements ICommand {
         try {
             ActiveDirectory ad = (ActiveDirectory) request.getSession().getAttribute("ad");
 
-            ad.closeLdapConnection();
+             
             request.getSession().invalidate();
 
         } catch (Exception e) {
