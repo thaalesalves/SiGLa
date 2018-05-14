@@ -50,20 +50,11 @@ Copyright (C) 2016 Thales Alves Pereira
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/icon.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/flat/blue.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/morris/morris.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datepicker/datepicker3.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/dist/css/skins/_all-skins.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.css">
@@ -153,6 +144,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                     <label>Usuário</label>
                                     <input type='text' class='form-control pull-right' value="<% out.println(p.getNomeCompleto() + " (" + p.getEmail().trim() + ")"); %>" readonly/>
                                 </div>
+                                <% if (!p.getRole().equals("professor")) { %>
                                 <div id="user-select" class='form-group' style="display:none;">
                                     <label>Usuário</label>
                                     <select id="usuario" class="select2 form-control" data-placeholder="Selecione um professor" style="width: 100%;">
@@ -162,6 +154,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <% } %>
                                     </select>
                                 </div>
+                                    <% } %>
                                 <div class='form-group'>
                                     <label>Turma</label>
                                     <input id="turma" required type='text' class='form-control pull-right' name='turma' placeholder="1ºA" autocomplete="off" />
@@ -235,22 +228,7 @@ Copyright (C) 2016 Thales Alves Pereira
         </div>
         <%@include file="/includes/footer.jsp" %>
         <div class="control-sidebar-bg"></div>
-
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
-        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
-        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
+        
         <script>
             $(document).on('change', '#modulo', function () {
                 console.log('Módulo alterado');
@@ -293,5 +271,21 @@ Copyright (C) 2016 Thales Alves Pereira
                 $('#professor').val(opt);
             });
         </script>
+        
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+        <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
     </body>
 </html>
