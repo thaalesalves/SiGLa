@@ -313,7 +313,7 @@ public class LicencaDAOPsql implements LicencaDAO {
     @Override
     public void insert(Licenca licenca) throws SQLException, ClassNotFoundException {
         try (Connection conn = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_licenca VALUES(DEFAULT, ?, ?, ?, 1, ?)");
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_licenca VALUES(DEFAULT, ?, ?, 1, ?, ?)");
             pstmt.setString(1, IO.formatData(licenca.getDataAquisicao()));
             pstmt.setString(2, IO.formatData(licenca.getDataVencimento()));
             pstmt.setInt(3, licenca.getSoftware().getId());
