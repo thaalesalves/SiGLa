@@ -75,7 +75,7 @@ public class Logger {
         try {
             String message = "\n=== AVISO ==="
                     + "\nErro em " + c.toString() + ": "
-                    + t.getMessage() + "\nExceção lançada: " + t + "\nLinha: "
+                    + t.getMessage() + "\nExceção lançada: " + t.getClass().getName() + "\nLinha: "
                     + t.getStackTrace()[0].getLineNumber()
                     + "\nData: " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())
                     + "\n=== FIM DO AVISO ===\n";
