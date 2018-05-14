@@ -62,7 +62,7 @@ Copyright (C) 2016 Thales Alves Pereira
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify("<%=msg%>", "<%=status%>");
-                carregaCurso();
+                carregaCurso(acesso);
             });
         </script>
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
