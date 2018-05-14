@@ -26,18 +26,33 @@ function carregaCurso() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-curso" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th>';
-            cont += '<th>Modalidade</th><th>Curso</th><th style="width: 3%;">Opções';
-            cont += '</th></tr></thead><tbody>';
 
-            $.each(obj, function (i, item) {
-                cont += '<tr class="gradeC">';
-                cont += '<td style="width: 1%;" class="center">' + obj[i].id + '</td>';
-                cont += '<td class="center">' + obj[i].modalidade + '</td>';
-                cont += '<td class="center">' + obj[i].nome + '</td>';
-                cont += '<td class="center"><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="btn btn-default fa fa-close"></a></td>';
-                cont += '</tr>';
-            });
+
+            if (acesso === 'admin' || acesso === 'funcionario') {
+                cont += '<thead><tr id="tb-header"><th style="width: 1%;">#</th>';
+                cont += '<th>Modalidade</th><th>Curso</th><th style="width: 3%;">Opções';
+                cont += '</th></tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr class="gradeC">';
+                    cont += '<td style="width: 1%;" class="center">' + obj[i].id + '</td>';
+                    cont += '<td class="center">' + obj[i].modalidade + '</td>';
+                    cont += '<td class="center">' + obj[i].nome + '</td>';
+                    cont += '<td class="center"><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="btn btn-default fa fa-close"></a></td>';
+                    cont += '</tr>';
+                });
+            } else {
+                cont += '<thead><tr id="tb-header"><th style="width: 1%;">#</th>';
+                cont += '<th>Modalidade</th><th>Curso</th></tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr class="gradeC">';
+                    cont += '<td style="width: 1%;" class="center">' + obj[i].id + '</td>';
+                    cont += '<td class="center">' + obj[i].modalidade + '</td>';
+                    cont += '<td class="center">' + obj[i].nome + '</td>';
+                    cont += '</tr>';
+                });
+            }
 
             cont += '</tbody></table>';
             cont += '<script>$("#tb-curso").DataTable();</script>';

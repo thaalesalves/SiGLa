@@ -76,34 +76,63 @@ function carregaReservas() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-res" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
-            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 1%;">Laboratório</th>';
-            cont += '<th style="width: 11%;">Dia da Semana</th><th style="width: 15%;">Softwares</th>';
-            cont += '<th style="width: 3%;">Opções</th></tr></thead><tbody>';
 
-            $.each(obj, function (i, item) {
-                cont += '<tr>';
-                cont += '<td>' + obj[i].id + '</td>';
-                cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
-                cont += '<td>';
-                for (var j = 0; j < obj[i].modulos.length; j++) {
-                    cont += obj[i].modulos[j].id + 'º módulo<br>';
-                    cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
-                }
-                cont += '</td>';
-                cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
-                cont += '<td>' + obj[i].lab.numero + '</td>';
-                cont += '<td>' + obj[i].diaDaSemana + '</td>';
-                cont += '<td>';
-                for (var j = 0; j < obj[i].softwares.length; j++) {
-                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome + '<br>';
-                    cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
-                }
-                cont += '</td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
-                //cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target=".modalReserva" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
-                cont += '</tr>';
-            });
+            if (acesso === 'estagiario') {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+                cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 1%;">Laboratório</th>';
+                cont += '<th style="width: 11%;">Dia da Semana</th><th style="width: 15%;">Softwares</th>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr>';
+                    cont += '<td>' + obj[i].id + '</td>';
+                    cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].modulos.length; j++) {
+                        cont += obj[i].modulos[j].id + 'º módulo<br>';
+                        cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
+                    cont += '<td>' + obj[i].lab.numero + '</td>';
+                    cont += '<td>' + obj[i].diaDaSemana + '</td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome + '<br>';
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '</tr>';
+                });
+            } else {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+                cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 1%;">Laboratório</th>';
+                cont += '<th style="width: 11%;">Dia da Semana</th><th style="width: 15%;">Softwares</th>';
+                cont += '<th style="width: 3%;">Opções</th></tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr>';
+                    cont += '<td>' + obj[i].id + '</td>';
+                    cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].modulos.length; j++) {
+                        cont += obj[i].modulos[j].id + 'º módulo<br>';
+                        cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
+                    cont += '<td>' + obj[i].lab.numero + '</td>';
+                    cont += '<td>' + obj[i].diaDaSemana + '</td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome + '<br>';
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
+                    //cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target=".modalReserva" onclick="modalReserva(' + obj[i].id + ')"></button></center></td>';
+                    cont += '</tr>';
+                });
+            }
 
             cont += '</tbody></table>';
             cont += '<script>$("#tb-res").DataTable();</script>';
@@ -267,32 +296,60 @@ function carregaSolicitacoes() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-solicitacao" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
-            cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 11%;">Dia da Semana</th>';
-            cont += '<th style="width: 15%;">Softwares</th><th style="width: 3%;">Opções</th>';
-            cont += '</tr></thead><tbody>';
 
-            $.each(obj, function (i, item) {
-                cont += '<tr>';
-                cont += '<td>' + obj[i].id + '</td>';
-                cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
-                cont += '<td>';
-                for (var j = 0; j < obj[i].modulos.length; j++) {
-                    cont += obj[i].modulos[j].id + 'º módulo';
-                    cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
-                }
-                cont += '</td>';
-                cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
-                cont += '<td>' + obj[i].diaSemana + '</td>';
-                cont += '<td>';
-                for (var j = 0; j < obj[i].softwares.length; j++) {
-                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
-                    cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
-                }
-                cont += '</td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalSolicitacao(' + obj[i].id + ')"></button></center></td>';
-                cont += '</tr>';
-            });
+            if (acesso === 'admin' || acesso === 'funcionario') {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+                cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 11%;">Dia da Semana</th>';
+                cont += '<th style="width: 15%;">Softwares</th><th style="width: 3%;">Opções</th>';
+                cont += '</tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr>';
+                    cont += '<td>' + obj[i].id + '</td>';
+                    cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].modulos.length; j++) {
+                        cont += obj[i].modulos[j].id + 'º módulo';
+                        cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
+                    cont += '<td>' + obj[i].diaSemana + '</td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myModal" onclick="modalSolicitacao(' + obj[i].id + ')"></button></center></td>';
+                    cont += '</tr>';
+                });
+            } else {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 10%;">Professor</th>';
+                cont += '<th style="width: 1%;">Módulos</th><th>Turma</th><th style="width: 11%;">Dia da Semana</th>';
+                cont += '<th style="width: 15%;">Softwares</th>';
+                cont += '</tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr>';
+                    cont += '<td>' + obj[i].id + '</td>';
+                    cont += '<td><a href="#" onclick="getUser(\'' + obj[i].pessoa.username + '\'); return false;"  data-toggle="modal" data-target="#modalPerfil">' + obj[i].pessoa.shownName + '</a></td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].modulos.length; j++) {
+                        cont += obj[i].modulos[j].id + 'º módulo';
+                        cont += (i == obj[i].modulos.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td>' + obj[i].turma + ' de ' + obj[i].curso.modalidade + ' em ' + obj[i].curso.nome + '</td>';
+                    cont += '<td>' + obj[i].diaSemana + '</td>';
+                    cont += '<td>';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td></tr>';
+                });
+            }
 
             cont += '</tbody></table>';
             cont += '<script>$("#tb-solicitacao").DataTable();</script>';

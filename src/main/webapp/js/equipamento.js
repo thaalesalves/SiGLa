@@ -44,29 +44,56 @@ function carregaEquip() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-res" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 1%;">NetBIOS</th>';
-            cont += '<th style="width: 1%;">Laboratório</th><th style="width: 1%;">IP</th>';
-            cont += '<th style="width: 2%;">MAC</th><th style="width: 2%;">Configuração</th>';
-            cont += '<th style="width: 1%;">Status</th><th style="width: 1%;">Opções</th></tr></thead><tbody>';
-            $.each(obj, function (i, item) {
-                var status;
-                if (obj[i].status == 1) {
-                    status = "Em ordem";
-                } else {
-                    status = "Retirado";
-                }
 
-                cont += '<tr>';
-                cont += '<td data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
-                cont += '<td>' + obj[i].nome + '</td>';
-                cont += '<td>' + obj[i].lab.numero + '</td>';
-                cont += '<td>' + obj[i].ip + '</td>';
-                cont += '<td>' + obj[i].mac + '</td>';
-                cont += '<td>' + obj[i].config + '</td>';
-                cont += '<td>' + status + '</td>';
-                cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')"></button></center></td>';
-                cont += '</tr>';
-            });
+            if (acesso === 'admin' || acesso === 'funcionario') {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 1%;">NetBIOS</th>';
+                cont += '<th style="width: 1%;">Laboratório</th><th style="width: 1%;">IP</th>';
+                cont += '<th style="width: 2%;">MAC</th><th style="width: 2%;">Configuração</th>';
+                cont += '<th style="width: 1%;">Status</th><th style="width: 1%;">Opções</th></tr></thead><tbody>';
+                $.each(obj, function (i, item) {
+                    var status;
+                    if (obj[i].status == 1) {
+                        status = "Em ordem";
+                    } else {
+                        status = "Retirado";
+                    }
+
+                    cont += '<tr>';
+                    cont += '<td data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
+                    cont += '<td>' + obj[i].nome + '</td>';
+                    cont += '<td>' + obj[i].lab.numero + '</td>';
+                    cont += '<td>' + obj[i].ip + '</td>';
+                    cont += '<td>' + obj[i].mac + '</td>';
+                    cont += '<td>' + obj[i].config + '</td>';
+                    cont += '<td>' + status + '</td>';
+                    cont += '<td class="center"><center><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')"></button></center></td>';
+                    cont += '</tr>';
+                });
+            } else {
+                cont += '<thead><tr><th style="width: 1%;">#</th><th style="width: 1%;">NetBIOS</th>';
+                cont += '<th style="width: 1%;">Laboratório</th><th style="width: 1%;">IP</th>';
+                cont += '<th style="width: 2%;">MAC</th><th style="width: 2%;">Configuração</th>';
+                cont += '<th style="width: 1%;">Status</th></tr></thead><tbody>';
+                $.each(obj, function (i, item) {
+                    var status;
+                    if (obj[i].status == 1) {
+                        status = "Em ordem";
+                    } else {
+                        status = "Retirado";
+                    }
+
+                    cont += '<tr>';
+                    cont += '<td data-toggle="modal" data-target="#myEquip" onclick="modalEquipamento(' + obj[i].id + ')">' + obj[i].id + '</td>';
+                    cont += '<td>' + obj[i].nome + '</td>';
+                    cont += '<td>' + obj[i].lab.numero + '</td>';
+                    cont += '<td>' + obj[i].ip + '</td>';
+                    cont += '<td>' + obj[i].mac + '</td>';
+                    cont += '<td>' + obj[i].config + '</td>';
+                    cont += '<td>' + status + '</td>';
+                    cont += '</tr>';
+                });
+            }
+
             cont += '</tbody></table>';
             cont += '<script>$("#tb-res").DataTable();</script>';
             $('#tb-div').append(cont);

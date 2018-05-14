@@ -41,6 +41,7 @@
                                     <label>Professor</label>                                            
                                 </div>
                             </td>
+                            <% if (!p.getRole().equals("professor")) { %>
                             <td id="td-prof-combo" style="padding-left: 17.2%;display:none;">
                                 <select class="select2 form-control" data-placeholder="Selecione um professor" style="width: 100%;" id="modalProfessoresCombo" name="modalProfessoresCombo">                                   
                                     <% for (Pessoa pessoa : (ArrayList<Pessoa>) session.getAttribute("todos-usuarios")) {%>
@@ -48,6 +49,7 @@
                                     <% }%>
                                 </select>
                             </td>
+                            <% } %>
                             <td id="td-prof-txt" style="padding-left: 17.2%;display:none;">
                                 <input style="width: 100%;" disabled type='text' class='form-control pull-right' name="modalProfessor" id="modalProfessor" placeholder="Nome do Professor" />
                             </td>

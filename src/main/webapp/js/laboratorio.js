@@ -30,26 +30,46 @@ function populaLabs() {
         complete: function (e) {
             var obj = JSON.parse(e.responseText);
             var cont = '<table id="tb-lab" class="table table-bordered table-hover">';
-            cont += '<thead><tr><th style="width: 1%;">#</th>';
-            cont += '<th>Número</th><th>Qtd. de Computadores</th><th>Capacidade de Alunos</th><th>Softwares</th><th style="width: 7%;">Opções';
-            cont += '</th></tr></thead><tbody>';
 
-            $.each(obj, function (i, item) {
-                cont += '<tr class="gradeC">';
-                cont += '<td class="center">' + obj[i].id + '</td>';
-                cont += '<td class="center">' + obj[i].numero + '</td>';
-                cont += '<td class="center">' + obj[i].computadores + '</td>';
-                cont += '<td class="center">' + obj[i].capacidade + '</td>';
-                cont += '<td class="center">';
-                for (var j = 0; j < obj[i].softwares.length; j++) {
-                    cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
-                    cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
-                }
-                cont += '</td>';
-                cont += '<td class="center"><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modalLab" onclick="modalLab(' + obj[i].id + ')"></button><span>&#32; &#32; &#32;' +
-                        '</span><button type="submit" class="btn btn-default fa fa-close" onclick="removeLab(' + obj[i].id + ')"></button></td>';
-                cont += '</tr>';
-            });
+            if (acesso === 'admin' || acesso === 'funcionario') {
+                cont += '<thead><tr><th style="width: 1%;">#</th>';
+                cont += '<th>Número</th><th>Qtd. de Computadores</th><th>Capacidade de Alunos</th><th>Softwares</th><th style="width: 7%;">Opções';
+                cont += '</th></tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr class="gradeC">';
+                    cont += '<td class="center">' + obj[i].id + '</td>';
+                    cont += '<td class="center">' + obj[i].numero + '</td>';
+                    cont += '<td class="center">' + obj[i].computadores + '</td>';
+                    cont += '<td class="center">' + obj[i].capacidade + '</td>';
+                    cont += '<td class="center">';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td>';
+                    cont += '<td class="center"><button type="button" class="btn btn-default fa fa-wrench" data-toggle="modal" data-target="#modalLab" onclick="modalLab(' + obj[i].id + ')"></button><span>&#32; &#32; &#32;' +
+                            '</span><button type="submit" class="btn btn-default fa fa-close" onclick="removeLab(' + obj[i].id + ')"></button></td>';
+                    cont += '</tr>';
+                });
+            } else {
+                cont += '<thead><tr><th style="width: 1%;">#</th>';
+                cont += '<th>Número</th><th>Qtd. de Computadores</th><th>Capacidade de Alunos</th><th>Softwares</th></tr></thead><tbody>';
+
+                $.each(obj, function (i, item) {
+                    cont += '<tr class="gradeC">';
+                    cont += '<td class="center">' + obj[i].id + '</td>';
+                    cont += '<td class="center">' + obj[i].numero + '</td>';
+                    cont += '<td class="center">' + obj[i].computadores + '</td>';
+                    cont += '<td class="center">' + obj[i].capacidade + '</td>';
+                    cont += '<td class="center">';
+                    for (var j = 0; j < obj[i].softwares.length; j++) {
+                        cont += obj[i].softwares[j].fabricante + " " + obj[i].softwares[j].nome;
+                        cont += (i == obj[i].softwares.length - 1) ? "" : "<br>";
+                    }
+                    cont += '</td></tr>';
+                });
+            }
 
             cont += '</tbody></table>';
             cont += '<script>$("#tb-lab").DataTable();</script>';

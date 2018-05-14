@@ -1,3 +1,5 @@
+<script>caminho = "<%=request.getContextPath()%>";</script>
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -11,26 +13,16 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
+                
         <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
+        <ul id class="sidebar-menu">
             <li class="header">MENU</li>
             <li class="treeview">
                 <a href="${pageContext.request.contextPath}/">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li id="menu-conf" class="treeview">
-                <a href="#">
-                    <i class="fa fa-gears"></i> <span>Administração</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li id="item-admin-ad"><a href="${pageContext.request.contextPath}/admin/activedirectory"><i class="fa fa-circle-o"></i> <span>Active Directory</span></a></li>
-                    <li id="item-admin-db"><a href="${pageContext.request.contextPath}/admin/database"><i class="fa fa-circle-o"></i> Banco de Dados</a></li>
-                </ul>
-            </li>
+            <li id="menu-conf" class="treeview"></li>
             <li id="menu-reserva" class="treeview">
                 <a href="#">
                     <i class="fa fa-calendar"></i> <span>Reservas</span>
@@ -38,11 +30,11 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="treeview-menu" id='items-menu-reserva'>
                     <li id="item-reserva-novo"><a href="${pageContext.request.contextPath}/controle/nova-reserva"><i class="fa fa-circle-o"></i> <span>Reservar</span></a></li>
-                    <li id='item-solicitacoes'><a href="${pageContext.request.contextPath}/reserva/solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
                     <li id='item-reservas'><a href="${pageContext.request.contextPath}/reserva/lista"><i class="fa fa-circle-o"></i> Reservas</a></li>
                     <li id='item-reservas-dia'><a href="${pageContext.request.contextPath}/reserva/hoje"><i class="fa fa-circle-o"></i> Reservas do Dia</a></li>
+                    <li id="item-solicitacoes"><a href="${pageContext.request.contextPath}/reserva/solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>
                 </ul>
             </li>
             <li id="menu-curso" class="treeview">
@@ -52,8 +44,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu">
-                    <li id='item-novo-curso'><a href="${pageContext.request.contextPath}/curso/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>
+                <ul class="treeview-menu" id='items-menu-cursos'>
                     <li id='item-lista-curso'><a href="${pageContext.request.contextPath}/curso/lista"><i class="fa fa-circle-o"></i> <span>Listagem</span></a></li>
                 </ul>
             </li>
@@ -64,7 +55,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="treeview-menu" id='menu-list-software'>
                     <li>
                         <a href="#">
                             <i class="fa fa-edit"></i> <span>Softwares</span>
@@ -72,33 +63,8 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/novo"><i class="fa fa-circle-o"></i>Inserção</a></li>
+                        <ul class="treeview-menu" id='items-menu-soft'>
                             <li id="item-lista-sw" class="treeview menu-open"><a href="${pageContext.request.contextPath}/software/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-edit"></i> <span>Licenças</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
-                            <li id="item-lista-licenca" class="treeview menu-open"><a href="${pageContext.request.contextPath}/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
-                        </ul>
-                    </li>
-                    <li id='item-lista-equip'>
-                        <a href="#">
-                            <i class="fa fa-desktop"></i> <span>Fornecedores</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-fornecedor" class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
-                            <li id="item-lista-fornecedor" class="treeview menu-open"><a href="${pageContext.request.contextPath}/fornecedor/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -118,8 +84,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-lab" class="treeview menu-open"><a href="${pageContext.request.contextPath}/laboratorio/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+                        <ul class="treeview-menu" id='items-menu-lab'>
                             <li id="item-lista-lab" class="treeview menu-open"><a href="${pageContext.request.contextPath}/laboratorio/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>
@@ -130,8 +95,7 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li id="item-novo-equip" class="treeview menu-open"><a href="${pageContext.request.contextPath}/equip/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>
+                        <ul class="treeview-menu" id='items-menu-equip'>
                             <li class="treeview menu-open"><a href="${pageContext.request.contextPath}/equip/lista"><i class="fa fa-circle-o"></i>Listagem</a></li>
                         </ul>
                     </li>

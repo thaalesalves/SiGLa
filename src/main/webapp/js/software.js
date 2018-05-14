@@ -237,7 +237,7 @@ function modalFornecedor(id) {
         cache: false,
         dataType: 'JSON',
         complete: function (e) {
-            $('#lista-codigos').html("");
+            $('#lista-reps').html("");
             var json = JSON.parse(e.responseText);
             var table = '<tr><td><div class="form-group"><label class="soli-tit">Representantes <a data-toggle="modal" data-target="#modal-add-rep" style="font-size:8px;">(adicionar)</a></label></div></td></tr>';
 
