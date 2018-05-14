@@ -67,12 +67,17 @@ Copyright (C) 2016 Thales Alves Pereira
         <script>
             var msg = "<%=msg%>";
             var status = "<%=status%>";
+            var contextPath = '<%=request.getContextPath()%>';
             $(document).ready(function () {
                 acesso = "<%=p.getRole()%>";
                 notify(msg, status, "erro");
             });
         </script>  
         <script src="${pageContext.request.contextPath}/js/menus.js" type="text/javascript"></script>
+        <script>
+            contextPath = "<%=request.getContextPath()%>";
+            console.log('ESTOU NO INDEX: ' + contextPath);
+        </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
         <div class="wrapper">
