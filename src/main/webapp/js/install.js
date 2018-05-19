@@ -50,7 +50,7 @@ function configDb() {
 function enviar() {
     var formInstalacao = $('#install-form').serialize();
 
-    loadPage();
+    //loadPage();
 
     $.ajax({
         url: contextPath + 'controller/?acao=Configuration&op=install&' + formInstalacao,
@@ -58,7 +58,7 @@ function enviar() {
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
             throw xhr.status + ': ' + thrownError;
-            $('body').waitMe('hide');
+            //$('body').waitMe('hide');
             notify("error", "Erro ao configurar o SiGLa", "Erro!");
         },
         success: function (e) {
