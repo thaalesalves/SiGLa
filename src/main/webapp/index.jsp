@@ -72,7 +72,7 @@ Copyright (C) 2016 Thales Alves Pereira
                 <form action="${pageContext.request.contextPath}/controller/" method="post" name="frm_login">
                     <input autofocus autocomplete="off" name="username" id="username" required type="text" placeholder="Usuário"/>
                     <input autocomplete="off" name="password" id="password" required type="password" placeholder="Senha"/>
-                    <button id="login" onclick="loadPage();" class="btn btn-default submit" value="Login" name="acao" type="submit">Entrar</button>
+                    <button id="login" class="btn btn-default submit" value="Login" name="acao" type="submit">Entrar</button>
                 </form>
             </div>
         </div>

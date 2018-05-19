@@ -373,11 +373,12 @@ Copyright (C) 2016 Thales Alves Pereira
                                                         <input readonly type="text" class="form-control" id="dt-netbios">
                                                     </div>
                                                 </div>    
+                                                
                                             </div>
                                             <div class="box-footer">
                                                 <ul class="list-inline pull-right">
-                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
-                                                    <!--li><button type="submit" name="acao" value="Configuration" class="btn btn-primary btn-info-full next-step" onclick="loadPage()">Completar</button></li-->
+                                                    <!--li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li-->
+                                                    <li><button type="submit" name="acao" value="Configuration" class="btn btn-primary btn-info-full">Completar</button></li>
                                                 </ul>
                                             </div>
                                         </div>                                    
