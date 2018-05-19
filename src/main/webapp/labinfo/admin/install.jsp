@@ -64,7 +64,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <link href="${pageContext.request.contextPath}/css/wizard.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/wizard.js" type="text/javascript"></script>
-        <link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/>
+        <!--link href="${pageContext.request.contextPath}/css/waitMe.css" rel="stylesheet" type="text/css"/-->
         <link href="${pageContext.request.contextPath}/css/sweetalert.css" rel="stylesheet" type="text/css"/>
         <script src="${pageContext.request.contextPath}/js/sweetalert.min.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/install.js" type="text/javascript"></script>        
@@ -314,7 +314,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                         <div class="box-footer">
                                             <ul class="list-inline pull-right">
                                                 <!--li><button type="button" class="btn btn-primary next-step">Avançar</button></li-->
-                                                <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                                <!--li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li-->
+                                                <li><button type="submit" name="acao" value="Configuration" class="btn btn-primary">Completar</button></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -377,8 +378,8 @@ Copyright (C) 2016 Thales Alves Pereira
                                             </div>
                                             <div class="box-footer">
                                                 <ul class="list-inline pull-right">
-                                                    <!--li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li-->
-                                                    <li><button type="submit" name="acao" value="Configuration" class="btn btn-primary">Completar</button></li>
+                                                    <li><button type="button" class="btn btn-primary btn-info-full next-step" onclick="enviar()">Completar</button></li>
+                                                    <li><button type="submit" name="acao" value="Configuration" class="btn btn-primary">Completar2</button></li>
                                                 </ul>
                                             </div>
                                         </div>                                    
@@ -414,7 +415,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/app.min.js"></script>
         <script src="${pageContext.request.contextPath}/dist/js/demo.js"></script>
-        <script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script>
+        <!--script src="${pageContext.request.contextPath}/js/waitMe.js" type="text/javascript"></script-->
 
         <script>
                                                         $(document).ready(function () {
