@@ -21,35 +21,7 @@ var acesso;
 
 console.log('ESTOU NO JS: ' + contextPath);
 
-var menuCadastroEquipamento = '<li id="item-novo-equip" class="treeview menu-open"><a href="' + contextPath + '/equip/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>';
-var menuCadastroLaboratorio = '<li id="item-novo-lab" class="treeview menu-open"><a href="' + contextPath + '/laboratorio/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li>';
-var menuCadastroSoftware = '<li id="item-novo-sw" class="treeview menu-open"><a href="' + contextPath + '/software/novo"><i class="fa fa-circle-o"></i>Inserção</a></li>';
-var menuCadastroCurso = '<li id="item-novo-curso"><a href="' + contextPath + '/curso/novo"><i class="fa fa-circle-o"></i> <span>Inserção</span></a></li>';
-var menuFornecedor = '<li id="item-lista-equip"> <a href="#"> <i class="fa fa-desktop"></i> <span>Fornecedores</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-novo-fornecedor" class="treeview menu-open"><a href="' + contextPath + '/fornecedor/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li><li id="item-lista-fornecedor" class="treeview menu-open"><a href="' + contextPath + '/fornecedor/lista"><i class="fa fa-circle-o"></i>Listagem</a></li></ul> </li>';
-var menuLicenca = '<li> <a href="#"> <i class="fa fa-edit"></i> <span>Licenças</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-novo-licenca" class="treeview menu-open"><a href="' + contextPath + '/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li><li id="item-lista-licenca" class="treeview menu-open"><a href="' + contextPath + '/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li></ul> </li>';
-var menuAdministracao = '<a href="#"> <i class="fa fa-gears"></i> <span>Administração</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-admin-ad"><a href="' + contextPath + '/admin/activedirectory"><i class="fa fa-circle-o"></i> <span>Active Directory</span></a></li><li id="item-admin-db"><a href="' + contextPath + '/admin/database"><i class="fa fa-circle-o"></i> Banco de Dados</a></li></ul>';
-
-$(document).ready(function () {
-    switch (acesso) {
-        case "funcionario":
-            $('#items-menu-lab').prepend(menuCadastroLaboratorio);
-            $('#items-menu-equip').prepend(menuCadastroEquipamento);
-            $('#items-menu-soft').prepend(menuCadastroSoftware);
-            $('#items-menu-cursos').prepend(menuCadastroCurso);
-            $('#menu-conf').append(menuAdministracao);
-            $('#menu-list-software').append(menuLicenca);
-            $('#menu-list-software').append(menuFornecedor);
-            break;
-        case "admin":
-            $('#items-menu-lab').prepend(menuCadastroLaboratorio);
-            $('#items-menu-equip').prepend(menuCadastroEquipamento);
-            $('#items-menu-soft').prepend(menuCadastroSoftware);
-            $('#items-menu-cursos').prepend(menuCadastroCurso);
-            $('#menu-conf').append(menuAdministracao);
-            $('#menu-list-software').append(menuLicenca);
-            $('#menu-list-software').append(menuFornecedor);
-            break;
-    }
+$(document).ready(function() {
     if (acesso == "admin" || acesso == "funcionario" || acesso == "estagiario") {
         $.ajax({
             url: contextPath + '/JsonController?acao=Contador',

@@ -1,4 +1,5 @@
-<script>caminho = "<%=request.getContextPath()%>";</script>
+<script>var contextPath = "<%=request.getContextPath()%>";</script>
+<script src="${pageContext.request.contextPath}/js/sidebar.js" type="text/javascript"></script>
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -13,7 +14,7 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-                
+
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul id class="sidebar-menu">
             <li class="header">MENU</li>
