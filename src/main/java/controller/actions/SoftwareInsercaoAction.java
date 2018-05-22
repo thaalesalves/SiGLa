@@ -42,7 +42,6 @@ public class SoftwareInsercaoAction implements ICommand {
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
-            ActiveDirectory ad = (ActiveDirectory) session.getAttribute("ad");
             Software s = new Software();
             DAOFactory fac = DAOFactory.getFactory();
 
