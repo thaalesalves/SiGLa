@@ -4,4 +4,4 @@
 /log/stdout.log
 .DS_Store
 SiGLa.vpp.bak_*
-*.vpp.lck
+.SiGLa.vpp.lck
