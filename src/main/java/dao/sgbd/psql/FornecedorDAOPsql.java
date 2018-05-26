@@ -90,4 +90,16 @@ public class FornecedorDAOPsql implements FornecedorDAO {
 
         return fornecedores;
     }
+
+    @Override
+    public void delete(Fornecedor fornecedor) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tb_fornecedor WHERE id = ?");
+            pstmt.setInt(1, fornecedor.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, FornecedorDAOPsql.class);
+        }
+    }
 }

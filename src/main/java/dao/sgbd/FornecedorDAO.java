@@ -27,4 +27,6 @@ public interface FornecedorDAO {
     public Fornecedor select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
 
     public List<Fornecedor> select() throws SQLException, ClassNotFoundException;
+    
+    public void delete(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
 }

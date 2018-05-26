@@ -117,4 +117,16 @@ public class RepresentanteDAOPsql implements RepresentanteDAO {
 
         return representantes;
     }
+
+    @Override
+    public void delete(Representante representante) throws SQLException, ClassNotFoundException {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tb_representante WHERE id = ?");
+            pstmt.setInt(1, representante.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, Representante.class);
+        }
+    }
 }

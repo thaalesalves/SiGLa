@@ -30,4 +30,6 @@ public interface RepresentanteDAO {
     public List<Representante> select(Fornecedor fornecedor) throws SQLException, ClassNotFoundException;
 
     public List<Representante> select() throws SQLException, ClassNotFoundException;
+    
+    public void delete(Representante representante) throws SQLException, ClassNotFoundException;
 }
