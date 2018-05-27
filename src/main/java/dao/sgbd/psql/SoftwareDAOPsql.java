@@ -151,6 +151,32 @@ public class SoftwareDAOPsql implements dao.sgbd.SoftwareDAO {
 
         return sws;
     }
+    
+    @Override
+    public ArrayList<Software> selectAllActive() throws SQLException, NullPointerException, ClassNotFoundException {
+        ArrayList<Software> sws = new ArrayList<Software>();
+
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT sw.id, sw.nome, sw.fabricante FROM tb_software sw, tb_licenca l WHERE l.status = 1 AND l.software = sw.id");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Software sw = new Software();
+
+                sw.setId(rs.getInt("id"));
+                sw.setNome(rs.getString("nome"));
+                sw.setFabricante(rs.getString("fabricante"));
+
+                sws.add(sw);
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, SoftwareDAOPsql.class);
+        }
+
+        return sws;
+    }
 
     @Override
     public Software selectId(Software s) throws SQLException, NullPointerException, ClassNotFoundException {

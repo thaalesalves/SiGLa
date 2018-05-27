@@ -45,4 +45,6 @@ public interface SoftwareDAO {
     public Software selectLicenca(Software sw) throws SQLException, ClassNotFoundException;
     
     public void delete(Software sw) throws SQLException, ClassNotFoundException;
+    
+    public ArrayList<Software> selectAllActive() throws SQLException, NullPointerException, ClassNotFoundException;
 }

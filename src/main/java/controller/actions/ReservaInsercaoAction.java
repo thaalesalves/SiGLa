@@ -45,7 +45,7 @@ public class ReservaInsercaoAction implements ICommand {
             Reserva reserva = new Reserva();
             DAOFactory fac = DAOFactory.getFactory();
 
-            ArrayList<Software> softwares = fac.getSoftwareDAO().selectAll();
+            ArrayList<Software> softwares = fac.getSoftwareDAO().selectAllActive();
             ArrayList<Curso> cursos = fac.getCursoDAO().selectAll();
 
             reserva.setCursos(cursos);
@@ -54,16 +54,12 @@ public class ReservaInsercaoAction implements ICommand {
             session.setAttribute("reserva", reserva);
         } catch (Exception e) {
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + " (" + u.getUsername() + ") tentou "
-                    + "inserir uma reserva.");
-            session.setAttribute("msg", "Erro ao inserir reserva.");
-            session.setAttribute("status", "error");
+                    + "carregar página de inserir reservas.");
             util.Logger.logSevere(e, this.getClass());
             return request.getContextPath() + "/reserva/novo";
         }
 
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") criou uma reserva.");
-        session.setAttribute("msg", "Reserva inserida com sucesso.");
-        session.setAttribute("status", "success");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") carregou a página de inserir reservas.");
         return request.getContextPath() + "/reserva/novo";
     }
 }
