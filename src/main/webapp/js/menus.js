@@ -24,7 +24,7 @@ console.log('ESTOU NO JS: ' + contextPath);
 $(document).ready(function() {
     if (acesso == "admin" || acesso == "funcionario" || acesso == "estagiario") {
         $.ajax({
-            url: contextPath + '/JsonController?acao=Contador',
+            url: contextPath + '/api?acao=Contador',
             type: 'POST',
             cache: false,
             dataType: 'JSON',
@@ -38,7 +38,7 @@ $(document).ready(function() {
         if (acesso == "admin" || acesso == "funcionario" || acesso == "estagiario") {
             $("#res-notif").empty();
             $.ajax({
-                url: contextPath + '/JsonController?acao=Contador',
+                url: contextPath + '/api?acao=Contador',
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',

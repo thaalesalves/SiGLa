@@ -19,7 +19,7 @@ var contextPath;
 
 function getUser(username) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=UsuarioId&username=' + username,
+        url: contextPath + '/api?acao=UsuarioId&username=' + username,
         type: 'POST',
         cache: false,
         dataType: 'JSON',

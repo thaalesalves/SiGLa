@@ -24,7 +24,7 @@ function removerSoftware() {
 
 function carregaSoftware() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=SoftwareListagem',
+        url: contextPath + '/api?acao=SoftwareListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -53,7 +53,7 @@ function carregaSoftware() {
 
 function carregaFornecedores() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=FornecedorListagem',
+        url: contextPath + '/api?acao=FornecedorListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -86,7 +86,7 @@ function carregaLicencas() {
     console.log('Carregando licenças');
     $('#tb-div').html('');
     $.ajax({
-        url: contextPath + '/JsonController?acao=LicencaListagem',
+        url: contextPath + '/api?acao=LicencaListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -123,7 +123,7 @@ function carregaLicencasAtivas() {
     console.log('Carregando licenças');
     $('#tb-div').html('');
     $.ajax({
-        url: contextPath + '/JsonController?acao=LicencaListagemAtivado',
+        url: contextPath + '/api?acao=LicencaListagemAtivado',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -160,7 +160,7 @@ function carregaLicencasDesativas() {
     console.log('Carregando licenças');
     $('#tb-div').html('');
     $.ajax({
-        url: contextPath + '/JsonController?acao=LicencaListagemDesativado',
+        url: contextPath + '/api?acao=LicencaListagemDesativado',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -196,7 +196,7 @@ function carregaLicencasDesativas() {
 function modalLicenca(id, sw) {
     swId = sw;
     $.ajax({
-        url: contextPath + '/JsonController?acao=LicencaListagemId&id=' + id,
+        url: contextPath + '/api?acao=LicencaListagemId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -232,7 +232,7 @@ function modalLicenca(id, sw) {
 
 function modalFornecedor(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=FornecedorListagemId&id=' + id,
+        url: contextPath + '/api?acao=FornecedorListagemId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -285,7 +285,7 @@ function desativarLicenca() {
 
 function adicionarLicenca() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=SoftwareListagem',
+        url: contextPath + '/api?acao=SoftwareListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

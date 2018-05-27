@@ -65,7 +65,7 @@ function removerReserva() {
 
 function carregaReservas() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=Reserva',
+        url: contextPath + '/api?acao=Reserva',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -143,7 +143,7 @@ function carregaReservas() {
 
 function carregaReservasProfessor() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=ReservaProfessor',
+        url: contextPath + '/api?acao=ReservaProfessor',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -191,7 +191,7 @@ function carregaReservasProfessor() {
 
 function carregaReservasDia() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=ReservaDia',
+        url: contextPath + '/api?acao=ReservaDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -238,7 +238,7 @@ function carregaReservasDia() {
 
 function carregaReservasDiaProfessor() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=ReservaProfessorDia',
+        url: contextPath + '/api?acao=ReservaProfessorDia',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -285,7 +285,7 @@ function carregaReservasDiaProfessor() {
 
 function carregaSolicitacoes() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=Solicitacao',
+        url: contextPath + '/api?acao=Solicitacao',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -360,7 +360,7 @@ function carregaSolicitacoes() {
 
 function modalLaboratorio(dia, modulo, softwares) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo.toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + dia + '&softwares=' + softwares.toString().replace(/[^0-9\.]/g, '').split(''),
+        url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + modulo.toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + dia + '&softwares=' + softwares.toString().replace(/[^0-9\.]/g, '').split(''),
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -389,7 +389,7 @@ function modalSolicitacao(id) {
     var dia;
 
     $.ajax({
-        url: contextPath + '/JsonController?acao=SolicitacaoId&id=' + id,
+        url: contextPath + '/api?acao=SolicitacaoId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -444,7 +444,7 @@ function modalSolicitacao(id) {
             modulos = modulos.split('');
 
             $.ajax({
-                url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulos + '&dia=' + dia + '&softwares=' + softwares,
+                url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + modulos + '&dia=' + dia + '&softwares=' + softwares,
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',
@@ -473,7 +473,7 @@ var labAtual;
 var labId;
 function modalReserva(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=ReservaId&id=' + id,
+        url: contextPath + '/api?acao=ReservaId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -524,7 +524,7 @@ function modalReserva(id) {
             }
 
             $.ajax({
-                url: contextPath + '/JsonController?acao=SoftwareListagem',
+                url: contextPath + '/api?acao=SoftwareListagem',
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',
@@ -614,7 +614,7 @@ function modalReserva(id) {
             });
 
             $.ajax({
-                url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + $("#modalModulo").val().toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + jsonSolicitacao.diaDaSemana.replace('%C3%A7', 'ç') + '&softwares=' + $("#modalSoftwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
+                url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + $("#modalModulo").val().toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + jsonSolicitacao.diaDaSemana.replace('%C3%A7', 'ç') + '&softwares=' + $("#modalSoftwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',
@@ -641,7 +641,7 @@ function modalReserva(id) {
 
 function modalReservaItem(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=ReservaId&id=' + id,
+        url: contextPath + '/api?acao=ReservaId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -692,7 +692,7 @@ function modalReservaItem(id) {
             }
 
             $.ajax({
-                url: contextPath + '/JsonController?acao=SoftwareListagem',
+                url: contextPath + '/api?acao=SoftwareListagem',
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',
@@ -782,7 +782,7 @@ function modalReservaItem(id) {
             });
 
             $.ajax({
-                url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + $("#modalModulo").val().toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + jsonSolicitacao.diaDaSemana.replace('%C3%A7', 'ç') + '&softwares=' + $("#modalSoftwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
+                url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + $("#modalModulo").val().toString().replace(/[^0-9\.]/g, '').split('') + '&dia=' + jsonSolicitacao.diaDaSemana.replace('%C3%A7', 'ç') + '&softwares=' + $("#modalSoftwares").val().toString().replace(/[^0-9\.]/g, '').split(''),
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',

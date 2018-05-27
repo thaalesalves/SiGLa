@@ -19,7 +19,7 @@ var contextPath;
 
 function carregaCurso() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=CursoListagem',
+        url: contextPath + '/api?acao=CursoListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',

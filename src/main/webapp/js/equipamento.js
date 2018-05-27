@@ -19,7 +19,7 @@ var reservas;
 var contextPath;
 function carregaLabs() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratorioListagem',
+        url: contextPath + '/api?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -37,7 +37,7 @@ function carregaLabs() {
 
 function carregaEquip() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=EquipamentoListagem',
+        url: contextPath + '/api?acao=EquipamentoListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -103,7 +103,7 @@ function carregaEquip() {
 
 function equipLabs() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratorioListagem',
+        url: contextPath + '/api?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -122,7 +122,7 @@ function equipLabs() {
 
 function modalEquipamento(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=EquipamentoId&id=' + id,
+        url: contextPath + '/api?acao=EquipamentoId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -168,7 +168,7 @@ function modalEquipamento(id) {
 
 function modalIncidente(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=Incidente&id=' + id,
+        url: contextPath + '/api?acao=Incidente&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',

@@ -23,7 +23,7 @@ function removeLab(id) {
 
 function populaLabs() {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratorioListagem',
+        url: contextPath + '/api?acao=LaboratorioListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -80,7 +80,7 @@ function populaLabs() {
 
 function populaSolicitacaoLabs(modulo, dia, software, qtd) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software + '&qtd-alunos=' + qtd,
+        url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + modulo + '&dia=' + dia + '&softwares=' + software + '&qtd-alunos=' + qtd,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -105,7 +105,7 @@ function populaSolicitacaoLabs(modulo, dia, software, qtd) {
 
 function modalLab(id) {
     $.ajax({
-        url: contextPath + '/JsonController?acao=SoftwareListagem',
+        url: contextPath + '/api?acao=SoftwareListagem',
         type: 'POST',
         cache: false,
         dataType: 'JSON',
@@ -122,7 +122,7 @@ function modalLab(id) {
     });
 
     $.ajax({
-        url: contextPath + '/JsonController?acao=LaboratorioId&id=' + id,
+        url: contextPath + '/api?acao=LaboratorioId&id=' + id,
         type: 'POST',
         cache: false,
         dataType: 'JSON',
