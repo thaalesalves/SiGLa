@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package timer;
+package util.timer;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

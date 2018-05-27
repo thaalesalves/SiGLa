@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package timer;
+package util.timer;
 
 import dao.DAOFactory;
 import java.text.SimpleDateFormat;
@@ -47,12 +47,12 @@ public class VencimentoLicenca implements Job {
         TRES_DIAS(3, new VencimentoTresDiasMail()),
         SETE_DIAS(7, new VencimentoSeteDiasMail());
 
-        private Integer quantidadeDias;
-        private Mail emailNotificacao;
+        private final Integer QUANTIDADE_DIAS;
+        private final Mail EMAIL_NOTIFICACAO;
 
-        private VENCIMENTO_LICENCA(Integer quantidadeDias, Mail emailNotificacao) {
-            this.quantidadeDias = quantidadeDias;
-            this.emailNotificacao = emailNotificacao;
+        private VENCIMENTO_LICENCA(Integer QUANTIDADE_DIAS, Mail EMAIL_NOTIFICACAO) {
+            this.QUANTIDADE_DIAS = QUANTIDADE_DIAS;
+            this.EMAIL_NOTIFICACAO = EMAIL_NOTIFICACAO;
         }
     }
 
@@ -63,7 +63,7 @@ public class VencimentoLicenca implements Job {
 
             for (VENCIMENTO_LICENCA prazo : VENCIMENTO_LICENCA.values()) {
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, prazo.quantidadeDias);
+                cal.add(Calendar.DATE, prazo.QUANTIDADE_DIAS);
                 Date date = data.parse(data.format(cal.getTime()));
                 Licenca l = new Licenca();
                 l.setDataVencimento(IO.getData(data.format(cal.getTime())));
@@ -72,9 +72,9 @@ public class VencimentoLicenca implements Job {
 
                 for (Licenca i : licencas) {
                     Logger.logOutput(i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + "vence "
-                            + ((prazo.quantidadeDias == 0) ? "hoje. " : "em " + prazo.quantidadeDias + " dias (" + i.getDataVencimento() + "). ")
+                            + ((prazo.QUANTIDADE_DIAS == 0) ? "hoje. " : "em " + prazo.QUANTIDADE_DIAS + " dias (" + i.getDataVencimento() + "). ")
                             + "Enviando email de aviso.");
-                    Mail mail = prazo.emailNotificacao;
+                    Mail mail = prazo.EMAIL_NOTIFICACAO;
                     mail.setLicenca(i);
                     mail.sendMail(mail);
 
