@@ -58,6 +58,7 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /pagina/ */
             mapaUrl.put("/pagina/logout", "../controller?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
+            mapaUrl.put("/pagina/login", "../index.jsp");
 
             /* Redirecionamentos de /reserva/ */
             mapaUrl.put("/reserva/novo", "../labinfo/reserva/novo.jsp");
@@ -92,9 +93,6 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /fornecedor/ */
             mapaUrl.put("/fornecedor/novo", "../labinfo/fornecedor/novo.jsp");
             mapaUrl.put("/fornecedor/lista", "../labinfo/fornecedor/lista.jsp");
-            
-            /* Redirecionamentos de / */
-            mapaUrl.put("/login", "../index.jsp");
 
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);
