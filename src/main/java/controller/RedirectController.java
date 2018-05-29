@@ -53,10 +53,10 @@ public class RedirectController extends HttpServlet {
 
             /* Redirecionamentos de /controle/ */
             mapaUrl.put("/controle/contar-solicitacoes", "../CounterController");
-            mapaUrl.put("/controle/nova-reserva", "../AlmightyController?acao=ReservaInsercao");
+            mapaUrl.put("/controle/nova-reserva", "../controller?acao=ReservaInsercao");
 
             /* Redirecionamentos de /pagina/ */
-            mapaUrl.put("/pagina/logout", "../AlmightyController?acao=Logout");
+            mapaUrl.put("/pagina/logout", "../controller?acao=Logout");
             mapaUrl.put("/pagina/home", "../labinfo/index.jsp");
 
             /* Redirecionamentos de /reserva/ */
@@ -92,6 +92,9 @@ public class RedirectController extends HttpServlet {
             /* Redirecionamentos de /fornecedor/ */
             mapaUrl.put("/fornecedor/novo", "../labinfo/fornecedor/novo.jsp");
             mapaUrl.put("/fornecedor/lista", "../labinfo/fornecedor/lista.jsp");
+            
+            /* Redirecionamentos de / */
+            mapaUrl.put("/login", "../index.jsp");
 
             if ((rd = request.getRequestDispatcher(mapaUrl.get(acao))) != null) {
                 rd.forward(request, response);

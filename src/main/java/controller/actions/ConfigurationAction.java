@@ -137,7 +137,7 @@ public class ConfigurationAction implements ICommand {
 
                     Logger.logOutput("Parabéns! O SiGLa foi instalado.");
 
-                    return request.getContextPath();
+                    return request.getContextPath() + "/login";
                 } catch (Exception e) {
                     SiGLa.writeProperty("sigla.auth.domain", "null");
                     util.Logger.logSevere(e, ConfigurationAction.class);
