@@ -18,7 +18,7 @@
 var contextPath;
 
 function removeLab(id) {
-    window.location.href = contextPath + '/AlmightyController?acao=LaboratorioRemocao&id=' + id;
+    window.location.href = contextPath + '/controller?acao=LaboratorioRemocao&id=' + id;
 }
 
 function populaLabs() {

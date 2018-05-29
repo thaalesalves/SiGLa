@@ -35,7 +35,7 @@ function updateAd(input) {
     loadPage();
 
     $.ajax({
-        url: contextPath + '/AlmightyController?acao=ActiveDirectory&op=' + input + '&val=' + val + '&netbios=' + netbios,
+        url: contextPath + '/controller?acao=ActiveDirectory&op=' + input + '&val=' + val + '&netbios=' + netbios,
         type: 'POST',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {

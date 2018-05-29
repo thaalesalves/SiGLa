@@ -35,7 +35,7 @@ function atualizarReserva() {
     loadPage();
 
     $.ajax({
-        url: contextPath + '/AlmightyController?acao=ReservaAtualizacao&professor=' + $("#modalProfessoresCombo").val() + '&dia=' + $("#modalDiaCombo").val() + '&modulo=' + $("#modalModuloCombo").val() + '&lab=' + $("#modalLabCombo").val(),
+        url: contextPath + '/controller?acao=ReservaAtualizacao&professor=' + $("#modalProfessoresCombo").val() + '&dia=' + $("#modalDiaCombo").val() + '&modulo=' + $("#modalModuloCombo").val() + '&lab=' + $("#modalLabCombo").val(),
         type: 'POST',
         cache: false,
         error: function (xhr, ajaxOptions, thrownError) {
@@ -52,15 +52,15 @@ function atualizarReserva() {
 
 function aprovarReserva() {
     parameter = "&solicitacao=" + $("#modalIdSolicitacao").val() + "&laboratorio=" + $("#modalLabCombo").val();
-    window.location.href = contextPath + "/AlmightyController?acao=SolicitacaoAprovacao" + parameter;
+    window.location.href = contextPath + "/controller?acao=SolicitacaoAprovacao" + parameter;
 }
 
 function reprovarReserva() {
-    window.location.href = contextPath + "/AlmightyController?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
+    window.location.href = contextPath + "/controller?solicitacao_id=" + $("#modalIdSolicitacao").val() + "&acao=SolicitacaoRemocao";
 }
 
 function removerReserva() {
-    window.location.href = contextPath + "/AlmightyController?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao&motivo=" + $("#modalRemocao").val();
+    window.location.href = contextPath + "/controller?reserva_id=" + $("#modalIdSolicitacao").val() + "&acao=ReservaRemocao&motivo=" + $("#modalRemocao").val();
 }
 
 function carregaReservas() {

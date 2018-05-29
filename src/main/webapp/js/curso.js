@@ -38,7 +38,7 @@ function carregaCurso() {
                     cont += '<td style="width: 1%;" class="center">' + obj[i].id + '</td>';
                     cont += '<td class="center">' + obj[i].modalidade + '</td>';
                     cont += '<td class="center">' + obj[i].nome + '</td>';
-                    cont += '<td class="center"><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/AlmightyController?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="btn btn-default fa fa-close"></a></td>';
+                    cont += '<td class="center"><span>&#32; &#32; &#32;</span><a href="' + contextPath + '/controller?acao=CursoRemocao&curso_id=' + obj[i].id + '" class="btn btn-default fa fa-close"></a></td>';
                     cont += '</tr>';
                 });
             } else {
