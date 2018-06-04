@@ -71,7 +71,6 @@ function acessoCoordenador() {
     $('#item-novo-curso').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
-    $('#soli-menu').hide();
     $('#item-lista-equip').hide();
 }
 
@@ -82,7 +81,6 @@ function acessoProfessor() {
     $('#item-solicitacoes').hide();
     $('#item-novo-software').hide();
     $('#item-novo-lab').hide();
-    $('#soli-menu').hide();
     $('#item-lista-equip').hide();
 }
 

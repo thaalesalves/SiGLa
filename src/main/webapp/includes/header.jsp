@@ -20,22 +20,7 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <li id='soli-menu' class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell"></i>
-                        <span id="qtd-res" class="label label-danger"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header" id="msg-res"></li>
-                        <li>
-                            <!-- inner menu: contains the actual data -->
-                            <ul id="res-notif" class="menu"></ul>
-                        </li>
-                        <li class="footer">
-                            <a href="${pageContext.request.contextPath}/reserva/solicitacoes">Ver tudo</a>
-                        </li>
-                    </ul>
-                </li>
+                <li id='soli-menu' class="dropdown notifications-menu"></li>
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
