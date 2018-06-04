@@ -135,7 +135,7 @@ Copyright (C) 2016 Thales Alves Pereira
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button value="Configuration" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
+                                <button value="ConfigurationDatabase" name="acao" type="submit" class="btn btn-info pull-right">Enviar</button>
                             </div>
                         </form>
                     </div>

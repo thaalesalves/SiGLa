@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 thaal
+ * Copyright (C) 2018 thales
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Pessoa;
+import util.DatabaseConnection;
 import util.Logger;
 import util.SiGLa;
 
-public class ActiveDirectoryAction implements ICommand {
+public class ConfigurationDatabaseAction implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, FileNotFoundException, SQLException, ConnectException, IOException, NamingException, ServletException {
@@ -37,39 +38,32 @@ public class ActiveDirectoryAction implements ICommand {
         Pessoa u = (Pessoa) session.getAttribute("pessoa");
 
         try {
-            String port = "";
-            String dominio = request.getParameter("dominio");
-            String netbios = request.getParameter("netbios");
-            String addr = request.getParameter("host");
-            String auth = request.getParameter("auth");
+            String database = request.getParameter("db-name");
+            String user = request.getParameter("db-user");
+            String passwd = request.getParameter("db-passwd");
+            String addr = request.getParameter("db-host");
 
-            if (auth.equals("ldaps")) {
-                port = "636";
-            } else if (auth.equals("ldap")) {
-                port = "389";
-            }
+            SiGLa.writeProperty("sigla.db.name", database);
+            SiGLa.writeProperty("sigla.db.user", user);
+            SiGLa.writeProperty("sigla.db.passwd", passwd);
+            SiGLa.writeProperty("sigla.db.addr", addr);
 
-            SiGLa.writeProperty("sigla.auth.port", port);
-            SiGLa.writeProperty("sigla.auth.domain", dominio);
-            SiGLa.writeProperty("sigla.auth.netbios", netbios);
-            SiGLa.writeProperty("sigla.auth.method", auth);
-            SiGLa.writeProperty("sigla.auth.host", addr);
+            DatabaseConnection.checkDatabase();
         } catch (Exception e) {
             Logger.logSevere(e, e.getClass());
 
-            session.setAttribute("msg", "Erro ao atualizar domínio");
+            session.setAttribute("msg", "Erro ao atualizar as informações");
             session.setAttribute("status", "error");
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
-                    + "alterar informações do domínio.");
-
-            return request.getContextPath();
+                    + "alterar informações do banco de dados.");
+            return request.getContextPath() + "/admin/database";
         }
 
-        session.setAttribute("msg", "Domínio atualizado. Faça login novamente.");
+        session.setAttribute("msg", "Banco de dados atualizado");
         session.setAttribute("status", "success");
-        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o domínio do Active Directory para "
-                + SiGLa.getDomain() + ".");
+        Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o banco de dados para "
+                + SiGLa.getDbName() + "(SGBD: " + SiGLa.getDbDbms() + ".");
         request.getSession().invalidate();
-        return request.getContextPath();
+        return request.getContextPath() + "/admin/database";
     }
 }
