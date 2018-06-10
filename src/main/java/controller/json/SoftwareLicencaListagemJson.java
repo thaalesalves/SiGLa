@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Erro;
+import util.Erro;
 import model.Pessoa;
 import model.Software;
 import util.Json;
@@ -41,7 +41,7 @@ public class SoftwareLicencaListagemJson implements IJson {
             if (sw.getId() < 1) {
                 Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores ilegais ao buscar um software. ID: " + sw.getId());
                 Erro err = new Erro();
-                err.setErro("Valores ilegais passados.");
+                err.valorIlegal();
                 return Json.toJson(sw);
             }
 

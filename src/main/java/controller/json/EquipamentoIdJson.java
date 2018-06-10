@@ -19,14 +19,14 @@ package controller.json;
 import dao.DAOFactory;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.Getter;
+import lombok.Setter;
 import model.Equipamento;
-import model.Erro;
+import util.Erro;
 import model.Incidente;
 import model.Pessoa;
 import util.Logger;
@@ -46,7 +46,7 @@ public class EquipamentoIdJson implements IJson {
             e.getIncidentes().add(fac.getIncidenteDAO().selectAberto(e));
             if (e.getId() < 1) {
                 Erro err = new Erro();
-                err.setErro("Tentativa ilegal de passar valores.");
+                err.valorIlegal();
                 Logger.logOutput(p.getNomeCompleto() + "(" + p.getUsername() + ") passou valores ilegais ao listar um equipamento. ID: " + e.getId());
                 return util.Json.toJson(err);
             }

@@ -35,6 +35,19 @@ public class Json {
      * @return
      */
     public static String toJson(Object obj) {
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+
+        return gson.toJson(obj);
+    }
+    
+    /**
+     * Método que transforma um <code>Object</code> (uma classe inteira) em uma
+     * <code>String</code> em formato JSON prettificado.
+     *
+     * @param obj Classe que será transformada em JSON
+     * @return
+     */
+    public static String toPrettyJson(Object obj) {
         Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
         return gson.toJson(obj);

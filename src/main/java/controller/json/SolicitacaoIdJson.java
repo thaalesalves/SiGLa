@@ -23,7 +23,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Erro;
+import util.Erro;
 import model.Pessoa;
 import model.Solicitacao;
 import util.ActiveDirectory;
@@ -44,7 +44,7 @@ public class SolicitacaoIdJson implements IJson {
 
         if (s.getId() < 1) {
             Erro err = new Erro();
-            err.setErro("Tentativa ilegal de passar valores.");
+            err.valorIlegal();
             Logger.logOutput("Parece que " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou passar valores ilegais. Valor de ID passado: " + s.getId());
             return util.Json.toJson(err);
         }

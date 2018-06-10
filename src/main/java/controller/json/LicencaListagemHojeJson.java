@@ -24,7 +24,7 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Erro;
+import util.Erro;
 import model.Licenca;
 import model.Pessoa;
 import util.Logger;
@@ -43,7 +43,7 @@ public class LicencaListagemHojeJson implements IJson {
             Logger.logSevere(e, LicencaListagemHojeJson.class);
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou listar as licenças que vencem hoje.");
             Erro err = new Erro();
-            err.setErro(e.getMessage());
+            err.erroProcesso();
             return util.Json.toJson(err);
         }
         Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") listou as licenças que vencem hoje.");

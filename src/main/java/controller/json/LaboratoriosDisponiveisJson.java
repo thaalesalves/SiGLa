@@ -24,7 +24,7 @@ import java.util.Iterator;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Erro;
+import util.Erro;
 import model.Laboratorio;
 import model.Modulo;
 import model.Pessoa;
@@ -72,7 +72,7 @@ public class LaboratoriosDisponiveisJson implements IJson {
             util.Logger.logSevere(e, LaboratoriosDisponiveisJson.class);
             Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou listar os laboratórios disponíveis.");
             Erro err = new Erro();
-            err.setErro(e.getMessage());
+            err.erroProcesso();
             return util.Json.toJson(err);
         }
 

@@ -23,7 +23,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Erro;
+import util.Erro;
 import model.Pessoa;
 import model.Reserva;
 import util.ActiveDirectory;
@@ -44,7 +44,7 @@ public class ReservaIdJson implements IJson {
 
         if (s.getId() < 1) {
             Erro err = new Erro();
-            err.setErro("Tentativa ilegal de passar valores.");
+            err.valorIlegal();
             Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores ilegais ao listar uma reserva. ID: " + s.getId());
             return util.Json.toJson(err);
         }

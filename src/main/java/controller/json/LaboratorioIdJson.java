@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Erro;
+import util.Erro;
 import model.Laboratorio;
 import model.Pessoa;
 import util.Logger;
@@ -38,7 +38,7 @@ public class LaboratorioIdJson implements IJson {
 
         if (lab.getId() < 1) {
             Erro err = new Erro();
-            err.setErro("Tentativa ilegal de passar valores.");
+            err.valorIlegal();
             Logger.logOutput("Parece que " + u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores inválidos ao buscar um laboratório. ID: " + lab.getId());
             return util.Json.toJson(err);
         }

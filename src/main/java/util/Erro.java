@@ -14,12 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package model;
+package util;
 
-@lombok.Setter
-@lombok.Getter
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Erro {
 
     private String erro;
     private String data;
+    
+    public Erro() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	Date date = new Date();
+        data = dateFormat.format(date);
+    }
+    
+    public void valorIlegal() {
+        this.erro = "Tentativa ilegal de passar valores.";
+    }
+    
+    public void erroProcesso() {
+        this.erro = "Houve um erro ao processar as informações";
+    }
 }

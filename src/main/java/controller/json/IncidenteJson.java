@@ -22,7 +22,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Erro;
+import util.Erro;
 import model.Incidente;
 import model.Pessoa;
 import util.Logger;
@@ -38,7 +38,7 @@ public class IncidenteJson implements IJson {
 
         if (incidente.getId() < 1) {
             Erro err = new Erro();
-            err.setErro("Valores inválidos passados");
+            err.valorIlegal();
             Logger.logOutput(u.getNomeCompleto() + "(" + u.getUsername() + ") passou valores inválidos ao listar um incidente. ID: " + incidente.getId());
             return util.Json.toJson(err);
         }
