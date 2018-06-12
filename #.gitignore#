@@ -1,0 +1,8 @@
+/target/
+/log/stderr.log
+/log/stdin.log
+/log/stdout.log
+.DS_Store
+SiG
+vpproject/SiGLa.vpp.vbak
+vpproject/.SiGLa.vpp.lck
