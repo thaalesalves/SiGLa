@@ -40,6 +40,11 @@ public class LicencaListagemAtivadoJson implements IJson {
         try {
             DAOFactory fac = DAOFactory.getFactory();
             licencas = fac.getLicencaDAO().selectAtivado();
+            
+            for (Licenca i : licencas) {
+                i.setCodigos(fac.getLicencaCodigoDAO().select(i));
+                i.setSoftware(fac.getSoftwareDAO().selectId(i.getSoftware()));
+            }
         } catch (Exception e) {
             Logger.logSevere(e, LicencaListagemAtivadoJson.class);
             Logger.logOutput("Houve um erro quando " + p.getNomeCompleto() + "(" + p.getUsername() + ") tentou listar as licenças ativadas");
