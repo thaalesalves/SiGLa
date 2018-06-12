@@ -442,9 +442,10 @@ function modalSolicitacao(id) {
             softwares = softwares.split('');
             modulos = modulos.trim();
             modulos = modulos.split('');
+            var qtdAlunosLab = $('#modalQtdAlunos').val();
 
             $.ajax({
-                url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + modulos + '&dia=' + dia + '&softwares=' + softwares,
+                url: contextPath + '/api?acao=LaboratoriosDisponiveis&modulo=' + modulos + '&dia=' + dia + '&softwares=' + softwares + '&qtd-alunos=' + qtdAlunosLab,
                 type: 'POST',
                 cache: false,
                 dataType: 'JSON',

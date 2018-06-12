@@ -23,8 +23,8 @@ var menuCadastroCurso = '<li id="item-novo-curso"><a href="' + contextPath + '/c
 var menuFornecedor = '<li id="item-lista-equip"> <a href="#"> <i class="fa fa-desktop"></i> <span>Fornecedores</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-novo-fornecedor" class="treeview menu-open"><a href="' + contextPath + '/fornecedor/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li><li id="item-lista-fornecedor" class="treeview menu-open"><a href="' + contextPath + '/fornecedor/lista"><i class="fa fa-circle-o"></i>Listagem</a></li></ul> </li>';
 var menuLicenca = '<li> <a href="#"> <i class="fa fa-edit"></i> <span>Licenças</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-novo-licenca" class="treeview menu-open"><a href="' + contextPath + '/licenca/novo"><i class="fa fa-circle-o"></i>Cadastro</a></li><li id="item-lista-licenca" class="treeview menu-open"><a href="' + contextPath + '/licenca/lista"><i class="fa fa-circle-o"></i>Listagem</a></li></ul> </li>';
 var menuAdministracao = '<a href="#"> <i class="fa fa-gears"></i> <span>Administração</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a> <ul class="treeview-menu"> <li id="item-admin-ad"><a href="' + contextPath + '/admin/activedirectory"><i class="fa fa-circle-o"></i> <span>Active Directory</span></a></li><li id="item-admin-db"><a href="' + contextPath + '/admin/database"><i class="fa fa-circle-o"></i> Banco de Dados</a></li></ul>';
-var notificacoes = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span id="qtd-res" class="label label-danger"></span></a><ul class="dropdown-menu"><li class="header" id="msg-res"></li><li><ul id="res-notif" class="menu"></ul></li><li class="footer"><a href="${pageContext.request.contextPath}/reserva/solicitacoes">Ver tudo</a></li></ul>';
-
+var notificacoes = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span id="qtd-res" class="label label-danger"></span></a><ul class="dropdown-menu"><li class="header" id="msg-res"></li><li><ul id="res-notif" class="menu"></ul></li><li class="footer"><a href="' + contextPath + '/reserva/solicitacoes">Ver tudo</a></li></ul>';
+var solicitacoes = '<li id="item-solicitacoes"><a href="' + contextPath + '/reserva/solicitacoes"><i class="fa fa-circle-o"></i> Solicitações</a></li>';
                         
 $(document).ready(function () {
     switch (acesso) {
@@ -32,6 +32,7 @@ $(document).ready(function () {
             $('#items-menu-lab').prepend(menuCadastroLaboratorio);
             $('#items-menu-equip').prepend(menuCadastroEquipamento);
             $('#items-menu-soft').prepend(menuCadastroSoftware);
+            $('#items-menu-reserva').append(solicitacoes);
             $('#items-menu-cursos').prepend(menuCadastroCurso);
             $('#menu-list-software').append(menuLicenca);
             $('#menu-list-software').append(menuFornecedor);
@@ -42,6 +43,7 @@ $(document).ready(function () {
             $('#items-menu-equip').prepend(menuCadastroEquipamento);
             $('#items-menu-soft').prepend(menuCadastroSoftware);
             $('#items-menu-cursos').prepend(menuCadastroCurso);
+            $('#items-menu-reserva').append(solicitacoes);
             $('#menu-conf').append(menuAdministracao);
             $('#menu-list-software').append(menuLicenca);
             $('#menu-list-software').append(menuFornecedor);
