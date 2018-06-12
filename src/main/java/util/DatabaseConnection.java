@@ -103,8 +103,9 @@ public final class DatabaseConnection {
      * @return
      * @throws SQLException Exceção lançada caso haja erros na conexão com o
      * banco
+     * @throws java.net.ConnectException Exceção lançada caso a conexão seja recusada
      */
-    public static boolean checkDatabase() throws SQLException {
+    public static boolean checkDatabase() throws SQLException, java.net.ConnectException {
         Connection conn = null;
         String sql = "";
 

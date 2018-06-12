@@ -51,6 +51,14 @@ public class ConfigurationDatabaseAction implements ICommand {
             SiGLa.writeProperty("sigla.db.dbms", dbms);
 
             DatabaseConnection.checkDatabase();
+        } catch (ConnectException e) {
+            Logger.logSevere(e, e.getClass());
+
+            session.setAttribute("msg", "O banco de dados recusou os dados");
+            session.setAttribute("status", "error");
+            Logger.logOutput("Houve um erro quando " + u.getNomeCompleto() + "(" + u.getUsername() + ") tentou "
+                    + "alterar informações do banco de dados.");
+            return request.getContextPath() + "/admin/database";
         } catch (Exception e) {
             Logger.logSevere(e, e.getClass());
 
