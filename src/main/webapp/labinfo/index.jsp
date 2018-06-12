@@ -56,7 +56,7 @@ Copyright (C) 2016 Thales Alves Pereira
         <script src="${pageContext.request.contextPath}/js/pnotify.custom.js" type="text/javascript"></script> 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
         <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
-        <script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
+        <script src="${pageContext.request.contextPath}/js/reserva.new.js" type="text/javascript"></script>
         <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 
         <!--[if lt IE 9]>

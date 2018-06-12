@@ -5,7 +5,7 @@
 <%@page import="java.util.ArrayList"%>
 <script src="${pageContext.request.contextPath}/js/user.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/laboratorio.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/js/reserva.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/reserva.new.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/notification.js" type="text/javascript"></script>
 <!-- ========== JANELA MODAL ========== -->
 <form action="${pageContext.request.contextPath}/AlmightyController" method="post">
