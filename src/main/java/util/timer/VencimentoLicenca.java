@@ -26,6 +26,7 @@ import mailsender.VencimentoHojeMail;
 import mailsender.VencimentoSeteDiasMail;
 import mailsender.VencimentoTresDiasMail;
 import model.Licenca;
+import model.Software;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
@@ -71,7 +72,8 @@ public class VencimentoLicenca implements Job {
                 List<Licenca> licencas = DAOFactory.getFactory().getLicencaDAO().selectVencimento(l);
 
                 for (Licenca i : licencas) {
-                    Logger.logOutput(i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + "vence "
+                    i.setSoftware(DAOFactory.getFactory().getSoftwareDAO().selectId(i.getSoftware()));
+                    Logger.logOutput(i.getSoftware().getFabricante() + " " + i.getSoftware().getNome() + " vence "
                             + ((prazo.QUANTIDADE_DIAS == 0) ? "hoje. " : "em " + prazo.QUANTIDADE_DIAS + " dias (" + i.getDataVencimento() + "). ")
                             + "Enviando email de aviso.");
                     Mail mail = prazo.EMAIL_NOTIFICACAO;
