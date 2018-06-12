@@ -107,7 +107,7 @@ Copyright (C) 2016 Thales Alves Pereira
                             <div class="box-body">    
                                 <div class="form-group">
                                     <label>SGBD</label>
-                                    <select id="ad-auth" name="ad-auth" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
+                                    <select id="db-dbms" name="db-dbms" class="select2 form-control" data-placeholder="Selecione uma opção" style="width: 100%;" required>
                                         <option disabled selected>Selecione uma opção</option>
                                         <option value="mysql">MySQL / MariaDB</option>
                                         <option value="psql">PostgreSQL</option>

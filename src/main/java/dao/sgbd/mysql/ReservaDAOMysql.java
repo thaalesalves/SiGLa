@@ -19,10 +19,6 @@
  */
 package dao.sgbd.mysql;
 
-import dao.sgbd.psql.CursoDAOPsql;
-import dao.sgbd.psql.SoftwareDAOPsql;
-import dao.sgbd.psql.ModuloDAOPsql;
-import dao.sgbd.psql.LaboratorioDAOPsql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
@@ -57,10 +53,10 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAOPsql().selectAux(r));
+                r.setCurso(new CursoDAOMysql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOMysql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOMysql().selectAux(r));
 
                 ares.add(r);
             }
@@ -95,10 +91,10 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAOPsql().selectAux(r));
+                r.setCurso(new CursoDAOMysql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOMysql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOMysql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -131,10 +127,10 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAOPsql().selectAux(r));
+                r.setCurso(new CursoDAOMysql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOMysql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOMysql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -168,10 +164,10 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAOPsql().selectAux(r));
+                r.setCurso(new CursoDAOMysql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOMysql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOMysql().selectAux(r));
 
                 arrayRes.add(r);
             }
@@ -200,10 +196,10 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.getCurso().setId(rs.getInt("curso"));
                 r.getLab().setId(rs.getInt("laboratorio"));
 
-                r.setCurso(new CursoDAOPsql().selectId(r.getCurso()));
-                r.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(r));
-                r.setLab(new LaboratorioDAOPsql().selectLaboratorio(r.getLab()));
-                r.setModulos(new ModuloDAOPsql().selectAux(r));
+                r.setCurso(new CursoDAOMysql().selectId(r.getCurso()));
+                r.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(r));
+                r.setLab(new LaboratorioDAOMysql().selectLaboratorio(r.getLab()));
+                r.setModulos(new ModuloDAOMysql().selectAux(r));
             }
 
             conn.close();
@@ -237,6 +233,7 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
         return qtd;
     }
 
+    @Override
     public int qtdReservas() throws SQLException, ClassNotFoundException {
         int qtd = 0;
 
@@ -278,7 +275,7 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
                 r.setId(rs.getInt(1));
             }
 
-            LaboratorioDAOPsql ldao = new LaboratorioDAOPsql();
+            LaboratorioDAOMysql ldao = new LaboratorioDAOMysql();
             r.setLab(ldao.selectLaboratorio(r.getLab()));
 
             pstmt = connString.prepareStatement("INSERT INTO aux_sw_res VALUES(DEFAULT, ?, ?)");
@@ -336,6 +333,19 @@ public class ReservaDAOMysql implements dao.sgbd.ReservaDAO {
             pstmt.setString(3, r.getDiaDaSemana());
             pstmt.setInt(4, r.getId());
             pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement("DELETE FROM aux_modulo_res WHERE res = ?");
+            pstmt.setInt(1, r.getId());
+            pstmt.executeUpdate();
+
+            pstmt = conn.prepareStatement("INSERT INTO aux_modulo_res VALUES(DEFAULT, ?, ?)");
+
+            for (int i = 0; i < r.getModulos().size(); i++) {
+                pstmt.setInt(1, r.getId());
+                pstmt.setInt(2, r.getModulos().get(i).getId());
+                pstmt.executeUpdate();
+            }
+
             conn.close();
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());

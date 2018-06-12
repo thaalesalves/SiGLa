@@ -18,9 +18,6 @@
  */
 package dao.sgbd.mysql;
 
-import dao.sgbd.psql.CursoDAOPsql;
-import dao.sgbd.psql.SoftwareDAOPsql;
-import dao.sgbd.psql.ModuloDAOPsql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,9 +44,9 @@ public class SolicitacaoDAOMysql implements dao.sgbd.SolicitacaoDAO {
                 s.setObservacao(rs.getString("obs"));
                 s.getCurso().setId(rs.getInt("curso"));
 
-                s.setCurso(new CursoDAOPsql().selectId(s.getCurso()));
-                s.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(s));
-                s.setModulos(new ModuloDAOPsql().selectAux(s));
+                s.setCurso(new CursoDAOMysql().selectId(s.getCurso()));
+                s.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(s));
+                s.setModulos(new ModuloDAOMysql().selectAux(s));
             }
 
             conn.close();
@@ -144,9 +141,9 @@ public class SolicitacaoDAOMysql implements dao.sgbd.SolicitacaoDAO {
                 s.setObservacao(rs.getString("obs"));
                 s.getCurso().setId(rs.getInt("curso"));
 
-                s.setCurso(new CursoDAOPsql().selectId(s.getCurso()));
-                s.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(s));
-                s.setModulos(new ModuloDAOPsql().selectAux(s));
+                s.setCurso(new CursoDAOMysql().selectId(s.getCurso()));
+                s.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(s));
+                s.setModulos(new ModuloDAOMysql().selectAux(s));
 
                 arrayRes.add(s);
             }

@@ -19,8 +19,6 @@
  */
 package dao.sgbd.mysql;
 
-import dao.sgbd.psql.LaboratorioDAOPsql;
-import dao.sgbd.psql.SoftwareDAOPsql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +59,7 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
                     l.setNumero(rs.getString("numero"));
                     l.setComputadores(rs.getInt("qtd_comps"));
                     l.setCapacidade(rs.getInt("qtd_alunos"));
-                    l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
+                    l.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(l));
                     arrayLab.add(l);
                 }
             }
@@ -75,7 +73,7 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
     @Override
     public Laboratorio selectLaboratorio(Laboratorio l) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM tb_laboratorio WHERE id = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_laboratorio WHERE id = ?");
 
             pstmt.setInt(1, l.getId());
 
@@ -83,9 +81,9 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
 
             while (rs.next()) {
                 l.setNumero(rs.getString("numero"));
-                l.setComputadores(rs.getInt("qtd_comps"));
                 l.setCapacidade(rs.getInt("qtd_alunos"));
-                l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
+                l.setComputadores(rs.getInt("qtd_comps"));
+                l.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(l));
             }
 
             connString.close();
@@ -127,7 +125,7 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
                 l.setNumero(rs.getString("numero"));
                 l.setCapacidade(rs.getInt("qtd_alunos"));
                 l.setComputadores(rs.getInt("qtd_comps"));
-                l.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(l));
+                l.setSoftwares(new SoftwareDAOMysql().selectSoftwareAux(l));
                 laboratorios.add(l);
             }
 
@@ -160,6 +158,33 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
     }
 
     @Override
+    public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException {
+        ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
+
+        try (Connection conn = util.DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_laboratorio WHERE id NOT IN (SELECT s.id from tb_laboratorio s JOIN aux_sw_lab ss ON s.id = ss.lab WHERE ss.sw = ?)");
+
+            for (Software i : softwares) {
+                pstmt.setInt(1, i.getId());
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Laboratorio lab = new Laboratorio();
+                    lab.setId(rs.getInt("id"));
+                    lab.setNumero(rs.getString("numero"));
+                    lab.setComputadores(rs.getInt("qtd_comps"));
+                    lab.setCapacidade(rs.getInt("qtd_alunos"));
+                    arrayLab.add(lab);
+                }
+            }
+        } catch (Exception e) {
+            Logger.logSevere(e, LaboratorioDAOMysql.class);
+        }
+
+        return arrayLab;
+    }
+
+    @Override
     public ArrayList<Laboratorio> selectAvailableLabs(Reserva reserva) throws SQLException, NullPointerException, ClassNotFoundException {
         ArrayList<Laboratorio> arrayLab = selectSoftwareLabs(reserva.getSoftwares());
         ArrayList<Laboratorio> labsDisponiveis = selectLaboratorios();
@@ -172,9 +197,9 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
     @Override
     public Laboratorio selectLaboratorioNumero(Laboratorio lab) throws SQLException, NullPointerException, ClassNotFoundException {
         try (Connection connString = DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("SELECT numero FROM tb_laboratorio WHERE numero = ?");
+            PreparedStatement pstmt = connString.prepareStatement("SELECT * FROM tb_laboratorio WHERE numero = ?");
 
-            pstmt.setInt(1, lab.getId());
+            pstmt.setString(1, lab.getNumero());
 
             ResultSet rs = pstmt.executeQuery();
 
@@ -182,7 +207,6 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
                 lab.setId(rs.getInt("id"));
                 lab.setComputadores(rs.getInt("qtd_comps"));
                 lab.setCapacidade(rs.getInt("qtd_alunos"));
-                lab.setSoftwares(new SoftwareDAOPsql().selectSoftwareAux(lab));
             }
 
             connString.close();
@@ -214,7 +238,7 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
 
             conn.close();
         } catch (Exception e) {
-            Logger.logSevere(e, LaboratorioDAOPsql.class);
+            Logger.logSevere(e, LaboratorioDAOMysql.class);
         }
         return 0;
     }
@@ -222,15 +246,17 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
     @Override
     public void atualizar(Laboratorio l) throws SQLException, ClassNotFoundException {
         try (Connection connString = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = connString.prepareStatement("UPDATE tb_laboratorio SET qtd_comps = ?, qtd_alunos = ? WHERE id = ?");
+            PreparedStatement pstmt = connString.prepareStatement("DELETE FROM aux_sw_lab WHERE lab = ?");
+            pstmt.setInt(1, l.getId());
+            pstmt.executeUpdate();
 
+            pstmt = connString.prepareStatement("UPDATE tb_laboratorio SET qtd_comps = ?, qtd_alunos = ? WHERE id = ?");
             pstmt.setInt(1, l.getComputadores());
             pstmt.setInt(2, l.getCapacidade());
             pstmt.setInt(3, l.getId());
             pstmt.executeUpdate();
 
             pstmt = connString.prepareStatement("INSERT INTO aux_sw_lab VALUES(DEFAULT, ?, ?)");
-
             for (int i = 0; i < l.getSoftwares().size(); i++) {
                 pstmt.setInt(1, l.getSoftwares().get(i).getId());
                 pstmt.setInt(2, l.getId());
@@ -241,32 +267,5 @@ public class LaboratorioDAOMysql implements dao.sgbd.LaboratorioDAO {
         } catch (Exception e) {
             util.Logger.logSevere(e, this.getClass());
         }
-    }
-
-    @Override
-    public ArrayList<Laboratorio> selectSoftwareLabs(ArrayList<Software> softwares) throws SQLException, ClassNotFoundException {
-        ArrayList<Laboratorio> arrayLab = new ArrayList<Laboratorio>();
-
-        try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_laboratorio WHERE id NOT IN (SELECT s.id from tb_laboratorio s JOIN aux_sw_lab ss ON s.id = ss.lab WHERE ss.sw = ?)");
-
-            for (Software i : softwares) {
-                pstmt.setInt(1, i.getId());
-                ResultSet rs = pstmt.executeQuery();
-
-                while (rs.next()) {
-                    Laboratorio lab = new Laboratorio();
-                    lab.setId(rs.getInt("id"));
-                    lab.setNumero(rs.getString("numero"));
-                    lab.setComputadores(rs.getInt("qtd_comps"));
-                    lab.setCapacidade(rs.getInt("qtd_alunos"));
-                    arrayLab.add(lab);
-                }
-            }
-        } catch (Exception e) {
-            Logger.logSevere(e, LaboratorioDAOPsql.class);
-        }
-
-        return arrayLab;
     }
 }

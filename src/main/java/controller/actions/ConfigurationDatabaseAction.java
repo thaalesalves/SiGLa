@@ -42,11 +42,13 @@ public class ConfigurationDatabaseAction implements ICommand {
             String user = request.getParameter("db-user");
             String passwd = request.getParameter("db-passwd");
             String addr = request.getParameter("db-host");
+            String dbms = request.getParameter("db-dbms");
 
             SiGLa.writeProperty("sigla.db.name", database);
             SiGLa.writeProperty("sigla.db.user", user);
             SiGLa.writeProperty("sigla.db.passwd", passwd);
             SiGLa.writeProperty("sigla.db.addr", addr);
+            SiGLa.writeProperty("sigla.db.dbms", dbms);
 
             DatabaseConnection.checkDatabase();
         } catch (Exception e) {
@@ -63,7 +65,6 @@ public class ConfigurationDatabaseAction implements ICommand {
         session.setAttribute("status", "success");
         Logger.logOutput(u.getNomeCompleto() + " (" + u.getUsername() + ") atualizou o banco de dados para "
                 + SiGLa.getDbName() + "(SGBD: " + SiGLa.getDbDbms() + ".");
-        request.getSession().invalidate();
         return request.getContextPath() + "/admin/database";
     }
 }

@@ -17,50 +17,168 @@
 package dao.sgbd.mysql;
 
 import dao.sgbd.IncidenteDAO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Equipamento;
 import model.Incidente;
+import util.DatabaseConnection;
+import util.IO;
+import util.Logger;
 
 public class IncidenteDAOMysql extends IncidenteDAO {
 
     @Override
     public List<Incidente> select() throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Incidente> incidentes = new ArrayList<Incidente>();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Incidente incidente = new Incidente();
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+                incidentes.add(incidente);
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
+
+        return incidentes;
     }
 
     @Override
     public Incidente select(Incidente incidente) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE id = ?");
+            pstmt.setInt(1, incidente.getId());
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
+
+        return incidente;
     }
 
     @Override
     public void insert(Incidente incidente) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO tb_incidente VALUES(DEFAULT, ?, ?, ?)");
+            pstmt.setString(1, incidente.getDescricao());
+            pstmt.setInt(2, incidente.getEquipamento().getId());
+            pstmt.setString(3, IO.formatDataHora(incidente.getDataRetirada()));
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
     }
 
     @Override
     public void devolver(Incidente incidente) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET data_devolucao = ?, resolucao = ? WHERE equipamento = ? AND data_retirada = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataDevolucao()));
+            pstmt.setString(2, incidente.getResolucao());
+            pstmt.setInt(3, incidente.getEquipamento().getId());
+            pstmt.setString(4, IO.formatDataHora(incidente.getDataRetirada()));
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
     }
 
     @Override
     public void update(Incidente incidente) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Incidente selectAberto(Equipamento equipamento) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE tb_incidente SET motivo = ? WHERE id = ? AND data_devolucao = ?");
+            pstmt.setString(1, incidente.getDescricao());
+            pstmt.setInt(2, incidente.getId());
+            pstmt.setString(3, IO.formatDataHora(incidente.getDataDevolucao()));
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
     }
 
     @Override
     public Incidente selectDevolucao(Incidente incidente) throws SQLException, ClassCastException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE data_devolucao = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataDevolucao()));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
+
+        return incidente;
     }
 
     @Override
     public Incidente selectRetirada(Incidente incidente) throws SQLException, ClassCastException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE data_retirada = ?");
+            pstmt.setString(1, IO.formatDataHora(incidente.getDataRetirada()));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
+
+        return incidente;
+    }
+
+    @Override
+    public Incidente selectAberto(Equipamento equipamento) throws SQLException, ClassNotFoundException {
+        Incidente incidente = new Incidente();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_incidente WHERE status = 1 AND equipamento = ?");
+            pstmt.setInt(1, equipamento.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                incidente.setId(rs.getInt("id"));
+                incidente.setDataDevolucao(IO.getDataHora(rs.getString("data_devolucao")));
+                incidente.setDataRetirada(IO.getDataHora(rs.getString("data_retirada")));
+                incidente.setDescricao(rs.getString("motivo"));
+                incidente.setEquipamento(new Equipamento());
+                incidente.getEquipamento().setId(rs.getInt("equipamento"));
+            }
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, IncidenteDAOMysql.class);
+        }
+
+        return incidente;
     }
 }

@@ -19,7 +19,7 @@
  */
 package dao.sgbd.mysql;
 
-import dao.sgbd.psql.EquipamentoDAOPsql;
+import dao.sgbd.mysql.EquipamentoDAOMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -164,7 +164,7 @@ public class EquipamentoDAOMysql implements dao.sgbd.EquipamentoDAO {
             pstmt.executeUpdate();
             conn.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, EquipamentoDAOPsql.class);
+            util.Logger.logSevere(e, EquipamentoDAOMysql.class);
         }
     }
 }

@@ -19,6 +19,7 @@
  */
 package dao.sgbd.mysql;
 
+import dao.sgbd.mysql.SoftwareDAOMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +51,7 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOMysql.class);
         }
 
         return qtd;
@@ -68,14 +69,16 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
             while (rs.next()) {
                 Software s = new Software();
 
-                s.setId(rs.getInt("id"));
                 s.setFabricante(rs.getString("fabricante"));
+                s.setId(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
 
                 arrayRes.add(s);
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOMysql.class);
         }
 
         return arrayRes;
@@ -86,7 +89,8 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
         ArrayList<Software> arrayRes = new ArrayList<Software>();
 
         try (Connection conn = util.DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_software s JOIN aux_sw_res ss ON s.id = ss.sw where ss.res = ?");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM tb_software s, tb_licenca l, aux_sw_res ss WHERE s.id = ss.sw AND ss.res = ? "
+                    + "AND l.software = s.id AND l.status = 1;");
             pstmt.setInt(1, r.getId());
             ResultSet rs = pstmt.executeQuery();
 
@@ -118,7 +122,7 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOMysql.class);
         }
     }
 
@@ -142,7 +146,33 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOMysql.class);
+        }
+
+        return sws;
+    }
+    
+    @Override
+    public ArrayList<Software> selectAllActive() throws SQLException, NullPointerException, ClassNotFoundException {
+        ArrayList<Software> sws = new ArrayList<Software>();
+
+        try (Connection connString = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = connString.prepareStatement("SELECT sw.id, sw.nome, sw.fabricante FROM tb_software sw, tb_licenca l WHERE l.status = 1 AND l.software = sw.id");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Software sw = new Software();
+
+                sw.setId(rs.getInt("id"));
+                sw.setNome(rs.getString("nome"));
+                sw.setFabricante(rs.getString("fabricante"));
+
+                sws.add(sw);
+            }
+
+            connString.close();
+        } catch (Exception e) {
+            util.Logger.logSevere(e, SoftwareDAOMysql.class);
         }
 
         return sws;
@@ -163,7 +193,7 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
             connString.close();
         } catch (Exception e) {
-            util.Logger.logSevere(e, this.getClass());
+            util.Logger.logSevere(e, SoftwareDAOMysql.class);
         }
 
         return s;
@@ -189,6 +219,8 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
             }
 
             conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOMysql.class);
         }
 
         return arrayRes;
@@ -240,11 +272,13 @@ public class SoftwareDAOMysql implements dao.sgbd.SoftwareDAO {
 
     @Override
     public void delete(Software sw) throws SQLException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<Software> selectAllActive() throws SQLException, NullPointerException, ClassNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM tb_software WHERE id = ?");
+            pstmt.setInt(1, sw.getId());
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            Logger.logSevere(e, SoftwareDAOMysql.class);
+        }
     }
 }
